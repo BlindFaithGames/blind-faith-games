@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="background">#20B2AA</color>
+	<color name="background">#3500ffff</color>
 	<color name="puzzle_background">#ffe6f0ff</color>
 	<color name="puzzle_hilite">#fffffff1</color>
 	<color name="puzzle_light">#64c6d4ef</color>

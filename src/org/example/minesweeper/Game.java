@@ -35,6 +35,10 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
+		init();
+	}
+
+	public void init(){
 		View newButton = findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
@@ -54,12 +58,16 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 												+ instructionsButton.getContentDescription() + " "
 												+ aboutButton.getContentDescription() + " "
 												+ exitButton.getContentDescription());
-		if(OnInitTTS.isInstalled(this)){
+		if(!Prefs.getTTS(this) && mTts != null)
+			mTts = null;
+			
+		if(OnInitTTS.isInstalled(this)&& Prefs.getTTS(this)){
 			mTts = new TextToSpeech(this,initialize);
 			initialize.setmTts(mTts);
 		}
 	}
-
+	
+	
 	/**
 	 * onClick manager
 	 */
@@ -184,6 +192,9 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 	protected void onResume() {
 		super.onResume();
 		Music.play(this, R.raw.main);
+		init();
+		if(mTts != null)
+			mTts.speak("Main Menu", TextToSpeech.QUEUE_FLUSH, null);
 	}
 
 	@Override

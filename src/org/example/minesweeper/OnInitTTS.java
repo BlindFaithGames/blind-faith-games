@@ -19,8 +19,11 @@ import android.util.Log;
  *
  */
 public class OnInitTTS  implements TextToSpeech.OnInitListener {
+	
 	private static final String TAG = "Synthesizer";
-	private TextToSpeech mTts;
+
+	TextToSpeech mTts;
+
 	private String initialSpeech;
 	
 	
@@ -49,7 +52,7 @@ public class OnInitTTS  implements TextToSpeech.OnInitListener {
             }
             else{
             	// The TTS engine has been successfully initialized.
-            	if (initialSpeech != null)
+            	if(initialSpeech != null)
             		mTts.speak(initialSpeech,TextToSpeech.QUEUE_FLUSH ,null);
             }
             

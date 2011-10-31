@@ -1,88 +1,66 @@
 package org.example.minesweeper;
 
-/**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
- * This class implements minesweeper's cells
- */
 
 public class Cell {
+	private int value;
+	private boolean visible;
+	private CellStates state;
 
-	public static int WIDTH = 20;	
-	public static int HEIGHT = 19;
-	
-	private int value;				/* Number of mines close to this cell */
-
-	private CellStates state; 		/* Mine, push or not push */
-
-	/*	Enum with the diferent states of a cell */
 	public static enum CellStates {
-		MINE, PUSHED, NO_PUSHED, FLAGGED
+		MINE, PUSHED, NOTPUSHED, FLAGGED
 	};
 
-	/**
-	 * Constructor by default
-	 */
 	public Cell() {
 		super();
 		value = 0;
-		state = CellStates.NO_PUSHED;
+		state = CellStates.NOTPUSHED;
 	}
 
-	/**
-	 * Parametrized constructor
-	 * @param value Number of mines close to this cell
-	 * @param state The state of the cell
-	 */
-	public Cell(int value, CellStates state) {
+	public Cell(int value, CellStates state, boolean visible) {
 		super();
 		this.value = value;
 		this.state = state;
 	}
 
-	/**
-	 * It returns the state of the cell
-	 * @return State of the cell
-	 */
 	public CellStates getState() {
 		return state;
 	}
 
-	/**
-	 * It returns the value with the number of mines close to the cell
-	 * @return Number of mines close to the cell
-	 */
 	public int getValue() {
 		return value;
 	}
 
-	/**
-	 * It sets the state of the cell
-	 * @param state State of the cell
-	 */
 	public void setState(CellStates state) {
 		this.state = state;
 	}
 
-	/**
-	 * It sets the value with the number of mines close to the cell
-	 * @param value Number of mines close to the cell
-	 */
 	public void setValue(int value) {
 		this.value = value;
 	}
 
-	public static String stateToString(CellStates state){
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setCellVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public String stateToString(){
 		switch(state){
 			case PUSHED:
-				return "Pushed";
-			case NO_PUSHED :
+				return "Pushed " + value;
+			case NOTPUSHED :
 				return "No pushed";
 			case FLAGGED:
 				return "Flagged";
 			case MINE:
-				return "Mine";
+				if(!visible)
+					return "No pushed";
+				else
+					return "Mine";
 		}
 		return "Unkwown state";
 	}
-	
+
 }

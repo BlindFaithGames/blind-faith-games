@@ -14,8 +14,10 @@ import android.speech.tts.TextToSpeech;
 public class Prefs extends PreferenceActivity {
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
-	private static final boolean OPT_MUSIC_DEF = true;
-
+	private static final boolean OPT_MUSIC_DEF = false;
+	private static final String OPT_TTS = "tts";
+	private static final boolean OPT_TTS_DEF = true;
+	
 	private TextToSpeech mTts;
 	
 	@Override
@@ -25,12 +27,11 @@ public class Prefs extends PreferenceActivity {
 		
 		// This initialize TTS engine
 		// Checking if TTS is installed on device
-		OnInitTTS initialize = new OnInitTTS(mTts,findPreference(OPT_MUSIC).toString());
-		if(OnInitTTS.isInstalled(this)){
+		OnInitTTS initialize = new OnInitTTS(mTts,findPreference(OPT_MUSIC).toString() + findPreference(OPT_TTS).toString());
+		if(OnInitTTS.isInstalled(this) && getTTS(this)){
 			mTts = new TextToSpeech(this,initialize);
 			initialize.setmTts(mTts);
 		}
-
 	}
 
 	/**
@@ -49,5 +50,11 @@ public class Prefs extends PreferenceActivity {
 	public static boolean getMusic(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_MUSIC, OPT_MUSIC_DEF);
+	}
+	
+	/** Get the current value of the tts option */
+	public static boolean getTTS(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_TTS, OPT_TTS_DEF);
 	}
 }

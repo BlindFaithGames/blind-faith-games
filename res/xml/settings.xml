@@ -4,5 +4,10 @@
 		android:key="music"
 		android:title="@string/music_title"
 		android:summary="@string/music_summary"
+		android:defaultValue="false" />
+    <CheckBoxPreference
+		android:key="tts"
+		android:title="@string/tts_title"
+		android:summary="@string/tts_summary"
 		android:defaultValue="true" />
 </PreferenceScreen>

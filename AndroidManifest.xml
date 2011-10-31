@@ -26,7 +26,8 @@
         </activity>
 	    <activity android:name=".Minesweeper"
                   android:label="@string/game_title"
-                  android:configChanges="orientation">
+                  android:configChanges="orientation"
+                  android:screenOrientation = "portrait">
         </activity>
          <activity android:name=".Instructions"
                   android:label="@string/instructions_title"
