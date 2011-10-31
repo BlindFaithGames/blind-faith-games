@@ -10,9 +10,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
@@ -24,7 +24,7 @@ import android.widget.TableRow;
  * This class implements the logic game
  */
 
-public class Game extends Activity implements OnClickListener {
+public class Game extends Activity implements OnClickListener, OnLongClickListener {
 	private static final String TAG = "Minesweeper";
 	
 	public static final String KEY_DIFFICULTY = "org.example.minesweeper.difficulty";
@@ -40,9 +40,11 @@ public class Game extends Activity implements OnClickListener {
 	private Board mineField;
 	private int rowN;
 	private int colN;
-
-	private boolean flagMode;
-
+	private int coorX;
+	private int coorY;
+	private CellStates coorState;
+	private ImageButton but;
+	
 	/* Game states */
 	public enum FINAL_STATE {
 		WIN, LOSE
@@ -88,8 +90,6 @@ public class Game extends Activity implements OnClickListener {
 		mineField = new Board(difficult);
 		rowN = mineField.getNRow();
 		colN = mineField.getNCol();
-		
-		flagMode = false;
 
 		initializeUI();
 
@@ -132,6 +132,7 @@ public class Game extends Activity implements OnClickListener {
 				//blocks[row][column].setBackgroundColor(Color.rgb(32, 178, 170)); 
 
 				blocks[row][column].setOnClickListener(this);
+				blocks[row][column].setOnLongClickListener(this);
 				blocks[row][column].setPadding(blockPadding, blockPadding,
 						blockPadding, blockPadding);
 				if (Coordinates.getCoordinates(this))
@@ -147,66 +148,106 @@ public class Game extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * onClick manager
+	 * onClick manager, focus change
 	 */
 	public void onClick(View v) {
-			onClickMineFieldButton(v);
+		v.requestFocus(v.getId());
+	}
+	public boolean onLongClick(View v) {
+		onClickMineFieldButton(v);
+		return true;
 	}
 	
 	/**
 	 * Manage the game states changes when an event happens.
 	 */
 	private void onClickMineFieldButton(View v) {
-		ImageButton imgButton = (ImageButton) v;
-
-		int[] pos = searchButton(imgButton.getId());
-		int row = pos[0];
-		int col = pos[1];
-
-		CellStates state = mineField.getCellState(row, col);		
-		
-		if(flagMode){
-			switch (state) {
-				case FLAGGED:
-						blocks[row][col].setImageBitmap(BitmapFactory
-								.decodeResource(getResources(),
-										R.drawable.normalcell));
-						mineField.setCellState(row, col,CellStates.NO_PUSHED);	
-					break;
-				case PUSHED: // if it's pushed it don't do nothing 
-					break;
-				default:
-					blocks[row][col].setImageBitmap(BitmapFactory
-								.decodeResource(getResources(),
-										R.drawable.cellflag));
-						
-					mineField.setCellState(row, col,CellStates.FLAGGED);	
-					break;
-			}
-		}else{
-			switch (state) {
-			
-				case NO_PUSHED:
-					expandCell(row, col, imgButton);
-					if (mineField.isFinished())
-						endGame(FINAL_STATE.WIN);
-					break;
-				case MINE:
-					for (int rows = 0; rows < rowN; rows++)
-						for (int column = 0; column < colN; column++) {
-							state = mineField.getCellState(rows, column);
-							if (state.equals(CellStates.MINE))
-							blocks[rows][column].setImageBitmap(BitmapFactory
-									.decodeResource(getResources(),
-											R.drawable.minecell));
-						}
-					endGame(FINAL_STATE.LOSE);
-					break;
-			}
-		}
-		
+		setCoor(v);
+		openExploreDialog(v);
 	}
+	/**
+	 * Gets image button position and other features, and sets them in global parameters
+	 * @param view from onClick
+	 */
+	private void setCoor(View v){
+		but = (ImageButton) v;
 
+		int[] pos = searchButton(but.getId());
+		coorX = pos[0];
+		coorY = pos[1];
+		
+		coorState = mineField.getCellState(coorX, coorY);
+	}
+	/**
+	 * Manages game states when exploration mode is chosen
+	 */
+	private void explore(){
+		switch (coorState) {
+		case FLAGGED:
+				blocks[coorX][coorY].setImageBitmap(BitmapFactory
+						.decodeResource(getResources(),
+								R.drawable.normalcell));
+				mineField.setCellState(coorX, coorY,CellStates.NO_PUSHED);	
+			break;
+		case PUSHED: // if it's pushed it don't do nothing 
+			break;
+		default:
+			blocks[coorX][coorY].setImageBitmap(BitmapFactory
+						.decodeResource(getResources(),
+								R.drawable.cellflag));
+				
+			mineField.setCellState(coorX, coorY,CellStates.FLAGGED);	
+			break;
+		}
+	}
+	/**
+	 * Manages game states when exploration mode is chosen
+	 */
+	private void dig(){
+		switch (coorState) {
+		case NO_PUSHED:
+			expandCell(coorX, coorY, but);
+			if (mineField.isFinished())
+				endGame(FINAL_STATE.WIN);
+			break;
+		case PUSHED: // if it's pushed it don't do nothing 
+			break;
+		case MINE:
+			for (int rows = 0; rows < rowN; rows++)
+				for (int column = 0; column < colN; column++) {
+					coorState = mineField.getCellState(rows, column);
+					if (coorState.equals(CellStates.MINE))
+					blocks[rows][column].setImageBitmap(BitmapFactory
+							.decodeResource(getResources(),
+									R.drawable.minecell));
+				}
+			endGame(FINAL_STATE.LOSE);
+			break;
+	}
+	}
+	
+	/**
+	 * Builds the dialog shown when a long click occurs, which gives the choice whether to explore or dig
+	 */
+	
+	private void openExploreDialog(View v) {
+		new AlertDialog.Builder(this)
+				.setMessage("Choose an option")
+				.setCancelable(false)
+				.setPositiveButton("Explore",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								explore();
+							}
+						})
+				.setNegativeButton("Dig",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dig();
+							}
+						}).show();
+	}
+	
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is positive
 	 */
@@ -387,80 +428,10 @@ public class Game extends Activity implements OnClickListener {
 
 	}
 	
-	/**
-	 * It creates the options menu
-	 */
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-//		MenuInflater inflater = getMenuInflater();
-//		inflater.inflate(R.menu.gamemenu, menu);
-		return true;
-	}
-	
-	/**
-	 * Changes the button state
-	 */
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		super.onPrepareOptionsMenu(menu);
-		switchFlag();
-		//Update the sound menu item to display whether sound is on or off
-//		MenuItem flagsItem = menu.getItem(0);
-//		flagsItem.setTitle(getString(R.string.explore) + (flagMode ? " Off" : " On"));
-		return true;
-	}
-	
-//	/**
-//	 * Manages what to do depending on the selected item
-//	 */
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		switch (item.getItemId()) {
-//		case R.id.flags:
-//			switchFlag();
-//			return true;
-//			// More items go here (if any) ...
-//		}
-//		return false;
-//	}
-	
-	/**
-	 * Switches the sound from on to off, or off to on
-	 */
-    private void switchFlag() {
-		if (flagMode) {
-			flagMode = false;
-		} else {
-			flagMode = true;
-		}
-	}
-	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  Log.d(TAG, "Cambio de orientacion de pantalla");
-	}	
-	
-	public void onBackPressed() {
-		// when the back button is pressed, ask the user if they really want
-		// to end their game
-		AlertDialog backDialog = (new AlertDialog.Builder(this))
-				// .setTitle("Game Over")
-				.setMessage(R.string.confirm_quit)
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Game.this.finish();
-							}
-						})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				}).create();
-		backDialog.show();
+	  Log.d(TAG, "Cambio de orientaci�n de pantalla");
 	}
 
 	/**
