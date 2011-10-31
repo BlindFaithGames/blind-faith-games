@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="buttonMessage">Go!</string>
+    <string name="minesweeperActivity">Minesweeper game v1.0</string>
+    <string name="gameOverMessage">Fin de la partida!</string>
+    <string name="resetButtonMessage">Reiniciar</string>
+    <string name="exitButton">Exit</string>
+    <string name="app_name">Minesweeperv1.0-final</string>
+	<string name="main_title">Android Minesweeper v1.0</string>
+	<string name="continue_label">Continue</string>
+	<string name="new_game_label">New Game</string>
+	<string name="about_label">About</string>
+	<string name="exit_label">Exit</string>
+	<string name="about_title">About Android Minesweeper</string>
+	<string name="about_text">\
+		Minesweeper is a single-player video game. The object 
+		of the game is to clear an abstract minefield without detonating a mine.
+	</string>
+	<string name="settings_label">Settings...</string>
+	<string name="settings_title">Minesweeper settings</string>
+	<string name="settings_shortcut">s</string>
+	<string name="music_title">Music</string>
+	<string name="music_summary">Play background music</string>
+	<string name="hints_title">Hints</string>
+	<string name="hints_summary">Show hints during play</string>
+	<string name="new_game_title">Difficulty</string>
+	<string name="easy_label">Easy</string>
+	<string name="medium_label">Medium</string>
+	<string name="hard_label">Hard</string>
+	<string name="game_title">Game</string>
+</resources>
