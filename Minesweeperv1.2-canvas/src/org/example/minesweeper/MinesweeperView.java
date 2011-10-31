@@ -1,0 +1,516 @@
+package org.example.minesweeper;
+
+
+import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
+import android.graphics.Paint.Style;
+import android.graphics.Rect;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+
+public class MinesweeperView extends View {
+	private static final String TAG = "PuzzleView";
+
+	private static final int ARROW_SIZE = 100; // Arrows zoom mode size in pixels
+
+	private static final int CELL_SIZE = 200; // Cell size in pixels
+
+	/*private static final int START_DRAGGING = 0;
+	private static final int STOP_DRAGGING = 1;
+	
+	private int dragging;
+	*/
+	private final static int cellSeparation = 5; // Separation between cells
+	private final static int iniPosY = 100; // minefield offset with Y 
+	private int rowN, colN; // row and column of the focused cell
+	
+	private final Minesweeper game;
+	
+	private float width; // width of one tile
+	private float height; // height of one tile
+	
+	private int selCol; // row index of selection
+	private int selRow; // col index of selection
+	private final Rect selRect = new Rect();
+
+	private boolean zoomMode; // Enables/Disables zoom mode
+	
+	private Paint brush; // Used to manage colors, fonts...
+	
+	private GestureDetector gestureDetector;
+	
+	public MinesweeperView(Context context, int rowN, int colN) {
+		super(context);
+		this.rowN = rowN;
+		this.colN = colN;
+		selCol = 0;
+		selRow = 0;
+		game = (Minesweeper) context;
+		requestFocus();
+		setFocusableInTouchMode(true);
+		brush = new Paint();
+		gestureDetector = new GestureDetector(context, new GestureListener(this));
+		zoomMode = false;
+	}
+
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		// Set cell dimensions
+		width = (w / (float)colN) - cellSeparation; 
+		height = width;// iniPosY=0 ---> (h / (float)rowN) - cellSeparation; 
+		setSelectedRect(selCol, selRow, selRect);
+		Log.d(TAG, "onSizeChanged: width " + width + ", height " + height);
+		super.onSizeChanged(w, h, oldw, oldh);
+	}
+
+	/**
+	 * Set the focus rectangle dimensions
+	 * 
+	 * */
+	private void setSelectedRect(int col, int row, Rect rect) {
+		rect.set((int) (col * width + (cellSeparation * (col+1))), (int) (row * height + (cellSeparation * (row+1))) + iniPosY,
+				(int) (col * width + width + (cellSeparation * (col+1))), (int) (row * height + height + (cellSeparation * (row+1)))+ iniPosY) ;
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		// Draw the background...
+		canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), 
+							R.drawable.minefield_background),
+							null, 
+							new Rect(0,0,getWidth(),getHeight()), 
+							null);
+		if (zoomMode){
+			// Draw the center cell
+			drawSelectedCell(selRow,selCol,canvas);
+			
+			// Draw arrow buttons
+			drawArrows(canvas);
+		
+			// Draw the selection...
+			//drawSelection(canvas);
+		}else{
+			// Draw no pushed cells and mines
+			drawMinefield(canvas);
+			
+			// Draw the selection
+			drawSelection(canvas);
+		}
+		// Draw mode indicator
+		brush.setColor(Color.WHITE);
+		canvas.drawText("Alternative Mode: " + (zoomMode ? "on" : "off"), 10, 10, brush);
+		canvas.drawText("Exploration Mode: " + (this.game.isFlagMode() ? "on" : "off"), getWidth() - 150, 10, brush);
+	}
+
+	
+	/**
+	 * Used in zoomMode draw the arrows if the position exist
+	 * */
+	private void drawArrows(Canvas canvas) {
+		if(selCol - 1 >= 0)
+			canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.left_arrow), 
+							null, 
+							new Rect(0, 
+									(int)getHeight()/2 - ARROW_SIZE/2, 
+									ARROW_SIZE, 
+									(int)(getHeight()/2)- ARROW_SIZE/2 + ARROW_SIZE ),
+									null);
+		if(selCol + 1 < colN)
+			canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.right_arrow), 
+							null, 
+							new Rect(getWidth() - ARROW_SIZE, 
+									(int)getHeight()/2 - ARROW_SIZE/2, 
+									getWidth(), 
+									(int)(getHeight()/2)- ARROW_SIZE/2 + ARROW_SIZE ),
+									null);
+		if(selRow - 1 >= 0)
+			canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.up_arrow), 
+							null, 
+							new Rect(getWidth()/2 - ARROW_SIZE/2,
+									0,
+									(int)(getWidth()/2) - ARROW_SIZE/2 + ARROW_SIZE,
+									ARROW_SIZE),
+									null);
+		if(selRow + 1 < colN)
+			canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.down_arrow), 
+							null, 
+							new Rect(getWidth()/2 - ARROW_SIZE/2,
+									getHeight() - ARROW_SIZE,
+									(int)(getWidth()/2) - ARROW_SIZE/2 + ARROW_SIZE,
+									getHeight()),
+									null);
+	}
+
+	/**
+	 * Used in Zoom Mode. Only draws the cell indicated by selX&selY.
+	 * in a similar way of drawMineField
+	 * 
+	 * @param row row in the matrix
+	 * @param col col in the matrix
+	 * @param canvas 
+	 * 
+	 * */
+	private void drawSelectedCell(int row, int col, Canvas canvas) {
+		// Draw the numbers...
+		// Define color and style for numbers
+		Paint foreground = new Paint(Paint.ANTI_ALIAS_FLAG);
+		foreground.setColor(Color.BLACK);
+		foreground.setStyle(Style.FILL);
+		foreground.setTextSize(height * 0.75f);
+		foreground.setTextScaleX(width / height);
+		foreground.setTextAlign(Paint.Align.CENTER);
+		
+		// Centering in X: use alignment (and X at midpoint)
+		float x = 100;
+		// Centering in Y: measure ascent/descent first
+		float y = 125;
+		
+		Rect positionDrawable = new Rect((int)getWidth()/2 - CELL_SIZE/2,
+											(int)getHeight()/2 - CELL_SIZE/2,
+											((int)getWidth()/2) - CELL_SIZE/2 + CELL_SIZE,
+											((int)getHeight())/2 - CELL_SIZE/2 + CELL_SIZE);
+		
+		switch(this.game.getCell(row, col).getState()){
+			case PUSHED:
+				if(this.game.getTileString(row, col).equals("0")){
+					canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.square_grey),
+							null,positionDrawable, null);
+				}
+				else{
+					canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.square_grey),
+							null,
+							positionDrawable, null);
+					canvas.drawText(this.game.getTileString(row, col), 
+							(int)getWidth()/2 - CELL_SIZE/2 + x,
+							(int)getHeight()/2 - CELL_SIZE/2 + y, 
+							foreground);
+				}
+			break;
+			case NOTPUSHED:
+				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.square_blue),
+						null,
+						positionDrawable, null);
+			break;
+			case MINE:
+				
+				if(this.game.getCell(row,col).isVisible()){ // if the mine has been pushed
+					canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.square_grey),
+							null,
+							positionDrawable, null);
+					canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mine),
+							null,
+							positionDrawable, null);
+				}else
+					canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.square_blue),
+							null,
+							positionDrawable, null);
+			break;
+			case FLAGGED:
+				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.square_blue),
+						null,
+						positionDrawable, null);
+				canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.flag),
+						null,
+						positionDrawable, null);
+				break;
+
+		}
+	}
+	
+	/**
+	 * Draws all states that a cell can have.
+	 * 
+	 * */
+	private void drawMinefield(Canvas canvas) {
+		// Draw the numbers...
+		// Define color and style for numbers
+		Paint foreground = new Paint(Paint.ANTI_ALIAS_FLAG);
+		foreground.setColor(Color.BLACK);
+		foreground.setStyle(Style.FILL);
+		foreground.setTextSize(height * 0.75f);
+		foreground.setTextScaleX(width / height);
+		foreground.setTextAlign(Paint.Align.CENTER);
+		
+		// Draw the number in the center of the tile
+		FontMetrics fm = foreground.getFontMetrics();
+		// Centering in X: use alignment (and X at midpoint)
+		float x = width / 2;
+		// Centering in Y: measure ascent/descent first
+		float y = height / 2 - (fm.ascent + fm.descent) / 2;
+	
+		for (int row = 0; row < rowN; row++) {
+			for (int col = 0; col < colN; col++) {
+				switch(this.game.getCell(row, col).getState()){
+					case PUSHED:
+						if(this.game.getTileString(row, col).equals("0")){
+							drawResource(row,col,R.drawable.square_grey,canvas);
+						}
+						else{
+							drawResource(row,col,R.drawable.square_grey,canvas);
+							canvas.drawText(this.game.getTileString(row, col), 
+									(col * width + x) + (cellSeparation * (col + 1)), 
+									(row * height + y) + (cellSeparation * (row + 1))+ iniPosY, 
+									foreground);
+						}
+					break;
+					case NOTPUSHED:
+						drawResource(row,col,R.drawable.square_blue,canvas);
+					break;
+					case MINE:
+						if(this.game.getCell(row,col).isVisible()){
+							drawResource(row,col,R.drawable.square_grey,canvas);
+							drawResource(row,col,R.drawable.mine,canvas);
+						}else
+							drawResource(row,col,R.drawable.square_blue,canvas);
+					break;
+					case FLAGGED:
+						drawResource(row,col,R.drawable.square_blue,canvas);
+						// centering in X,Y
+						canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.flag),
+										null, 
+										new Rect((int)(col * width + width/4  + (cellSeparation * (col + 1))), 
+										(int)(row * height + height/4  + (cellSeparation * (row + 1)))+ iniPosY, 
+										(int)(col * width + width/4 + width/2 + (cellSeparation * (col + 1))), 
+										(int)(row * height + height/4 + height/2 + (cellSeparation * (row + 1)))+ iniPosY),
+										null);
+						break;
+			}
+		}
+	}
+		
+	}
+
+	private void drawResource(int row , int col, int id, Canvas canvas) {
+		canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), id),
+						null, 
+						new Rect((int)(col * width + (cellSeparation * (col + 1))), 
+						(int)(row * height + (cellSeparation * (row + 1))) + iniPosY, 
+						(int)(col * width + width + (cellSeparation * (col + 1))), 
+						(int)(row * height + height + (cellSeparation * (row + 1)))+ iniPosY),
+						null);
+	}
+
+	/**
+	 * Draw the focus
+	 * 
+	 * */
+	private void drawSelection(Canvas canvas) {
+		brush.setColor(getResources().getColor(R.color.puzzle_selected));
+		canvas.drawRect(selRect, brush);
+	}
+
+	/**
+	 * Pushed a cell in the matrix and updates rectangle focus
+	 * 
+	 * */
+	private void selectCell(int col, int row) {
+		// pinta la sección que ha sido deseleccionada
+		invalidate(selRect);
+		selCol = Math.min(Math.max(col, 0), colN);
+		selRow = Math.min(Math.max(row, 0), rowN);
+		this.game.pushCell(selRow,selCol);
+		this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
+				.game
+				.getCell(selRow, selCol)
+				.stateToString());
+		setSelectedRect(selCol, selRow, selRect);
+	}
+	
+	/**
+	 * Manages touch events
+	 * 
+	 * */
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		super.onTouchEvent(event);
+		/*float x = event.getX();
+		float y = event.getY();
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			dragging = START_DRAGGING;
+		}
+		if (event.getAction() == MotionEvent.ACTION_UP) {
+			dragging = STOP_DRAGGING;
+			Log.i("Drag", "Stopped Dragging");
+		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+			if (dragging == START_DRAGGING) {
+				System.out.println("Dragging");
+				int selCol = Math.min(Math.max((int) (x / (width + cellSeparation)), 0), colN);
+				int selRow = Math.min(Math.max((int) (y / (height + cellSeparation)), 0), rowN);
+	        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,"Position " 
+						+ selCol + " " + selRow + " State " 
+					+ Cell.stateToString(this.game.getCell(selCol, selRow).getState()));
+			}
+		}*/
+		return gestureDetector.onTouchEvent(event);
+	}
+	
+	/**
+	 * ZoomMode action or in normal mode changes the focused position
+	 * 
+	 * */
+	public void onTapAction(MotionEvent event) {
+		float x = event.getX();
+		float y = event.getY();
+		if(!zoomMode){
+			invalidate(selRect);
+			selCol = Math.min(Math.max((int) (x / (width + cellSeparation)), 0), colN-1);
+			selRow = Math.min(Math.max((int) ((y / (height + cellSeparation)) - iniPosY / height), 0), rowN-1);
+			setSelectedRect(selCol, selRow, selRect);
+			invalidate(selRect);
+			this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
+																	.game
+																	.getCell(selRow, selCol)
+																	.stateToString());
+	        	setSelectedRect(selCol, selRow, selRect);
+		}else{
+			onZoomMode(x,y);
+			invalidate();
+		}
+	}
+	
+	/**
+	 * zoomMode action or in normal mode push a cell
+	 * 
+	 * */
+	public void onDoubleTapAction(MotionEvent event) {
+		float x = event.getX();
+		float y = event.getY();
+		if(!zoomMode)
+			selectCell(selCol,selRow);
+		else
+			onZoomMode(x,y);
+		invalidate();
+	}
+	
+	/**
+	 * zoomMode action or in normal mode flag a cell
+	 * 
+	 * */
+	public void onTripleTapAction(MotionEvent event) {
+		float x = event.getX();
+		float y = event.getY();
+		this.game.switchFlag();
+		if(!zoomMode)
+			selectCell(selCol,selRow);
+		else
+			onZoomMode(x,y);
+		invalidate();
+		this.game.switchFlag();
+	}
+	
+	/**
+	 * if the tap is in the center of the screen push the cell
+	 * if arrow has pushed change the focused cell.
+	 * */
+	private void onZoomMode(float x, float y) {
+		if(x >= ARROW_SIZE && x <= getWidth()-ARROW_SIZE && y >= ARROW_SIZE && y <= getHeight() - ARROW_SIZE)
+			selectCell(selCol,selRow);
+		else{
+			// Left
+			if(x < ARROW_SIZE && y > ARROW_SIZE && y < getHeight() - ARROW_SIZE && selCol-1 >= 0)
+				selCol -= 1;
+			// Right
+			if(x > getWidth() - ARROW_SIZE && y > ARROW_SIZE && y < getHeight() - ARROW_SIZE && selCol+1 < rowN)
+				selCol += 1;
+			// Up
+			if(x > ARROW_SIZE && x < getWidth() - ARROW_SIZE && y < ARROW_SIZE && selRow-1 >= 0)
+				selRow -= 1;
+			// Down
+			if(x > ARROW_SIZE && x < getWidth() - ARROW_SIZE && y > getHeight() - ARROW_SIZE && selRow+1 < colN)
+				selRow += 1;
+		}
+		this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
+																.game
+																.getCell(selRow, selCol)
+																.stateToString());
+        	setSelectedRect(selCol, selRow, selRect);
+	}
+
+	/**
+	 * Manages key events
+	 * 
+	 * if keyCode is DPAD_UP, DPAD_DOWN, DPAD_LEFT or DPAD_RIGHT then
+	 * if keyCode is SEARCH enables exploration mode
+	 * if keyCode is VOLUME_UP changes interface visualization (zoom mode)
+	 * if keyCode is MENU then plays a voice synthesizer
+	 * if keyCode is BACK then the activity finish
+	 * */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event){
+	    super.onKeyDown(keyCode, event);
+	    invalidate(selRect);
+		if(event.getAction() == KeyEvent.ACTION_DOWN){
+		        switch(keyCode){
+			        case KeyEvent.KEYCODE_DPAD_UP:
+			        	selRow = MinesweeperMath.mod(selRow - 1, rowN);
+			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
+																				.game
+																				.getCell(selRow, selCol)
+																				.stateToString());
+			        	setSelectedRect(selCol, selRow, selRect);
+			        	break;
+			        case KeyEvent.KEYCODE_DPAD_DOWN:
+			        	selRow = MinesweeperMath.mod(selRow + 1, rowN);
+			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
+			        															.game
+			        															.getCell(selRow, selCol)
+			        															.stateToString());
+			        	setSelectedRect(selCol, selRow, selRect);
+			            break;
+			        case KeyEvent.KEYCODE_DPAD_LEFT:
+			        	selCol = MinesweeperMath.mod(selCol - 1, colN);
+			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
+																				.game
+																				.getCell(selRow, selCol)
+																				.stateToString());
+			        	setSelectedRect(selCol, selRow, selRect);
+			            break;
+			        case KeyEvent.KEYCODE_DPAD_RIGHT:
+			        	selCol = MinesweeperMath.mod(selCol + 1, colN);
+			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
+																				.game
+																				.getCell(selRow, selCol)
+																				.stateToString());
+			        	setSelectedRect(selCol, selRow, selRect);
+			            break;
+			        case KeyEvent.KEYCODE_DPAD_CENTER:
+			        	selectCell(selCol,selRow);
+			        	invalidate();
+			            break;
+			        case KeyEvent.KEYCODE_SEARCH:
+			        	this.game.switchFlag();
+			        	invalidate();
+			            break;
+			        case KeyEvent.KEYCODE_VOLUME_UP:
+			        	zoomMode = !zoomMode;
+			        	invalidate();
+			            break;
+			        case KeyEvent.KEYCODE_MENU:
+			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,"Position " 
+			        										+ selCol + " " + selRow + " State " 
+			        									+ this
+															.game
+															.getCell(selRow, selCol)
+															.stateToString());
+			            break;
+			        case KeyEvent.KEYCODE_BACK:
+			        	this.game.finish();
+			            break;
+		        }
+		    }
+		if(zoomMode)
+			invalidate();
+		else
+			invalidate(selRect);
+		return true;
+	}
+}
+
