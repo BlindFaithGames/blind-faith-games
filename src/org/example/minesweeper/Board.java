@@ -32,9 +32,9 @@ public class Board {
 		// Build the matrix of Cells which depends on difficult
 		switch (difficult) {
 		case (0):
-			rowN = 3;
-			colN = 3;
-			mines = 1;
+			rowN = 9;
+			colN = 9;
+			mines = 10;
 			break;
 		case (1):
 			rowN = 16;

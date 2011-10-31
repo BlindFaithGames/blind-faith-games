@@ -71,4 +71,18 @@ public class Cell {
 		this.value = value;
 	}
 
+	public static String stateToString(CellStates state){
+		switch(state){
+			case PUSHED:
+				return "Pushed";
+			case NO_PUSHED :
+				return "No pushed";
+			case FLAGGED:
+				return "Flagged";
+			case MINE:
+				return "Mine";
+		}
+		return "Unkwown state";
+	}
+	
 }

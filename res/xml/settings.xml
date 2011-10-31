@@ -5,9 +5,4 @@
 		android:title="@string/music_title"
 		android:summary="@string/music_summary"
 		android:defaultValue="true" />
-	<CheckBoxPreference
-		android:key="coordinates"
-		android:title="@string/coordinates_title"
-		android:summary="@string/coordinates_summary"
-		android:defaultValue="true" />
 </PreferenceScreen>
