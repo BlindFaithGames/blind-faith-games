@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="introMessage">Welcome, select a difficulty</string>
+	<string name="buttonMessage">Go!</string>
+	<string name="minesweeperActivity">Minesweeper game v1.1synthesizer</string>
+	<string name="gameOverMessage">Fin de la partida!</string>
+	<string name="resetButtonMessage">Reiniciar</string>
+	<string name="exitButton">Exit</string>
+	<string name="app_name">Minesweeperv1.1-synthesizer</string>
+	<string name="main_title">Android Minesweeper v1.1synthesizer</string>
+	<string name="new_game_label">New Game</string>
+	<string name="about_label">About</string>
+	<string name="exit_label">Exit</string>
+	<string name="about_title">About Android Minesweeper</string>
+	<string name="about_text">\
+		Minesweeper is a single-player video game. The
+		object
+		of the game is to clear an abstract minefield without detonating a mine.
+	</string>
+	<string name="settings_label">Settings...</string>
+	<string name="settings_title">Minesweeper settings</string>
+	<string name="settings_shortcut">s</string>
+	<string name="music_title">Music</string>
+	<string name="music_summary">Play background music</string>
+	<string name="new_game_title">Difficulty</string>
+	<string name="easy_label">Easy</string>
+	<string name="medium_label">Medium</string>
+	<string name="hard_label">Hard</string>
+	<string name="game_title">Game</string>
+	<string name="explore">Turn Explore</string>
+	<string name="flags_label">Turn Explore</string>
+	<string name="flags_title">Flags settings</string>
+	<string name="flags_shortcut">f</string>
+	<string name="synthetizer_title">Synthetizer</string>
+	<string name="flag_label">Flag mode button</string>
+	<string name="LosePositiveButtonLabel">Reset</string>
+	<string name="LoseNegativeButtonLabel">Back to the main menu</string>
+	<string name="WinPositiveButtonLabel">Ok</string>
+	<string name="LoseDialogTitle">Game Over</string>
+	<string name="WinDialogTitle">CONGRATULATIONS</string>
+	<string name="WinDialogMessage">&quot;You won!&quot;</string>
+		<string name="instructions_label">Instructions</string>
+	<string name="instructions_title">Instructions Minesweeper</string>
+	<string name="instructions_text">\
+		The board is a grid of cells, and some of them are hiding a mine. Your 
+		goal is to find all of those mines, without detonating any of them.\n\n\n
+		To accomplish that, you can press any cell -dig mode- or mark -exploration mode- 
+		it with a flag,if you are sure it contains a mine. When you press a cell, several cells
+		can be discovered, and they will show you how many mines are around them.\n\n\n
+		If you want to play in explore mode - markings cells with flags - just
+		press menu button and you will be able to turn on that mode (do the same
+		to turn it of again).\n\n\n
+		Options: make use of the settings while in the main menu in order to 
+		turn on coordinates service as well as music.
+	</string>
+	<string name="confirm_quit">Are you sure you want to quit this game? You will
+                lose all progress.</string>
+</resources>
