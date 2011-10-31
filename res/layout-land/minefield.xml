@@ -22,11 +22,6 @@
 							 android:layout_height="wrap_content" android:layout_width="wrap_content"
 							 android:id="@+id/chrono" android:text="Chronometer">
 				</Chronometer>
-				<ToggleButton android:id="@+id/flagButton"
-							  android:layout_width="wrap_content"
-							  android:layout_height="wrap_content"
-							  android:background="@drawable/flagimagebutton" android:layout_gravity="center">  
-			    </ToggleButton>
 				<TableLayout android:layout_height="wrap_content"
 					android:layout_width="wrap_content" android:id="@+id/tableLayout1"
 					android:stretchColumns="*">

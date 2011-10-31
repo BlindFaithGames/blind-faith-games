@@ -25,5 +25,9 @@
                   android:label="@string/game_title"
                   android:configChanges="orientation">
         </activity>
+        <activity android:name=".Instructions"
+                  android:label="@string/instructions_title"
+                  android:theme="@android:style/Theme.Dialog">
+        </activity>
     </application>
 </manifest>

@@ -30,10 +30,11 @@ public class Minesweeper extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		View continueButton = findViewById(R.id.continue_button);
-		continueButton.setOnClickListener(this);
 		View newButton = findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
+		View instructionsButton = findViewById(R.id.instructions_button);
+		instructionsButton.setOnClickListener(this);
+
 		View aboutButton = findViewById(R.id.about_button);
 		aboutButton.setOnClickListener(this);
 		View exitButton = findViewById(R.id.exit_button);
@@ -49,6 +50,10 @@ public class Minesweeper extends Activity implements OnClickListener {
 		case R.id.about_button:
 			Intent i = new Intent(this, About.class);
 			startActivity(i);
+			break;
+		case R.id.instructions_button:
+			Intent j = new Intent(this, Instructions.class);
+			startActivity(j);
 			break;
 		case R.id.new_button:
 			openNewGameDialog();

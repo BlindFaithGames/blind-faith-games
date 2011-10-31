@@ -3,14 +3,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
 	android:layout_height="match_parent" android:background="@color/background">
-	<ScrollView android:id="@+id/ScrollView02" 
-	            android:layout_width="wrap_content" 
-	            android:layout_height="wrap_content"
-	            xmlns:android="http://schemas.android.com/apk/res/android">
-		<HorizontalScrollView android:id="@+id/HorizontalScrollView01" 
-		                      android:layout_width="wrap_content" 
-		                      android:layout_height="wrap_content">
-		     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<ScrollView android:id="@+id/ScrollView02"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		xmlns:android="http://schemas.android.com/apk/res/android">
+		<HorizontalScrollView android:id="@+id/HorizontalScrollView01"
+			android:layout_width="wrap_content" android:layout_height="wrap_content">
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				android:orientation="vertical" android:layout_width="match_parent"
 				android:layout_height="match_parent">
 				<TextView android:layout_height="wrap_content"
@@ -19,14 +17,9 @@
 					android:text="@string/buttonMessage">
 				</TextView>
 				<Chronometer android:layout_gravity="center"
-							 android:layout_height="wrap_content" android:layout_width="wrap_content"
-							 android:id="@+id/chrono" android:text="Chronometer">
+					android:layout_height="wrap_content" android:layout_width="wrap_content"
+					android:id="@+id/chrono" android:text="Chronometer">
 				</Chronometer>
-				<ToggleButton android:id="@+id/flagButton"
-							  android:layout_width="wrap_content"
-							  android:layout_height="wrap_content"
-							  android:background="@drawable/flagimagebutton" android:layout_gravity="center">  
-			    </ToggleButton>
 				<TableLayout android:layout_height="wrap_content"
 					android:layout_width="wrap_content" android:id="@+id/tableLayout1"
 					android:stretchColumns="*">

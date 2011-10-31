@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -17,7 +18,6 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.ToggleButton;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier �lvarez
@@ -26,7 +26,7 @@ import android.widget.ToggleButton;
 
 public class Game extends Activity implements OnClickListener {
 	private static final String TAG = "Minesweeper";
-
+	
 	public static final String KEY_DIFFICULTY = "org.example.minesweeper.difficulty";
 	public static final int DIFFICULTY_EASY = 0;
 	public static final int DIFFICULTY_MEDIUM = 1;
@@ -82,17 +82,14 @@ public class Game extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.minefield);
 		
-		
-		View flagButton = findViewById(R.id.flagButton);
-		flagButton.setOnClickListener(this);
-		
-		int difficult = getIntent()
-				.getIntExtra(KEY_DIFFICULTY, DIFFICULTY_EASY);
+		int difficult = getIntent().getIntExtra(KEY_DIFFICULTY, DIFFICULTY_EASY);
 
 		// Start game
 		mineField = new Board(difficult);
 		rowN = mineField.getNRow();
 		colN = mineField.getNCol();
+		
+		flagMode = false;
 
 		initializeUI();
 
@@ -112,6 +109,7 @@ public class Game extends Activity implements OnClickListener {
 
 	/**
 	 * Builds the minefield, allocating the mines and the number of mines through the board game
+	 * Sets every ImageButton label
 	 */
 	private void buildMineField() {
 		uiBoard = (TableLayout) findViewById(R.id.tableLayout1);
@@ -136,7 +134,9 @@ public class Game extends Activity implements OnClickListener {
 				blocks[row][column].setOnClickListener(this);
 				blocks[row][column].setPadding(blockPadding, blockPadding,
 						blockPadding, blockPadding);
-				blocks[row][column].setContentDescription("row "+row+ " column "+column+", no pushed  ");
+				if (Coordinates.getCoordinates(this))
+					blocks[row][column].setContentDescription("row "+row+ " column "+column+", no pushed  ");
+				else blocks[row][column].setContentDescription("no pushed  ");
 				tableRow.addView(blocks[row][column]);
 			}
 			uiBoard.addView(tableRow, new TableLayout.LayoutParams(
@@ -150,15 +150,7 @@ public class Game extends Activity implements OnClickListener {
 	 * onClick manager
 	 */
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.flagButton:
-			ToggleButton flagButton = (ToggleButton) v;
-			flagMode = flagButton.isChecked();	
-			break;
-		default: // By default, a minefield ImageButton is expected 
 			onClickMineFieldButton(v);
-			break;
-		}
 	}
 	
 	/**
@@ -221,7 +213,7 @@ public class Game extends Activity implements OnClickListener {
 	private void buildWinDialog() {
 		winDialog = new AlertDialog.Builder(this)
 				.setTitle("CONGRATULATIONS")
-				.setMessage("This time you win!")
+				.setMessage("You won!")
 				.setIcon(R.drawable.win)
 				.setPositiveButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
@@ -298,7 +290,7 @@ public class Game extends Activity implements OnClickListener {
 			if (mineField.getCellState(row, col) != CellStates.PUSHED)
 				mineField.setCellStatePushed(row, col);
 			showCellValue(row, col, imgButton);
-			// TODO: a�adir diagonales xD
+			
 			if (col - 1 >= 0)
 				expandCell(row, col - 1, blocks[row][col - 1]);
 			if (col + 1 < colN)
@@ -320,7 +312,7 @@ public class Game extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Shows the number of mines close to the cell given by its coordinates
+	 * Shows the number of mines close to the cell given by its coordinates and sets each ImageButton label
 	 * @param x X coordinate
 	 * @param y Y coordinate
 	 * @param imgButton Button image
@@ -331,56 +323,144 @@ public class Game extends Activity implements OnClickListener {
 		case (0):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
 					getResources(), R.drawable.pushedcell));
-			imgButton.setContentDescription("row "+x+ " column "+y+", no mines  ");
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", no mines  ");
+			else imgButton.setContentDescription("no mines  ");
 			break;
 		case (1):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
 					getResources(), R.drawable.cell1));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 1 mines  ");
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", 1 mine  ");
+			else imgButton.setContentDescription("1 mines  ");
 			break;
 		case (2):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
 					getResources(), R.drawable.cell2));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 2 mines  ");
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", 2 mines  ");
+			else imgButton.setContentDescription("2 mines  ");
 			break;
 		case (3):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
 					getResources(), R.drawable.cell3));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 3 mines  ");
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", 3 mines  ");
+			else imgButton.setContentDescription("3 mines  ");
 			break;
 		case (4):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.pushedcell));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 4 mines  ");
+					getResources(), R.drawable.cell4));
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", 4 mines  ");
+			else imgButton.setContentDescription("4 mines  ");
 			break;
 		case (5):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.pushedcell));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 5 mines  ");
+					getResources(), R.drawable.cell5));
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", 5 mines  ");
+			else imgButton.setContentDescription("5 mines  ");
 			break;
 		case (6):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.pushedcell));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 6 mines  ");
+					getResources(), R.drawable.cell6)); 
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", 6 mines  ");
+			else imgButton.setContentDescription("6 mines  ");
 			break;
 		case (7):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.pushedcell));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 7 mines  ");
+					getResources(), R.drawable.cell7));
+			if (Coordinates.getCoordinates(this))
+					imgButton.setContentDescription("row "+x+ " column "+y+", 7 mines  ");
+			else imgButton.setContentDescription("7 mines  ");
 			break;
 		case (8):
 			imgButton.setImageBitmap(BitmapFactory.decodeResource(
-					getResources(), R.drawable.pushedcell));
-			imgButton.setContentDescription("row "+x+ " column "+y+", 8 mines  ");
+					getResources(), R.drawable.cell8));
+			if (Coordinates.getCoordinates(this))
+				imgButton.setContentDescription("row "+x+ " column "+y+", 8 mines  ");
+			else imgButton.setContentDescription("8 mines  ");
 			break;
 		}
 
 	}
 	
+	/**
+	 * It creates the options menu
+	 */
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.gamemenu, menu);
+		return true;
+	}
+	
+	/**
+	 * Changes the button state
+	 */
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		switchFlag();
+		//Update the sound menu item to display whether sound is on or off
+//		MenuItem flagsItem = menu.getItem(0);
+//		flagsItem.setTitle(getString(R.string.explore) + (flagMode ? " Off" : " On"));
+		return true;
+	}
+	
+//	/**
+//	 * Manages what to do depending on the selected item
+//	 */
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		switch (item.getItemId()) {
+//		case R.id.flags:
+//			switchFlag();
+//			return true;
+//			// More items go here (if any) ...
+//		}
+//		return false;
+//	}
+	
+	/**
+	 * Switches the sound from on to off, or off to on
+	 */
+    private void switchFlag() {
+		if (flagMode) {
+			flagMode = false;
+		} else {
+			flagMode = true;
+		}
+	}
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  Log.d(TAG, "Cambio de orientaci�n de pantalla");
+	  Log.d(TAG, "Cambio de orientacion de pantalla");
+	}	
+	
+	public void onBackPressed() {
+		// when the back button is pressed, ask the user if they really want
+		// to end their game
+		AlertDialog backDialog = (new AlertDialog.Builder(this))
+				// .setTitle("Game Over")
+				.setMessage(R.string.confirm_quit)
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Game.this.finish();
+							}
+						})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).create();
+		backDialog.show();
 	}
 
 	/**
