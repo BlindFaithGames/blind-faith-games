@@ -9,19 +9,29 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class MinesweeperView extends View {
-	private static final String TAG = "PuzzleView";
+	private static final String TAG = "MinesweeperView";
 
 	private static final int ARROW_SIZE = 100; // Arrows zoom mode size in pixels
-
 	private static final int CELL_SIZE = 200; // Cell size in pixels
 
+	private static final int TIME_TO_DO_TAP = 750; // ms
+	
+	private static final int START_DRAGGING = 0;
+	private static final int STOP_DRAGGING = 1;
+	
+	// Dragging && double/triple tap attributes
+	private int dragging;
+	private Long timeTaps[]; // time (system time) of each tap
+	private int tapsN; // number of taps
+	private MotionEvent eventTaps[]; // tap events  
+	
 	private final static int cellSeparation = 5; // Separation between cells
 	private final static int iniPosY = 100; // minefield offset with Y 
 	private int rowN, colN; // row and column of the focused cell
@@ -38,20 +48,50 @@ public class MinesweeperView extends View {
 	private boolean zoomMode; // Enables/Disables zoom mode
 	
 	private Paint brush; // Used to manage colors, fonts...
-	
-	private GestureDetector gestureDetector;
-	
+
+	private Runnable RunnableEvent= new Runnable() {
+		public void run() {
+			// triple tap
+			if(timeTaps[1] != 0  && timeTaps[0] != 0 && timeTaps[2] != 0){
+				onTripleTapAction(eventTaps[2]);
+			}else// double tap
+				if(timeTaps[1] != 0  && timeTaps[0] != 0){
+					onDoubleTapAction(eventTaps[1]);
+				}
+				else // one tap
+					if(timeTaps[0] != 0){
+						onTapAction(eventTaps[0]);
+					}
+			// Consumed the event reset all
+			for(int i = 0; i < 3; i++){
+				timeTaps[i] = (long) 0;
+				eventTaps[i] = null;
+				tapsN = 0;
+			}
+		}
+	};
+
 	public MinesweeperView(Context context, int rowN, int colN) {
 		super(context);
+		
 		this.rowN = rowN;
 		this.colN = colN;
 		selCol = 0;
 		selRow = 0;
+		
 		game = (Minesweeper) context;
 		requestFocus();
 		setFocusableInTouchMode(true);
+		
 		brush = new Paint();
-		gestureDetector = new GestureDetector(context, new GestureListener(this));
+		
+		tapsN = 0;
+		timeTaps = new Long[3];
+		for(int i = 0; i < 3; i++)
+			timeTaps[i] = (long) 0;
+		eventTaps = new MotionEvent[3];
+		
+		
 		zoomMode = false;
 	}
 
@@ -326,9 +366,70 @@ public class MinesweeperView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		super.onTouchEvent(event);
-		return gestureDetector.onTouchEvent(event);
+		if(!zoomMode){
+			onDragAction(event);
+			return true;
+		}else{
+	    	timeTaps[tapsN] = System.currentTimeMillis();
+	    	eventTaps[tapsN] = event;
+	    	if(tapsN < 2)
+	    		tapsN++;
+	    	Handler myHandler = new Handler();
+	    	myHandler.postDelayed(RunnableEvent, TIME_TO_DO_TAP);
+	    	return true;
+		}
 	}
 	
+	/**
+	 * Manages drag event. Reads only on cell change in the drag event
+	 * Begins with read if the cell is new in MotionEvent.ACTION_DOWN
+	 * Continues with MotionEvent.ACTION_MOVE if is new cell again reads and marks the event like consumed (readEvent) 
+	 * if not read then the event only is a tap.
+	 * @param event The event that it will be threated
+	 * */
+	private void onDragAction(MotionEvent event) {
+		float x = event.getX();
+		float y = event.getY();
+		int col = Math.min(Math.max((int) (x / (width + cellSeparation)), 0), colN-1);
+		int row = Math.min(Math.max((int) ((y / (height + cellSeparation)) - iniPosY / height), 0), rowN-1);
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			dragging = START_DRAGGING;
+			Log.d("Drag", "Start Dragging");
+			if(selCol != col || selRow != row){
+	        	this.game.mTtsAction(null, Minesweeper.SPEECH_READ_CODE,this.game.getCell(row, col).stateToString());
+	        		selCol = col;
+	        		selRow = row;
+	        		Log.d("Drag", "Reading");
+	    			invalidate(selRect);
+	    			setSelectedRect(selCol, selRow, selRect);
+	    			invalidate(selRect);
+			}
+		}
+		if (event.getAction() == MotionEvent.ACTION_UP) {
+			dragging = STOP_DRAGGING;
+		    timeTaps[tapsN] = System.currentTimeMillis();
+		    eventTaps[tapsN] = event;
+		    if(tapsN < 2)
+		    	tapsN++;
+		    Handler myHandler = new Handler();
+		    myHandler.postDelayed(RunnableEvent, TIME_TO_DO_TAP);
+		    Log.i("Drag", "Stopped Dragging");
+		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+			if (dragging == START_DRAGGING) {
+				Log.d("Drag", "Dragging " + row + " " + col + " " + selRow + " " + selCol);
+				if(selCol != col || selRow != row){
+		        		this.game.mTtsAction(null, Minesweeper.SPEECH_READ_CODE,this.game.getCell(row, col).stateToString());
+		        		selCol = col;
+		        		selRow = row;
+		        		Log.d("Drag", "Reading");
+		    			invalidate(selRect);
+		    			setSelectedRect(selCol, selRow, selRect);
+		    			invalidate(selRect);
+				}
+			}
+		}	
+	}
+
 	/**
 	 * ZoomMode action or in normal mode changes the focused position
 	 * 
@@ -342,11 +443,6 @@ public class MinesweeperView extends View {
 			selRow = Math.min(Math.max((int) ((y / (height + cellSeparation)) - iniPosY / height), 0), rowN-1);
 			setSelectedRect(selCol, selRow, selRect);
 			invalidate(selRect);
-			this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
-																	.game
-																	.getCell(selRow, selCol)
-																	.stateToString());
-	        	setSelectedRect(selCol, selRow, selRect);
 		}else{
 			onZoomMode(x,y);
 			invalidate();
@@ -408,7 +504,7 @@ public class MinesweeperView extends View {
 																.game
 																.getCell(selRow, selCol)
 																.stateToString());
-        	setSelectedRect(selCol, selRow, selRect);
+        setSelectedRect(selCol, selRow, selRect);
 	}
 
 	/**
