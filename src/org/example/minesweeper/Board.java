@@ -18,17 +18,17 @@ public class Board {
 		case (0):
 			rowN = 6;
 			colN = 6;
-			mines = 1;
+			mines = 5;
 			break;
 		case (1):
-			rowN = 9;
-			colN = 9;
+			rowN = 8;
+			colN = 8;
 			mines = 10;
 			break;
 		case (2):
-			rowN = 16;
-			colN = 16;
-			mines = 10;
+			rowN = 10;
+			colN = 10;
+			mines = 13;
 			break;
 		}
 		board = new Cell[rowN][colN];

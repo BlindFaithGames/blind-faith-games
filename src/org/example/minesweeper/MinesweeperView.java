@@ -22,11 +22,6 @@ public class MinesweeperView extends View {
 
 	private static final int CELL_SIZE = 200; // Cell size in pixels
 
-	/*private static final int START_DRAGGING = 0;
-	private static final int STOP_DRAGGING = 1;
-	
-	private int dragging;
-	*/
 	private final static int cellSeparation = 5; // Separation between cells
 	private final static int iniPosY = 100; // minefield offset with Y 
 	private int rowN, colN; // row and column of the focused cell
@@ -331,24 +326,6 @@ public class MinesweeperView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		super.onTouchEvent(event);
-		/*float x = event.getX();
-		float y = event.getY();
-		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			dragging = START_DRAGGING;
-		}
-		if (event.getAction() == MotionEvent.ACTION_UP) {
-			dragging = STOP_DRAGGING;
-			Log.i("Drag", "Stopped Dragging");
-		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-			if (dragging == START_DRAGGING) {
-				System.out.println("Dragging");
-				int selCol = Math.min(Math.max((int) (x / (width + cellSeparation)), 0), colN);
-				int selRow = Math.min(Math.max((int) (y / (height + cellSeparation)), 0), rowN);
-	        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,"Position " 
-						+ selCol + " " + selRow + " State " 
-					+ Cell.stateToString(this.game.getCell(selCol, selRow).getState()));
-			}
-		}*/
 		return gestureDetector.onTouchEvent(event);
 	}
 	
@@ -487,10 +464,12 @@ public class MinesweeperView extends View {
 			            break;
 			        case KeyEvent.KEYCODE_SEARCH:
 			        	this.game.switchFlag();
+			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,"Exploration Mode" + (this.game.isFlagMode() ? " On" : " Off"));
 			        	invalidate();
 			            break;
 			        case KeyEvent.KEYCODE_VOLUME_UP:
 			        	zoomMode = !zoomMode;
+			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,"Zoom Mode" + (zoomMode ? " On" : " Off"));
 			        	invalidate();
 			            break;
 			        case KeyEvent.KEYCODE_MENU:
