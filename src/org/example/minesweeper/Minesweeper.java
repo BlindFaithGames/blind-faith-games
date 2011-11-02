@@ -132,7 +132,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 				mTts.speak(v.getContentDescription().toString(),TextToSpeech.QUEUE_ADD,null);
 				break;
 			case SPEECH_READ_CODE:
-				mTts.speak(speech,TextToSpeech.QUEUE_ADD,null);
+				mTts.speak(speech,TextToSpeech.QUEUE_FLUSH,null);
 				break;
 			}
 		}

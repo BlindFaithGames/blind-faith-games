@@ -24,7 +24,7 @@ public class Prefs extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
-		
+		//ListPreference list = ListPreference();
 		// This initialize TTS engine
 		// Checking if TTS is installed on device
 		OnInitTTS initialize = new OnInitTTS(mTts,findPreference(OPT_MUSIC).toString() + findPreference(OPT_TTS).toString());

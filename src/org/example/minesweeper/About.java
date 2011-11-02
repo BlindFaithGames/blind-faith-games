@@ -23,7 +23,7 @@ public class About extends Activity{
 		// This initialize TTS engine
 		// Checking if TTS is installed on device
 		OnInitTTS initialize = new OnInitTTS(mTts,getString(R.string.about_title) + " " + getString(R.string.about_text));
-		if(OnInitTTS.isInstalled(this)&& Prefs.getTTS(this)){
+		if (OnInitTTS.isInstalled(this) && Prefs.getTTS(this)){
 			mTts = new TextToSpeech(this,initialize);
 			initialize.setmTts(mTts);
 		}

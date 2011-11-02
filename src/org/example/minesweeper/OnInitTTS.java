@@ -1,6 +1,5 @@
 package org.example.minesweeper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,7 +20,6 @@ import android.util.Log;
 public class OnInitTTS implements TextToSpeech.OnInitListener {
 
 	private static final String TAG = "Synthesizer";
-	private static ArrayList<Locale> availableLocales = null;
 	TextToSpeech mTts;
 
 	private String initialSpeech;
@@ -29,13 +27,11 @@ public class OnInitTTS implements TextToSpeech.OnInitListener {
 	public OnInitTTS(TextToSpeech mTts) {
 		this.mTts = mTts;
 		initialSpeech = null;
-		availableLocales = new ArrayList<Locale>();
 	}
 
 	public OnInitTTS(TextToSpeech mTts, String initialSpeech) {
 		this.mTts = mTts;
 		this.initialSpeech = initialSpeech;
-		availableLocales = new ArrayList<Locale>();
 
 	}
 
@@ -47,7 +43,6 @@ public class OnInitTTS implements TextToSpeech.OnInitListener {
 			// Note that a language may not be available, and the result will
 			// indicate this.
 			int result = mTts.setLanguage(Locale.US);
-			EnumerateAvailableLanguages();
 			// Try this someday for some interesting results.
 			if (result == TextToSpeech.LANG_MISSING_DATA
 					|| result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -62,23 +57,6 @@ public class OnInitTTS implements TextToSpeech.OnInitListener {
 		} else {
 			// Initialization failed.
 			Log.e(TAG, "Could not initialize TextToSpeech.");
-		}
-	}
-
-	public static ArrayList<Locale> getAvailableLocales() {
-		return availableLocales;
-	}
-
-	private void EnumerateAvailableLanguages() {
-		Locale locales[] = Locale.getAvailableLocales();
-
-		for (int index = 0; index < locales.length; ++index) {
-			if (TextToSpeech.LANG_COUNTRY_AVAILABLE == mTts.isLanguageAvailable(locales[index])) {
-				Log.i("TTSDemo", locales[index].getDisplayLanguage() + " ("
-						+ locales[index].getDisplayCountry() + ")");
-
-				availableLocales.add(locales[index]);
-			}
 		}
 	}
 

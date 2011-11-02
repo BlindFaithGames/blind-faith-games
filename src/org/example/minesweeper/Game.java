@@ -1,8 +1,5 @@
 package org.example.minesweeper;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -14,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -28,13 +24,11 @@ import android.widget.Button;
 public class Game extends Activity implements OnClickListener,
 		OnFocusChangeListener {
 	private static final String TAG = "Minesweeper";
-	private static final int LANGUAGE_MENU = 0;
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
 
 	private int difficult;
 	private TextToSpeech mTts;
-	private ArrayList<Locale> availableLocales = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -173,20 +167,6 @@ public class Game extends Activity implements OnClickListener,
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-		String menutitle = "";
-		this.availableLocales = OnInitTTS.getAvailableLocales();
-		// Language selection
-		SubMenu languageMenu = menu.addSubMenu(0, LANGUAGE_MENU, Menu.NONE,
-				"Language");
-
-		languageMenu.setHeaderTitle("Select Language");
-
-		for (int index = 0; index < availableLocales.size(); ++index) {
-			menutitle = availableLocales.get(index).getDisplayLanguage() + " ("
-					+ availableLocales.get(index).getDisplayCountry() + ")";
-
-			languageMenu.add(0, LANGUAGE_MENU + index + 1, Menu.NONE, menutitle);
-		}
 		if (mTts != null)
 			mTts.speak("Menu Settings", TextToSpeech.QUEUE_FLUSH, null);
 		return true;
@@ -200,20 +180,8 @@ public class Game extends Activity implements OnClickListener,
 		case R.id.settings:
 			startActivity(new Intent(this, Prefs.class));
 			return true;
-		default:
-			if (item.getItemId() > LANGUAGE_MENU) {
-				setTextToSpeechLocale(item.getItemId() - LANGUAGE_MENU - 1);
-			}
 		}
 		return false;
-	}
-
-	private void setTextToSpeechLocale(int index) {
-		mTts.setLanguage(availableLocales.get(index));
-
-		Log.i("TTSDemo", "Language: "
-				+ availableLocales.get(index).getDisplayLanguage() + " ("
-				+ availableLocales.get(index).getDisplayCountry() + ")");
 	}
 
 	/**
