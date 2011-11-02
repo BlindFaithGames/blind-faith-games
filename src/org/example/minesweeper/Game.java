@@ -1,5 +1,8 @@
 package org.example.minesweeper;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -11,34 +14,38 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
- * This class implements the main activity
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez This class
+ *         implements the main activity
  */
 
-public class Game extends Activity implements OnClickListener,OnFocusChangeListener {
+public class Game extends Activity implements OnClickListener,
+		OnFocusChangeListener {
 	private static final String TAG = "Minesweeper";
+	private static final int LANGUAGE_MENU = 0;
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
-	
+
 	private int difficult;
 	private TextToSpeech mTts;
+	private ArrayList<Locale> availableLocales = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		init();
 	}
 
-	public void init(){
+	public void init() {
 		View newButton = findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
@@ -51,23 +58,22 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 		View exitButton = findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
-		
+
 		// Checking if TTS is installed on device
-		OnInitTTS initialize = new OnInitTTS(mTts,"Main Menu minesweeper " 
-												+ newButton.getContentDescription() + " "
-												+ instructionsButton.getContentDescription() + " "
-												+ aboutButton.getContentDescription() + " "
-												+ exitButton.getContentDescription());
-		if(!Prefs.getTTS(this) && mTts != null)
+		OnInitTTS initialize = new OnInitTTS(mTts, "Main Menu minesweeper "
+				+ newButton.getContentDescription() + " "
+				+ instructionsButton.getContentDescription() + " "
+				+ aboutButton.getContentDescription() + " "
+				+ exitButton.getContentDescription());
+		if (!Prefs.getTTS(this) && mTts != null)
 			mTts = null;
-			
-		if(OnInitTTS.isInstalled(this)&& Prefs.getTTS(this)){
-			mTts = new TextToSpeech(this,initialize);
+
+		if (OnInitTTS.isInstalled(this) && Prefs.getTTS(this)) {
+			mTts = new TextToSpeech(this, initialize);
 			initialize.setmTts(mTts);
 		}
 	}
-	
-	
+
 	/**
 	 * onClick manager
 	 */
@@ -92,27 +98,27 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 	}
 
 	/**
-	 *  OnFocusChangeListener Interface
+	 * OnFocusChangeListener Interface
 	 * */
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		if(hasFocus && mTts != null){
-			mTts.speak(v.getContentDescription().toString(), TextToSpeech.QUEUE_FLUSH, null);
+		if (hasFocus && mTts != null) {
+			mTts.speak(v.getContentDescription().toString(),
+					TextToSpeech.QUEUE_FLUSH, null);
 		}
 	}
-	
+
 	/** Ask the user what difficulty level want */
 	private void openNewGameDialog() {
 		Builder newGameAlertDialogBuilder = new AlertDialog.Builder(this)
-				.setTitle(R.string.new_game_title)
-				.setItems(R.array.difficulty,
+				.setTitle(R.string.new_game_title).setItems(R.array.difficulty,
 						new DialogInterface.OnClickListener() {
 							public void onClick(
 									DialogInterface dialoginterface, int i) {
 								startGame(i);
 							}
 						});
-		AlertDialog newGameAlertDialog =  newGameAlertDialogBuilder.create();
+		AlertDialog newGameAlertDialog = newGameAlertDialogBuilder.create();
 		newGameAlertDialog.show();
 		Button button1 = newGameAlertDialog.getButton(DialogInterface.BUTTON1);
 		button1.setOnFocusChangeListener(this);
@@ -120,12 +126,13 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 		button2.setOnFocusChangeListener(this);
 		Button button3 = newGameAlertDialog.getButton(DialogInterface.BUTTON3);
 		button3.setOnFocusChangeListener(this);
-		
-		if(mTts != null)
-			mTts.speak("Alert Dialog " + this.getString(R.string.easy_label) + " " 
-									   + this.getString(R.string.medium_label) + " "
-									   + this.getString(R.string.hard_label),
-									   TextToSpeech.QUEUE_FLUSH,null);
+
+		if (mTts != null)
+			mTts.speak(
+					"Alert Dialog " + this.getString(R.string.easy_label) + " "
+							+ this.getString(R.string.medium_label) + " "
+							+ this.getString(R.string.hard_label),
+					TextToSpeech.QUEUE_FLUSH, null);
 	}
 
 	/** Start a new game with the given difficulty level */
@@ -144,13 +151,14 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case (RESET_CODE):
-			Intent nextIntent = new Intent(getApplicationContext(), Minesweeper.class);
+			Intent nextIntent = new Intent(getApplicationContext(),
+					Minesweeper.class);
 			nextIntent.putExtra(Minesweeper.KEY_DIFFICULTY, difficult);
 			startActivityForResult(nextIntent, RESET_CODE);
 			break;
-		case (EXIT_GAME_CODE): 
+		case (EXIT_GAME_CODE):
 			break;
-		case (RESULT_CANCELED): 
+		case (RESULT_CANCELED):
 			break;
 		default:
 			finish();
@@ -165,11 +173,25 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-		if(mTts != null)
-			mTts.speak("Menu Settings", TextToSpeech.QUEUE_FLUSH,null);
+		String menutitle = "";
+		this.availableLocales = OnInitTTS.getAvailableLocales();
+		// Language selection
+		SubMenu languageMenu = menu.addSubMenu(0, LANGUAGE_MENU, Menu.NONE,
+				"Language");
+
+		languageMenu.setHeaderTitle("Select Language");
+
+		for (int index = 0; index < availableLocales.size(); ++index) {
+			menutitle = availableLocales.get(index).getDisplayLanguage() + " ("
+					+ availableLocales.get(index).getDisplayCountry() + ")";
+
+			languageMenu.add(0, LANGUAGE_MENU + index + 1, Menu.NONE, menutitle);
+		}
+		if (mTts != null)
+			mTts.speak("Menu Settings", TextToSpeech.QUEUE_FLUSH, null);
 		return true;
 	}
-	
+
 	/**
 	 * Manages what to do depending on the selected item
 	 */
@@ -178,22 +200,32 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 		case R.id.settings:
 			startActivity(new Intent(this, Prefs.class));
 			return true;
-			// More items go here (if any) ...
+		default:
+			if (item.getItemId() > LANGUAGE_MENU) {
+				setTextToSpeechLocale(item.getItemId() - LANGUAGE_MENU - 1);
+			}
 		}
 		return false;
 	}
 
-/**
- * ------------------------------------------------------------ 
- * Música
- * ---------------------------------------------------------------
- */
+	private void setTextToSpeechLocale(int index) {
+		mTts.setLanguage(availableLocales.get(index));
+
+		Log.i("TTSDemo", "Language: "
+				+ availableLocales.get(index).getDisplayLanguage() + " ("
+				+ availableLocales.get(index).getDisplayCountry() + ")");
+	}
+
+	/**
+	 * ------------------------------------------------------------ Música
+	 * ---------------------------------------------------------------
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		Music.play(this, R.raw.main);
 		init();
-		if(mTts != null)
+		if (mTts != null)
 			mTts.speak("Main Menu", TextToSpeech.QUEUE_FLUSH, null);
 	}
 
@@ -202,16 +234,16 @@ public class Game extends Activity implements OnClickListener,OnFocusChangeListe
 		super.onPause();
 		Music.stop(this);
 	}
-	
+
 	/**
-	 *  Turns off TTS engine
+	 * Turns off TTS engine
 	 */
 	@Override
 	protected void onDestroy() {
-		 super.onDestroy();
-        if (mTts != null) {
-            mTts.stop();
-            mTts.shutdown();
-        }
+		super.onDestroy();
+		if (mTts != null) {
+			mTts.stop();
+			mTts.shutdown();
+		}
 	}
 }

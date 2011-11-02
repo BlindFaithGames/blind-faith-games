@@ -10,4 +10,5 @@
 		android:title="@string/tts_title"
 		android:summary="@string/tts_summary"
 		android:defaultValue="true" />
+		
 </PreferenceScreen>
