@@ -181,15 +181,16 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	private void expandCell(int row, int col) {
 		if (mineField.getCellValue(row, col) != 0) {
 			mineField.setCellVisibility(row, col);
-			if (mineField.getCellState(row, col) != CellStates.PUSHED)
+			if (mineField.getCellState(row, col) != CellStates.PUSHED && 
+				mineField.getCellState(row, col) != CellStates.MINE &&
+				mineField.getCellState(row, col) != CellStates.FLAGGED)
 				mineField.setCellStatePushed(row, col);
 		/*if not 0 and not visible*/
 		} else if (mineField.getCellState(row, col) != CellStates.PUSHED
 				&& mineField.getCellState(row, col) != CellStates.MINE
 				&& mineField.getCellState(row, col) != CellStates.FLAGGED) {			
 			
-			if (mineField.getCellState(row, col) != CellStates.PUSHED)
-				mineField.setCellStatePushed(row, col);
+			mineField.setCellStatePushed(row, col);
 			
 			mineField.setCellVisibility(row, col);
 			if (col - 1 >= 0)
@@ -244,7 +245,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 			}
 			else{
 				if(mineField.getCellState(selRow, selCol) != CellStates.FLAGGED)
-				expandCell(selRow, selCol);
+					expandCell(selRow, selCol);
 			}
 			if(mineField.isFinished()){
 				endGame(FINAL_STATE.WIN);

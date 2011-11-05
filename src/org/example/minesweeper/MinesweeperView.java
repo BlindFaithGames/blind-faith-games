@@ -44,11 +44,13 @@ public class MinesweeperView extends View {
 	private int selCol; // row index of selection
 	private int selRow; // col index of selection
 	private final Rect selRect = new Rect();
-
+	
+	private boolean drawTransitionMode;
+	
 	private boolean zoomMode; // Enables/Disables zoom mode
 	
 	private Paint brush; // Used to manage colors, fonts...
-
+	
 	private Runnable RunnableEvent= new Runnable() {
 		public void run() {
 			// triple tap
@@ -124,14 +126,21 @@ public class MinesweeperView extends View {
 							new Rect(0,0,getWidth(),getHeight()), 
 							null);
 		if (zoomMode){
-			// Draw the center cell
-			drawSelectedCell(selRow,selCol,canvas);
+	
+			if(drawTransitionMode){
+				drawTransitionMode = false;
+				
+				drawMinefieldZoom(selRow,selCol,canvas);
+				
+				invalidate();
+			}
+			else{
+				// Draw the center cell
+				drawMinefieldZoom(selRow,selCol,canvas);
+				// Draw arrow buttons
+				drawArrows(canvas);
+			}
 			
-			// Draw arrow buttons
-			drawArrows(canvas);
-		
-			// Draw the selection...
-			//drawSelection(canvas);
 		}else{
 			// Draw no pushed cells and mines
 			drawMinefield(canvas);
@@ -141,7 +150,7 @@ public class MinesweeperView extends View {
 		}
 		// Draw mode indicator
 		brush.setColor(Color.WHITE);
-		canvas.drawText("Alternative Mode: " + (zoomMode ? "on" : "off"), 10, 10, brush);
+		canvas.drawText("Zoom Mode: " + (zoomMode ? "on" : "off"), 10, 10, brush);
 		canvas.drawText("Exploration Mode: " + (this.game.isFlagMode() ? "on" : "off"), getWidth() - 150, 10, brush);
 	}
 
@@ -193,7 +202,7 @@ public class MinesweeperView extends View {
 	 * @param canvas 
 	 * 
 	 * */
-	private void drawSelectedCell(int row, int col, Canvas canvas) {
+	private void drawMinefieldZoom(int row, int col, Canvas canvas) {
 		// Draw the numbers...
 		// Define color and style for numbers
 		Paint foreground = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -342,6 +351,7 @@ public class MinesweeperView extends View {
 		canvas.drawRect(selRect, brush);
 	}
 
+	
 	/**
 	 * Pushed a cell in the matrix and updates rectangle focus
 	 * 
@@ -499,6 +509,7 @@ public class MinesweeperView extends View {
 			// Down
 			if(x > ARROW_SIZE && x < getWidth() - ARROW_SIZE && y > getHeight() - ARROW_SIZE && selRow+1 < colN)
 				selRow += 1;
+			drawTransitionMode = true;
 		}
 		this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
 																.game
@@ -506,7 +517,6 @@ public class MinesweeperView extends View {
 																.stateToString());
         setSelectedRect(selCol, selRow, selRect);
 	}
-
 	/**
 	 * Manages key events
 	 * 
@@ -529,6 +539,8 @@ public class MinesweeperView extends View {
 																				.getCell(selRow, selCol)
 																				.stateToString());
 			        	setSelectedRect(selCol, selRow, selRect);
+			        	if(zoomMode)
+			        		drawTransitionMode = true;
 			        	break;
 			        case KeyEvent.KEYCODE_DPAD_DOWN:
 			        	selRow = MinesweeperMath.mod(selRow + 1, rowN);
@@ -537,6 +549,8 @@ public class MinesweeperView extends View {
 			        															.getCell(selRow, selCol)
 			        															.stateToString());
 			        	setSelectedRect(selCol, selRow, selRect);
+			        	if(zoomMode)
+			        		drawTransitionMode = true;
 			            break;
 			        case KeyEvent.KEYCODE_DPAD_LEFT:
 			        	selCol = MinesweeperMath.mod(selCol - 1, colN);
@@ -545,7 +559,9 @@ public class MinesweeperView extends View {
 																				.getCell(selRow, selCol)
 																				.stateToString());
 			        	setSelectedRect(selCol, selRow, selRect);
-			            break;
+			        	if(zoomMode)
+			        		drawTransitionMode = true;
+			        	break;
 			        case KeyEvent.KEYCODE_DPAD_RIGHT:
 			        	selCol = MinesweeperMath.mod(selCol + 1, colN);
 			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,this
@@ -553,6 +569,8 @@ public class MinesweeperView extends View {
 																				.getCell(selRow, selCol)
 																				.stateToString());
 			        	setSelectedRect(selCol, selRow, selRect);
+			        	if(zoomMode)
+			        		drawTransitionMode = true;
 			            break;
 			        case KeyEvent.KEYCODE_DPAD_CENTER:
 			        	selectCell(selCol,selRow);

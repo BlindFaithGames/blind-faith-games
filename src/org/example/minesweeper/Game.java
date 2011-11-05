@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez This class
@@ -113,14 +116,24 @@ public class Game extends Activity implements OnClickListener,
 							}
 						});
 		AlertDialog newGameAlertDialog = newGameAlertDialogBuilder.create();
-		newGameAlertDialog.show();
-		Button button1 = newGameAlertDialog.getButton(DialogInterface.BUTTON1);
-		button1.setOnFocusChangeListener(this);
-		Button button2 = newGameAlertDialog.getButton(DialogInterface.BUTTON2);
-		button2.setOnFocusChangeListener(this);
-		Button button3 = newGameAlertDialog.getButton(DialogInterface.BUTTON3);
-		button3.setOnFocusChangeListener(this);
+		newGameAlertDialog.show(); 
+		ListView l = newGameAlertDialog.getListView();
+		l.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View view,
+					int position, long id) {
+				TextView option = (TextView) view;
+				if(mTts != null)
+						mTts.speak((String) option.getText(),
+									TextToSpeech.QUEUE_FLUSH, null);
+			}
 
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+		});
+		
 		if (mTts != null)
 			mTts.speak(
 					"Alert Dialog " + this.getString(R.string.easy_label) + " "
