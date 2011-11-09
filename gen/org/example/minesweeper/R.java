@@ -26,21 +26,31 @@ public final class R {
         public static final int puzzle_selected=0x7f070009;
     }
     public static final class drawable {
-        public static final int down_arrow=0x7f020000;
-        public static final int flag=0x7f020001;
-        public static final int icon=0x7f020002;
-        public static final int left_arrow=0x7f020003;
-        public static final int menu_background_hori=0x7f020004;
-        public static final int menu_background_vert=0x7f020005;
-        public static final int mine=0x7f020006;
-        public static final int minefield_background=0x7f020007;
-        public static final int right_arrow=0x7f020008;
-        public static final int selected_square_blue=0x7f020009;
-        public static final int selected_square_grey=0x7f02000a;
-        public static final int square_blue=0x7f02000b;
-        public static final int square_grey=0x7f02000c;
-        public static final int up_arrow=0x7f02000d;
-        public static final int win=0x7f02000e;
+        public static final int a2=0x7f020000;
+        public static final int down_arrow=0x7f020001;
+        public static final int down_arrow_old=0x7f020002;
+        public static final int down_arrow_pushed=0x7f020003;
+        public static final int flag=0x7f020004;
+        public static final int icon=0x7f020005;
+        public static final int left_arrow=0x7f020006;
+        public static final int left_arrow_old=0x7f020007;
+        public static final int left_arrow_pushed=0x7f020008;
+        public static final int menu_background_hori=0x7f020009;
+        public static final int menu_background_vert=0x7f02000a;
+        public static final int mine=0x7f02000b;
+        public static final int minefield_background=0x7f02000c;
+        public static final int minefield_background2=0x7f02000d;
+        public static final int right_arrow=0x7f02000e;
+        public static final int right_arrow_old=0x7f02000f;
+        public static final int right_arrow_pushed=0x7f020010;
+        public static final int selected_square_blue=0x7f020011;
+        public static final int selected_square_grey=0x7f020012;
+        public static final int square_blue=0x7f020013;
+        public static final int square_grey=0x7f020014;
+        public static final int up_arrow=0x7f020015;
+        public static final int up_arrow_old=0x7f020016;
+        public static final int up_arrow_pushed=0x7f020017;
+        public static final int win=0x7f020018;
     }
     public static final class id {
         public static final int about_button=0x7f0a0004;
