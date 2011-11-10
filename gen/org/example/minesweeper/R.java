@@ -10,6 +10,7 @@ package org.example.minesweeper;
 public final class R {
     public static final class array {
         public static final int difficulty=0x7f060000;
+        public static final int instructions=0x7f060001;
     }
     public static final class attr {
     }
@@ -53,18 +54,20 @@ public final class R {
         public static final int win=0x7f020018;
     }
     public static final class id {
-        public static final int about_button=0x7f0a0004;
+        public static final int about_button=0x7f0a0005;
         public static final int about_content=0x7f0a0000;
-        public static final int exit_button=0x7f0a0005;
-        public static final int instructions_button=0x7f0a0003;
-        public static final int instructions_content=0x7f0a0001;
-        public static final int new_button=0x7f0a0002;
-        public static final int settings=0x7f0a0006;
+        public static final int exit_button=0x7f0a0006;
+        public static final int instructions_button=0x7f0a0004;
+        public static final int instructions_controls_content=0x7f0a0001;
+        public static final int instructions_general_content=0x7f0a0002;
+        public static final int new_button=0x7f0a0003;
+        public static final int settings=0x7f0a0007;
     }
     public static final class layout {
         public static final int about=0x7f030000;
-        public static final int instructions=0x7f030001;
-        public static final int main=0x7f030002;
+        public static final int instructions_controls=0x7f030001;
+        public static final int instructions_general=0x7f030002;
+        public static final int main=0x7f030003;
     }
     public static final class menu {
         public static final int menu=0x7f090000;
@@ -74,12 +77,12 @@ public final class R {
         public static final int main=0x7f050001;
     }
     public static final class string {
-        public static final int LoseDialogTitle=0x7f080022;
-        public static final int LoseNegativeButtonLabel=0x7f080020;
-        public static final int LosePositiveButtonLabel=0x7f08001f;
-        public static final int WinDialogMessage=0x7f080024;
-        public static final int WinDialogTitle=0x7f080023;
-        public static final int WinPositiveButtonLabel=0x7f080021;
+        public static final int LoseDialogTitle=0x7f080027;
+        public static final int LoseNegativeButtonLabel=0x7f080025;
+        public static final int LosePositiveButtonLabel=0x7f080024;
+        public static final int WinDialogMessage=0x7f080029;
+        public static final int WinDialogTitle=0x7f080028;
+        public static final int WinPositiveButtonLabel=0x7f080026;
         public static final int about_label=0x7f08000a;
         public static final int about_text=0x7f08000d;
         public static final int about_title=0x7f08000c;
@@ -95,8 +98,13 @@ public final class R {
         public static final int gameOverMessage=0x7f080003;
         public static final int game_title=0x7f080017;
         public static final int hard_label=0x7f080016;
+        public static final int instructions_controls_label=0x7f08001f;
+        public static final int instructions_controls_text=0x7f080022;
+        public static final int instructions_controls_title=0x7f080020;
+        public static final int instructions_general_label=0x7f08001d;
+        public static final int instructions_general_text=0x7f080021;
+        public static final int instructions_general_title=0x7f08001e;
         public static final int instructions_label=0x7f08001b;
-        public static final int instructions_text=0x7f08001d;
         public static final int instructions_title=0x7f08001c;
         public static final int introMessage=0x7f080000;
         public static final int main_title=0x7f080007;
@@ -110,9 +118,9 @@ public final class R {
         public static final int settings_label=0x7f08000e;
         public static final int settings_shortcut=0x7f080010;
         public static final int settings_title=0x7f08000f;
-        public static final int synthetizer_title=0x7f08001e;
-        public static final int tts_summary=0x7f080026;
-        public static final int tts_title=0x7f080025;
+        public static final int synthetizer_title=0x7f080023;
+        public static final int tts_summary=0x7f08002b;
+        public static final int tts_title=0x7f08002a;
     }
     public static final class xml {
         public static final int settings=0x7f040000;

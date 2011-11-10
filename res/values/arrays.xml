@@ -5,5 +5,9 @@
 		<item>@string/easy_label</item>
 		<item>@string/medium_label</item>
 		<item>@string/hard_label</item>
+	</array>
+	<array name="instructions">
+		<item>@string/instructions_general_label</item>
+		<item>@string/instructions_controls_label</item>
 	</array>	
 </resources>

@@ -137,6 +137,12 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 			}
 		}
 	}
+	/** 
+	 * It reads control instructions
+	 * **/
+	public void mTtsActionControls(){
+		mTts.speak(getString(R.string.instructions_controls_text),TextToSpeech.QUEUE_FLUSH,null);
+	}
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is positive
 	 */
@@ -276,7 +282,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  Log.d(TAG, "Cambio de orientación de pantalla");
+	  Log.d(TAG, "Cambio de orientaciï¿½n de pantalla");
 	}
 
 	

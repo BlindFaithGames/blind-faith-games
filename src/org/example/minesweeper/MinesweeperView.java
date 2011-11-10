@@ -357,7 +357,7 @@ public class MinesweeperView extends View {
 	 * 
 	 * */
 	private void selectCell(int col, int row) {
-		// pinta la sección que ha sido deseleccionada
+		// pinta la secciï¿½n que ha sido deseleccionada
 		invalidate(selRect);
 		selCol = Math.min(Math.max(col, 0), colN);
 		selRow = Math.min(Math.max(row, 0), rowN);
@@ -523,6 +523,7 @@ public class MinesweeperView extends View {
 	 * if keyCode is DPAD_UP, DPAD_DOWN, DPAD_LEFT or DPAD_RIGHT then
 	 * if keyCode is SEARCH enables exploration mode
 	 * if keyCode is VOLUME_UP changes interface visualization (zoom mode)
+	 * if keyCode is VOLUME_DOWN changes interface visualization (zoom mode)
 	 * if keyCode is MENU then plays a voice synthesizer
 	 * if keyCode is BACK then the activity finish
 	 * */
@@ -586,6 +587,9 @@ public class MinesweeperView extends View {
 			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,"Zoom Mode" + (zoomMode ? " On" : " Off"));
 			        	invalidate();
 			            break;
+			        case KeyEvent.KEYCODE_VOLUME_DOWN:
+			        	this.game.mTtsActionControls();
+			            break;
 			        case KeyEvent.KEYCODE_MENU:
 			        	this.game.mTtsAction(null,Minesweeper.SPEECH_READ_CODE,"Position " 
 			        										+ selCol + " " + selRow + " State " 
@@ -605,5 +609,6 @@ public class MinesweeperView extends View {
 			invalidate(selRect);
 		return true;
 	}
+
 }
 

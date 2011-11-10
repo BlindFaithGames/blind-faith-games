@@ -32,8 +32,13 @@
                   android:configChanges="orientation"
                   android:screenOrientation = "portrait">
         </activity>
-         <activity android:name=".Instructions"
-                  android:label="@string/instructions_title"
+         <activity android:name=".InstructionsGeneral"
+                  android:label="@string/instructions_general_title"
+                  android:theme="@android:style/Theme.Dialog"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".InstructionsControls"
+                  android:label="@string/instructions_controls_title"
                   android:theme="@android:style/Theme.Dialog"
                   android:screenOrientation="portrait">
         </activity>

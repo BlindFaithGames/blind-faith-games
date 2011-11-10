@@ -7,7 +7,7 @@
     <string name="gameOverMessage">Fin de la partida!</string>
     <string name="resetButtonMessage">Reiniciar</string>
     <string name="exitButton">Exit</string>
-    <string name="app_name">Minesweepervb</string>
+    <string name="app_name">Minesweeper</string>
 	<string name="main_title">Android Minesweeper</string>
 	<string name="continue_label">Continue</string>
 	<string name="new_game_label">New Game</string>
@@ -17,6 +17,7 @@
 	<string name="about_text">\
 		Minesweeper is a single-player video game. The object 
 		of the game is to clear an abstract minefield without detonating a mine.
+		Computer Systems Project, 2011.
 	</string>
 	<string name="settings_label">Settings...</string>
 	<string name="settings_title">Minesweeper settings</string>
@@ -33,17 +34,40 @@
 	<string name="flags_shortcut">f</string>
 	<string name="instructions_label">Instructions</string>
 	<string name="instructions_title">Instructions Minesweeper</string>
-	<string name="instructions_text">\
+	<string name="instructions_general_label">Instructions</string>
+	<string name="instructions_general_title">Instructions Minesweeper</string>
+	<string name="instructions_controls_label">Controls</string>
+	<string name="instructions_controls_title">Controls Minesweeper</string>
+	<string name="instructions_general_text">\
 		The board is a grid of cells, and some of them are hiding a mine. Your 
-		goal is to find all of those mines, without detonating any of them.\n\n\n
-		To accomplish that, you can press any cell -dig mode- or mark -exploration mode- 
-		it with a flag,if you are sure it contains a mine. When you press a cell, several cells
-		can be discovered, and they will show you how many mines are around them.\n\n\n
-		If you want to play in explore mode - markings cells with flags - just
-		press menu button and you will be able to turn on that mode (do the same
-		to turn it of again).\n\n\n
+		goal is to find all of those mines, without detonating any of them.\n\n
+		To accomplish that, you can press any cell -dig mode- or mark it -exploration mode- 
+		with a flag,if you are sure it contains a mine. When you press a cell, several cells
+		can be discovered, and they will show you how many mines are around them.\n\n
+		\n\n
 		Options: make use of the settings while in the main menu in order to 
-		turn on coordinates service as well as music.
+		turn on Speech synthesizer as well as music.
+	</string>
+	<string name="instructions_controls_text">\
+		To play Android Minesweeper there are several controls you should know:\n\n
+		
+		Buttons, use:\n
+		- menu button - listen to cell coordinates\n 
+		- search button - switch between exploration and dig mode\n
+		- volume up button - turn on/off zoom mode\n
+		- volume down button - listen to controls hints\n\n
+		
+		Play with touch screen, use:\n
+		- one tap, to select a cell\n
+		- two taps, to dig a cell\n
+		- three taps, to explore a cell\n
+		- drag, to listen different features of the cell\n\n
+		
+		Play with keyboard, use:\n
+		- arrows, to select a cell\n
+		- enter button or similar, to dig or explore\n\n
+		
+		While in zoom mode, enter button or tap to dig or explore.
 	</string>
 	<string name="synthetizer_title">Synthetizer</string>
 	<string name="LosePositiveButtonLabel">Reset</string>

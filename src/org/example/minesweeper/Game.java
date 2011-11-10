@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez This class
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier ï¿½lvarez This class
  *         implements the main activity
  */
 
@@ -82,8 +82,7 @@ public class Game extends Activity implements OnClickListener,
 			startActivity(i);
 			break;
 		case R.id.instructions_button:
-			Intent j = new Intent(this, Instructions.class);
-			startActivity(j);
+			openInstructionsDialog();
 			break;
 		case R.id.new_button:
 			openNewGameDialog();
@@ -136,12 +135,49 @@ public class Game extends Activity implements OnClickListener,
 		
 		if (mTts != null)
 			mTts.speak(
-					"Alert Dialog " + this.getString(R.string.easy_label) + " "
+					"Alert Dialog Difficulty " + this.getString(R.string.easy_label) + " "
 							+ this.getString(R.string.medium_label) + " "
 							+ this.getString(R.string.hard_label),
 					TextToSpeech.QUEUE_FLUSH, null);
 	}
 
+	
+	/** Ask the user what difficulty level want */
+	private void openInstructionsDialog() {
+		Builder instructionsAlertDialogBuilder = new AlertDialog.Builder(this)
+				.setTitle(R.string.instructions_title).setItems(R.array.instructions,
+						new DialogInterface.OnClickListener() {
+							public void onClick(
+									DialogInterface dialoginterface, int i) {
+								startInstructions(i);
+							}
+						});
+		AlertDialog instructionsAlertDialog = instructionsAlertDialogBuilder.create();
+		instructionsAlertDialog.show(); 
+		ListView l = instructionsAlertDialog.getListView();
+		l.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View view,
+					int position, long id) {
+				TextView option = (TextView) view;
+				if(mTts != null)
+						mTts.speak((String) option.getText(),
+									TextToSpeech.QUEUE_FLUSH, null);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+		});
+		
+		if (mTts != null)
+			mTts.speak(
+					"Alert Dialog Instructions " + this.getString(R.string.instructions_general_label) + " "
+							+ this.getString(R.string.instructions_controls_label),
+					TextToSpeech.QUEUE_FLUSH, null);
+	}
+	
 	/** Start a new game with the given difficulty level */
 	private void startGame(int i) {
 		Log.d(TAG, "clicked on " + i);
@@ -151,6 +187,17 @@ public class Game extends Activity implements OnClickListener,
 		startActivityForResult(intent, RESET_CODE);
 	}
 
+	
+	/** Start an Instructions screen, with the option given: controls or general **/
+	private void startInstructions(int i) {
+		Intent intent;
+		if(i==0)
+			intent = new Intent(Game.this, InstructionsGeneral.class);
+		else 
+			intent = new Intent(Game.this, InstructionsControls.class);
+		startActivity(intent);
+	}
+	
 	/**
 	 * Operates on the outcome of the game
 	 */
@@ -198,7 +245,7 @@ public class Game extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * ------------------------------------------------------------ Música
+	 * ------------------------------------------------------------ Mï¿½sica
 	 * ---------------------------------------------------------------
 	 */
 	@Override
