@@ -11,7 +11,7 @@ import android.speech.tts.TextToSpeech;
  * This class implements the preferences activity, where you can choose whether disable or enable sounds
  */
 
-public class Prefs extends PreferenceActivity {
+public class Prefs extends PreferenceActivity{
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
 	private static final boolean OPT_MUSIC_DEF = false;

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1">
+
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Zoom mode on/off"
+            android:padding="3dip" />
+	    <Spinner 
+	        android:id="@+id/spinnerZoom"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:prompt="@string/key_prompt"/>
+    </TableRow>
+
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Exploration mode on/off"
+            android:padding="3dip" />
+	    <Spinner 
+	        android:id="@+id/spinnerExploration"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:prompt="@string/key_prompt" />
+    </TableRow>
+
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Instructions"
+            android:padding="3dip" />
+	    <Spinner 
+	        android:id="@+id/spinnerInstructions"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:prompt="@string/key_prompt"/>
+    </TableRow>
+    
+     <View
+	     android:layout_height="2dip"
+	     android:background="#FF909090" />
+    
+     <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Coordinates"
+            android:padding="3dip" />
+	    <Spinner 
+	        android:id="@+id/spinnerCoordinates"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:prompt="@string/key_prompt" />
+    </TableRow>
+
+    <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+
+</TableLayout>

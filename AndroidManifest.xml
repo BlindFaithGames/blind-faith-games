@@ -42,5 +42,9 @@
                   android:theme="@android:style/Theme.Dialog"
                   android:screenOrientation="portrait">
         </activity>
+                <activity android:name=".KeyConf"
+                  android:label="@string/keyConf_label"
+                  android:screenOrientation="portrait">
+        </activity>
     </application>
 </manifest>

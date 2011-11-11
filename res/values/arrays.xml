@@ -10,4 +10,12 @@
 		<item>@string/instructions_general_label</item>
 		<item>@string/instructions_controls_label</item>
 	</array>	
+	<array name="keys">
+		<item>@string/volume_up</item>
+		<item>@string/volume_down</item>
+		<item>@string/home</item>
+		<item>@string/back</item>
+		<item>@string/options</item>
+		<item>@string/search</item>
+	</array>
 </resources>

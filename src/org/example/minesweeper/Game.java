@@ -227,8 +227,10 @@ public class Game extends Activity implements OnClickListener,
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-		if (mTts != null)
+		if (mTts != null){
 			mTts.speak("Menu Settings", TextToSpeech.QUEUE_FLUSH, null);
+			mTts.speak("Key Configurations", TextToSpeech.QUEUE_FLUSH, null);
+		}
 		return true;
 	}
 
@@ -239,8 +241,12 @@ public class Game extends Activity implements OnClickListener,
 		switch (item.getItemId()) {
 		case R.id.settings:
 			startActivity(new Intent(this, Prefs.class));
-			return true;
+			return true; 
+		case R.id.keyConf:
+			startActivity(new Intent(this, KeyConf.class));
+			return true; 
 		}
+
 		return false;
 	}
 
