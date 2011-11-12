@@ -86,4 +86,13 @@
 	<string name="back">Back</string>
 	<string name="options">Options</string>
 	<string name="search">Search</string>
+	<string name="alert_dialog_difficulty_TTStext">Alert Dialog difficulty</string>
+	<string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
+	<string name="main_menu_initial_TTStext">Main menu</string>  
+	<string name="settings_menu_initial_TTStext">Menu settings</string>  
+	<string name="game_initial_TTStext">Game started!</string>  
+	<string name="exploration_mode_TTStext">Exploration mode</string>  
+	<string name="zoom_mode_TTStext">Zoom mode</string>  
+	<string name="coordinates_information_button_TTStext">Position</string>  
+	<string name="key_configuration_menu_initial_TTStext">key configuration</string>
 </resources>

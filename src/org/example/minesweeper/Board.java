@@ -42,15 +42,6 @@ public class Board {
 		// To calculate each block value
 		allocateValues(board);
 		
-		for (int row = 0; row < rowN; row++) {
-			for (int col = 0; col < colN; col++) {
-				if (board[row][col].getState() != CellStates.MINE)
-					System.out.print(board[row][col].getValue() + " ");
-				else
-					System.out.print("M ");
-			}
-			System.out.println();
-		}
 	}
 
 	public CellStates getCellState(int row, int col) {

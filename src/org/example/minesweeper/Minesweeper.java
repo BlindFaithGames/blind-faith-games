@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -17,7 +16,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 
 	private static final String TAG = "Minesweeper";
 
-	public static final String KEY_DIFFICULTY = "org.example.minesweeper.difficulty";
 	public static final int DIFFICULTY_EASY = 0;
 	public static final int DIFFICULTY_MEDIUM = 1;
 	public static final int DIFFICULTY_HARD = 2;
@@ -33,7 +31,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	
 	private MinesweeperView minesweeperView;
 	
-	private TextToSpeech mTts;
+	private TTS textToSpeech;
 	
 	private boolean flagMode;
 	
@@ -56,7 +54,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate"); // Debug
-		int difficult = getIntent().getIntExtra(KEY_DIFFICULTY, DIFFICULTY_EASY);
+		int difficult = getIntent().getIntExtra(Game.KEY_DIFFICULTY, DIFFICULTY_EASY);
 		
 		// Start game
 		mineField = new Board(difficult);
@@ -72,11 +70,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 		buildEndingDialog();
 		
 	
-		OnInitTTS initialize = new OnInitTTS(mTts);
-		if(OnInitTTS.isInstalled(this) && Prefs.getTTS(this)){
-			mTts = new TextToSpeech(this,initialize);
-			initialize.setmTts(mTts);
-		}
+		// Initialize TTS engine
+		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(this.getString(R.string.game_initial_TTStext));
 	}
 	
 	/**
@@ -85,7 +82,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		if(hasFocus){
-			mTtsAction(v,VIEW_READ_CODE,null);	
+			mTtsAction(VIEW_READ_CODE,null);	
 		}
 	}
 	
@@ -100,7 +97,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 		Button buttonNegative = loseDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 		buttonNegative.setContentDescription(getString(R.string.LoseNegativeButtonLabel));
 		buttonNegative.setOnFocusChangeListener(this);
-		mTtsAction(null, SPEECH_READ_CODE, "AlerDialog: A mine!! " 
+		mTtsAction(SPEECH_READ_CODE, "AlerDialog: A mine!! " 
 											+ getString(R.string.LoseDialogTitle) + " "
 											+ getString(R.string.LosePositiveButtonLabel) + " "
 											+ getString(R.string.LoseNegativeButtonLabel));
@@ -114,34 +111,31 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 		Button buttonPositive = winDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 		buttonPositive.setContentDescription(getString(R.string.WinPositiveButtonLabel));
 		buttonPositive.setOnFocusChangeListener(this);
-		mTtsAction(null, SPEECH_READ_CODE, "AlerDialog " 
+		mTtsAction(SPEECH_READ_CODE, "AlerDialog " 
 								+ getString(R.string.WinDialogTitle) 
 								+ getString(R.string.WinDialogMessage)  
 								+ getString(R.string.WinPositiveButtonLabel));
 	}
 	
 	/**
-	 * If action is IMAGE_BUTTON_READ_CODE, it reads cell state and value.
 	 * If action is VIEW_READ_CODE, it reads contentDescription Attribute.
 	 * If action is SPEECH_READ_CODE, it reads speech.
 	 * **/
-	public void mTtsAction(View v, int action, String speech){
-		if(mTts != null){
-			switch(action){
-			case VIEW_READ_CODE:
-				mTts.speak(v.getContentDescription().toString(),TextToSpeech.QUEUE_ADD,null);
-				break;
-			case SPEECH_READ_CODE:
-				mTts.speak(speech,TextToSpeech.QUEUE_FLUSH,null);
-				break;
-			}
+	public void mTtsAction(int action, Object speech){
+		switch(action){
+		case VIEW_READ_CODE:
+			textToSpeech.speak((View)speech);
+			break;
+		case SPEECH_READ_CODE:
+			textToSpeech.speak((String)speech);
+			break;
 		}
 	}
 	/** 
 	 * It reads control instructions
 	 * **/
 	public void mTtsActionControls(){
-		mTts.speak(getString(R.string.instructions_controls_text),TextToSpeech.QUEUE_FLUSH,null);
+		textToSpeech.speak(getString(R.string.instructions_controls_text));
 	}
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is positive
@@ -282,7 +276,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  Log.d(TAG, "Cambio de orientaci�n de pantalla");
+	  Log.d(TAG, "Cambio de orientacion de pantalla");
 	}
 
 	
@@ -309,10 +303,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-        if (mTts != null) {
-            mTts.stop();
-            mTts.shutdown();
-        }
+        textToSpeech.stop();
 	}
 	
 	

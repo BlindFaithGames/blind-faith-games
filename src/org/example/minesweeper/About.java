@@ -2,7 +2,6 @@ package org.example.minesweeper;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
@@ -11,7 +10,7 @@ import android.speech.tts.TextToSpeech;
 
 public class About extends Activity{
 
-	private TextToSpeech mTts;
+	private TTS textToSpeech;
 	
 	/** Called when the activity is first created. */
 	
@@ -20,13 +19,10 @@ public class About extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);	
 		
-		// This initialize TTS engine
-		// Checking if TTS is installed on device
-		OnInitTTS initialize = new OnInitTTS(mTts,getString(R.string.about_title) + " " + getString(R.string.about_text));
-		if (OnInitTTS.isInstalled(this) && Prefs.getTTS(this)){
-			mTts = new TextToSpeech(this,initialize);
-			initialize.setmTts(mTts);
-		}
+		// Initialize TTS engine
+		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(getString(R.string.about_title) + " " + getString(R.string.about_text));
 	}
 	
 	/**
@@ -35,9 +31,6 @@ public class About extends Activity{
 	@Override
 	protected void onDestroy() {
 		 super.onDestroy();
-        if (mTts != null) {
-            mTts.stop();
-            mTts.shutdown();
-        }
+	     textToSpeech.stop();
 	}
 }

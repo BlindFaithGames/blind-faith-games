@@ -6,7 +6,6 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,9 +28,12 @@ public class Game extends Activity implements OnClickListener,
 	private static final String TAG = "Minesweeper";
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
+	
+	public static final String KEY_TTS = "org.example.game.TTS";
+	public static final String KEY_DIFFICULTY = "org.example.game.difficulty";
 
 	private int difficult;
-	private TextToSpeech mTts;
+	private TTS textToSpeech;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -39,10 +41,6 @@ public class Game extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		init();
-	}
-
-	public void init() {
 		View newButton = findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
@@ -57,18 +55,13 @@ public class Game extends Activity implements OnClickListener,
 		exitButton.setOnFocusChangeListener(this);
 
 		// Checking if TTS is installed on device
-		OnInitTTS initialize = new OnInitTTS(mTts, "Main Menu minesweeper "
+		textToSpeech = new TTS(this, "Main Menu minesweeper "
 				+ newButton.getContentDescription() + " "
 				+ instructionsButton.getContentDescription() + " "
 				+ aboutButton.getContentDescription() + " "
-				+ exitButton.getContentDescription());
-		if (!Prefs.getTTS(this) && mTts != null)
-			mTts = null;
-
-		if (OnInitTTS.isInstalled(this) && Prefs.getTTS(this)) {
-			mTts = new TextToSpeech(this, initialize);
-			initialize.setmTts(mTts);
-		}
+				+ exitButton.getContentDescription(),TTS.QUEUE_FLUSH);
+		
+		textToSpeech.setEnabled(Prefs.getTTS(this));
 	}
 
 	/**
@@ -79,6 +72,7 @@ public class Game extends Activity implements OnClickListener,
 		switch (arg0.getId()) {
 		case R.id.about_button:
 			Intent i = new Intent(this, About.class);
+			i.putExtra(KEY_TTS, textToSpeech);
 			startActivity(i);
 			break;
 		case R.id.instructions_button:
@@ -98,9 +92,8 @@ public class Game extends Activity implements OnClickListener,
 	 * */
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		if (hasFocus && mTts != null) {
-			mTts.speak(v.getContentDescription().toString(),
-					TextToSpeech.QUEUE_FLUSH, null);
+		if (hasFocus) {
+			textToSpeech.speak(v);
 		}
 	}
 
@@ -122,9 +115,9 @@ public class Game extends Activity implements OnClickListener,
 			public void onItemSelected(AdapterView<?> arg0, View view,
 					int position, long id) {
 				TextView option = (TextView) view;
-				if(mTts != null)
-						mTts.speak((String) option.getText(),
-									TextToSpeech.QUEUE_FLUSH, null);
+				textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+				textToSpeech.speak((String) option.getText());
+				textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 			}
 
 			@Override
@@ -133,16 +126,13 @@ public class Game extends Activity implements OnClickListener,
 			}
 		});
 		
-		if (mTts != null)
-			mTts.speak(
-					"Alert Dialog Difficulty " + this.getString(R.string.easy_label) + " "
+		textToSpeech.speak(this.getString(R.string.alert_dialog_difficulty_TTStext) +  " " + this.getString(R.string.easy_label) + " "
 							+ this.getString(R.string.medium_label) + " "
-							+ this.getString(R.string.hard_label),
-					TextToSpeech.QUEUE_FLUSH, null);
+							+ this.getString(R.string.hard_label));
 	}
 
 	
-	/** Ask the user what difficulty level want */
+	/** Ask the user what type of instructions*/
 	private void openInstructionsDialog() {
 		Builder instructionsAlertDialogBuilder = new AlertDialog.Builder(this)
 				.setTitle(R.string.instructions_title).setItems(R.array.instructions,
@@ -155,14 +145,18 @@ public class Game extends Activity implements OnClickListener,
 		AlertDialog instructionsAlertDialog = instructionsAlertDialogBuilder.create();
 		instructionsAlertDialog.show(); 
 		ListView l = instructionsAlertDialog.getListView();
+		
+		textToSpeech.speak(this.getString(R.string.alert_dialog_instructions_TTStext)+ this.getString(R.string.instructions_general_label) + " "
+							+ this.getString(R.string.instructions_controls_label));
+		
 		l.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View view,
 					int position, long id) {
 				TextView option = (TextView) view;
-				if(mTts != null)
-						mTts.speak((String) option.getText(),
-									TextToSpeech.QUEUE_FLUSH, null);
+				textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+				textToSpeech.speak((String) option.getText());
+				textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 			}
 
 			@Override
@@ -170,19 +164,14 @@ public class Game extends Activity implements OnClickListener,
 				
 			}
 		});
-		
-		if (mTts != null)
-			mTts.speak(
-					"Alert Dialog Instructions " + this.getString(R.string.instructions_general_label) + " "
-							+ this.getString(R.string.instructions_controls_label),
-					TextToSpeech.QUEUE_FLUSH, null);
 	}
 	
 	/** Start a new game with the given difficulty level */
 	private void startGame(int i) {
 		Log.d(TAG, "clicked on " + i);
 		Intent intent = new Intent(Game.this, Minesweeper.class);
-		intent.putExtra(Minesweeper.KEY_DIFFICULTY, i);
+		intent.putExtra(KEY_TTS, textToSpeech);
+		intent.putExtra(KEY_DIFFICULTY, i);
 		difficult = i;
 		startActivityForResult(intent, RESET_CODE);
 	}
@@ -195,6 +184,9 @@ public class Game extends Activity implements OnClickListener,
 			intent = new Intent(Game.this, InstructionsGeneral.class);
 		else 
 			intent = new Intent(Game.this, InstructionsControls.class);
+		
+		intent.putExtra(KEY_TTS, textToSpeech);
+		
 		startActivity(intent);
 	}
 	
@@ -205,9 +197,9 @@ public class Game extends Activity implements OnClickListener,
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case (RESET_CODE):
-			Intent nextIntent = new Intent(getApplicationContext(),
-					Minesweeper.class);
-			nextIntent.putExtra(Minesweeper.KEY_DIFFICULTY, difficult);
+			Intent nextIntent = new Intent(getApplicationContext(),Minesweeper.class);
+			nextIntent.putExtra(KEY_TTS, textToSpeech);
+			nextIntent.putExtra(KEY_DIFFICULTY, difficult);
 			startActivityForResult(nextIntent, RESET_CODE);
 			break;
 		case (EXIT_GAME_CODE):
@@ -227,10 +219,10 @@ public class Game extends Activity implements OnClickListener,
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-		if (mTts != null){
-			mTts.speak("Menu Settings", TextToSpeech.QUEUE_FLUSH, null);
-			mTts.speak("Key Configurations", TextToSpeech.QUEUE_FLUSH, null);
-		}
+		textToSpeech.speak(this.getString(R.string.settings_menu_initial_TTStext));
+		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+		textToSpeech.speak(this.getString(R.string.key_configuration_menu_initial_TTStext));
+		textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 		return true;
 	}
 
@@ -240,27 +232,29 @@ public class Game extends Activity implements OnClickListener,
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.settings:
-			startActivity(new Intent(this, Prefs.class));
-			return true; 
+			Intent i = new Intent(this, Prefs.class);
+			i.putExtra(KEY_TTS, textToSpeech);
+			startActivity(i);
+			return true;
 		case R.id.keyConf:
 			startActivity(new Intent(this, KeyConf.class));
-			return true; 
+			return true;
 		}
-
 		return false;
 	}
 
 	/**
-	 * ------------------------------------------------------------ M�sica
+	 * ------------------------------------------------------------ Musica
 	 * ---------------------------------------------------------------
 	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		Music.play(this, R.raw.main);
-		init();
-		if (mTts != null)
-			mTts.speak("Main Menu", TextToSpeech.QUEUE_FLUSH, null);
+		
+		textToSpeech.setEnabled(Prefs.getTTS(this));
+		
+		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 	}
 
 	@Override
@@ -275,9 +269,6 @@ public class Game extends Activity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if (mTts != null) {
-			mTts.stop();
-			mTts.shutdown();
-		}
+		textToSpeech.stop();
 	}
 }

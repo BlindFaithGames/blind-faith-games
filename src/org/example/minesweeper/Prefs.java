@@ -4,34 +4,30 @@ import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.speech.tts.TextToSpeech;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
  * This class implements the preferences activity, where you can choose whether disable or enable sounds
  */
 
-public class Prefs extends PreferenceActivity{
+public class Prefs extends PreferenceActivity {
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
 	private static final boolean OPT_MUSIC_DEF = false;
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
 	
-	private TextToSpeech mTts;
+	private TTS textToSpeech;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
-		//ListPreference list = ListPreference();
-		// This initialize TTS engine
-		// Checking if TTS is installed on device
-		OnInitTTS initialize = new OnInitTTS(mTts,findPreference(OPT_MUSIC).toString() + findPreference(OPT_TTS).toString());
-		if(OnInitTTS.isInstalled(this) && getTTS(this)){
-			mTts = new TextToSpeech(this,initialize);
-			initialize.setmTts(mTts);
-		}
+		
+		// Initialize TTS engine
+		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(findPreference(OPT_MUSIC).toString() + findPreference(OPT_TTS).toString());
 	}
 
 	/**
@@ -40,10 +36,7 @@ public class Prefs extends PreferenceActivity{
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-        if (mTts != null) {
-            mTts.stop();
-            mTts.shutdown();
-        }
+	    textToSpeech.stop();
 	}
 	
 	/** Get the current value of the music option */
