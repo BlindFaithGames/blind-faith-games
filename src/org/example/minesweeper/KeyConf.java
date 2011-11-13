@@ -2,46 +2,71 @@ package org.example.minesweeper;
 
 import java.util.HashMap;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.example.minesweeper.XML.KeyboardWriter;
+import org.example.minesweeper.XML.XMLKeyboard;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.Button;
 
-enum Actions{ZOOM, EXPLORATION, INSTRUCTIONS, COORD};
 
-public class KeyConf extends Activity implements OnKeyListener,OnItemSelectedListener{
-	
-	private HashMap<Actions, Integer> map;
+public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeListener, OnClickListener {
+	private KeyboardWriter writer;
+	private HashMap<Integer, String> keyList;
+	private XMLKeyboard keyboard;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.keyconf);	
-		map = new HashMap();
-		Spinner spinnerZoom = (Spinner) findViewById(R.id.spinnerZoom);
-		spinnerZoom.setOnItemSelectedListener(this);
-	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-	            this, R.array.keys, android.R.layout.simple_spinner_item);
-	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    spinnerZoom.setAdapter(adapter);
 		
-		Spinner spinnerExploration = (Spinner) findViewById(R.id.spinnerExploration);	
-		spinnerExploration.setOnItemSelectedListener(this);
-		spinnerExploration.setAdapter(adapter);
+		keyboard = Input.getInstance();
 		
-		Spinner spinnerInstructions = (Spinner) findViewById(R.id.spinnerInstructions);
-		spinnerInstructions.setOnItemSelectedListener(this);
-		spinnerInstructions.setAdapter(adapter);
+		Button buttonZoom = (Button) findViewById(R.id.buttonZoom);
+		buttonZoom.setText(keyboard.searchButtonByAction("zoom"));
+		buttonZoom.setOnFocusChangeListener(this);
+		buttonZoom.setOnClickListener(this);
 		
-		Spinner spinnerCoordinates = (Spinner) findViewById(R.id.spinnerCoordinates);
-		spinnerCoordinates.setOnItemSelectedListener(this);
-		spinnerCoordinates.setAdapter(adapter);
+		
+		Button buttonExploration = (Button) findViewById(R.id.buttonExploration);
+		System.out.println(keyboard.searchButtonByAction("exploration"));
+		buttonExploration.setText(keyboard.searchButtonByAction("exploration"));
+		buttonExploration.setOnFocusChangeListener(this);
+		buttonExploration.setOnClickListener(this);
+
+		
+		Button buttonInstructions = (Button) findViewById(R.id.buttonInstructions);
+		buttonInstructions.setText(keyboard.searchButtonByAction("instructions"));
+		buttonInstructions.setOnFocusChangeListener(this);
+		buttonInstructions.setOnClickListener(this);
+
+		
+		Button buttonCoordinates = (Button) findViewById(R.id.buttonCoordinates);
+		buttonCoordinates.setText(keyboard.searchButtonByAction("coordinates"));
+		buttonCoordinates.setOnFocusChangeListener(this);
+		buttonCoordinates.setOnClickListener(this);
+
+	}
+	
+	/**
+	 * Guarda el teclado editado
+	 * @throws ParserConfigurationException 
+	 */
+	public void saveEditedKeyboard(String fichero){
+		// Si el writer no ha sido aún creado, lo creamos
+		if (writer == null)
+			writer = new KeyboardWriter();
+		try{
+			writer.saveEditedKeyboard(4, keyList, "data/minesweeper.xml");
+		}
+		catch(ParserConfigurationException e){}
 	}
 
 	@Override
@@ -50,25 +75,13 @@ public class KeyConf extends Activity implements OnKeyListener,OnItemSelectedLis
 	}
 
 	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
-		String s = "";
-		switch (parent.getId()){
-		case R.id.spinnerZoom: s = "Zoom";
-			map.put(Actions.ZOOM, KeyEvent.KEYCODE_VOLUME_UP);
-			break;
-		case R.id.spinnerExploration: s = "Exploration";
-			break;
-		case R.id.spinnerInstructions: s = "Instructions";
-			break;
-		case R.id.spinnerCoordinates: s = "Coordinates";
-			break;
-		}
-	      Toast.makeText(parent.getContext(), "The changed option is " + s +
-	              parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
+	public void onFocusChange(View arg0, boolean arg1) {
 		// TODO Auto-generated method stub
 		
 	}

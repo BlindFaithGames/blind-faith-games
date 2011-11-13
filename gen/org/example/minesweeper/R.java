@@ -11,7 +11,6 @@ public final class R {
     public static final class array {
         public static final int difficulty=0x7f060000;
         public static final int instructions=0x7f060001;
-        public static final int keys=0x7f060002;
     }
     public static final class attr {
     }
@@ -57,6 +56,10 @@ public final class R {
     public static final class id {
         public static final int about_button=0x7f0a0009;
         public static final int about_content=0x7f0a0000;
+        public static final int buttonCoordinates=0x7f0a0006;
+        public static final int buttonExploration=0x7f0a0004;
+        public static final int buttonInstructions=0x7f0a0005;
+        public static final int buttonZoom=0x7f0a0003;
         public static final int exit_button=0x7f0a000a;
         public static final int instructions_button=0x7f0a0008;
         public static final int instructions_controls_content=0x7f0a0001;
@@ -64,10 +67,6 @@ public final class R {
         public static final int keyConf=0x7f0a000c;
         public static final int new_button=0x7f0a0007;
         public static final int settings=0x7f0a000b;
-        public static final int spinnerCoordinates=0x7f0a0006;
-        public static final int spinnerExploration=0x7f0a0004;
-        public static final int spinnerInstructions=0x7f0a0005;
-        public static final int spinnerZoom=0x7f0a0003;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -93,17 +92,26 @@ public final class R {
         public static final int about_label=0x7f08000b;
         public static final int about_text=0x7f08000e;
         public static final int about_title=0x7f08000d;
+        public static final int alert_dialog_difficulty_TTStext=0x7f080034;
+        public static final int alert_dialog_instructions_TTStext=0x7f080035;
         public static final int app_name=0x7f080006;
         public static final int back=0x7f080031;
         public static final int buttonMessage=0x7f080001;
+        public static final int button_coord=0x7f08003d;
+        public static final int button_exploration=0x7f080040;
+        public static final int button_instr=0x7f08003e;
+        public static final int button_zoom=0x7f08003f;
         public static final int continue_label=0x7f080008;
+        public static final int coordinates_information_button_TTStext=0x7f08003b;
         public static final int easy_label=0x7f080015;
         public static final int exitButton=0x7f080005;
         public static final int exit_label=0x7f08000c;
+        public static final int exploration_mode_TTStext=0x7f080039;
         public static final int flags_label=0x7f080019;
         public static final int flags_shortcut=0x7f08001b;
         public static final int flags_title=0x7f08001a;
         public static final int gameOverMessage=0x7f080003;
+        public static final int game_initial_TTStext=0x7f080038;
         public static final int game_title=0x7f080018;
         public static final int hard_label=0x7f080017;
         public static final int home=0x7f080030;
@@ -117,7 +125,9 @@ public final class R {
         public static final int instructions_title=0x7f08001d;
         public static final int introMessage=0x7f080000;
         public static final int keyConf_label=0x7f08000a;
+        public static final int key_configuration_menu_initial_TTStext=0x7f08003c;
         public static final int key_prompt=0x7f08002d;
+        public static final int main_menu_initial_TTStext=0x7f080036;
         public static final int main_title=0x7f080007;
         public static final int medium_label=0x7f080016;
         public static final int minesweeperActivity=0x7f080002;
@@ -129,6 +139,7 @@ public final class R {
         public static final int resetButtonMessage=0x7f080004;
         public static final int search=0x7f080033;
         public static final int settings_label=0x7f08000f;
+        public static final int settings_menu_initial_TTStext=0x7f080037;
         public static final int settings_shortcut=0x7f080011;
         public static final int settings_title=0x7f080010;
         public static final int synthetizer_title=0x7f080024;
@@ -136,6 +147,7 @@ public final class R {
         public static final int tts_title=0x7f08002b;
         public static final int volume_down=0x7f08002f;
         public static final int volume_up=0x7f08002e;
+        public static final int zoom_mode_TTStext=0x7f08003a;
     }
     public static final class xml {
         public static final int settings=0x7f040000;

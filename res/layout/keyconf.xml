@@ -9,11 +9,13 @@
             android:layout_column="1"
             android:text="Zoom mode on/off"
             android:padding="3dip" />
-	    <Spinner 
-	        android:id="@+id/spinnerZoom"
+	    <Button 
+	        android:id="@+id/buttonZoom"
 	        android:layout_width="fill_parent"
+	        android:text="zoom"
 	        android:layout_height="wrap_content"
-	        android:prompt="@string/key_prompt"/>
+	        android:prompt="@string/key_prompt"
+	        android:contentDescription="@string/button_zoom"/>
     </TableRow>
 
     <View
@@ -25,11 +27,13 @@
             android:layout_column="1"
             android:text="Exploration mode on/off"
             android:padding="3dip" />
-	    <Spinner 
-	        android:id="@+id/spinnerExploration"
+	    <Button 
+	        android:id="@+id/buttonExploration"
 	        android:layout_width="fill_parent"
+	        android:text="exploration"
 	        android:layout_height="wrap_content"
-	        android:prompt="@string/key_prompt" />
+	        android:prompt="@string/key_prompt" 
+	        android:contentDescription="@string/button_exploration"/>
     </TableRow>
 
     <View
@@ -41,11 +45,13 @@
             android:layout_column="1"
             android:text="Instructions"
             android:padding="3dip" />
-	    <Spinner 
-	        android:id="@+id/spinnerInstructions"
+	    <Button 
+	        android:id="@+id/buttonInstructions"
 	        android:layout_width="fill_parent"
+	        android:text="instructions"
 	        android:layout_height="wrap_content"
-	        android:prompt="@string/key_prompt"/>
+	        android:prompt="@string/key_prompt"
+	        android:contentDescription="@string/button_instr"/>
     </TableRow>
     
      <View
@@ -57,11 +63,13 @@
             android:layout_column="1"
             android:text="Coordinates"
             android:padding="3dip" />
-	    <Spinner 
-	        android:id="@+id/spinnerCoordinates"
+	    <Button
+	        android:id="@+id/buttonCoordinates"
 	        android:layout_width="fill_parent"
+	        android:text="coordinates"
 	        android:layout_height="wrap_content"
-	        android:prompt="@string/key_prompt" />
+	        android:prompt="@string/key_prompt"
+	        android:contentDescription="@string/button_coord" />
     </TableRow>
 
     <View
