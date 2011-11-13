@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.minesweeper.Cell.CellStates;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;

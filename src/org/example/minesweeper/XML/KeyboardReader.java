@@ -23,27 +23,22 @@ public class KeyboardReader {
 	 * @param fichero Fichero XML.
 	 * @return El teclado creado.
 	 */
-	public XMLKeyboard loadEditedKeyboard(String fichero){
-		//Archivo a procesar, debe tener una referencia a la DTD
-		File XMLfile = new File(fichero);
-		SAXHandler saxHandler = new SAXHandler();
-		
-		//Creamos la factoría y la configuramos con validación
-		SAXParserFactory factory = SAXParserFactory.newInstance(); 
-		factory.setValidating(true);
-
-		//Creamos el parser y leemos
-		SAXParser parser;
+	public XMLKeyboard loadEditedKeyboard(String fichero) {
 		try {
-			parser = factory.newSAXParser();
-			parser.parse(XMLfile, saxHandler);
-		} catch (SAXException e) {
+			
+			/** Handling XML */
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser sp = factory.newSAXParser();
+
+			/** Create handler to handle XML Tags ( extends DefaultHandler ) */
+			SAXHandler saxHandler = new SAXHandler();
+			sp.parse(new File(fichero), saxHandler);
+			
+			return saxHandler.getXMLKeyboard();
+			
+		} catch (Exception e) {
+			System.out.println("XML Pasing Excpetion = " + e);
 			return null;
-		} catch (IOException e) {
-			return null;
-		} catch (ParserConfigurationException e) {
-			return null;
-		}
-		return saxHandler.getXMLKeyboard();
+		}		
 	}
 }

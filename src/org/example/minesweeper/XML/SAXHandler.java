@@ -9,8 +9,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class SAXHandler extends DefaultHandler {
 	private XMLKeyboard k;
-	private int counter, num;
-	private String action, key;
+	private int counter;
+	private String action;
+	private int key;
 
 	
 	public XMLKeyboard getXMLKeyboard() {
@@ -29,25 +30,23 @@ public class SAXHandler extends DefaultHandler {
 	}	
 	
 	public void startElement(String uri, String localName, String qName, Attributes att){
-		if (qName.equals("keyboard")){
-			num = Integer.parseInt(att.getValue("num"));
+		if (qName.equals("keyboard")){			
 			k = new XMLKeyboard();
+			k.setNum(Integer.parseInt(att.getValue("num")));
 		}
 		else if (qName.equals("rowmap")){
 			action = att.getValue("action");
-		}
-		else if (qName.equals("key")){
-			key = att.getValue("key");
-		}		
+			key = Integer.parseInt(att.getValue("key"));
+		}	
 	}
 
 	public void endElement(String uri, String localName, String qName){
 		if (qName.equals("rowmap")){
-			k.addObject(new KeyObject(action, key));
+			k.addObject(key, action);
 			counter++;
 		}		
 		else if (qName.equals("keyboard")){
-			if (counter != num)
+			if (counter != k.getNum())
 				k.riseNumberOfErrors(1);
 		}
 	}

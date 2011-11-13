@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE keyboard SYSTEM "minesweeper.dtd">
 <keyboard num="4">
-	<rowmap action="zoom" key="KeyEvent.KEYCODE_VOLUME_UP" />
-	<rowmap action="exploration" key="KeyEvent.KEYCODE_VOLUME_DOWN" />
-	<rowmap action="instructions" key="KeyEvent.KEYCODE_MENU" />
-	<rowmap action="coordinates" key="KeyEvent.KEYCODE_SEARCH" />
+	<rowmap action="zoom" key="24" />
+	<rowmap action="exploration" key="25" />
+	<rowmap action="instructions" key="82" />
+	<rowmap action="coordinates" key="84" />
+	<rowmap action="context" key="7" />
 </keyboard>
