@@ -46,7 +46,7 @@ public class Cell {
 		this.visible = visible;
 	}
 
-	public String stateToString(){
+	public String toString(){
 		switch(state){
 			case PUSHED:
 				return "Pushed " + value;

@@ -143,7 +143,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable{
 		if(enabled){
 			Iterator<String> it = msg.iterator();
 			while(it.hasNext())
-				mTts.speak(it.next(), queueMode, null);
+				mTts.speak(" " + it.next() + " ", QUEUE_ADD, null);
 		}
 	}
 

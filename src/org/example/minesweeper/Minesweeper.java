@@ -1,5 +1,8 @@
 package org.example.minesweeper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.minesweeper.Cell.CellStates;
 
 import android.app.Activity;
@@ -82,7 +85,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		if(hasFocus){
-			mTtsAction(VIEW_READ_CODE,null);	
+			mTtsAction(VIEW_READ_CODE,v);	
 		}
 	}
 	
@@ -279,6 +282,30 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	  Log.d(TAG, "Cambio de orientacion de pantalla");
 	}
 
+	public void speakContextFocusedCell(int selRow, int selCol) {
+		if (Prefs.getCoordinates(this)){
+			List<String> msg = new ArrayList<String>();
+			
+			if(selRow - 1 >= 0)
+				msg.add(mineField.getCell(selRow - 1, selCol).toString());
+			if(selRow - 1 >= 0 && selCol + 1 <= colN)
+				msg.add(mineField.getCell(selRow - 1, selCol + 1).toString());		
+			if(selCol + 1 <= colN)
+				msg.add(mineField.getCell(selRow, selCol + 1).toString());	
+			if(selRow + 1 <= rowN && selCol + 1 <= colN)
+				msg.add(mineField.getCell(selRow + 1, selCol + 1).toString());	
+			if(selRow + 1 <= rowN)
+				msg.add(mineField.getCell(selRow + 1, selCol).toString());	
+			if(selRow + 1 <= rowN && selCol - 1 >= 0)
+				msg.add(mineField.getCell(selRow + 1, selCol - 1).toString());	
+			if(selCol - 1 >= 0)
+				msg.add(mineField.getCell(selRow, selCol - 1).toString());	
+			if(selCol - 1 >= 0 && selRow - 1 >= 0)
+				msg.add(mineField.getCell(selRow - 1, selCol - 1).toString());
+			
+			textToSpeech.speak(msg);
+		}
+	}
 	
 	/**
 	 * ------------------------------------------------------------ 
@@ -305,6 +332,5 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 		super.onDestroy();
         textToSpeech.stop();
 	}
-	
 	
 }

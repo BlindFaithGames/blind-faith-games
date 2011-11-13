@@ -95,4 +95,6 @@
 	<string name="zoom_mode_TTStext">Zoom mode</string>  
 	<string name="coordinates_information_button_TTStext">Position</string>  
 	<string name="key_configuration_menu_initial_TTStext">key configuration</string>
+	<string name="context_coordinates_title">Cells context</string>  
+	<string name="context_coordinates_summary">Reads cells around the selected</string>
 </resources>
