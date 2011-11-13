@@ -2,7 +2,6 @@ package org.example.minesweeper;
 
 import org.example.minesweeper.XML.XMLKeyboard;
 
-
 public class Input {
 	private static XMLKeyboard keyboard;
 	
