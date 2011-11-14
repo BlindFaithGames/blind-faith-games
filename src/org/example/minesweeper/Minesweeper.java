@@ -1,9 +1,14 @@
 package org.example.minesweeper;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.example.minesweeper.Cell.CellStates;
+import org.example.minesweeper.XML.KeyboardReader;
+import org.example.minesweeper.XML.XMLKeyboard;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -63,19 +68,29 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 		System.out.print(mineField);
 		rowN = mineField.getNRow();
 		colN = mineField.getNCol();
+		
+		// Cargamos el teclado del XML
+		KeyboardReader reader = new KeyboardReader();
+		
+		try {
+			FileInputStream fis = openFileInput("minesweeper.xml");
+			XMLKeyboard keyboard = reader.loadEditedKeyboard(fis);
 
-		minesweeperView = new MinesweeperView(this, rowN, colN);
-		setContentView(minesweeperView);
-		minesweeperView.requestFocus();
+			minesweeperView = new MinesweeperView(this, rowN, colN, keyboard);
+			setContentView(minesweeperView);
+			minesweeperView.requestFocus();
+			
+			buildWinDialog();
+			buildEndingDialog();	
 		
-		buildWinDialog();
-		buildEndingDialog();
-		
-	
-		// Initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
-		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(this.getString(R.string.game_initial_TTStext));
+			// Initialize TTS engine
+			textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+			textToSpeech.setContext(this);
+			textToSpeech.setInitialSpeech(this.getString(R.string.game_initial_TTStext));
+		} catch (FileNotFoundException e) {
+			Log.d(TAG, "Keyboard file not found");
+			e.printStackTrace();
+		}
 	}
 	
 	/**

@@ -61,15 +61,19 @@ public class XMLKeyboard {
 	}
 	
 	public String searchButtonByAction(String s){
-		Iterator it = keyButton.entrySet().iterator();
+		Iterator it = keyList.entrySet().iterator();
 		Map.Entry e = null;
+		String s1 = "";
 		boolean found = false;
 		// Para cada fila del teclado
 		while (!found && it.hasNext()) {
 			e = (Map.Entry) it.next();
 			found = s.equals(e.getValue());
 		}
-		if (e != null) return keyList.get(e.getValue());
+		if (e != null){ 
+			s1 = keyButton.get(e.getKey());
+			return s1;
+		}
 		else return null;
 	}
 	

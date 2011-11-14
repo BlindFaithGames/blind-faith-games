@@ -1,7 +1,6 @@
 package org.example.minesweeper;
 
 
-import org.example.minesweeper.XML.KeyboardReader;
 import org.example.minesweeper.XML.XMLKeyboard;
 
 import android.content.Context;
@@ -55,7 +54,6 @@ public class MinesweeperView extends View {
 	private Paint brush; // Used to manage colors, fonts...
 	
 	// Cargamos la conf desde un .xml
-	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
 	
 	private Runnable RunnableEvent= new Runnable() {
@@ -80,7 +78,7 @@ public class MinesweeperView extends View {
 		}
 	};
 
-	public MinesweeperView(Context context, int rowN, int colN) {
+	public MinesweeperView(Context context, int rowN, int colN, XMLKeyboard keyboard) {
 		super(context);
 		
 		this.rowN = rowN;
@@ -102,9 +100,7 @@ public class MinesweeperView extends View {
 		
 		zoomMode = false;
 		
-		// Cargamos el teclado del XML
-		if (reader == null) reader = new KeyboardReader();
-		keyboard = reader.loadEditedKeyboard("data/keys.xml");
+		this.keyboard = keyboard;
 	}
 
 	@Override

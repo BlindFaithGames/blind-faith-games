@@ -1,6 +1,5 @@
 package org.example.minesweeper.XML;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -20,6 +19,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import android.util.Log;
 
 /**
  * Clase que lleva todo lo referido al guardado del teclado editado en XML
@@ -41,7 +42,7 @@ public class KeyboardWriter {
 	// //
 
 	public void saveEditedKeyboard(int num, HashMap<Integer, String> keyList,
-			String fichero) throws ParserConfigurationException {
+			FileOutputStream fos) throws ParserConfigurationException {
 		// Creo el Documento DOM
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
@@ -51,7 +52,7 @@ public class KeyboardWriter {
 		Element keyboardNode = doc.createElement("keyboard");
 		keyboardNode.setAttribute("num", "" + num);
 		doc.appendChild(keyboardNode);
-		
+
 		Iterator it = keyList.entrySet().iterator();
 		// Para cada fila del teclado
 		while (it.hasNext()) {
@@ -61,19 +62,22 @@ public class KeyboardWriter {
 			keyboardNode.appendChild(rowNode);
 		}
 		try {
-			saveXML(doc, fichero);
-		} catch (Exception e) {
-			
+			saveXML(doc, fos);
+		} catch (TransformerException e) {
+			Log.d("XMLHELPER", "Exception: " + e);
+			e.printStackTrace();
+		} catch (IOException e) {
+			Log.d("XMLHELPER", "Exception: " + e);
+			e.printStackTrace();
 		}
 	}
-	
 
 	// MÉTODOS AUXILIARES
 
 	private Element createRowNode(Object key, Object value) {
 		// Creo un nodo con sus atributos
 		Element keyNode = doc.createElement("rowmap");
-		keyNode.setAttribute("action", ""+value);
+		keyNode.setAttribute("action", "" + value);
 		keyNode.setAttribute("key", "" + key);
 
 		return keyNode;
@@ -83,34 +87,29 @@ public class KeyboardWriter {
 	 * Guarda el teclado editado
 	 * 
 	 * @param doc
-	 * @param fichero
+	 * @param fos
 	 * @throws TransformerException
 	 * @throws TransformerException
 	 * @throws IOException
 	 */
-	private void saveXML(Document doc, String fichero)
-			throws TransformerException, IOException {
+	private void saveXML(Document doc, FileOutputStream fos) throws TransformerException, IOException {
 		// Creación del transformador a partir de una factoría
 		TransformerFactory factory = TransformerFactory.newInstance();
-		factory.setAttribute("indent-number", 4);
+		// factory.setAttribute("indent-number", 4);
 		Transformer transformer = factory.newTransformer();
 
 		// Creación de un Source a partir del arbol DOM
 		DOMSource origen = new DOMSource(doc);
-		if (!fichero.endsWith(".xml"))
-			fichero = fichero + ".xml";
 
-		File destinyFile = new File(fichero);
 		// Creación de un Result a partir del fichero de destino
-		OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(
-				destinyFile), "UTF-8");
+		OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 		// Configuración del transformador y ejecución
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer
-				.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "keyboard.dtd");
+		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"keyboard.dtd");
 		transformer.transform(origen, new StreamResult(osw));
 
 		osw.flush();
 		osw.close();
+
 	}
 }

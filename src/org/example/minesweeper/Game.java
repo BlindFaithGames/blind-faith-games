@@ -1,6 +1,8 @@
 package org.example.minesweeper;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -65,7 +67,7 @@ public class Game extends Activity implements OnClickListener,
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
 
-		checkFolderApp("data/minesweeper.xml");
+		checkFolderApp("minesweeper.xml");
 
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, "Main Menu minesweeper "
@@ -77,13 +79,16 @@ public class Game extends Activity implements OnClickListener,
 		textToSpeech.setEnabled(Prefs.getTTS(this));
 	}
 
-	private boolean checkFolderApp(String ruta) {
-		File f = new File(ruta);
+	private boolean checkFolderApp(String file) {
+		File f = new File(file);
 		if (f == null || (!f.exists() && !f.mkdir())) {
 			if (writer == null) writer = new KeyboardWriter();
 			try {
-				writer.saveEditedKeyboard(keyboard.getNum(), keyboard.getKeyList(), ruta);
+				FileOutputStream fos = openFileOutput(file, 3);
+				writer.saveEditedKeyboard(keyboard.getNum(), keyboard.getKeyList(), fos);
 			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 			return false;

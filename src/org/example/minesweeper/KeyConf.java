@@ -21,6 +21,7 @@ public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeLis
 	private KeyboardWriter writer;
 	private HashMap<Integer, String> keyList;
 	private XMLKeyboard keyboard;
+	private TTS textToSpeech;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,23 @@ public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeLis
 		buttonCoordinates.setOnFocusChangeListener(this);
 		buttonCoordinates.setOnClickListener(this);
 
+		// Initialize TTS engine
+//		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+//		textToSpeech.setContext(this);
+//		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
+//				+ buttonZoom.getContentDescription() + " "
+//				+ buttonExploration.getContentDescription() + " "
+//				+ buttonInstructions.getContentDescription() + " "
+//				+ buttonCoordinates.getContentDescription());
+	}
+	
+	/**
+	 *  Turns off TTS engine
+	 */
+	@Override
+	protected void onDestroy() {
+		 super.onDestroy();
+	     textToSpeech.stop();
 	}
 	
 	/**
@@ -63,10 +81,10 @@ public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeLis
 		// Si el writer no ha sido aún creado, lo creamos
 		if (writer == null)
 			writer = new KeyboardWriter();
-		try{
-			writer.saveEditedKeyboard(4, keyList, "data/minesweeper.xml");
-		}
-		catch(ParserConfigurationException e){}
+//		try{
+//			writer.saveEditedKeyboard(4, keyList, "data/minesweeper.xml");
+//		}
+//		catch(ParserConfigurationException e){}
 	}
 
 	@Override
@@ -80,10 +98,14 @@ public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeLis
 		
 	}
 
+	/**
+	 * OnFocusChangeListener Interface
+	 * */
 	@Override
-	public void onFocusChange(View arg0, boolean arg1) {
-		// TODO Auto-generated method stub
-		
+	public void onFocusChange(View v, boolean hasFocus) {
+//		if (hasFocus) {
+//			textToSpeech.speak(v);
+//		}
 	}
 	
 }
