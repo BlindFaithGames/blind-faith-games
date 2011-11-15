@@ -93,7 +93,6 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable{
 		this.queueMode = queueMode;
 	}
 	
-	@Override
 	public void onInit(int status) {
 		// status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
 		if (status == TextToSpeech.SUCCESS) {
@@ -152,12 +151,10 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable{
 		mTts.shutdown();
 	}
 
-	@Override
 	public int describeContents() {
 		return 0;
 	}
 
-	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(enabled ? 1 : 0);
 		dest.writeInt(queueMode);

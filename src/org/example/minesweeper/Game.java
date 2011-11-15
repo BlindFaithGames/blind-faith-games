@@ -100,7 +100,6 @@ public class Game extends Activity implements OnClickListener,
 	/**
 	 * onClick manager
 	 */
-	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.about_button:
@@ -123,7 +122,6 @@ public class Game extends Activity implements OnClickListener,
 	/**
 	 * OnFocusChangeListener Interface
 	 * */
-	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		if (hasFocus) {
 			textToSpeech.speak(v);
@@ -144,7 +142,6 @@ public class Game extends Activity implements OnClickListener,
 		newGameAlertDialog.show();
 		ListView l = newGameAlertDialog.getListView();
 		l.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
 			public void onItemSelected(AdapterView<?> arg0, View view,
 					int position, long id) {
 				TextView option = (TextView) view;
@@ -153,7 +150,6 @@ public class Game extends Activity implements OnClickListener,
 				textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 			}
 
-			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 
 			}
@@ -192,7 +188,6 @@ public class Game extends Activity implements OnClickListener,
 				+ this.getString(R.string.instructions_controls_label));
 
 		l.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
 			public void onItemSelected(AdapterView<?> arg0, View view,
 					int position, long id) {
 				TextView option = (TextView) view;
@@ -201,7 +196,6 @@ public class Game extends Activity implements OnClickListener,
 				textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 			}
 
-			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 
 			}

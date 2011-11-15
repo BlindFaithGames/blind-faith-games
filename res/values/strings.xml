@@ -94,11 +94,13 @@
 	<string name="exploration_mode_TTStext">Exploration mode</string>  
 	<string name="zoom_mode_TTStext">Zoom mode</string>  
 	<string name="coordinates_information_button_TTStext">Position</string>  
-	<string name="key_configuration_menu_initial_TTStext">key configuration</string>
+	<string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
 	<string name="button_coord">Coordinates Button</string>
 	<string name="button_instr">Instructions Button</string>
 	<string name="button_zoom">Zoom Button</string>
 	<string name="button_exploration">Exploration Button</string>
 	<string name="context_coordinates_title">Cells context</string>  
 	<string name="context_coordinates_summary">Reads cells around the selected</string>
+	<string name="keydialog">Action configuration</string>
+	<string name="keydialog_text">Press any key</string>
 </resources>

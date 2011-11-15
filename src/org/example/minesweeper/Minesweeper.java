@@ -96,7 +96,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	/**
 	 * onFocusChange Interface
 	 */
-	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		if(hasFocus){
 			mTtsAction(VIEW_READ_CODE,v);	

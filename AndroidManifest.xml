@@ -20,6 +20,12 @@
                   android:theme="@android:style/Theme.Dialog"
                   android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".CheckKey"
+                  android:label="@string/keyConf_label"
+                  android:theme="@android:style/Theme.Dialog"
+                  android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".Prefs"
                   android:label="@string/settings_title"
                   android:screenOrientation="portrait">

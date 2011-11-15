@@ -21,11 +21,11 @@ import android.widget.Button;
 
 
 public class KeyConf extends Activity implements OnFocusChangeListener, OnClickListener {
+	public static final int KEY_PRESSED = 1;
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
 	private TTS textToSpeech;
-	private AlertDialog dialog;
-	private String buttonName;
+	private String buttonName, action;
 	private int key;
 	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates;
 
@@ -75,18 +75,18 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 	@Override
 	protected void onDestroy() {
 		 super.onDestroy();
-	     textToSpeech.stop();
+//	     textToSpeech.stop();
 	}
 	
 	/**
 	 * Guarda el teclado editado
 	 * @throws ParserConfigurationException 
 	 */
-	public void saveEditedKeyboard(String fichero){
+	public void saveEditedKeyboard(String file){
 		// Si el writer no ha sido aún creado, lo creamos
 		if (writer == null) writer = new KeyboardWriter();
 		try {
-			FileOutputStream fos = openFileOutput("minesweeper.xml", 3);
+			FileOutputStream fos = openFileOutput(file, 3);
 			writer.saveEditedKeyboard(keyboard.getNum(), keyboard.getKeyList(), fos);
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
@@ -95,56 +95,59 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		}
 	}
 
-	@Override
 	public void onClick(View view) {
-		buildDialog();
-//		buttonName = KeyEvent.keyCodeToString(key);
+		Intent intent = new Intent(this, CheckKey.class);
 		switch (view.getId()) {
 		case R.id.buttonZoom:
-			buttonZoom.setText(buttonName);
-			keyboard.addButtonAction(key, "zoom", buttonName);
+			action = "zoom";
 			break;
 		case R.id.buttonExploration:
-			buttonExploration.setText(buttonName);
-			keyboard.addButtonAction(key, "exploration", buttonName);
+			action = "exploration";
 			break;
 		case R.id.buttonInstructions:
-			buttonInstructions.setText(buttonName);
-			keyboard.addButtonAction(key, "instructions", buttonName);
+			action = "instructions";
 			break;
 		case R.id.buttonCoordinates:
-			buttonCoordinates.setText(buttonName);
-			keyboard.addButtonAction(key, "coordinates", buttonName);
+			action = "coordinates";
 			break;
 		}
+		startActivityForResult(intent, KEY_PRESSED);
+
 	}
 	
-	/**
-	 * Builds the dialog shown at the end of the game, when the result is positive
-	 */
-	private void buildDialog() {
-		dialog = new AlertDialog.Builder(this)
-				.setTitle("Action button")
-				.setMessage("Select any button.")
-				.setOnKeyListener(
-						new DialogInterface.OnKeyListener() {
-							@Override
-							public boolean onKey(DialogInterface dialog,int keyCode, KeyEvent event) {
-								if (event.getAction() == KeyEvent.ACTION_DOWN){
-									key = keyCode;
-								}
-								return true;
-							}
-					
-						}
-				).create();
-						
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Bundle extras = data.getExtras();
+		key = extras.getInt(CheckKey.KEY_CODE);
+		buttonName = extras.getString(CheckKey.KEY_NAME);
+		
+		switch (resultCode) {
+		case (KEY_PRESSED):
+			if (action.equals("zoom")){
+				buttonZoom.setText(buttonName);
+				keyboard.addButtonAction(key, "zoom", buttonName);
+			}
+			else if (action.equals("exploration")){
+				buttonExploration.setText(buttonName);
+				keyboard.addButtonAction(key, "exploration", buttonName);
+			}
+			else if (action.equals("instructions")){
+				buttonInstructions.setText(buttonName);
+				keyboard.addButtonAction(key, "instructions", buttonName);
+			}
+			else if (action.equals("coordinates")){
+				buttonCoordinates.setText(buttonName);
+				keyboard.addButtonAction(key, "coordinates", buttonName);
+
+			}
+			break;
+		}
+		this.saveEditedKeyboard("minesweeper.xml");
 	}
 
 	/**
 	 * OnFocusChangeListener Interface
 	 * */
-	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 //		if (hasFocus) {
 //			textToSpeech.speak(v);
