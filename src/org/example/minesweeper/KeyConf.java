@@ -1,6 +1,7 @@
 package org.example.minesweeper;
 
-import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -8,20 +9,25 @@ import org.example.minesweeper.XML.KeyboardWriter;
 import org.example.minesweeper.XML.XMLKeyboard;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.View.OnKeyListener;
 import android.widget.Button;
 
 
-public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeListener, OnClickListener {
+public class KeyConf extends Activity implements OnFocusChangeListener, OnClickListener {
 	private KeyboardWriter writer;
-	private HashMap<Integer, String> keyList;
 	private XMLKeyboard keyboard;
 	private TTS textToSpeech;
+	private AlertDialog dialog;
+	private String buttonName;
+	private int key;
+	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,26 +36,25 @@ public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeLis
 		
 		keyboard = Input.getInstance();
 		
-		Button buttonZoom = (Button) findViewById(R.id.buttonZoom);
+		buttonZoom = (Button) findViewById(R.id.buttonZoom);
 		buttonZoom.setText(keyboard.searchButtonByAction("zoom"));
 		buttonZoom.setOnFocusChangeListener(this);
 		buttonZoom.setOnClickListener(this);
 		
 		
-		Button buttonExploration = (Button) findViewById(R.id.buttonExploration);
-		System.out.println(keyboard.searchButtonByAction("exploration"));
+		buttonExploration = (Button) findViewById(R.id.buttonExploration);
 		buttonExploration.setText(keyboard.searchButtonByAction("exploration"));
 		buttonExploration.setOnFocusChangeListener(this);
 		buttonExploration.setOnClickListener(this);
 
 		
-		Button buttonInstructions = (Button) findViewById(R.id.buttonInstructions);
+		buttonInstructions = (Button) findViewById(R.id.buttonInstructions);
 		buttonInstructions.setText(keyboard.searchButtonByAction("instructions"));
 		buttonInstructions.setOnFocusChangeListener(this);
 		buttonInstructions.setOnClickListener(this);
 
 		
-		Button buttonCoordinates = (Button) findViewById(R.id.buttonCoordinates);
+		buttonCoordinates = (Button) findViewById(R.id.buttonCoordinates);
 		buttonCoordinates.setText(keyboard.searchButtonByAction("coordinates"));
 		buttonCoordinates.setOnFocusChangeListener(this);
 		buttonCoordinates.setOnClickListener(this);
@@ -79,23 +84,61 @@ public class KeyConf extends Activity implements OnKeyListener, OnFocusChangeLis
 	 */
 	public void saveEditedKeyboard(String fichero){
 		// Si el writer no ha sido aún creado, lo creamos
-		if (writer == null)
-			writer = new KeyboardWriter();
-//		try{
-//			writer.saveEditedKeyboard(4, keyList, "data/minesweeper.xml");
-//		}
-//		catch(ParserConfigurationException e){}
+		if (writer == null) writer = new KeyboardWriter();
+		try {
+			FileOutputStream fos = openFileOutput("minesweeper.xml", 3);
+			writer.saveEditedKeyboard(keyboard.getNum(), keyboard.getKeyList(), fos);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public boolean onKey(View v, int keyCode, KeyEvent event) {
-		return false;
+	public void onClick(View view) {
+		buildDialog();
+//		buttonName = KeyEvent.keyCodeToString(key);
+		switch (view.getId()) {
+		case R.id.buttonZoom:
+			buttonZoom.setText(buttonName);
+			keyboard.addButtonAction(key, "zoom", buttonName);
+			break;
+		case R.id.buttonExploration:
+			buttonExploration.setText(buttonName);
+			keyboard.addButtonAction(key, "exploration", buttonName);
+			break;
+		case R.id.buttonInstructions:
+			buttonInstructions.setText(buttonName);
+			keyboard.addButtonAction(key, "instructions", buttonName);
+			break;
+		case R.id.buttonCoordinates:
+			buttonCoordinates.setText(buttonName);
+			keyboard.addButtonAction(key, "coordinates", buttonName);
+			break;
+		}
 	}
-
-	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * Builds the dialog shown at the end of the game, when the result is positive
+	 */
+	private void buildDialog() {
+		dialog = new AlertDialog.Builder(this)
+				.setTitle("Action button")
+				.setMessage("Select any button.")
+				.setOnKeyListener(
+						new DialogInterface.OnKeyListener() {
+							@Override
+							public boolean onKey(DialogInterface dialog,int keyCode, KeyEvent event) {
+								if (event.getAction() == KeyEvent.ACTION_DOWN){
+									key = keyCode;
+								}
+								return true;
+							}
+					
+						}
+				).create();
+						
 	}
 
 	/**

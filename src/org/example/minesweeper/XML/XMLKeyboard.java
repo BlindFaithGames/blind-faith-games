@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.w3c.dom.Element;
-
 
 /**
  * Clase que representa una Teclado XML.
@@ -60,23 +58,6 @@ public class XMLKeyboard {
 		return keyList.get(i);
 	}
 	
-	public String searchButtonByAction(String s){
-		Iterator it = keyList.entrySet().iterator();
-		Map.Entry e = null;
-		String s1 = "";
-		boolean found = false;
-		// Para cada fila del teclado
-		while (!found && it.hasNext()) {
-			e = (Map.Entry) it.next();
-			found = s.equals(e.getValue());
-		}
-		if (e != null){ 
-			s1 = keyButton.get(e.getKey());
-			return s1;
-		}
-		else return null;
-	}
-	
 // OTHERS
 
 	public void riseNumberOfErrors(int unit){
@@ -85,6 +66,54 @@ public class XMLKeyboard {
 
 	public void addObject(Integer k, String v) {
 		keyList.put(k, v);
+	}
+	
+	public String searchButtonByAction(String action){
+		Iterator it = keyList.entrySet().iterator();
+		Map.Entry e = null;
+		String s1 = "";
+		boolean found = false;
+		// Para cada fila del teclado
+		while (!found && it.hasNext()) {
+			e = (Map.Entry) it.next();
+			found = action.equals(e.getValue());
+		}
+		if (e != null)
+			s1 = keyButton.get(e.getKey());
+		return s1;
+	}
+	
+	public Integer getKeyByAction(String action){
+		Iterator it = keyList.entrySet().iterator();
+		Map.Entry e = null;
+		String s1 = "";
+		boolean found = false;
+		// Para cada fila del teclado
+		while (!found && it.hasNext()) {
+			e = (Map.Entry) it.next();
+			found = action.equals(e.getValue());
+		}
+		if (e != null) return (Integer) e.getKey();
+		else return null;
+	}
+	
+	/**
+	 * Check if a button given by parameter is available
+	 * @param key
+	 * @return
+	 */
+	public void addButtonAction(int key, String action, String button){
+		// Si no tenemos info de la tecla
+		if (keyList.get(key) == null){
+			// añadimos el nombre de la tecla
+			keyButton.put(key, button);
+		}
+		// Eliminar tecla asignada a esa acción
+		Integer k = getKeyByAction(action);
+		if (k != null){
+			keyList.remove(k);
+		}
+		keyList.put(key, action);
 	}
 
 }
