@@ -9,11 +9,8 @@ import org.example.minesweeper.XML.KeyboardWriter;
 import org.example.minesweeper.XML.XMLKeyboard;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -60,13 +57,13 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		buttonCoordinates.setOnClickListener(this);
 
 		// Initialize TTS engine
-//		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
-//		textToSpeech.setContext(this);
-//		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
-//				+ buttonZoom.getContentDescription() + " "
-//				+ buttonExploration.getContentDescription() + " "
-//				+ buttonInstructions.getContentDescription() + " "
-//				+ buttonCoordinates.getContentDescription());
+		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
+				+ buttonZoom.getContentDescription() + " "
+				+ buttonExploration.getContentDescription() + " "
+				+ buttonInstructions.getContentDescription() + " "
+				+ buttonCoordinates.getContentDescription());
 	}
 	
 	/**
@@ -75,7 +72,7 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 	@Override
 	protected void onDestroy() {
 		 super.onDestroy();
-//	     textToSpeech.stop();
+	     textToSpeech.stop();
 	}
 	
 	/**
@@ -97,6 +94,7 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 
 	public void onClick(View view) {
 		Intent intent = new Intent(this, CheckKey.class);
+		intent.putExtra(Game.KEY_TTS, textToSpeech);
 		switch (view.getId()) {
 		case R.id.buttonZoom:
 			action = "zoom";
@@ -149,9 +147,9 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 	 * OnFocusChangeListener Interface
 	 * */
 	public void onFocusChange(View v, boolean hasFocus) {
-//		if (hasFocus) {
-//			textToSpeech.speak(v);
-//		}
+		if (hasFocus) {
+			textToSpeech.speak(v);
+		}
 	}
 	
 }

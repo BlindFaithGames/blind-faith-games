@@ -30,17 +30,8 @@ public class XMLKeyboard {
 		numErrors = 0;
 		num = 0;
 	}
-	
-	/**
-	 * Dafault keyboard config
-	 */
-	public void fillXMLKeyboard(){
-		keyList.put(24, "zoom");
-		keyList.put(25, "exploration");
-		keyList.put(82, "instructions");
-		keyList.put(84, "coordinates");
-		num = 4;
-	}
+
+// SETTERS
 	
 	public void setNum(int num) {
 		this.num = num;
@@ -57,6 +48,7 @@ public class XMLKeyboard {
 	public String getAction(int i) {
 		return keyList.get(i);
 	}
+	
 	
 // OTHERS
 

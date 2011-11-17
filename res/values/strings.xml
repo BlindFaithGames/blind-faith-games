@@ -79,7 +79,6 @@
 	<string name="WinDialogMessage">&quot;This time you win!&quot;</string>
 	<string name="tts_title">Default TTS</string>
 	<string name="tts_summary">Enables voice synthetizer</string>
-	<string name="key_prompt">Choose a key</string>
 	<string name="volume_up">Volume Up</string>
 	<string name="volume_down">Volume Down</string>
 	<string name="home">Home</string>

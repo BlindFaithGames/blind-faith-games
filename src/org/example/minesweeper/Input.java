@@ -9,7 +9,6 @@ public class Input {
 		if (keyboard == null){
 			keyboard = new XMLKeyboard();
 			// By default
-			keyboard.fillXMLKeyboard();
 		}
 		return keyboard;
 	}

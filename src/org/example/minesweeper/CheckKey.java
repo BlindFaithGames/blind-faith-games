@@ -7,7 +7,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class CheckKey extends Activity implements OnKeyListener{
 	public static final String KEY_NAME = "KeyName";
@@ -26,9 +25,9 @@ public class CheckKey extends Activity implements OnKeyListener{
 		editText = (EditText) findViewById(R.id.entry);
 		editText.setOnKeyListener(this);
 		// Initialize TTS engine
-//		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
-//		textToSpeech.setContext(this);
-//		textToSpeech.setInitialSpeech(getString(R.string.keydialog) + " " + getString(R.string.keydialog_text));
+		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(getString(R.string.keydialog) + " " + getString(R.string.keydialog_text));
 	}
 	
 	/**
@@ -37,7 +36,7 @@ public class CheckKey extends Activity implements OnKeyListener{
 	@Override
 	protected void onDestroy() {
 		 super.onDestroy();
-//	     textToSpeech.stop();
+	     textToSpeech.stop();
 	}
 
 	public boolean onKey(View v, int keyCode, KeyEvent event) {

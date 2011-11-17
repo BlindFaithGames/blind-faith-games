@@ -53,6 +53,7 @@ public class Game extends Activity implements OnClickListener,
 		setContentView(R.layout.main);
 
 		keyboard = Input.getInstance();
+		this.fillXMLKeyboard();
 		
 		View newButton = findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
@@ -77,6 +78,17 @@ public class Game extends Activity implements OnClickListener,
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
 
 		textToSpeech.setEnabled(Prefs.getTTS(this));
+	}	
+	
+	/**
+	 * Dafault keyboard config
+	 */
+	private void fillXMLKeyboard(){
+		keyboard.addObject(24, "zoom");
+		keyboard.addObject(25, "exploration");
+		keyboard.addObject(82, "instructions");
+		keyboard.addObject(84, "coordinates");
+		keyboard.setNum(4);
 	}
 
 	private boolean checkFolderApp(String file) {
@@ -275,7 +287,9 @@ public class Game extends Activity implements OnClickListener,
 			startActivity(i);
 			return true;
 		case R.id.keyConf:
-			startActivity(new Intent(this, KeyConf.class));
+			Intent i1 = new Intent(this, KeyConf.class);
+			i1.putExtra(KEY_TTS, textToSpeech);
+			startActivity(i1);
 			return true;
 		}
 		return false;
