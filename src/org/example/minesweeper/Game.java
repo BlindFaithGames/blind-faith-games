@@ -91,7 +91,7 @@ public class Game extends Activity implements OnClickListener,
 		keyboard.setNum(4);
 	}
 
-	private boolean checkFolderApp(String file) {
+	private void checkFolderApp(String file) {
 		File f = new File(file);
 		if (f == null || (!f.exists() && !f.mkdir())) {
 			if (writer == null) writer = new KeyboardWriter();
@@ -103,9 +103,6 @@ public class Game extends Activity implements OnClickListener,
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-			return false;
-		} else {
-			return true;
 		}
 	}
 
