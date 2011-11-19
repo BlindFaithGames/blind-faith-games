@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class KeyConf extends Activity implements OnFocusChangeListener, OnClickListener {
@@ -22,7 +23,7 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
 	private TTS textToSpeech;
-	private String buttonName, action;
+	private String action;
 	private int key;
 	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates;
 
@@ -34,27 +35,25 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		keyboard = Input.getInstance();
 		
 		buttonZoom = (Button) findViewById(R.id.buttonZoom);
-		buttonZoom.setText(keyboard.searchButtonByAction("zoom"));
 		buttonZoom.setOnFocusChangeListener(this);
 		buttonZoom.setOnClickListener(this);
 		
 		
 		buttonExploration = (Button) findViewById(R.id.buttonExploration);
-		buttonExploration.setText(keyboard.searchButtonByAction("exploration"));
 		buttonExploration.setOnFocusChangeListener(this);
 		buttonExploration.setOnClickListener(this);
 
 		
 		buttonInstructions = (Button) findViewById(R.id.buttonInstructions);
-		buttonInstructions.setText(keyboard.searchButtonByAction("instructions"));
 		buttonInstructions.setOnFocusChangeListener(this);
 		buttonInstructions.setOnClickListener(this);
 
 		
 		buttonCoordinates = (Button) findViewById(R.id.buttonCoordinates);
-		buttonCoordinates.setText(keyboard.searchButtonByAction("coordinates"));
 		buttonCoordinates.setOnFocusChangeListener(this);
 		buttonCoordinates.setOnClickListener(this);
+		
+		this.buttonsUpdate();
 
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
@@ -73,6 +72,13 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 	protected void onDestroy() {
 		 super.onDestroy();
 	     textToSpeech.stop();
+	}
+	
+	private void buttonsUpdate(){
+		buttonZoom.setText(keyboard.searchButtonByAction("zoom"));
+		buttonExploration.setText(keyboard.searchButtonByAction("exploration"));
+		buttonInstructions.setText(keyboard.searchButtonByAction("instructions"));
+		buttonCoordinates.setText(keyboard.searchButtonByAction("coordinates"));
 	}
 	
 	/**
@@ -117,30 +123,44 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		super.onActivityResult(requestCode, resultCode, data);
 		Bundle extras = data.getExtras();
 		key = extras.getInt(CheckKey.KEY_CODE);
-		buttonName = extras.getString(CheckKey.KEY_NAME);
-		
-		switch (resultCode) {
-		case (KEY_PRESSED):
-			if (action.equals("zoom")){
-				buttonZoom.setText(buttonName);
-				keyboard.addButtonAction(key, "zoom", buttonName);
+		if (isValid(key)){
+			switch (resultCode) {
+			case (KEY_PRESSED):
+				if (action.equals("zoom")){;
+					keyboard.addButtonAction(key, "zoom");
+				}
+				else if (action.equals("exploration")){
+					keyboard.addButtonAction(key, "exploration");
+				}
+				else if (action.equals("instructions")){
+					keyboard.addButtonAction(key, "instructions");
+				}
+				else if (action.equals("coordinates")){
+					keyboard.addButtonAction(key, "coordinates");
+	
+				}
+				break;
 			}
-			else if (action.equals("exploration")){
-				buttonExploration.setText(buttonName);
-				keyboard.addButtonAction(key, "exploration", buttonName);
-			}
-			else if (action.equals("instructions")){
-				buttonInstructions.setText(buttonName);
-				keyboard.addButtonAction(key, "instructions", buttonName);
-			}
-			else if (action.equals("coordinates")){
-				buttonCoordinates.setText(buttonName);
-				keyboard.addButtonAction(key, "coordinates", buttonName);
-
-			}
-			break;
+			buttonsUpdate();
+			this.saveEditedKeyboard("minesweeper.xml");
 		}
-		this.saveEditedKeyboard("minesweeper.xml");
+		else{
+			Toast toast = Toast.makeText(this, "Not a valid key", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	}
+
+	/**
+	 * DPAD keys always have the same action
+	 * @param key
+	 * @return
+	 */
+	private boolean isValid(int key) {	
+		return key != keyboard.getKeyByButton("DPAD Center") &&
+		key != keyboard.getKeyByButton("DPAD Down") &&
+		key != keyboard.getKeyByButton("DPAD Left") &&
+		key != keyboard.getKeyByButton("DPAD Right") &&
+		key != keyboard.getKeyByButton("DPAD Up");
 	}
 
 	/**

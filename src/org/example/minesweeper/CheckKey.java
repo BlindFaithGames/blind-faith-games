@@ -12,7 +12,6 @@ public class CheckKey extends Activity implements OnKeyListener{
 	public static final String KEY_NAME = "KeyName";
 	public static final String KEY_CODE = "KeyCode";
 	private TTS textToSpeech;
-	private String buttonName;
 	private int key;
 	private EditText editText;
 	
@@ -44,8 +43,6 @@ public class CheckKey extends Activity implements OnKeyListener{
 			Intent i = new Intent(this, KeyConf.class);
 			key = keyCode;
 			i.putExtra(CheckKey.KEY_CODE, key);
-			buttonName = event.getNumber() + "";
-			i.putExtra(CheckKey.KEY_NAME, buttonName);
 			this.setResult(KeyConf.KEY_PRESSED, i);
 			this.finish();
 		}

@@ -260,6 +260,19 @@ public class XMLKeyboard {
 		keyList.put(k, v);
 	}
 	
+	public Integer getKeyByButton(String button){
+		Iterator it = keyButton.entrySet().iterator();
+		Map.Entry e = null;
+		boolean found = false;
+		// Para cada fila del teclado
+		while (!found && it.hasNext()) {
+			e = (Map.Entry) it.next();
+			found = button.equals(e.getValue());
+		}
+		if (found) return (Integer) e.getKey();
+		else return null;
+	}
+	
 	public String searchButtonByAction(String action){
 		Iterator it = keyList.entrySet().iterator();
 		Map.Entry e = null;
@@ -270,7 +283,7 @@ public class XMLKeyboard {
 			e = (Map.Entry) it.next();
 			found = action.equals(e.getValue());
 		}
-		if (e != null)
+		if (found)
 			s1 = keyButton.get(e.getKey());
 		return s1;
 	}
@@ -278,14 +291,13 @@ public class XMLKeyboard {
 	public Integer getKeyByAction(String action){
 		Iterator it = keyList.entrySet().iterator();
 		Map.Entry e = null;
-		String s1 = "";
 		boolean found = false;
 		// Para cada fila del teclado
 		while (!found && it.hasNext()) {
 			e = (Map.Entry) it.next();
 			found = action.equals(e.getValue());
 		}
-		if (e != null) return (Integer) e.getKey();
+		if (found) return (Integer) e.getKey();
 		else return null;
 	}
 	
@@ -294,12 +306,7 @@ public class XMLKeyboard {
 	 * @param key
 	 * @return
 	 */
-	public void addButtonAction(int key, String action, String button){
-		// Si no tenemos info de la tecla
-		if (keyList.get(key) == null){
-			// añadimos el nombre de la tecla
-			keyButton.put(key, button);
-		}
+	public void addButtonAction(int key, String action){
 		// Eliminar tecla asignada a esa acción
 		Integer k = getKeyByAction(action);
 		if (k != null){
