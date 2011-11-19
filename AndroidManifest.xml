@@ -1,56 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="org.example.minesweeper"
+      package="org.example"
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".Game"
-                  android:label="@string/app_name"
-                  android:debuggable="true"
-                  android:screenOrientation="portrait">
+        <activity android:name=".Activities.GameActivity"
+                  android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".About"
-                  android:label="@string/about_title"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:screenOrientation="portrait">
-        </activity>
 
-        <activity android:name=".CheckKey"
-                  android:label="@string/keyConf_label"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Prefs"
-                  android:label="@string/settings_title"
-                  android:screenOrientation="portrait">
-        </activity>
-                <activity android:name=".Synthetizer"
-                  android:label="@string/synthetizer_title">
-        </activity>
-	    <activity android:name=".Minesweeper"
-                  android:label="@string/game_title"
-                  android:configChanges="orientation"
-                  android:screenOrientation = "portrait">
-        </activity>
-         <activity android:name=".InstructionsGeneral"
-                  android:label="@string/instructions_general_title"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".InstructionsControls"
-                  android:label="@string/instructions_controls_title"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:screenOrientation="portrait">
-        </activity>
-                <activity android:name=".KeyConf"
-                  android:label="@string/keyConf_label"
-                  android:screenOrientation="portrait">
-        </activity>
     </application>
 </manifest>

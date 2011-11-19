@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="introMessage">Welcome, select a difficulty</string>
     <string name="buttonMessage">Go!</string>
     <string name="minesweeperActivity">Minesweeper game</string>
     <string name="gameOverMessage">Fin de la partida!</string>
@@ -23,8 +22,6 @@
 	<string name="settings_label">Settings...</string>
 	<string name="settings_title">Minesweeper settings</string>
 	<string name="settings_shortcut">s</string>
-	<string name="music_title">Music</string>
-	<string name="music_summary">Play background music</string>
 	<string name="new_game_title">Difficulty</string>
 	<string name="easy_label">Easy</string>
 	<string name="medium_label">Medium</string>
@@ -79,6 +76,7 @@
 	<string name="WinDialogMessage">&quot;This time you win!&quot;</string>
 	<string name="tts_title">Default TTS</string>
 	<string name="tts_summary">Enables voice synthetizer</string>
+	<string name="key_prompt">Choose a key</string>
 	<string name="volume_up">Volume Up</string>
 	<string name="volume_down">Volume Down</string>
 	<string name="home">Home</string>
