@@ -98,6 +98,7 @@
 	<string name="button_instr">Instructions Button</string>
 	<string name="button_zoom">Zoom Button</string>
 	<string name="button_exploration">Exploration Button</string>
+	<string name="button_context">Reading cell context</string>
 	<string name="context_coordinates_title">Cells context</string>  
 	<string name="context_coordinates_summary">Reads cells around the selected</string>
 	<string name="keydialog">Action configuration</string>

@@ -67,6 +67,24 @@
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_coord" />
     </TableRow>
+    
+    <View
+	     android:layout_height="2dip"
+	     android:background="#FF909090" />
+    
+     <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="Reading cell context"
+            android:padding="3dip" />
+	    <Button
+	        android:id="@+id/buttonContext"
+	        android:layout_width="fill_parent"
+	        android:text="Reading cell context"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/button_context" />
+    </TableRow>
+    
 
     <View
         android:layout_height="2dip"

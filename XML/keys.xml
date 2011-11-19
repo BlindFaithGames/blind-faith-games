@@ -1,7 +1,0 @@
-<keyboard num="4">
-	<rowmap action="zoom" key="24" />
-	<rowmap action="exploration" key="25" />
-	<rowmap action="instructions" key="82" />
-	<rowmap action="coordinates" key="84" />
-	<rowmap action="context" key="7" />
-</keyboard>

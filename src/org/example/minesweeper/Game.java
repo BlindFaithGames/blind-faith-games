@@ -88,7 +88,8 @@ public class Game extends Activity implements OnClickListener,
 		keyboard.addObject(25, "exploration");
 		keyboard.addObject(82, "instructions");
 		keyboard.addObject(84, "coordinates");
-		keyboard.setNum(4);
+		keyboard.addObject(5, "context");
+		keyboard.setNum(5);
 	}
 
 	private void checkFolderApp(String file) {

@@ -25,7 +25,7 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 	private TTS textToSpeech;
 	private String action;
 	private int key;
-	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates;
+	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates, buttonContext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,10 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		buttonCoordinates.setOnFocusChangeListener(this);
 		buttonCoordinates.setOnClickListener(this);
 		
+		buttonContext = (Button) findViewById(R.id.buttonContext);
+		buttonContext.setOnFocusChangeListener(this);
+		buttonContext.setOnClickListener(this);
+		
 		this.buttonsUpdate();
 
 		// Initialize TTS engine
@@ -62,7 +66,8 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 				+ buttonZoom.getContentDescription() + " "
 				+ buttonExploration.getContentDescription() + " "
 				+ buttonInstructions.getContentDescription() + " "
-				+ buttonCoordinates.getContentDescription());
+				+ buttonCoordinates.getContentDescription() + " "
+				+buttonContext.getContentDescription());
 	}
 	
 	/**
@@ -79,6 +84,7 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		buttonExploration.setText(keyboard.searchButtonByAction("exploration"));
 		buttonInstructions.setText(keyboard.searchButtonByAction("instructions"));
 		buttonCoordinates.setText(keyboard.searchButtonByAction("coordinates"));
+		buttonContext.setText(keyboard.searchButtonByAction("context"));
 	}
 	
 	/**
@@ -114,6 +120,9 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		case R.id.buttonCoordinates:
 			action = "coordinates";
 			break;
+		case R.id.buttonContext:
+			action = "context";
+			break;
 		}
 		startActivityForResult(intent, KEY_PRESSED);
 
@@ -137,7 +146,9 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 				}
 				else if (action.equals("coordinates")){
 					keyboard.addButtonAction(key, "coordinates");
-	
+				}
+				else if (action.equals("context")){
+					keyboard.addButtonAction(key, "context");
 				}
 				break;
 			}

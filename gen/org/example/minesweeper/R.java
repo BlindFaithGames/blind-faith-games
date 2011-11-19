@@ -54,21 +54,22 @@ public final class R {
         public static final int win=0x7f020018;
     }
     public static final class id {
-        public static final int about_button=0x7f0a000b;
+        public static final int about_button=0x7f0a000c;
         public static final int about_content=0x7f0a0000;
+        public static final int buttonContext=0x7f0a0007;
         public static final int buttonCoordinates=0x7f0a0006;
         public static final int buttonExploration=0x7f0a0004;
         public static final int buttonInstructions=0x7f0a0005;
         public static final int buttonZoom=0x7f0a0003;
-        public static final int entry=0x7f0a0008;
-        public static final int exit_button=0x7f0a000c;
-        public static final int instructions_button=0x7f0a000a;
+        public static final int entry=0x7f0a0009;
+        public static final int exit_button=0x7f0a000d;
+        public static final int instructions_button=0x7f0a000b;
         public static final int instructions_controls_content=0x7f0a0001;
         public static final int instructions_general_content=0x7f0a0002;
-        public static final int keyConf=0x7f0a000e;
-        public static final int keydialog=0x7f0a0007;
-        public static final int new_button=0x7f0a0009;
-        public static final int settings=0x7f0a000d;
+        public static final int keyConf=0x7f0a000f;
+        public static final int keydialog=0x7f0a0008;
+        public static final int new_button=0x7f0a000a;
+        public static final int settings=0x7f0a000e;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -100,12 +101,13 @@ public final class R {
         public static final int app_name=0x7f080006;
         public static final int back=0x7f080030;
         public static final int buttonMessage=0x7f080001;
+        public static final int button_context=0x7f080040;
         public static final int button_coord=0x7f08003c;
         public static final int button_exploration=0x7f08003f;
         public static final int button_instr=0x7f08003d;
         public static final int button_zoom=0x7f08003e;
-        public static final int context_coordinates_summary=0x7f080041;
-        public static final int context_coordinates_title=0x7f080040;
+        public static final int context_coordinates_summary=0x7f080042;
+        public static final int context_coordinates_title=0x7f080041;
         public static final int continue_label=0x7f080008;
         public static final int coordinates_information_button_TTStext=0x7f08003a;
         public static final int easy_label=0x7f080015;
@@ -131,8 +133,8 @@ public final class R {
         public static final int introMessage=0x7f080000;
         public static final int keyConf_label=0x7f08000a;
         public static final int key_configuration_menu_initial_TTStext=0x7f08003b;
-        public static final int keydialog=0x7f080042;
-        public static final int keydialog_text=0x7f080043;
+        public static final int keydialog=0x7f080043;
+        public static final int keydialog_text=0x7f080044;
         public static final int main_menu_initial_TTStext=0x7f080035;
         public static final int main_title=0x7f080007;
         public static final int medium_label=0x7f080016;
