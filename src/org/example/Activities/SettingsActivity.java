@@ -1,15 +1,52 @@
-package org.example.Activities;
+package org.example.activities;
 
 import org.example.R;
+import org.example.tinyEngineClasses.TTS;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 
-public class SettingsActivity extends Activity{
+public class SettingsActivity extends PreferenceActivity{
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
-    }
+	// Option names and default values
+	private static final String OPT_MUSIC = "music";
+	private static final boolean OPT_MUSIC_DEF = false;
+	private static final String OPT_TTS = "tts";
+	private static final boolean OPT_TTS_DEF = true;
+
+	private TTS textToSpeech;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(R.xml.settings);
+		
+		// Initialize TTS engine
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(findPreference(OPT_MUSIC).toString() + findPreference(OPT_TTS).toString());
+	}
+
+	/**
+	 *  Turns off TTS engine
+	 */
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+	    textToSpeech.stop();
+	}
+	
+	/** Get the current value of the music option */
+	public static boolean getMusic(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_MUSIC, OPT_MUSIC_DEF);
+	}
+	
+	/** Get the current value of the tts option */
+	public static boolean getTTS(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_TTS, OPT_TTS_DEF);
+	}
 }

@@ -1,8 +1,19 @@
-package org.example.GolfGame;
+package org.example.golf;
+
+import java.util.List;
 
 import org.example.tinyEngineClasses.Entity;
+import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.Mask;
 
-public class Dot extends Entity{
+import android.graphics.Bitmap;
+
+public class Target extends Entity{
+
+	public Target(float x, float y, Bitmap img, Game game, List<Mask> mask) {
+		super(x, y, img, game, mask);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void onDraw() {
@@ -33,5 +44,4 @@ public class Dot extends Entity{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

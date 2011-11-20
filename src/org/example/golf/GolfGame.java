@@ -1,4 +1,4 @@
-package org.example.GolfGame;
+package org.example.golf;
 
 import org.example.tinyEngineClasses.Game;
 

@@ -1,21 +1,27 @@
 package org.example.tinyEngineClasses;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 
 public abstract class Game {
 	
+	public static int DELAY = 1000/60;
+	public static int FRAMES_PER_SECOND = 25;
+	public static int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
+	
+    boolean game_is_running;
+	
 	private List<Entity> entities;
 	private List<Entity> collidables;
 	private List<Entity> renderables;
 	private List<Entity> removables;
-	// mas buffers si se necesitan .. private List<Entity> ;
+	// Más buffers si se necesitan .. private List<Entity> ;
 	
-	protected abstract void onDraw();
 	
-	protected abstract void onUpdate();
+	public Game(){
+		game_is_running = false;
+	}
 	
 	private void _onDraw() {
 		
@@ -26,7 +32,6 @@ public abstract class Game {
 			e.onDraw();
 		}
 		
-		// cosas
 		onDraw();
 		
 		renderables.clear();
@@ -48,7 +53,6 @@ public abstract class Game {
 		Iterator<Entity> it1 = collidables.iterator();
 		Iterator<Entity> it2 = collidables.iterator();
 		Entity e1,e2;
-		List<Entity> collidablesCopy = new ArrayList<Entity>(collidables);
 		while(it1.hasNext()){
 			e1 = it1.next();
 			while(it2.hasNext()){
@@ -57,19 +61,54 @@ public abstract class Game {
 			}
 			
 		}
-
+				
 		onUpdate();
+		
+		it  = removables.iterator();
+		while(it.hasNext()){
+			entities.remove(it);
+			collidables.remove(it);
+			renderables.remove(it);
+		}
 		
 		collidables.clear();
 	}
 	
-	private void gameStep(){
-		
-		if(FPS.control()){
-			_onUpdate();
+	public void run(){
+		game_is_running = true;
+	}
+	
+	public void stop(){
+		game_is_running = false;
+	}
+	
+	private void gameLoop(){
+
+	    long next_game_tick = System.currentTimeMillis();
+
+	    long sleep_time = 0;
+
+		while(game_is_running){
+			
+			next_game_tick += SKIP_TICKS;
+			
 			_onDraw();
+			_onUpdate();
+			
+	        sleep_time = next_game_tick - System.currentTimeMillis();
+	        
+	        if(sleep_time >= 0) {
+	            try {
+					Thread.sleep(sleep_time);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+	        }
+	        else {
+	            // we are running behind!
+	        }
+			
 		}
-		
 	}
 	
 	protected void addEntity(Entity e){	
@@ -79,4 +118,9 @@ public abstract class Game {
 	protected void removeEntity(Entity e){	
 		removables.add(e);
 	}
+	
+	protected abstract void onDraw();
+	
+	protected abstract void onUpdate();
+	
 }

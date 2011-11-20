@@ -1,82 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="introMainMenu">Main menu Golf Game</string>
     <string name="buttonMessage">Go!</string>
-    <string name="minesweeperActivity">Minesweeper game</string>
+    <string name="golfGamerActivity">Golf game</string>
     <string name="gameOverMessage">Fin de la partida!</string>
     <string name="resetButtonMessage">Reiniciar</string>
     <string name="exitButton">Exit</string>
-    <string name="app_name">Minesweeper</string>
-	<string name="main_title">Android Minesweeper</string>
+    <string name="app_name">GolfGame</string>
+	<string name="main_title">Android GolfGame</string>
 	<string name="continue_label">Continue</string>
 	<string name="new_game_label">New Game</string>
 	<string name="keyConf_label">Key Configuration</string>
 	<string name="about_label">About</string>
 	<string name="exit_label">Exit</string>
-	<string name="about_title">About Android Minesweeper</string>
+	<string name="about_title">About Android GolfGame</string>
 	<string name="about_text">\
-		Minesweeper is a single-player video game. The object 
-		of the game is to clear an abstract minefield without detonating a mine.
-		Computer Systems Project, 2011.
+		
 	</string>
 	<string name="settings_label">Settings...</string>
-	<string name="settings_title">Minesweeper settings</string>
+	<string name="settings_title">Golf Game settings</string>
 	<string name="settings_shortcut">s</string>
-	<string name="new_game_title">Difficulty</string>
-	<string name="easy_label">Easy</string>
-	<string name="medium_label">Medium</string>
-	<string name="hard_label">Hard</string>
+	<string name="music_title">Music</string>
+	<string name="music_summary">Play background music</string>
 	<string name="game_title">Game</string>
-	<string name="flags_label">Turn Explore</string>
 	<string name="flags_title">Flags settings</string>
 	<string name="flags_shortcut">f</string>
 	<string name="instructions_label">Instructions</string>
-	<string name="instructions_title">Instructions Minesweeper</string>
+	<string name="instructions_title">Instructions GolfGame</string>
 	<string name="instructions_general_label">Instructions</string>
-	<string name="instructions_general_title">Instructions Minesweeper</string>
 	<string name="instructions_controls_label">Controls</string>
-	<string name="instructions_controls_title">Controls Minesweeper</string>
 	<string name="instructions_general_text">\
-		The board is a grid of cells, and some of them are hiding a mine. Your 
-		goal is to find all of those mines, without detonating any of them.\n\n
-		To accomplish that, you can press any cell -dig mode- or mark it -exploration mode- 
-		with a flag,if you are sure it contains a mine. When you press a cell, several cells
-		can be discovered, and they will show you how many mines are around them.\n\n
-		\n\n
-		Options: make use of the settings while in the main menu in order to 
-		turn on Speech synthesizer as well as music.
+		
 	</string>
 	<string name="instructions_controls_text">\
-		To play Android Minesweeper there are several controls you should know:\n\n
 		
-		Buttons, use:\n
-		- menu button - listen to cell coordinates\n 
-		- search button - switch between exploration and dig mode\n
-		- volume up button - turn on/off zoom mode\n
-		- volume down button - listen to controls hints\n\n
-		
-		Play with touch screen, use:\n
-		- one tap, to select a cell\n
-		- two taps, to dig a cell\n
-		- three taps, to explore a cell\n
-		- drag, to listen different features of the cell\n\n
-		
-		Play with keyboard, use:\n
-		- arrows, to select a cell\n
-		- enter button or similar, to dig or explore\n\n
-		
-		While in zoom mode, enter button or tap to dig or explore.
 	</string>
 	<string name="synthetizer_title">Synthetizer</string>
-	<string name="LosePositiveButtonLabel">Reset</string>
-	<string name="LoseNegativeButtonLabel">Back to the main menu</string>
-	<string name="WinPositiveButtonLabel">Ok</string>
-	<string name="LoseDialogTitle">Game Over</string>
-	<string name="WinDialogTitle">CONGRATULATIONS</string>
-	<string name="WinDialogMessage">&quot;This time you win!&quot;</string>
 	<string name="tts_title">Default TTS</string>
 	<string name="tts_summary">Enables voice synthetizer</string>
-	<string name="key_prompt">Choose a key</string>
 	<string name="volume_up">Volume Up</string>
 	<string name="volume_down">Volume Down</string>
 	<string name="home">Home</string>
@@ -88,16 +50,10 @@
 	<string name="main_menu_initial_TTStext">Main menu</string>  
 	<string name="settings_menu_initial_TTStext">Menu settings</string>  
 	<string name="game_initial_TTStext">Game started!</string>  
-	<string name="exploration_mode_TTStext">Exploration mode</string>  
-	<string name="zoom_mode_TTStext">Zoom mode</string>  
+
 	<string name="coordinates_information_button_TTStext">Position</string>  
 	<string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
-	<string name="button_coord">Coordinates Button</string>
-	<string name="button_instr">Instructions Button</string>
-	<string name="button_zoom">Zoom Button</string>
-	<string name="button_exploration">Exploration Button</string>
-	<string name="context_coordinates_title">Cells context</string>  
-	<string name="context_coordinates_summary">Reads cells around the selected</string>
+	
 	<string name="keydialog">Action configuration</string>
 	<string name="keydialog_text">Press any key</string>
 </resources>

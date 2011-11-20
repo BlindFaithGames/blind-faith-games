@@ -1,10 +1,10 @@
-package org.example.Activities;
+package org.example.activities;
 
 import org.example.R;
-import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.TTS;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class InstructionsActivity extends Activity{
@@ -15,10 +15,22 @@ public class InstructionsActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.instructions_general);
 		
+		
+		Intent i = getIntent();
+		
+		int type = i.getIntExtra(MainActivity.KEY_TYPE_INSTRUCTIONS, 0);
+		
+		String speech;
+		
+		if(type == 0)
+			speech = getString(R.string.instructions_controls_label) + " " + i.getStringExtra(MainActivity.KEY_INSTRUCTIONS_CONTROLS);
+		else
+			speech = getString(R.string.instructions_general_label) + " " + i.getStringExtra(MainActivity.KEY_INSTRUCTIONS_GENERAL);
+		
 		// This initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(getString(R.string.instructions_general_title) + " " + getString(R.string.instructions_general_text));
+		textToSpeech.setInitialSpeech(speech);
 	}
 	
 	/**

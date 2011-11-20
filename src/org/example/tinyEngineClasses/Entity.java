@@ -1,12 +1,13 @@
 package org.example.tinyEngineClasses;
 
+import java.util.Iterator;
 import java.util.List;
-
 
 import android.graphics.Bitmap;
 
 public abstract class Entity {
 
+	private String id;
 	
 	private float x,y; //coordenadas
 	
@@ -22,6 +23,18 @@ public abstract class Entity {
     private List<Mask> mask; // Mascara para colisiones posiblemente un Rect
     
 	private Game game;
+	
+	public Entity(float x, float y, Bitmap img, Game game, List<Mask> mask){
+		this.x = x;
+		this.y = y;
+		this.img = img;
+		this.game = game;
+		this.mask = mask;
+		enabled = true;
+		collidable = true;
+		visible = true;
+		frozen = false;
+	}
     
 	public abstract void onDraw();
 	
@@ -69,12 +82,42 @@ public abstract class Entity {
 		return collidable;
 	}
 
+	private List<Mask> getMask() {
+		return mask;
+	}
+	
 	public boolean isRenderable() {
 		return visible;
 	}
 
-	public void collides(Entity e2) {
-		// TODO Auto-generated method stub
+	public boolean collides(Entity e2) {
+		Iterator<Mask> it1 = mask.iterator();
+		Iterator<Mask> it2;
+		Mask m1,m2;
+		boolean found = false;
+		while(it1.hasNext() && !found){
+			m1 = it1.next();
+			it2 = e2.getMask().iterator();
+			while(it2.hasNext() && !found){
+				m2 = it2.next();
+				found = m1.collide(m2);
+			}
+		}
+		return found;
+	}
+	
+	public boolean equals(Object o){
+		if(o instanceof Entity){
+			Entity e = (Entity) o;
+			return e.getId().equals(id);
+		}
+		else
+			return false;
 		
 	}
+
+	public String getId() {
+		return id;
+	}
+
 }

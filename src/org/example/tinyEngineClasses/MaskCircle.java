@@ -1,28 +1,28 @@
 package org.example.tinyEngineClasses;
 
-public class MaskCircle  implements Mask{
+public class MaskCircle  extends Mask{
 	
-	private float cx,cy;
-	private float radius;
+	private double cx,cy;
+	private double radius;
 	
-	
-	
-	public MaskCircle(float cx, float cy, float radius){
+	public MaskCircle(double cx, double cy, double radius){
 		this.cx = cx;
 		this.cy = cy;
 		this.radius = radius;
 	}
 	
-	public boolean isInCircle(float x, float y){
+	@Override
+	public boolean isInMask(double x, double y) {
 		return Math.sqrt(Math.pow((x-cx),2) + Math.pow((x-cy),2)) <= radius;
 	}
-	
-	public boolean collide(Mask m){
-		
-		if(m instanceof MaskCircle)
-			
-		else
-			if(m instanceof MaskBox)
+	public double getRadius(){return radius;}
+
+	public double getCenterY() {
+		return cx;
+	}
+
+	public double getCenterX() {
+		return cy;
 	}
 	
 }
