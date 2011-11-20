@@ -71,7 +71,7 @@ public class Game extends Activity implements OnClickListener,
 		checkFolderApp("minesweeper.xml");
 
 		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, "Main Menu minesweeper "
+		textToSpeech = new TTS(this, getString(R.string.introMainMenu) 
 				+ newButton.getContentDescription() + " "
 				+ instructionsButton.getContentDescription() + " "
 				+ aboutButton.getContentDescription() + " "

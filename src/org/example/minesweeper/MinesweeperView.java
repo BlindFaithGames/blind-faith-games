@@ -525,7 +525,9 @@ public class MinesweeperView extends View {
 	}
 	/**
 	 * Manages key events
+	 * Reads from xml Configuration file that indicates which key must be pushed to do an action 
 	 * 
+	 * By default:
 	 * if keyCode is DPAD_UP, DPAD_DOWN, DPAD_LEFT or DPAD_RIGHT then
 	 * if keyCode is SEARCH enables exploration mode
 	 * if keyCode is VOLUME_UP changes interface visualization (zoom mode)
@@ -621,9 +623,6 @@ public class MinesweeperView extends View {
 			        case KeyEvent.KEYCODE_BACK:
 			        	this.game.finish();
 			            break;
-			        //case KeyEvent.KEYCODE_VOLUME_DOWN:  Añadir nueva accion
-			        //	this.game.speakContextFocusedCell(selRow,selCol);
-			        //    break;
 		        }
 		    }
 			if(zoomMode)

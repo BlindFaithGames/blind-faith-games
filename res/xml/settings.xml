@@ -10,9 +10,4 @@
 		android:title="@string/tts_title"
 		android:summary="@string/tts_summary"
 		android:defaultValue="true" />
-	<CheckBoxPreference
-		android:key="context"
-		android:title="@string/context_coordinates_title"
-		android:summary="@string/context_coordinates_summary"
-		android:defaultValue="true" />
 </PreferenceScreen>

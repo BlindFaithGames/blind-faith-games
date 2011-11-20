@@ -16,8 +16,6 @@ public class Prefs extends PreferenceActivity {
 	private static final boolean OPT_MUSIC_DEF = false;
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
-	private static final String OPT_COORDINATES = "context";
-	private static final boolean OPT_COORDINATES_DEF = true;
 
 	
 	private TTS textToSpeech;
@@ -30,7 +28,6 @@ public class Prefs extends PreferenceActivity {
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(findPreference(OPT_MUSIC).toString() + findPreference(OPT_TTS).toString());
 	}
 
 	/**
@@ -54,9 +51,4 @@ public class Prefs extends PreferenceActivity {
 				.getBoolean(OPT_TTS, OPT_TTS_DEF);
 	}
 	
-	/** Get the current value of the tts option */
-	public static boolean getCoordinates(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getBoolean(OPT_COORDINATES, OPT_COORDINATES_DEF);
-	}
 }
