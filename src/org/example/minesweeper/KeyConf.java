@@ -171,7 +171,8 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 		key != keyboard.getKeyByButton("DPAD Down") &&
 		key != keyboard.getKeyByButton("DPAD Left") &&
 		key != keyboard.getKeyByButton("DPAD Right") &&
-		key != keyboard.getKeyByButton("DPAD Up");
+		key != keyboard.getKeyByButton("DPAD Up") &&
+		key != keyboard.getKeyByButton("BACK");
 	}
 
 	/**
