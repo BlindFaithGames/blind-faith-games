@@ -178,7 +178,7 @@ public class MainActivity extends Activity implements OnClickListener,OnFocusCha
 
 	/** Start a new game with the given difficulty level */
 	private void startGame() {
-		Intent intent = new Intent(this, GolfGame.class);
+		Intent intent = new Intent(this, GolfGameActivity.class);
 		intent.putExtra(KEY_TTS, textToSpeech);
 		startActivityForResult(intent, RESET_CODE);
 	}

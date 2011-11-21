@@ -3,8 +3,13 @@ package org.example.tinyEngineClasses;
 import java.util.Iterator;
 import java.util.List;
 
+import android.graphics.Canvas;
+import android.view.View;
+
 
 public abstract class Game {
+	
+	private View v;
 	
 	public static int DELAY = 1000/60;
 	public static int FRAMES_PER_SECOND = 25;
@@ -19,11 +24,12 @@ public abstract class Game {
 	// Más buffers si se necesitan .. private List<Entity> ;
 	
 	
-	public Game(){
+	public Game(View v){
 		game_is_running = false;
+		this.v = v;
 	}
 	
-	private void _onDraw() {
+	private void _onDraw(Canvas canvas) {
 		
 		Iterator<Entity> it = collidables.iterator();
 		Entity e;
@@ -32,7 +38,7 @@ public abstract class Game {
 			e.onDraw();
 		}
 		
-		onDraw();
+		onDraw(canvas);
 		
 		renderables.clear();
 	}
@@ -82,7 +88,7 @@ public abstract class Game {
 		game_is_running = false;
 	}
 	
-	private void gameLoop(){
+	public void gameLoop(Canvas canvas){
 
 	    long next_game_tick = System.currentTimeMillis();
 
@@ -92,7 +98,7 @@ public abstract class Game {
 			
 			next_game_tick += SKIP_TICKS;
 			
-			_onDraw();
+			_onDraw(canvas);
 			_onUpdate();
 			
 	        sleep_time = next_game_tick - System.currentTimeMillis();
@@ -119,7 +125,7 @@ public abstract class Game {
 		removables.add(e);
 	}
 	
-	protected abstract void onDraw();
+	protected abstract void onDraw(Canvas canvas);
 	
 	protected abstract void onUpdate();
 	
