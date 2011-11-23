@@ -1,7 +1,10 @@
 package org.example.tinyEngineClasses;
 
+import java.util.ArrayList;
+
 import org.example.golf.XML.XMLKeyboard;
 
+import android.view.MotionEvent;
 import android.view.View;
 
 
@@ -13,13 +16,14 @@ import android.view.View;
 public class Input {
 
 	private View v;
-	
+	private ArrayList<MotionEvent> events;
 	private static Input input = null;
 	
 	private static XMLKeyboard keyboard;
 	
 	private Input(View v) {
 		this.v = v;
+		events = new ArrayList<MotionEvent>();
 	}
 	
 	public Input getInput(View v){
@@ -39,5 +43,8 @@ public class Input {
 		return keyboard;
 	}
 	
+	public void addEvent(MotionEvent e){
+		events.add(e);
+	}
 	
 }

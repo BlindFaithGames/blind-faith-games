@@ -13,19 +13,21 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 
-public class GolfGameActivity extends Activity {
+public class GolfGameActivity extends Activity implements OnGestureListener {
 	
 	private GolfGame game;
-
+    private GestureDetector gestureScanner;
 	private AnimatedSprite animation = new AnimatedSprite();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        gestureScanner = new GestureDetector(this);
         setContentView(new GolfGamePanel(this));
-        
     }
     
     class GolfGamePanel extends DrawablePanel {
@@ -124,4 +126,46 @@ public class GolfGameActivity extends Activity {
 		
 		
     }
+    @Override
+    public boolean onTouchEvent(MotionEvent me) {
+    	return gestureScanner.onTouchEvent(me);
+    }
+	@Override
+	public boolean onDown(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+			float velocityY) {
+		// TODO Auto-generated method stub
+		// Cálculo del ángulo de tiro
+		return false;
+	}
+
+	@Override
+	public void onLongPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onShowPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

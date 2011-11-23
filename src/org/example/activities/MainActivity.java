@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.example.R;
-import org.example.golf.GolfGame;
 import org.example.golf.XML.KeyboardWriter;
 import org.example.golf.XML.XMLKeyboard;
 import org.example.tinyEngineClasses.Input;
