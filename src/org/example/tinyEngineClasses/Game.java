@@ -1,5 +1,6 @@
 package org.example.tinyEngineClasses;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,39 +12,35 @@ public abstract class Game {
 	
 	private View v;
 	
-	public static int DELAY = 1000/60;
-	public static int FRAMES_PER_SECOND = 25;
-	public static int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
-	
     boolean game_is_running;
 	
 	private List<Entity> entities;
 	private List<Entity> collidables;
 	private List<Entity> renderables;
 	private List<Entity> removables;
-	// Más buffers si se necesitan .. private List<Entity> ;
-	
 	
 	public Game(View v){
 		game_is_running = false;
 		this.v = v;
+		entities = new ArrayList<Entity>();
+		collidables = new ArrayList<Entity>();
+		renderables = new ArrayList<Entity>();
+		removables = new ArrayList<Entity>();
 	}
 	
-	private void _onDraw(Canvas canvas) {
+	protected void onDraw(Canvas canvas) {
 		
-		Iterator<Entity> it = collidables.iterator();
+		Iterator<Entity> it = renderables.iterator();
 		Entity e;
 		while(it.hasNext()){
 			e = it.next();
-			e.onDraw();
+			e.onDraw(canvas);
 		}
-		
-		onDraw(canvas);
 		
 		renderables.clear();
 	}
 	
-	private void _onUpdate(){
+	protected void onUpdate(){
 		
 		Iterator<Entity> it = entities.iterator();
 		Entity e;
@@ -63,13 +60,12 @@ public abstract class Game {
 			e1 = it1.next();
 			while(it2.hasNext()){
 				e2 = it2.next();
-				e1.onCollision(e2);
+				if (e1.collides(e2))
+					e1.onCollision(e2);
 			}
 			
 		}
-				
-		onUpdate();
-		
+	
 		it  = removables.iterator();
 		while(it.hasNext()){
 			entities.remove(it);
@@ -88,7 +84,7 @@ public abstract class Game {
 		game_is_running = false;
 	}
 	
-	public void gameLoop(Canvas canvas){
+	/*private void gameLoop(Canvas canvas){
 
 	    long next_game_tick = System.currentTimeMillis();
 
@@ -115,7 +111,7 @@ public abstract class Game {
 	        }
 			
 		}
-	}
+	}*/
 	
 	protected void addEntity(Entity e){	
 		entities.add(e);
@@ -124,9 +120,4 @@ public abstract class Game {
 	protected void removeEntity(Entity e){	
 		removables.add(e);
 	}
-	
-	protected abstract void onDraw(Canvas canvas);
-	
-	protected abstract void onUpdate();
-	
 }

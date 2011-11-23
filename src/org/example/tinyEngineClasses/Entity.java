@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 public abstract class Entity {
 
@@ -12,11 +13,13 @@ public abstract class Entity {
 	private float x,y; //coordenadas
 	
 	private Bitmap img; // imagen
+	private AnimatedSprite anim; // animacion
 	
 	private boolean enabled; // habilitada
 	private boolean collidable; // colisiona con otras entidades?
 	private boolean visible; // ¿visible? esto determina si se dibuja o no 
 	private boolean frozen; // a decidir si se mantiene xD
+	private boolean animated;
 	
     private int[] timers;
 	
@@ -24,7 +27,7 @@ public abstract class Entity {
     
 	private Game game;
 	
-	public Entity(float x, float y, Bitmap img, Game game, List<Mask> mask){
+	public Entity(float x, float y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount){
 		this.x = x;
 		this.y = y;
 		this.img = img;
@@ -34,13 +37,25 @@ public abstract class Entity {
 		collidable = true;
 		visible = true;
 		frozen = false;
+		if(animated){
+			anim = new AnimatedSprite();
+			anim.Initialize(img, img.getHeight(), img.getWidth()/frameCount, frameCount);
+		}
 	}
     
-	public abstract void onDraw();
+	protected  void onDraw(Canvas canvas){
+		if(animated)
+			anim.draw((int)x, (int)y,canvas);
+		else
+			canvas.drawBitmap(img, x, y, null);	
+	}
 	
     /** Evento de actualización
      Contendrá las acciones a realizar durante un paso del juego. */
-	public abstract void onUpdate();
+	protected void onUpdate(){
+		if(animated)
+			anim.update();
+	}
 	
 	
     /** Evento de colisión
@@ -119,5 +134,4 @@ public abstract class Entity {
 	public String getId() {
 		return id;
 	}
-
 }

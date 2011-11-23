@@ -1,4 +1,5 @@
-package org.example.golf;
+package org.example.tinyEngineClasses;
+
 
 import android.content.Context;
 import android.graphics.Canvas;

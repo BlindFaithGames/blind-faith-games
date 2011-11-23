@@ -1,10 +1,10 @@
 package org.example.golf;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.example.R;
 import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.MaskCircle;
 
 import android.graphics.Bitmap;
@@ -18,28 +18,26 @@ public class GolfGame extends Game{
 		super(v);
 		// Game entities: dot and target
 		// Dot
-		ArrayList<MaskCircle> dotMasks = new ArrayList<MaskCircle>();
+		ArrayList<Mask> dotMasks = new ArrayList<Mask>();
 		dotMasks.add(new MaskCircle(40, 40, 40));
 		Bitmap ballBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.ball);
-		this.addEntity(new Dot(15,15, ballBitmap, this, (List)dotMasks));
+		this.addEntity(new Dot(15,15, ballBitmap, this, dotMasks));
 		// Target
-		ArrayList<MaskCircle> targetMasks = new ArrayList<MaskCircle>();
+		ArrayList<Mask> targetMasks = new ArrayList<Mask>();
 		targetMasks.add(new MaskCircle(10, 10, 10));
 		Bitmap targetBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.ball);
-		this.addEntity(new Dot(15,15, ballBitmap, this, (List)targetMasks));
-	}
-
-	/**Crea entidades propias del juego y demas, pinta fondo y... continuara*/
-	@Override
-	protected void onDraw(Canvas canvas) {
-		// TODO Auto-generated method stub
-		
+		this.addEntity(new Target(15,15, targetBitmap, this, targetMasks));
 	}
 
 	@Override
-	protected void onUpdate() {
-		// TODO Auto-generated method stub
-		
+	public void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		// Draw background
+	}
+
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
 	}
 	
 }
