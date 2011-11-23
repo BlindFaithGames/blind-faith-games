@@ -4,6 +4,7 @@ import org.example.R;
 import org.example.golf.AnimatedSprite;
 import org.example.golf.DrawablePanel;
 import org.example.golf.GolfGame;
+import org.example.tinyEngineClasses.Input;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,36 +18,41 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 
-public class GolfGameActivity extends Activity implements OnGestureListener {
-	
+public class GolfGameActivity extends Activity {
+	private static String TAG = "GolfGameActivity";
 	private GolfGame game;
-    private GestureDetector gestureScanner;
 	private AnimatedSprite animation = new AnimatedSprite();
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        gestureScanner = new GestureDetector(this);
         setContentView(new GolfGamePanel(this));
     }
     
-    class GolfGamePanel extends DrawablePanel {
-
+    class GolfGamePanel extends DrawablePanel implements OnGestureListener {
+        private GestureDetector gestureScanner;
 		private int xEvent;
 		private int yEvent;
 		private int dir,ndir;
 		
 		public GolfGamePanel(Context context) {
 			super(context);
+	        gestureScanner = new GestureDetector(this);
 		}
 
 		@Override
 		public void onDraw(Canvas canvas) {
 			super.onDraw(canvas);
 			Paint brush = new Paint();
-			brush.setColor(Color.WHITE);
-			canvas.drawRect(new Rect(0,0,getWidth(),getHeight()),brush);
+			// Field
+			brush.setColor(Color.rgb(50, 205, 50));
+			canvas.drawRect(new Rect(0,getHeight()-getHeight()/3,getWidth(),getHeight()),brush);
 			
+			// Sky
+			brush.setColor(Color.rgb(135, 206, 250));
+			canvas.drawRect(new Rect(0,0,getWidth(),getHeight()-getHeight()/3),brush);
+
 			if(dir != ndir){
 				dir = ndir;
 				if(dir == 0)
@@ -67,6 +73,7 @@ public class GolfGameActivity extends Activity implements OnGestureListener {
 		
 		@Override
 		public void onInitalize() {
+			
 			GolfGameActivity.this.animation.Initialize(
 					BitmapFactory.decodeResource(
 							getResources(), 
@@ -100,72 +107,80 @@ public class GolfGameActivity extends Activity implements OnGestureListener {
 							ndir = 3;
 						}
 				}
-		if((xEvent < animation.getXPos() + 10 && xEvent > animation.getXPos() - 10) && 
-			(yEvent < animation.getYPos() + 10  && yEvent > animation.getYPos() - 10))
-				animation.stop();
-		else{
-			if(ndir == 0)
-				animation.setXPos(animation.getXPos()+10);
-			else
-				if(ndir == 1)
-					animation.setXPos(animation.getXPos()-10);
+			if((xEvent < animation.getXPos() + 10 && xEvent > animation.getXPos() - 10) && 
+				(yEvent < animation.getYPos() + 10  && yEvent > animation.getYPos() - 10))
+					animation.stop();
+			else{
+				if(ndir == 0)
+					animation.setXPos(animation.getXPos()+10);
 				else
-					if(ndir == 2)
-						animation.setYPos(animation.getYPos()+10);
-					else 
-						if(ndir == 3)
-							animation.setYPos(animation.getYPos()-10);
-		}
+					if(ndir == 1)
+						animation.setXPos(animation.getXPos()-10);
+					else
+						if(ndir == 2)
+							animation.setYPos(animation.getYPos()+10);
+						else 
+							if(ndir == 3)
+								animation.setYPos(animation.getYPos()-10);
+			}
 		}
 		
 		public boolean onTouchEvent(MotionEvent event) {
-			xEvent = (int) event.getX();
-			yEvent = (int) event.getY();
+			return gestureScanner.onTouchEvent(event);
+		}
+		
+		@Override
+		public boolean onDown(MotionEvent e) {
+			Input.getInput(this).addEvent(e);
+			System.out.println("On Down: " + e.toString());
+			return true;
+		}
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			System.out.println("Fling: " + e1.toString()); System.out.println("Fling: " + e2.toString());
+			System.out.println("VX: "+velocityX + "\n VY: " + velocityY);
+//			Log.d(TAG, "VX: "+velocityX + "\n VY: " + velocityY);
+			Input.getInput(this).addEvent(e1);
+			Input.getInput(this).addEvent(e2);
+
+			return true;
+		}
+
+		@Override
+		public void onLongPress(MotionEvent e) {
+			Input.getInput(this).addEvent(e);
+			System.out.println("Long Pressed: " + e.toString());
+		}
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+				float distanceY) {
+			System.out.println("Scroll: " + e1.toString()); System.out.println("Scroll: " + e2.toString());
+			System.out.println("X: "+distanceX + "\n Y: " + distanceY);
+//			Log.d(TAG, "X: "+distanceX + "\n Y: " + distanceY);
+			Input.getInput(this).addEvent(e1);
+			Input.getInput(this).addEvent(e2);
+			return true;
+		}
+
+		@Override
+		public void onShowPress(MotionEvent e) {
+			Input.getInput(this).addEvent(e);
+			System.out.println("On Show Press: " + e.toString());
+			
+		}
+
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			Input.getInput(this).addEvent(e);
+			System.out.println("On Single Tap: " + e.toString());
+			
 			return true;
 		}
 		
 		
     }
-    @Override
-    public boolean onTouchEvent(MotionEvent me) {
-    	return gestureScanner.onTouchEvent(me);
-    }
-	@Override
-	public boolean onDown(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-			float velocityY) {
-		// TODO Auto-generated method stub
-		// Cálculo del ángulo de tiro
-		return false;
-	}
-
-	@Override
-	public void onLongPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-			float distanceY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onShowPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean onSingleTapUp(MotionEvent e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

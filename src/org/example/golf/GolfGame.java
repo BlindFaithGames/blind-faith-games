@@ -25,14 +25,13 @@ public class GolfGame extends Game{
 		// Target
 		ArrayList<MaskCircle> targetMasks = new ArrayList<MaskCircle>();
 		targetMasks.add(new MaskCircle(10, 10, 10));
-		Bitmap targetBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.ball);
-		this.addEntity(new Dot(15,15, ballBitmap, this, (List)targetMasks));
+		Bitmap targetBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.hole);
+		this.addEntity(new Dot(v.getHeight()-15,v.getWidth()-15, targetBitmap, this, (List)targetMasks));
 	}
 
 	/**Crea entidades propias del juego y demas, pinta fondo y... continuara*/
 	@Override
 	protected void onDraw(Canvas canvas) {
-		// TODO Auto-generated method stub
 		
 	}
 
