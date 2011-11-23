@@ -30,8 +30,11 @@ public class Dot extends Entity{
 
 	@Override
 	public void onCollision(Entity e) {
-		// TODO Auto-generated method stub
-		
+		// La pelota se mete en el hoyo
+		if (e instanceof Target){
+			this.setX(e.getX());
+			this.setY(e.getY());
+		}
 	}
 
 	@Override

@@ -26,8 +26,6 @@ public class AnimationThread extends Thread {
 		run = value;
 	}
 	
-	private long timer;
-
 	@Override
 	public void run() {
 		
@@ -46,9 +44,6 @@ public class AnimationThread extends Thread {
 	    			e.printStackTrace();
 	    		}
 	        }
-	        
-        	panel.onUpdate(timer);
-
         	try {
 	            c = surfaceHolder.lockCanvas(null);
 	            synchronized (surfaceHolder) {
@@ -62,6 +57,7 @@ public class AnimationThread extends Thread {
 	                surfaceHolder.unlockCanvasAndPost(c);
 	            }
 	        }
+        	panel.onUpdate();
 	    }    		
 	}
 }

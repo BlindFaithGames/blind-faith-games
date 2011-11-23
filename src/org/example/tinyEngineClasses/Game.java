@@ -10,7 +10,7 @@ import android.view.View;
 
 public abstract class Game {
 	
-	private View v;
+	protected View v;
 	
     boolean game_is_running;
 	
