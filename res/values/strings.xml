@@ -8,7 +8,7 @@
     <string name="resetButtonMessage">Reiniciar</string>
     <string name="exitButton">Exit</string>
     <string name="app_name">Minesweeper</string>
-	<string name="main_title">Android Minesweeper</string>
+	<string name="main_title">Accesible Minesweeper</string>
 	<string name="continue_label">Continue</string>
 	<string name="new_game_label">New Game</string>
 	<string name="keyConf_label">Key Configuration</string>
