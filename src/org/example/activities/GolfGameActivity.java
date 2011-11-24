@@ -56,7 +56,7 @@ public class GolfGameActivity extends Activity {
 		
 		@Override
 		public boolean onDown(MotionEvent e) {
-			Input.getInput(this).addEvent(e);
+			Input.getInput().addEvent("onDown",e,null,-1,-1);
 			System.out.println("On Down: " + e.toString());
 			return true;
 		}
@@ -67,15 +67,14 @@ public class GolfGameActivity extends Activity {
 			System.out.println("Fling: " + e1.toString()); System.out.println("Fling: " + e2.toString());
 			System.out.println("VX: "+velocityX + "\n VY: " + velocityY);
 //			Log.d(TAG, "VX: "+velocityX + "\n VY: " + velocityY);
-			Input.getInput(this).addEvent(e1);
-			Input.getInput(this).addEvent(e2);
+			Input.getInput().addEvent("onFling", e1, e2 ,velocityX, velocityY);
 
 			return true;
 		}
 
 		@Override
 		public void onLongPress(MotionEvent e) {
-			Input.getInput(this).addEvent(e);
+			Input.getInput().addEvent("onLongPress",e,null,-1,-1);
 			System.out.println("Long Pressed: " + e.toString());
 		}
 
@@ -85,21 +84,21 @@ public class GolfGameActivity extends Activity {
 			System.out.println("Scroll: " + e1.toString()); System.out.println("Scroll: " + e2.toString());
 			System.out.println("X: "+distanceX + "\n Y: " + distanceY);
 //			Log.d(TAG, "X: "+distanceX + "\n Y: " + distanceY);
-			Input.getInput(this).addEvent(e1);
-			Input.getInput(this).addEvent(e2);
+			Input.getInput().addEvent("onScroll", e1, e2, distanceX, distanceY);
+
 			return true;
 		}
 
 		@Override
 		public void onShowPress(MotionEvent e) {
-			Input.getInput(this).addEvent(e);
+			Input.getInput().addEvent("onShowPress", e, null, -1, -1);
 			System.out.println("On Show Press: " + e.toString());
 			
 		}
 
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
-			Input.getInput(this).addEvent(e);
+			Input.getInput().addEvent("onSingleTap", e, null, -1, -1);
 			System.out.println("On Single Tap: " + e.toString());
 			
 			return true;
