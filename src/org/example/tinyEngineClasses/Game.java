@@ -60,7 +60,7 @@ public abstract class Game {
 			e1 = it1.next();
 			while(it2.hasNext()){
 				e2 = it2.next();
-				if (e1.collides(e2))
+				if (e1 != e2 & e1.collides(e2)) 
 					e1.onCollision(e2);
 			}
 			

@@ -57,7 +57,7 @@ public class AnimatedSprite {
 		stop = true;
 	}
 	
-	public void update() {
+	public void onUpdate() {
 		if(!stop){
 			currentFrame += 1;
 			
@@ -70,7 +70,7 @@ public class AnimatedSprite {
 			}
 	}
 	
-	public void draw(int x, int y, Canvas canvas) {
+	public void onDraw(int x, int y, Canvas canvas) {
 		Rect dest = new Rect(x, y, x + spriteWidth,
 										y + spriteHeight);
 		canvas.drawBitmap(animation, sRectangle, dest, null);

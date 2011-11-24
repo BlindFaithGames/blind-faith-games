@@ -10,7 +10,9 @@ public abstract class Entity {
 
 	private String id;
 	
-	private float x,y; //coordenadas
+	protected int x; //coordenadas
+
+	protected int y;
 	
 	private Bitmap img; // imagen
 	private AnimatedSprite anim; // animacion
@@ -27,12 +29,13 @@ public abstract class Entity {
     
 	private Game game;
 	
-	public Entity(float x, float y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount){
+	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount){
 		this.x = x;
 		this.y = y;
 		this.img = img;
 		this.game = game;
 		this.mask = mask;
+		this.animated = animated;
 		enabled = true;
 		collidable = true;
 		visible = true;
@@ -40,29 +43,38 @@ public abstract class Entity {
 		if(animated){
 			anim = new AnimatedSprite();
 			anim.Initialize(img, img.getHeight(), img.getWidth()/frameCount, frameCount);
+			anim.play();
 		}
 	}
     
+	/**
+	 * By default draws the graphic of the entity
+	 * 
+	 * */
 	protected  void onDraw(Canvas canvas){
 		if(animated)
-			anim.draw((int)x, (int)y,canvas);
+			anim.onDraw((int)x, (int)y,canvas);
 		else
 			canvas.drawBitmap(img, x, y, null);	
 	}
 	
-    /** Evento de actualización
-     Contendrá las acciones a realizar durante un paso del juego. */
+    /** Updates the animation entity and its mask set.*/
 	protected void onUpdate(){
 		if(animated)
-			anim.update();
+			anim.onUpdate();
+		
+		Iterator<Mask> it = mask.iterator();
+		Mask m;
+		while(it.hasNext()){
+			m = it.next();
+			m.onUpdate(x,y);
+		}
 	}
 	
 	
-    /** Evento de colisión
-    
-            Contendrá las acciones a realizar cuando se produzca una colisión.
-            @param other el par de colisión entre las máscaras, donde el primer campo se refiere a esta entidad y el segundo a la otra.
-            @param e la entidad con la que colisiona
+    /** Collision event
+            Actions to do when two entities collides.
+            @param e the entity that collides with this
     */
 	public abstract void onCollision(Entity e);
 	
@@ -105,6 +117,12 @@ public abstract class Entity {
 		return visible;
 	}
 
+	/**
+	 * Two entities collides if one of their mask collides with a mask of the other.
+	 * 
+	 * @param e2 entity that collides with entity this
+	 * 
+	 * */
 	public boolean collides(Entity e2) {
 		Iterator<Mask> it1 = mask.iterator();
 		Iterator<Mask> it2;
@@ -148,11 +166,11 @@ public abstract class Entity {
 	// SETTERS
 	
 
-	public void setX(float x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public void setY(float y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 

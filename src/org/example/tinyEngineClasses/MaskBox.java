@@ -1,39 +1,27 @@
 package org.example.tinyEngineClasses;
 
-import android.graphics.Rect;
 
 public class MaskBox extends Mask{
 
-	private Rect mask;
+	private int width,height;
 	
-	private int left,right,top,bottom;
-	
-	public MaskBox(int left, int top, int right, int bottom){
-		this.left = left;
-		this.right = right;
-		this.top = top;
-		this.bottom = bottom;
-		this.mask = new Rect(left, top, right, bottom);
+	public MaskBox(int offsetX, int offsetY, int width, int height){
+		super(offsetX, offsetY);
+		this.width = width;
+		this.height = height;
 	}
 
-	public int getBottom() {
-		return bottom;
+	public int getWidth() {
+		return width;
 	}
 
-	public int getLeft() {
-		return left;
-	}
-	
-	public int getRight() {
-		return right;
-	}
-	
-	public int getTop() {
-		return top;
+	public int getHeight() {
+		return height;
 	}
 	
 	@Override
-	public boolean isInMask(double x, double y) {
-		return x >= left && x <= right && y <= top && y >= bottom;
+	public boolean isInMask(int x, int y) {
+		return x >= this.x && x <= width+this.x && y >= this.y && y <= height+this.y;
 	}
+
 }

@@ -2,46 +2,66 @@ package org.example.tinyEngineClasses;
 
 public abstract class Mask {
 	
-	public abstract boolean isInMask(double x, double y);
+	protected int offsetX,offsetY; // offset between entity coordinates and mask coordinates
+	protected int x,y; // Mask coordinates
+	
+	public Mask(int offsetX, int offsetY){
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+	}
+	
+	public abstract boolean isInMask(int x, int y);
 	
 	public boolean collide(Mask m){
 		
 		if(m instanceof MaskCircle){
 			MaskCircle circle = (MaskCircle) m;
-			double cx = circle.getCenterX();
-			double cy = circle.getCenterY();
-			double r = circle.getRadius();
-			double inc = 0.5d; // hardcodeo a tope!!
-			double x,y;
+			int cx = circle.getCenterX();
+			int cy = circle.getCenterY();
+			int r = circle.getRadius();
+			int inc = 1; 
+			int auxX,auxY;
 			boolean found = false;
-			while(r>0 && !found){
-				double ang = 0;
-				while(ang < 360 && !found){
-					x = cx + r * Math.cos(ang);
-					y = cy + r * Math.sin(ang);
-					found = this.isInMask(x,y);
+			double ang = 0;
+			while(ang < 360 && !found){
+					auxX = (int) (cx + r * Math.cos(ang));
+					auxY = (int) (cy + r * Math.sin(ang));
+					found = this.isInMask(auxX,auxY);
 					ang=ang+inc;
-				}	
-				r--;
-			}
+			}	
 			return found;
 		}
 		else
 			if(m instanceof MaskBox){
 				MaskBox box = (MaskBox) m;
-				double x = box.getLeft();
-				double y;
+				int auxX = box.getX();
+				int x = box.getX();
+				int y = box.getY();
+				int auxY;
 				boolean found = false;
-				while(x < box.getRight() && !found){
-					y = box.getTop(); 
-					while(y < box.getBottom() && !found){
-						found = this.isInMask(x,y);
-						y--;
+				while(auxX < x + box.getWidth() && !found){
+					auxY = box.getY(); 
+					while(auxY < y + box.getHeight() && !found){
+						found = this.isInMask(auxX,auxY);
+						auxY++;
 					}
-					x++;
+					auxX++;
 				}
 				return found;
 			}
 		return false;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void onUpdate(int x, int y) {
+		this.x = x + offsetX;
+		this.y = y + offsetY;
 	}
 }
