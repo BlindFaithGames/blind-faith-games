@@ -174,4 +174,14 @@ public abstract class Entity {
 		this.y = y;
 	}
 
+	
+	public void playAnim(){
+		if(animated)
+			anim.play();
+	}
+	
+	public void stopAnim(){
+		if(animated)
+			anim.stop();
+	}
 }

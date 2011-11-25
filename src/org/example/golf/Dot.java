@@ -1,63 +1,102 @@
 package org.example.golf;
 
 import java.util.List;
-
+import android.graphics.Point;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
-import org.example.tinyEngineClasses.Input.Point;
+import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
 
 import android.graphics.Bitmap;
+import android.view.MotionEvent;
 
 public class Dot extends Entity{
 
+	private boolean launched;
+	private int speed;
+	
+	private float incr;
+	private float param;
+	Point v = null;
+	float initialX = 0;
+	float initialY = 0;
+	
+	
 	public Dot(int x, int y, Bitmap img, Game game, List<Mask> mask) {
-		super(x, y, img, game, mask, true, 6);
+		super(x, y, img, game, mask, true, 7);
+		launched = false;
+		speed = 10;
+		param = 0;
+		this.stopAnim();
 	}
 	
 	@Override
-	public void onUpdate(){
-		super.onUpdate();
-		this.y = y - 10;
-	}
-	
-/*	@Override
 	public void onUpdate() {
-		// Si hay eventos tipo scroll, actualizar
-		// onDown(0) - onShowPress(1) - onScroll(2)
-		if (Input.getInput().getType(2).equals("onScroll")){
-			Input.getInput().removeEvent(); Input.getInput().removeEvent();
-			Point p = Input.getInput().getDistance();
-			// Consumimos eventos de scroll
-			Input.getInput().removeNextScroll();
-			// Es posible que el último mov. en lugar de scroll sea fling --> no se tiene en cuenta y se borra.
-			if (Input.getInput().getTypeNextEvent().equals("onFling")) Input.getInput().removeEvent();
+		
+		super.onUpdate();
+		
+		EventType e  = Input.getInput().getEvent("onFling");
+		if (!launched &&  e != null){
+			MotionEvent e1 = e.getE();
+			MotionEvent e2 = e.getE2();
 			// Si hay desplazamiento en y negativo (acción tirachinas)
-			if (p.getY() < 0){
+			if (e1.getRawY() - e2.getRawY() < 0){
 				// Entonces disparamos en el ángulo que forma el desplazamiento en x
-				// BANG!				
+				// BANG!	
+				v = new Point((int)(e1.getRawX() - e2.getRawX()),(int)(e1.getRawY() - e2.getRawY()));
+				
+				if(v.y < 0 & v.y < 200){
+					launched = true;
+					this.playAnim();
+					param = 0.05f;
+					incr = 0.5f;
+					initialX = this.x;
+					initialY = this.y;
+				}
 			}
 		}
-	}*/
+		
+		e  = Input.getInput().getEvent("onScroll");
+		if(!launched && e != null){
+			this.playAnim();
+		}
+		else 
+			this.stopAnim();
+		
+		if(launched){
+			float auxX = initialX + param * v.x; 
+			float auxY = initialY + param * v.y;
+
+			param = param + incr;
+			
+			this.x = (int) auxX;
+			this.y = (int) auxY;
+			
+			if(this.x <= 0 || this.x > 500)// width
+				collides();
+		}
+	}
 
 	@Override
 	public void onCollision(Entity e) {
 		// La pelota se mete en el hoyo
 		if (e instanceof Target){
-			this.setX(150);
-			this.setY(500);
+			collides();
 		}
 	}
 
-	@Override
-	public void onTimer(int timer) {
-		// TODO Auto-generated method stub
+	private void collides(){
+		this.setX(200);
+		this.setY(500);
+		launched = false;
+		this.stopAnim();
 	}
+	
+	@Override
+	public void onTimer(int timer) {}
 
 	@Override
-	public void onInit() {
-		// TODO Auto-generated method stub
-	}
+	public void onInit() {}
 
 }

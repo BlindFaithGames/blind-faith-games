@@ -84,35 +84,6 @@ public abstract class Game {
 		game_is_running = false;
 	}
 	
-	/*private void gameLoop(Canvas canvas){
-
-	    long next_game_tick = System.currentTimeMillis();
-
-	    long sleep_time = 0;
-
-		while(game_is_running){
-			
-			next_game_tick += SKIP_TICKS;
-			
-			_onDraw(canvas);
-			_onUpdate();
-			
-	        sleep_time = next_game_tick - System.currentTimeMillis();
-	        
-	        if(sleep_time >= 0) {
-	            try {
-					Thread.sleep(sleep_time);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-	        }
-	        else {
-	            // we are running behind!
-	        }
-			
-		}
-	}*/
-	
 	protected void addEntity(Entity e){	
 		entities.add(e);
 	}

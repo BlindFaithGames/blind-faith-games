@@ -1,7 +1,7 @@
 package org.example.tinyEngineClasses;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.example.golf.XML.XMLKeyboard;
 
@@ -16,30 +16,10 @@ import android.view.MotionEvent;
 public class Input {
 
 //	private View v;
-	private ArrayList<EventType> events;
+	private Map<String,EventType> events;
 	private static Input input = null;
 
 	private static XMLKeyboard keyboard;
-	
-	public class Point{
-		float x;
-		float y;
-		
-		public Point(float x, float y){
-			this.x = x;
-			this.y = y;
-		}
-
-		public float getX() {
-			return x;
-		}
-
-		public float getY() {
-			return y;
-		}
-		
-		
-	}
 	
 	public class EventType{
 		private String type;
@@ -77,7 +57,7 @@ public class Input {
 	}
 	
 	public Input() {
-		events = new ArrayList<EventType>();
+		events = new HashMap<String, Input.EventType>();
 	}
 	
 	public static Input getInput() {
@@ -96,72 +76,18 @@ public class Input {
 	}
 
 	public void addEvent(String type, MotionEvent e, MotionEvent e2, float dvx, float dvy) {
-		events.add(new EventType(type,e,e2,dvx,dvy));
+		events.put(type,new EventType(type,e,e2,dvx,dvy));
 	}
 	
-	/**
-	 * Removes the first event
-	 */
-	public void removeEvent(){
-		if (events.size() != 0)
-			events.remove(0);
-	}
-	
-	public String getTypeNextEvent(){
-		if (events.size() != 0)
-			return events.get(0).getType();
-		else return "";	
-	}
-	
-	public boolean isScroll(){
-		return this.getTypeNextEvent().equals("onScroll");
-	}
-	
-	public void removeNextScroll(){
-		Iterator<EventType> it = events.iterator();
-		boolean ok = true;
-		int i = 0;
-		if (isScroll()){
-			while (ok && it.hasNext()){
-				EventType e = it.next();
-				ok = e.getType().equals("onScroll");
-				if (ok) i++;
-			}
-		}
-		while (i != 0){
-			events.remove(i);
-			i--;
-		}
+	public EventType getEvent(String key){
+		EventType e = events.get(key);
+		events.remove(key);
+		return e;
 	}
 	
 	public boolean hasEvents(){
 		return events.size() != 0;
 	}
-	
-	public String getType(int i){
-		if (i < events.size())
-			return events.get(i).getType();
-		else return "";
-	}
-
-	/**
-	 * Returns the total distance if the next event is a scroll type. If not returns (0,0).
-	 * @return
-	 */
-	public Point getDistance(){
-		float totalX = 0; float totalY = 0;
-		Iterator<EventType> it = events.iterator();
-		boolean ok = true;
-		if (isScroll()){
-			while (ok && it.hasNext()){
-				EventType e = it.next();
-				ok = e.getType().equals("onScroll");
-				if (ok){
-					totalX += e.getDvx();
-					totalY += e.getDvy();
-				}
-			}
-		}
-		return new Point(totalX, totalY);
-	}
 }
+
+

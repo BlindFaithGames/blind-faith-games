@@ -10,6 +10,7 @@ public abstract class DrawablePanel extends SurfaceView implements SurfaceHolder
 	
 	private AnimationThread thread;
 	
+
 	public DrawablePanel(Context context) {
 		super(context);
 		getHolder().addCallback(this);

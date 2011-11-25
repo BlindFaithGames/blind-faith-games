@@ -29,7 +29,6 @@ public class GolfGameActivity extends Activity {
     class GolfGamePanel extends DrawablePanel implements OnGestureListener {
         private GestureDetector gestureScanner;
         
-		
 		public GolfGamePanel(Context context) {
 			super(context);
 	        gestureScanner = new GestureDetector(this);
@@ -85,7 +84,6 @@ public class GolfGameActivity extends Activity {
 			System.out.println("X: "+distanceX + "\n Y: " + distanceY);
 //			Log.d(TAG, "X: "+distanceX + "\n Y: " + distanceY);
 			Input.getInput().addEvent("onScroll", e1, e2, distanceX, distanceY);
-
 			return true;
 		}
 
@@ -93,14 +91,12 @@ public class GolfGameActivity extends Activity {
 		public void onShowPress(MotionEvent e) {
 			Input.getInput().addEvent("onShowPress", e, null, -1, -1);
 			System.out.println("On Show Press: " + e.toString());
-			
 		}
 
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
 			Input.getInput().addEvent("onSingleTap", e, null, -1, -1);
 			System.out.println("On Single Tap: " + e.toString());
-			
 			return true;
 		}
 		
