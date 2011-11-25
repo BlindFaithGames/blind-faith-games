@@ -26,7 +26,7 @@ public class GolfGame extends Game {
 		// Dot
 		ArrayList<Mask> dotMasks = new ArrayList<Mask>();
 		dotMasks.add(new MaskCircle(65,65,65));                           
-		Bitmap ballBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.balla2);
+		Bitmap ballBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.ball1);
 		this.addEntity(new Dot(200,500, ballBitmap, this, dotMasks));
 		// Target
 		ArrayList<Mask> targetMasks = new ArrayList<Mask>();
@@ -43,12 +43,11 @@ public class GolfGame extends Game {
 		//brush.setColor(Color.rgb(135, 206, 250));
 		//canvas.drawRect(new Rect(0,0,v.getWidth(),v.getHeight()-v.getHeight()/3),brush);
 
-		Bitmap grass = BitmapFactory.decodeResource(v.getResources(),
-				R.drawable.field);
+		Bitmap grass = BitmapFactory.decodeResource(v.getResources(),R.drawable.field);
 	    float ancho = (v.getWidth() / grass.getWidth()) + 1;
 	    float alto = (v.getHeight() / grass.getHeight()) + 1;
-	    for(int i=0;i<ancho;i++){
-            for(int j=0;j<alto;j++){
+	    for(int i = 0; i < ancho; i++){
+            for(int j = 0; j < alto; j++){
             		canvas.drawBitmap(grass, grass.getWidth()*i, grass.getHeight()*j, null);
             }
 	     }

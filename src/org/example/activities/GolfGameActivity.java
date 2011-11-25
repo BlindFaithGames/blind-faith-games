@@ -67,7 +67,6 @@ public class GolfGameActivity extends Activity {
 			System.out.println("VX: "+velocityX + "\n VY: " + velocityY);
 //			Log.d(TAG, "VX: "+velocityX + "\n VY: " + velocityY);
 			Input.getInput().addEvent("onFling", e1, e2 ,velocityX, velocityY);
-
 			return true;
 		}
 

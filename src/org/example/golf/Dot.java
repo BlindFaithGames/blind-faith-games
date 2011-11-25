@@ -38,19 +38,18 @@ public class Dot extends Entity{
 		
 		EventType e  = Input.getInput().getEvent("onFling");
 		if (!launched &&  e != null){
-			MotionEvent e1 = e.getE();
-			MotionEvent e2 = e.getE2();
-			// Si hay desplazamiento en y negativo (acción tirachinas)
-			if (e1.getRawY() - e2.getRawY() < 0){
+			// Si hay desplazamiento en y (acción tirachinas)
+
+			if (e.getDvy() > 0){
 				// Entonces disparamos en el ángulo que forma el desplazamiento en x
 				// BANG!	
-				v = new Point((int)(e1.getRawX() - e2.getRawX()),(int)(e1.getRawY() - e2.getRawY()));
+				v = e.getDistance();
 				
 				if(v.y < 0 & v.y < 200){
 					launched = true;
 					this.playAnim();
 					param = 0.05f;
-					incr = 0.5f;
+					incr = 0.05f;
 					initialX = this.x;
 					initialY = this.y;
 				}
@@ -65,6 +64,7 @@ public class Dot extends Entity{
 			this.stopAnim();
 		
 		if(launched){
+			this.playAnim();
 			float auxX = initialX + param * v.x; 
 			float auxY = initialY + param * v.y;
 
