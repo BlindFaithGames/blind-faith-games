@@ -73,7 +73,7 @@ public class Dot extends Entity{
 					launched = true;
 					this.playAnim();
 					param = 0.05f;
-					incr = 0.3f;
+					incr = 0.1f;
 					initialX = this.x;
 					initialY = this.y;
 				}
