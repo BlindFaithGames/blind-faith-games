@@ -60,59 +60,12 @@ public class Dot extends Entity{
 		
 		super.onUpdate();
 		
-		/*EventType e  = Input.getInput().getEvent("onFling");
-		if (!launched &&  e != null){
-			MotionEvent e1 = e.getE();
-			MotionEvent e2 = e.getE2();
-			// Si hay desplazamiento en y negativo (acción tirachinas)
-			if (e1.getRawY() - e2.getRawY() < 0){
-				// Entonces disparamos 
-				v = new Point((int)(e1.getRawX() - e2.getRawX()),(int)(e1.getRawY() - e2.getRawY()));
-				
-				if(v.y < 0 && v.y < 200){
-					launched = true;
-					this.playAnim();
-					param = 0.05f;
-					incr = 0.5f;
-					initialX = this.x;
-					initialY = this.y;
-				}
-			}
-		}
-		
-		e  = Input.getInput().getEvent("onScroll");
-		if(!launched && e != null){
-			this.playAnim();
-			// vibration depends of gradient
-			float gradientMovement = (e.getE().getRawY() - e.getE2().getRawY())/(e.getE().getRawX() -e.getE2().getRawX());
-			manageVibration(gradientMovement,gradientTarget);
-		}
-		else{ 
-			this.stopAnim();
-		}
-		if(launched){
-			// parametric equation defined by initial event and final event associated to onFling event
-			float auxX = initialX + param * v.x; 
-			float auxY = initialY + param * v.y;
-
-			param = param + incr;
-			
-			this.x = (int) auxX;
-			this.y = (int) auxY;
-			
-			if(this.x <= -this.getImgWidth() || this.x > game.getView().getWidth() || this.y <= -this.getImgWidth()){
-				// moves ball to origin position
-				collides();
-				scoreBoard.resetCounter();
-			}
-		}*/
-		
 		EventType e  = Input.getInput().getEvent("onFling");
 		if (!launched &&  e != null){
 			MotionEvent e1 = e.getE();
 			MotionEvent e2 = e.getE2();
 			// Si hay desplazamiento en y negativo (acción tirachinas)
-			if (this.y - e2.getRawY() < 0){
+			if (e.getDvy() > 0){
 				// Entonces disparamos 
 				v = new Point((int)(this.x- e2.getRawX()),(int)(this.y - e2.getRawY()));
 				
@@ -120,7 +73,7 @@ public class Dot extends Entity{
 					launched = true;
 					this.playAnim();
 					param = 0.05f;
-					incr = 0.5f;
+					incr = 0.3f;
 					initialX = this.x;
 					initialY = this.y;
 				}
@@ -131,7 +84,7 @@ public class Dot extends Entity{
 		if(!launched && e != null){
 			this.playAnim();
 			// vibration depends of gradient
-			float gradientTarget = (-this.y)/(targetPos.x-this.x);
+			float gradientTarget = (- this.y)/(targetPos.x- this.x);
 			float gradientMovement = (this.y - e.getE2().getRawY())/(this.x - e.getE2().getRawX());
 			manageVibration(gradientMovement,gradientTarget);
 		}
@@ -139,6 +92,7 @@ public class Dot extends Entity{
 			this.stopAnim();
 		}
 		if(launched){
+			this.playAnim();
 			// parametric equation defined by initial event and final event associated to onFling event
 			float auxX = initialX + param * v.x; 
 			float auxY = initialY + param * v.y;
@@ -160,6 +114,8 @@ public class Dot extends Entity{
 	public void onCollision(Entity e) {
 		// Hole and ball collides
 		if (e instanceof Target){
+			
+			Music.play(this.game.getContext(), R.raw.bing, false);
 			// if we win it creates a new Target
 			Target t = (Target) e;
 			targetPos = t.changePosition();
@@ -189,27 +145,12 @@ public class Dot extends Entity{
 	@Override
 	public void onInit() {}
 
-	
-
 	private void manageVibration(float gradientMovement, float gradientTarget) {
-		/*int dot = 200;      
-		int dash = 500;  
-		int short_gap = 200; 
-		int medium_gap = 500; 
-		int long_gap = 1000;  
-		long[] pattern = {
-		    0,  // Start immediately
-		    dot, short_gap, dot, short_gap, dot,    // s
-		    medium_gap,
-		    dash, short_gap, dash, short_gap, dash, // o
-		    medium_gap,
-		    dot, short_gap, dot, short_gap, dot,    // s
-		    long_gap
-		};
-		v.vibrate(pattern, -1);*/
-		Log.w("",gradientMovement + " " + gradientTarget);
-		if(Math.abs(gradientMovement - gradientTarget) < 0.5)
+		Log.w("",gradientMovement + " " + gradientTarget +  " " + Math.abs((gradientMovement - gradientTarget)));
+		if(Math.abs(gradientMovement - gradientTarget) < 1){
 			Music.play(this.game.getContext(), R.raw.bip, false);
+			mVibrator.vibrate(100);
+		}
 	}
 	
 }
