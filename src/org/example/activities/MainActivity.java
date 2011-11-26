@@ -264,7 +264,7 @@ public class MainActivity extends Activity implements OnClickListener,OnFocusCha
 	protected void onResume() {
 		super.onResume();
 		if(SettingsActivity.getMusic(this))
-			Music.play(this, R.raw.main);
+			Music.play(this, R.raw.main, true);
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 

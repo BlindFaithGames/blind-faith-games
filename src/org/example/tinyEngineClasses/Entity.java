@@ -20,14 +20,14 @@ public abstract class Entity {
 	private boolean enabled; // habilitada
 	private boolean collidable; // colisiona con otras entidades?
 	private boolean visible; // ¿visible? esto determina si se dibuja o no 
-	private boolean frozen; // a decidir si se mantiene xD
+	private boolean frozen; 
 	private boolean animated;
 	
     private int[] timers;
 	
     private List<Mask> mask; // Mascara para colisiones posiblemente un Rect
     
-	private Game game;
+	protected Game game;
 	
 	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount){
 		this.x = x;
@@ -63,11 +63,13 @@ public abstract class Entity {
 		if(animated)
 			anim.onUpdate();
 		
-		Iterator<Mask> it = mask.iterator();
-		Mask m;
-		while(it.hasNext()){
-			m = it.next();
-			m.onUpdate(x,y);
+		if(mask != null){
+			Iterator<Mask> it = mask.iterator();
+			Mask m;
+			while(it.hasNext()){
+				m = it.next();
+				m.onUpdate(x,y);
+			}
 		}
 	}
 	
@@ -108,6 +110,10 @@ public abstract class Entity {
 	public boolean isCollidable() {
 		return collidable;
 	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
 
 	private List<Mask> getMask() {
 		return mask;
@@ -124,19 +130,25 @@ public abstract class Entity {
 	 * 
 	 * */
 	public boolean collides(Entity e2) {
-		Iterator<Mask> it1 = mask.iterator();
-		Iterator<Mask> it2;
-		Mask m1,m2;
-		boolean found = false;
-		while(it1.hasNext() && !found){
-			m1 = it1.next();
-			it2 = e2.getMask().iterator();
-			while(it2.hasNext() && !found){
-				m2 = it2.next();
-				found = m1.collide(m2);
+		if(mask != null){ 
+			Iterator<Mask> it1 = mask.iterator();
+			Iterator<Mask> it2;
+			Mask m1,m2;
+			boolean found = false;
+			while(it1.hasNext() && !found){
+				m1 = it1.next();
+				if(e2.getMask() != null){
+					
+					it2 = e2.getMask().iterator();
+					while(it2.hasNext() && !found){
+						m2 = it2.next();
+						found = m1.collide(m2);
+					}
+				}
 			}
+			return found;
 		}
-		return found;
+		return false;
 	}
 	
 	public boolean equals(Object o){
@@ -183,5 +195,13 @@ public abstract class Entity {
 	public void stopAnim(){
 		if(animated)
 			anim.stop();
+	}
+	
+	public int getImgWidth(){
+		return img.getWidth();	
+	}
+	
+	public int getImgHeight(){
+		return img.getHeight();	
 	}
 }

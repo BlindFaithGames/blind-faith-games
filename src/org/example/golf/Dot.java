@@ -1,34 +1,58 @@
 package org.example.golf;
 
 import java.util.List;
-import android.graphics.Point;
+
+import org.example.R;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
+import org.example.tinyEngineClasses.Music;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 
+
+/**
+ * 
+ * 
+ * */
 public class Dot extends Entity{
 
+	private static final int originX = 200;
+	private static final int originY = 500;
 	private boolean launched;
-	private int speed;
 	
 	private float incr;
 	private float param;
 	Point v = null;
 	float initialX = 0;
 	float initialY = 0;
+	private Point targetPos; // target Position
 	
+	private ScoreBoard scoreBoard; 
 	
-	public Dot(int x, int y, Bitmap img, Game game, List<Mask> mask) {
+	private Vibrator mVibrator;
+	
+	public Dot(int x, int y, Bitmap img, Game game, List<Mask> mask, Point targetPos) {
 		super(x, y, img, game, mask, true, 7);
 		launched = false;
-		speed = 10;
 		param = 0;
 		this.stopAnim();
+		
+		this.targetPos = targetPos;
+		
+		this.mVibrator = (Vibrator) this.game.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+		
+		Bitmap scoreBoardImg = BitmapFactory.decodeResource(this.game.getView().getResources(), R.drawable.scoreboard);
+		scoreBoard = new ScoreBoard(0,500,scoreBoardImg, game, null, false, 0);
+		this.game.addEntity(scoreBoard);
 	}
 	
 	@Override
@@ -36,17 +60,16 @@ public class Dot extends Entity{
 		
 		super.onUpdate();
 		
-		EventType e  = Input.getInput().getEvent("onFling");
+		/*EventType e  = Input.getInput().getEvent("onFling");
 		if (!launched &&  e != null){
 			MotionEvent e1 = e.getE();
 			MotionEvent e2 = e.getE2();
 			// Si hay desplazamiento en y negativo (acción tirachinas)
 			if (e1.getRawY() - e2.getRawY() < 0){
-				// Entonces disparamos en el ángulo que forma el desplazamiento en x
-				// BANG!	
+				// Entonces disparamos 
 				v = new Point((int)(e1.getRawX() - e2.getRawX()),(int)(e1.getRawY() - e2.getRawY()));
 				
-				if(v.y < 0 & v.y < 200){
+				if(v.y < 0 && v.y < 200){
 					launched = true;
 					this.playAnim();
 					param = 0.05f;
@@ -60,11 +83,15 @@ public class Dot extends Entity{
 		e  = Input.getInput().getEvent("onScroll");
 		if(!launched && e != null){
 			this.playAnim();
+			// vibration depends of gradient
+			float gradientMovement = (e.getE().getRawY() - e.getE2().getRawY())/(e.getE().getRawX() -e.getE2().getRawX());
+			manageVibration(gradientMovement,gradientTarget);
 		}
-		else 
+		else{ 
 			this.stopAnim();
-		
+		}
 		if(launched){
+			// parametric equation defined by initial event and final event associated to onFling event
 			float auxX = initialX + param * v.x; 
 			float auxY = initialY + param * v.y;
 
@@ -73,22 +100,85 @@ public class Dot extends Entity{
 			this.x = (int) auxX;
 			this.y = (int) auxY;
 			
-			if(this.x <= 0 || this.x > 500)// width
+			if(this.x <= -this.getImgWidth() || this.x > game.getView().getWidth() || this.y <= -this.getImgWidth()){
+				// moves ball to origin position
 				collides();
+				scoreBoard.resetCounter();
+			}
+		}*/
+		
+		EventType e  = Input.getInput().getEvent("onFling");
+		if (!launched &&  e != null){
+			MotionEvent e1 = e.getE();
+			MotionEvent e2 = e.getE2();
+			// Si hay desplazamiento en y negativo (acción tirachinas)
+			if (this.y - e2.getRawY() < 0){
+				// Entonces disparamos 
+				v = new Point((int)(this.x- e2.getRawX()),(int)(this.y - e2.getRawY()));
+				
+				if(v.y < 0 && v.y < 200){
+					launched = true;
+					this.playAnim();
+					param = 0.05f;
+					incr = 0.5f;
+					initialX = this.x;
+					initialY = this.y;
+				}
+			}
+		}
+		
+		e  = Input.getInput().getEvent("onScroll");
+		if(!launched && e != null){
+			this.playAnim();
+			// vibration depends of gradient
+			float gradientTarget = (-this.y)/(targetPos.x-this.x);
+			float gradientMovement = (this.y - e.getE2().getRawY())/(this.x - e.getE2().getRawX());
+			manageVibration(gradientMovement,gradientTarget);
+		}
+		else{ 
+			this.stopAnim();
+		}
+		if(launched){
+			// parametric equation defined by initial event and final event associated to onFling event
+			float auxX = initialX + param * v.x; 
+			float auxY = initialY + param * v.y;
+
+			param = param + incr;
+			
+			this.x = (int) auxX;
+			this.y = (int) auxY;
+			
+			if(this.x <= -this.getImgWidth() || this.x > game.getView().getWidth() || this.y <= -this.getImgWidth()){
+				// moves ball to origin position
+				collides();
+				scoreBoard.resetCounter();
+			}
 		}
 	}
 
 	@Override
 	public void onCollision(Entity e) {
-		// La pelota se mete en el hoyo
+		// Hole and ball collides
 		if (e instanceof Target){
+			// if we win it creates a new Target
+			Target t = (Target) e;
+			targetPos = t.changePosition();
+			
+			// increments scoreboard
+			scoreBoard.incrementCounter();
+			
+			// moves ball to origin position
 			collides();
 		}
 	}
 
+	/**
+	 * 	Moves ball to origin position
+	 * 
+	 * */
 	private void collides(){
-		this.setX(200);
-		this.setY(500);
+		this.setX(originX);
+		this.setY(originY);
 		launched = false;
 		this.stopAnim();
 	}
@@ -99,4 +189,27 @@ public class Dot extends Entity{
 	@Override
 	public void onInit() {}
 
+	
+
+	private void manageVibration(float gradientMovement, float gradientTarget) {
+		/*int dot = 200;      
+		int dash = 500;  
+		int short_gap = 200; 
+		int medium_gap = 500; 
+		int long_gap = 1000;  
+		long[] pattern = {
+		    0,  // Start immediately
+		    dot, short_gap, dot, short_gap, dot,    // s
+		    medium_gap,
+		    dash, short_gap, dash, short_gap, dash, // o
+		    medium_gap,
+		    dot, short_gap, dot, short_gap, dot,    // s
+		    long_gap
+		};
+		v.vibrate(pattern, -1);*/
+		Log.w("",gradientMovement + " " + gradientTarget);
+		if(Math.abs(gradientMovement - gradientTarget) < 0.5)
+			Music.play(this.game.getContext(), R.raw.bip, false);
+	}
+	
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
 
@@ -12,6 +14,8 @@ public abstract class Game {
 	
 	protected View v;
 	
+	protected Activity context;
+	
     boolean game_is_running;
 	
 	private List<Entity> entities;
@@ -19,8 +23,9 @@ public abstract class Game {
 	private List<Entity> renderables;
 	private List<Entity> removables;
 	
-	public Game(View v){
+	public Game(View v, Context context){
 		game_is_running = false;
+		this.context = (Activity) context;
 		this.v = v;
 		entities = new ArrayList<Entity>();
 		collidables = new ArrayList<Entity>();
@@ -46,18 +51,19 @@ public abstract class Game {
 		Entity e;
 		while(it.hasNext()){
 			e = it.next();
-			if(e.isCollidable())
+			if(e.isCollidable() && e.isEnabled())
 				collidables.add(e);
-			if(e.isRenderable())
+			if(e.isRenderable() && e.isEnabled())
 				renderables.add(e);
 			e.onUpdate();
 		}
 		
 		Iterator<Entity> it1 = collidables.iterator();
-		Iterator<Entity> it2 = collidables.iterator();
+		Iterator<Entity> it2;
 		Entity e1,e2;
 		while(it1.hasNext()){
 			e1 = it1.next();
+			it2 = collidables.iterator();
 			while(it2.hasNext()){
 				e2 = it2.next();
 				if (e1 != e2 & e1.collides(e2)) 
@@ -84,11 +90,19 @@ public abstract class Game {
 		game_is_running = false;
 	}
 	
-	protected void addEntity(Entity e){	
+	public void addEntity(Entity e){	
 		entities.add(e);
 	}
 	
-	protected void removeEntity(Entity e){	
+	public void removeEntity(Entity e){	
 		removables.add(e);
+	}
+	
+	public View getView(){
+		return v;
+	}
+	
+	public Activity getContext(){
+		return context;
 	}
 }

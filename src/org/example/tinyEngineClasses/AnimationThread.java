@@ -10,7 +10,7 @@ import android.view.SurfaceHolder;
 public class AnimationThread extends Thread {
 	
 	public static int DELAY = 1000/60;
-	public static int FRAMES_PER_SECOND = 30;
+	public static int FRAMES_PER_SECOND = 60;
 	public static int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 	
 	private SurfaceHolder surfaceHolder;
@@ -30,7 +30,6 @@ public class AnimationThread extends Thread {
 	
 	@Override
 	public void run() {
-		long lastTick = 0;
 		float fps = 0;
 		int counter = 0;
 		long next_game_tick = System.currentTimeMillis();
@@ -41,8 +40,6 @@ public class AnimationThread extends Thread {
 	        c = null;
 	    	next_game_tick += SKIP_TICKS;
 	    	sleep_time = next_game_tick - System.currentTimeMillis();
-	    	
-	    	lastTick = System.currentTimeMillis();
 	    	
 	        if(sleep_time >= 0) {
 	            try {

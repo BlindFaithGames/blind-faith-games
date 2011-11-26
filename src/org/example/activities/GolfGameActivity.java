@@ -23,7 +23,7 @@ public class GolfGameActivity extends Activity {
         DrawablePanel golfView = new GolfGamePanel(this);
         setContentView(golfView);
         
-        game = new GolfGame(golfView);
+        game = new GolfGame(golfView,this);
     }
     
     class GolfGamePanel extends DrawablePanel implements OnGestureListener {

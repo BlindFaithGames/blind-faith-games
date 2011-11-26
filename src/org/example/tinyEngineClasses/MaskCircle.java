@@ -16,10 +16,10 @@ public class MaskCircle  extends Mask{
 	public int getRadius(){return radius;}
 
 	public int getCenterY() {
-		return this.x;
+		return this.y;
 	}
 
 	public int getCenterX() {
-		return this.y;
+		return this.x;
 	}
 }
