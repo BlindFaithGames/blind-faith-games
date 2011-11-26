@@ -17,8 +17,14 @@ public class AnimatedSprite {
 	private int spriteWidth;
 	private boolean stop;
 	
+	private int frameDelay;
+	private int triggerDelay;
+	
 	public AnimatedSprite() {
 		sRectangle = new Rect(0, 0, 0, 0);
+
+		frameDelay = 5;
+		triggerDelay = 5;
 	}
 	
 	public void Initialize(Bitmap bitmap, int height, int width, int frameCount) {
@@ -53,20 +59,34 @@ public class AnimatedSprite {
 		stop = false;
 	}
 	
+	public void play(int frameDelay){
+		stop = false;
+		this.frameDelay = frameDelay;
+		triggerDelay = this.frameDelay;
+	}
+	
 	public void stop() {
 		stop = true;
 	}
 	
 	public void onUpdate() {
-		if(!stop){
-			currentFrame += 1;
+		if (frameDelay >= 0 && --triggerDelay <= 0){
+			// reset the frame trigger
+			triggerDelay = frameDelay;
 			
-			if( currentFrame >= numFrames ) {
-				currentFrame = 0;
-			}
-			
-			sRectangle.left = currentFrame * spriteWidth;
-			sRectangle.right = sRectangle.left + spriteWidth;
+			// Increment the frame
+			if(!stop){
+				currentFrame += 1;
+				
+				if( currentFrame >= numFrames ) {
+					currentFrame = 0;
+				}
+				
+				sRectangle.left = currentFrame * spriteWidth;
+				sRectangle.right = sRectangle.left + spriteWidth;
+				
+				
+				}
 			}
 	}
 	
