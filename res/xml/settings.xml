@@ -10,4 +10,9 @@
 		android:title="@string/tts_title"
 		android:summary="@string/tts_summary"
 		android:defaultValue="true" />
+    <CheckBoxPreference
+		android:key="On up event"
+		android:title="@string/onup_title"
+		android:summary="@string/onup_summary"
+		android:defaultValue="false" />
 </PreferenceScreen>

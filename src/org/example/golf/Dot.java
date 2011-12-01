@@ -3,6 +3,7 @@ package org.example.golf;
 import java.util.List;
 
 import org.example.R;
+import org.example.activities.GolfGameActivity;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
@@ -19,10 +20,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 
-/**
- * 
- * 
- * */
 public class Dot extends Entity{
 
 	private static final int originX = 200;
@@ -59,38 +56,41 @@ public class Dot extends Entity{
 	public void onUpdate() {
 		
 		super.onUpdate();
-		
-		EventType e  = Input.getInput().getEvent("onFling");
-		if (!launched &&  e != null){
-			MotionEvent e1 = e.getE();
-			MotionEvent e2 = e.getE2();
-			// Si hay desplazamiento en y negativo (acción tirachinas)
-			if (e.getDvy() > 0){
-				// Entonces disparamos 
-				v = new Point((int)(this.x- e2.getRawX()),(int)(this.y - e2.getRawY()));
-				
-				if(v.y < 0 && v.y < 200){
-					launched = true;
-					this.playAnim();
-					param = 0.05f;
-					incr = 0.1f;
-					initialX = this.x;
-					initialY = this.y;
+		if (GolfGameActivity.UP_MODE){
+			upModeManagement();
+		}
+		else{
+			EventType e  = Input.getInput().getEvent("onFling");
+			if (!launched &&  e != null){
+				// Si hay desplazamiento en y (acción tirachinas)
+				if (e.getDvy() > 0){
+					// Entonces disparamos 
+					v = e.getDistance();
+					
+					if (v.y < 0 && v.y < 200){
+						launched = true;
+						this.playAnim();
+						param = 0.03f;
+						incr = 0.1f;
+						initialX = this.x;
+						initialY = this.y;
+					}
 				}
 			}
+			
+			e  = Input.getInput().getEvent("onScroll");
+			if(!launched && e != null){
+				this.playAnim();
+				// vibration depends of gradient
+				float gradientTarget = (- this.y)/(targetPos.x- this.x);
+				float gradientMovement = (this.y - e.getE2().getRawY())/(this.x - e.getE2().getRawX());
+				manageVibration(gradientMovement,gradientTarget);
+			}
+			else{ 
+				this.stopAnim();
+			}	
 		}
-		
-		e  = Input.getInput().getEvent("onScroll");
-		if(!launched && e != null){
-			this.playAnim();
-			// vibration depends of gradient
-			float gradientTarget = (- this.y)/(targetPos.x- this.x);
-			float gradientMovement = (this.y - e.getE2().getRawY())/(this.x - e.getE2().getRawX());
-			manageVibration(gradientMovement,gradientTarget);
-		}
-		else{ 
-			this.stopAnim();
-		}
+
 		if(launched){
 			this.playAnim();
 			// parametric equation defined by initial event and final event associated to onFling event
@@ -106,6 +106,33 @@ public class Dot extends Entity{
 				// moves ball to origin position
 				collides();
 				scoreBoard.resetCounter();
+			}
+		}
+	}
+
+	private void upModeManagement() {
+		EventType ed  = Input.getInput().getEvent("onDown");
+		if (!launched &&  ed != null){
+			MotionEvent e1 = ed.getE();
+			EventType eu = Input.getInput().getEvent("onUp");
+			
+			if (eu != null){
+				MotionEvent e2 = eu.getE();
+				// Si hay desplazamiento en y (acción tirachinas)
+				if (e2.getRawY() - e1.getRawY() > 0){
+					// Entonces disparamos 
+					v = new Point((int)(e1.getRawX()- e2.getRawX()),(int)(e1.getRawY() - e2.getRawY()));;
+					
+					if (v.y < 0 && v.y < 200){
+						Log.d("GolfGameActivity", "Tiro");
+						launched = true;
+						this.playAnim();
+						param = 0.03f;
+						incr = 0.1f;
+						initialX = this.x;
+						initialY = this.y;
+					}
+				}
 			}
 		}
 	}

@@ -44,10 +44,12 @@ public class MainActivity extends Activity implements OnClickListener,OnFocusCha
 	public static final String KEY_INSTRUCTIONS_CONTROLS = "org.example.golfGame.mainActivity.iControls";
 	public static final String KEY_INSTRUCTIONS_GENERAL = "org.example.golfGame.mainActivity.iGeneral";
 	public static final String KEY_TYPE_INSTRUCTIONS = "org.example.golfGame.mainActivity.iType";
+	public static final String KEY_OnUp = "org.example.tinyEngineClasses.OnUp";
 	
 	private TTS textToSpeech;
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
+	private boolean onUpMode;
 	
 	
 	/** Called when the activity is first created. */
@@ -82,6 +84,7 @@ public class MainActivity extends Activity implements OnClickListener,OnFocusCha
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+
 	}	
 	
 	/**
@@ -179,6 +182,7 @@ public class MainActivity extends Activity implements OnClickListener,OnFocusCha
 	private void startGame() {
 		Intent intent = new Intent(this, GolfGameActivity.class);
 		intent.putExtra(KEY_TTS, textToSpeech);
+		intent.putExtra(KEY_OnUp, onUpMode);
 		startActivityForResult(intent, RESET_CODE);
 	}
 
@@ -267,8 +271,10 @@ public class MainActivity extends Activity implements OnClickListener,OnFocusCha
 			Music.play(this, R.raw.main, true);
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
-
+		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
+		
+		onUpMode = SettingsActivity.getOnUp(this);
 	}
 
 	@Override
