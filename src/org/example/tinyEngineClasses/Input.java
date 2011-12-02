@@ -69,7 +69,6 @@ public class Input {
 	public static XMLKeyboard getKeyboard() {
 		if (keyboard == null) {
 			keyboard = new XMLKeyboard();
-			// By default
 		}
 		return keyboard;
 	}
@@ -80,6 +79,11 @@ public class Input {
 	
 	public EventType getEvent(String key){
 		EventType e = events.get(key);
+		return e;
+	}
+	
+	public EventType removeEvent(String key){
+		EventType e = events.get(key);
 		events.remove(key);
 		return e;
 	}
@@ -87,6 +91,7 @@ public class Input {
 	public boolean hasEvents(){
 		return events.size() != 0;
 	}
+	
 }
 
 

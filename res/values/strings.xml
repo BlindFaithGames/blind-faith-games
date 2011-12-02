@@ -23,6 +23,10 @@
 	<string name="settings_shortcut">s</string>
 	<string name="music_title">Music</string>
 	<string name="music_summary">Play background music</string>
+	<string name="tts_title">Default TTS</string>
+	<string name="tts_summary">Enables voice synthetizer</string>
+	<string name="infoTarget_title">Clue - Target</string>
+	<string name="infoTarget_summary">Enables sound effect to find target</string>
 	<string name="game_title">Game</string>
 	<string name="flags_title">Flags settings</string>
 	<string name="flags_shortcut">f</string>
@@ -37,8 +41,7 @@
 		
 	</string>
 	<string name="synthetizer_title">Synthetizer</string>
-	<string name="tts_title">Default TTS</string>
-	<string name="tts_summary">Enables voice synthetizer</string>
+
 	<string name="volume_up">Volume Up</string>
 	<string name="volume_down">Volume Down</string>
 	<string name="home">Home</string>

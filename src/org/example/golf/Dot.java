@@ -19,10 +19,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 
-/**
- * 
- * 
- * */
 public class Dot extends Entity{
 
 	private static final int originX = 200;
@@ -58,35 +54,39 @@ public class Dot extends Entity{
 	@Override
 	public void onUpdate() {
 		
-		super.onUpdate();
-		
-		EventType e  = Input.getInput().getEvent("onFling");
+		EventType e  = Input.getInput().removeEvent("onFling");
 		if (!launched &&  e != null){
 			MotionEvent e1 = e.getE();
 			MotionEvent e2 = e.getE2();
 			// Si hay desplazamiento en y negativo (acción tirachinas)
 			if (e.getDvy() > 0){
-				// Entonces disparamos 
-				v = new Point((int)(this.x- e2.getRawX()),(int)(this.y - e2.getRawY()));
 				
-				if(v.y < 0 && v.y < 200){
+				if(inShotArea(e.getE2().getY())){
+					// Entonces disparamos 
+					v = new Point((int)(this.x- e2.getX()),(int)(this.y - e2.getY()));
+					
 					launched = true;
 					this.playAnim();
-					param = 0.05f;
-					incr = 0.1f;
+					param = 0.5f;
+					incr = 0.05f;
 					initialX = this.x;
 					initialY = this.y;
 				}
 			}
 		}
 		
-		e  = Input.getInput().getEvent("onScroll");
+		e  = Input.getInput().removeEvent("onScroll");
 		if(!launched && e != null){
 			this.playAnim();
 			// vibration depends of gradient
 			float gradientTarget = (- this.y)/(targetPos.x- this.x);
 			float gradientMovement = (this.y - e.getE2().getRawY())/(this.x - e.getE2().getRawX());
 			manageVibration(gradientMovement,gradientTarget);
+			
+			// if tap event outside the shoot area has been received it play a sound effect.
+			if(!inShotArea(e.getE2().getY())){
+				Music.play(this.game.getContext(), R.raw.bip, false);
+			}
 		}
 		else{ 
 			this.stopAnim();
@@ -108,6 +108,13 @@ public class Dot extends Entity{
 				scoreBoard.resetCounter();
 			}
 		}
+		
+		super.onUpdate();
+	}
+
+	private boolean inShotArea(float y) {
+		int height = this.game.getView().getHeight(); 
+		return (y < height-10) && (y > (height - height/3));
 	}
 
 	@Override
@@ -146,11 +153,8 @@ public class Dot extends Entity{
 	public void onInit() {}
 
 	private void manageVibration(float gradientMovement, float gradientTarget) {
-		Log.w("",gradientMovement + " " + gradientTarget +  " " + Math.abs((gradientMovement - gradientTarget)));
-		if(Math.abs(gradientMovement - gradientTarget) < 1){
-			Music.play(this.game.getContext(), R.raw.bip, false);
+		if(Math.abs(gradientMovement - gradientTarget) < 1)
 			mVibrator.vibrate(100);
-		}
 	}
 	
 }

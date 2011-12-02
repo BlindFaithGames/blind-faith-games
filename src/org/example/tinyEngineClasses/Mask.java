@@ -1,5 +1,7 @@
 package org.example.tinyEngineClasses;
 
+import android.graphics.Canvas;
+
 public abstract class Mask {
 	
 	protected int offsetX,offsetY; // offset between entity coordinates and mask coordinates
@@ -11,6 +13,7 @@ public abstract class Mask {
 	}
 	
 	public abstract boolean isInMask(int x, int y);
+	public abstract void onDraw(Canvas canvas);
 	
 	public boolean collide(Mask m){
 		
@@ -64,4 +67,6 @@ public abstract class Mask {
 		this.x = x + offsetX;
 		this.y = y + offsetY;
 	}
+	
+	
 }

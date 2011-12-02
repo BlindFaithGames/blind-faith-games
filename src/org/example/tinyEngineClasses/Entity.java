@@ -56,6 +56,14 @@ public abstract class Entity {
 			anim.onDraw((int)x, (int)y,canvas);
 		else
 			canvas.drawBitmap(img, x, y, null);	
+		
+		if(mask != null){
+			Iterator<Mask> it = mask.iterator();
+			while(it.hasNext()){
+				Mask m = it.next();
+				m.onDraw(canvas);
+			}
+		}
 	}
 	
     /** Updates the animation entity and its mask set.*/

@@ -15,6 +15,8 @@ public class SettingsActivity extends PreferenceActivity{
 	private static final boolean OPT_MUSIC_DEF = false;
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
+	private static final String OPT_INFO_TARGET = "infoTarget";
+	private static final boolean OPT_INFO_TARGET_DEF = false;
 
 	private TTS textToSpeech;
 	
@@ -26,7 +28,9 @@ public class SettingsActivity extends PreferenceActivity{
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(findPreference(OPT_MUSIC).toString() + findPreference(OPT_TTS).toString());
+		textToSpeech.setInitialSpeech(findPreference(OPT_MUSIC).toString() + 
+									  findPreference(OPT_TTS).toString() + 
+									  findPreference(OPT_INFO_TARGET).toString());
 	}
 
 	/**
@@ -48,5 +52,10 @@ public class SettingsActivity extends PreferenceActivity{
 	public static boolean getTTS(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_TTS, OPT_TTS_DEF);
+	}
+
+	public static boolean getNotifyTarget(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_INFO_TARGET, OPT_INFO_TARGET_DEF);
 	}
 }

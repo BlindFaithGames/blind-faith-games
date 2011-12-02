@@ -1,5 +1,10 @@
 package org.example.tinyEngineClasses;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+
 public class MaskCircle  extends Mask{
 	
 	private int radius;
@@ -21,5 +26,13 @@ public class MaskCircle  extends Mask{
 
 	public int getCenterX() {
 		return this.x;
+	}
+	
+	//  For debug
+	public void onDraw(Canvas canvas){
+		Paint brush = new Paint();
+		brush.setColor(Color.GREEN);
+		brush.setStyle(Style.STROKE);
+		canvas.drawCircle(this.x, this.y, radius, brush);
 	}
 }

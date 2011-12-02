@@ -4,7 +4,6 @@ package org.example.tinyEngineClasses;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class AnimationThread extends Thread {

@@ -1,5 +1,10 @@
 package org.example.tinyEngineClasses;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+
 
 public class MaskBox extends Mask{
 
@@ -23,5 +28,12 @@ public class MaskBox extends Mask{
 	public boolean isInMask(int x, int y) {
 		return x >= this.x && x <= width+this.x && y >= this.y && y <= height+this.y;
 	}
-
+	
+	//  For debug
+	public void onDraw(Canvas canvas){
+		Paint brush = new Paint();
+		brush.setColor(Color.GREEN);
+		brush.setStyle(Style.STROKE);
+		canvas.drawRect(this.x,this.y, this.x + width, this.y + height, brush);
+	}
 }
