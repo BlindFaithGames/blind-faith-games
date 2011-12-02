@@ -9,7 +9,7 @@ import android.view.SurfaceHolder;
 public class AnimationThread extends Thread {
 	
 	public static int DELAY = 1000/60;
-	public static int FRAMES_PER_SECOND = 60;
+	public static int FRAMES_PER_SECOND = 30;
 	public static int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 	
 	private SurfaceHolder surfaceHolder;

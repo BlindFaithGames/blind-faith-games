@@ -42,6 +42,8 @@
 	</string>
 	<string name="synthetizer_title">Synthetizer</string>
 
+	<string name="onup_title">On Up event</string>
+	<string name="onup_summary">Enables to shoot when a on up event occurs</string>
 	<string name="volume_up">Volume Up</string>
 	<string name="volume_down">Volume Down</string>
 	<string name="home">Home</string>

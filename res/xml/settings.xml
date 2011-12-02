@@ -15,4 +15,9 @@
 		android:title="@string/infoTarget_title"
 		android:summary="@string/infoTarget_summary"
 		android:defaultValue="false" />
+    <CheckBoxPreference
+		android:key="On up event"
+		android:title="@string/onup_title"
+		android:summary="@string/onup_summary"
+		android:defaultValue="false" />
 </PreferenceScreen>

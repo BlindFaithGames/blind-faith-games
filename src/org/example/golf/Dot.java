@@ -3,6 +3,7 @@ package org.example.golf;
 import java.util.List;
 
 import org.example.R;
+import org.example.activities.SettingsActivity;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
@@ -53,44 +54,13 @@ public class Dot extends Entity{
 	
 	@Override
 	public void onUpdate() {
+
+		if (SettingsActivity.getOnUp(this.game.getContext()))
+			upModeManagement();
+		else
+			normalModeManagement();
 		
-		EventType e  = Input.getInput().removeEvent("onFling");
-		if (!launched &&  e != null){
-			MotionEvent e1 = e.getE();
-			MotionEvent e2 = e.getE2();
-			// Si hay desplazamiento en y negativo (acción tirachinas)
-			if (e.getDvy() > 0){
-				
-				if(inShotArea(e.getE2().getY())){
-					// Entonces disparamos 
-					v = new Point((int)(this.x- e2.getX()),(int)(this.y - e2.getY()));
-					
-					launched = true;
-					this.playAnim();
-					param = 0.5f;
-					incr = 0.05f;
-					initialX = this.x;
-					initialY = this.y;
-				}
-			}
-		}
 		
-		e  = Input.getInput().removeEvent("onScroll");
-		if(!launched && e != null){
-			this.playAnim();
-			// vibration depends of gradient
-			float gradientTarget = (- this.y)/(targetPos.x- this.x);
-			float gradientMovement = (this.y - e.getE2().getRawY())/(this.x - e.getE2().getRawX());
-			manageVibration(gradientMovement,gradientTarget);
-			
-			// if tap event outside the shoot area has been received it play a sound effect.
-			if(!inShotArea(e.getE2().getY())){
-				Music.play(this.game.getContext(), R.raw.bip, false);
-			}
-		}
-		else{ 
-			this.stopAnim();
-		}
 		if(launched){
 			this.playAnim();
 			// parametric equation defined by initial event and final event associated to onFling event
@@ -108,13 +78,76 @@ public class Dot extends Entity{
 				scoreBoard.resetCounter();
 			}
 		}
-		
 		super.onUpdate();
+	}
+
+	private void normalModeManagement() {
+		EventType e  = Input.getInput().removeEvent("onFling");
+		if (!launched &&  e != null){
+			// Si hay desplazamiento en y (acción tirachinas)
+			if (e.getDvy() > 0){
+				// Entonces disparamos 
+				//v = e.getDistance(); <---- respecto al evento e1
+				v = new Point((int)(this.x- e.getE2().getX()),(int)(this.y - e.getE2().getY())); // <--- respecto a donde esta la pelota
+				if (inShotArea(e.getE2().getY())){
+					launched = true;
+					this.playAnim();
+					param = 0.5f;
+					incr = 0.05f;
+					initialX = this.x;
+					initialY = this.y;
+				}
+			}
+		}
+		
+		e  = Input.getInput().removeEvent("onScroll");
+		if(!launched && e != null){
+			this.playAnim();
+			// vibration depends of gradient
+			float gradientTarget = (- this.y)/(targetPos.x- this.x);
+			float gradientMovement = (this.y - e.getE2().getRawY())/(this.x - e.getE2().getRawX());
+			vibrationManagement(gradientMovement,gradientTarget);
+			
+			// if tap event outside the shoot area has been received it play a sound effect.
+			if(!inShotArea(e.getE2().getY())){
+				Music.play(this.game.getContext(), R.raw.bip, false);
+			}
+		}
+		else{ 
+			this.stopAnim();
+		}	
 	}
 
 	private boolean inShotArea(float y) {
 		int height = this.game.getView().getHeight(); 
 		return (y < height-10) && (y > (height - height/3));
+	}
+
+	private void upModeManagement() {
+		EventType ed  = Input.getInput().removeEvent("onDown");
+		if (!launched &&  ed != null){
+			MotionEvent e1 = ed.getE();
+			EventType eu = Input.getInput().removeEvent("onUp");
+			
+			if (eu != null){
+				MotionEvent e2 = eu.getE();
+				// Si hay desplazamiento en y (acción tirachinas)
+				if (e2.getRawY() - e1.getRawY() > 0){
+					// Entonces disparamos 
+					v = new Point((int)(e1.getRawX()- e2.getRawX()),(int)(e1.getRawY() - e2.getRawY()));;
+					
+					if (v.y < 0 && v.y < 200){
+						Log.d("GolfGameActivity", "Tiro");
+						launched = true;
+						this.playAnim();
+						param = 0.03f;
+						incr = 0.1f;
+						initialX = this.x;
+						initialY = this.y;
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -152,7 +185,7 @@ public class Dot extends Entity{
 	@Override
 	public void onInit() {}
 
-	private void manageVibration(float gradientMovement, float gradientTarget) {
+	private void vibrationManagement(float gradientMovement, float gradientTarget) {
 		if(Math.abs(gradientMovement - gradientTarget) < 1)
 			mVibrator.vibrate(100);
 	}

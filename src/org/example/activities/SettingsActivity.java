@@ -17,6 +17,8 @@ public class SettingsActivity extends PreferenceActivity{
 	private static final boolean OPT_TTS_DEF = true;
 	private static final String OPT_INFO_TARGET = "infoTarget";
 	private static final boolean OPT_INFO_TARGET_DEF = false;
+	private static final String OPT_UP = "On up event";
+	private static final boolean OPT_UP_DEF = false;
 
 	private TTS textToSpeech;
 	
@@ -30,7 +32,8 @@ public class SettingsActivity extends PreferenceActivity{
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(findPreference(OPT_MUSIC).toString() + 
 									  findPreference(OPT_TTS).toString() + 
-									  findPreference(OPT_INFO_TARGET).toString());
+									  findPreference(OPT_INFO_TARGET).toString() +
+									  findPreference(OPT_UP).toString());
 	}
 
 	/**
@@ -57,5 +60,11 @@ public class SettingsActivity extends PreferenceActivity{
 	public static boolean getNotifyTarget(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_INFO_TARGET, OPT_INFO_TARGET_DEF);
+	}
+	
+	/** Get the current value of the on up event option */
+	public static boolean getOnUp(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_UP, OPT_UP_DEF);
 	}
 }
