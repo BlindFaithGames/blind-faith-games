@@ -10,25 +10,29 @@ public class Board {
 	int mines;
 	private int pushedCells;
 	private boolean finished;
+	private String difficulty;
 
-	public Board(int difficult) {
+	public Board(int difficulty) {
 		mines = 0;
 		// Build the matrix of Cells which depends on difficult
-		switch (difficult) {
+		switch (difficulty) {
 		case (0):
 			rowN = 6;
 			colN = 6;
 			mines = 5;
+			this.difficulty = "easy";
 			break;
 		case (1):
 			rowN = 8;
 			colN = 8;
 			mines = 10;
+			this.difficulty = "medium";
 			break;
 		case (2):
 			rowN = 10;
 			colN = 10;
 			mines = 13;
+			this.difficulty = "hard";
 			break;
 		}
 		board = new Cell[rowN][colN];
@@ -179,5 +183,9 @@ public class Board {
 			}
 		}*/
 		return s;
+	}
+
+	public String getDifficulty() {
+		return difficulty;
 	}
 }

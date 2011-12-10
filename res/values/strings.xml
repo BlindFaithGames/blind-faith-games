@@ -20,7 +20,7 @@
 		of the game is to clear an abstract minefield without detonating a mine.
 		Computer Systems Project, 2011.
 	</string>
-	<string name="settings_label">Settings...</string>
+	<string name="settings_label">Settings</string>
 	<string name="settings_title">Minesweeper settings</string>
 	<string name="settings_shortcut">s</string>
 	<string name="music_title">Music</string>

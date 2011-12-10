@@ -1,6 +1,7 @@
 package org.example.minesweeper;
 
 import java.io.File;
+import org.example.others.Log;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -15,7 +16,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +35,7 @@ import android.widget.TextView;
 
 public class Game extends Activity implements OnClickListener,
 		OnFocusChangeListener {
-	private static final String TAG = "Minesweeper";
+	private static final String TAG = "MainMenu";
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
 
@@ -47,6 +48,7 @@ public class Game extends Activity implements OnClickListener,
 	private XMLKeyboard keyboard;
 
 	/** Called when the activity is first created. */
+	@SuppressWarnings("unused")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,6 +80,11 @@ public class Game extends Activity implements OnClickListener,
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
 
 		textToSpeech.setEnabled(Prefs.getTTS(this));
+		
+		Log.getLog().setTag("Minesweeper");
+		Log.getLog().addEntry(Game.TAG,Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"Start Game");
+
 	}	
 	
 	/**
@@ -214,7 +221,6 @@ public class Game extends Activity implements OnClickListener,
 
 	/** Start a new game with the given difficulty level */
 	private void startGame(int i) {
-		Log.d(TAG, "clicked on " + i);
 		Intent intent = new Intent(Game.this, Minesweeper.class);
 		intent.putExtra(KEY_TTS, textToSpeech);
 		intent.putExtra(KEY_DIFFICULTY, i);
@@ -305,6 +311,10 @@ public class Game extends Activity implements OnClickListener,
 		textToSpeech.setEnabled(Prefs.getTTS(this));
 
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
+		
+		Log.getLog().addEntry(Game.TAG,
+				Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"");
 	}
 
 	@Override

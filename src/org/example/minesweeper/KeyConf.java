@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.example.minesweeper.XML.KeyboardWriter;
 import org.example.minesweeper.XML.XMLKeyboard;
+import org.example.others.Log;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +20,11 @@ import android.widget.Toast;
 
 
 public class KeyConf extends Activity implements OnFocusChangeListener, OnClickListener {
+	
+	private static final String TAG = "keyConfiguration";
+	
 	public static final int KEY_PRESSED = 1;
+	
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
 	private TTS textToSpeech;
@@ -68,6 +73,9 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 				+ buttonInstructions.getContentDescription() + " "
 				+ buttonCoordinates.getContentDescription() + " "
 				+buttonContext.getContentDescription());
+		
+		Log.getLog().addEntry(KeyConf.TAG,Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"Setting up keys");
 	}
 	
 	/**
@@ -154,11 +162,28 @@ public class KeyConf extends Activity implements OnFocusChangeListener, OnClickL
 			}
 			buttonsUpdate();
 			this.saveEditedKeyboard("minesweeper.xml");
+			Log.getLog().addEntry(KeyConf.TAG,Prefs.configurationToString(this),
+					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
+					"New configuration: " + keyConfigurationtoString());
 		}
 		else{
 			Toast toast = Toast.makeText(this, "Not a valid key", Toast.LENGTH_SHORT);
 			toast.show();
+			Log.getLog().addEntry(KeyConf.TAG,Prefs.configurationToString(this),
+					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
+					"invalid new configuration");
 		}
+		
+
+	}
+
+	private String keyConfigurationtoString() {
+		String aux;
+		aux = "Exploration: " + keyboard.getKeyByAction("exploration");
+		aux = "Zoom: " + aux.concat(keyboard.getKeyByAction("zoom") + keyboard.searchButtonByAction("zoom"));
+		aux = "Coordinates: " + aux.concat(keyboard.getKeyByAction("coordinates") + keyboard.searchButtonByAction("coordinates"));
+		aux = "Context: " + aux.concat(keyboard.getKeyByAction("context") + keyboard.searchButtonByAction("context"));
+		return aux;
 	}
 
 	/**

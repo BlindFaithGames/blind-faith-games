@@ -1,5 +1,7 @@
 package org.example.minesweeper;
 
+import org.example.others.Log;
+
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -10,6 +12,8 @@ import android.os.Bundle;
 
 public class About extends Activity{
 
+	private static String TAG = "About";
+	
 	private TTS textToSpeech;
 	
 	/** Called when the activity is first created. */
@@ -23,6 +27,10 @@ public class About extends Activity{
 		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.about_title) + " " + getString(R.string.about_text));
+	
+		Log.getLog().addEntry(About.TAG,
+				Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"");
 	}
 	
 	/**

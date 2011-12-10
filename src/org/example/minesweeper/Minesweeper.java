@@ -8,13 +8,13 @@ import java.util.List;
 import org.example.minesweeper.Cell.CellStates;
 import org.example.minesweeper.XML.KeyboardReader;
 import org.example.minesweeper.XML.XMLKeyboard;
+import org.example.others.Log;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
@@ -60,11 +60,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d(TAG, "onCreate"); // Debug
-		int difficult = getIntent().getIntExtra(Game.KEY_DIFFICULTY, DIFFICULTY_EASY);
+		int difficulty = getIntent().getIntExtra(Game.KEY_DIFFICULTY, DIFFICULTY_EASY);
 		
 		// Start game
-		mineField = new Board(difficult);
+		mineField = new Board(difficulty);
 		System.out.print(mineField);
 		rowN = mineField.getNRow();
 		colN = mineField.getNCol();
@@ -88,9 +87,11 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 			textToSpeech.setContext(this);
 			textToSpeech.setInitialSpeech(this.getString(R.string.game_initial_TTStext));
 		} catch (FileNotFoundException e) {
-			Log.d(TAG, "Keyboard file not found");
 			e.printStackTrace();
 		}
+		
+		Log.getLog().addEntry(Minesweeper.TAG,Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"Difficulty - " + difficulty);
 	}
 	
 	/**
@@ -117,6 +118,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 											+ getString(R.string.LoseDialogTitle) + " "
 											+ getString(R.string.LosePositiveButtonLabel) + " "
 											+ getString(R.string.LoseNegativeButtonLabel));
+		Log.getLog().addEntry(Minesweeper.TAG,Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User win" + mineField.getDifficulty());
 	}
 
 	/**
@@ -131,6 +134,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 								+ getString(R.string.WinDialogTitle) 
 								+ getString(R.string.WinDialogMessage)  
 								+ getString(R.string.WinPositiveButtonLabel));
+		Log.getLog().addEntry(Minesweeper.TAG,Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User lose" + mineField.getDifficulty());
 	}
 	
 	/**
@@ -292,7 +297,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  Log.d(TAG, "Cambio de orientacion de pantalla");
 	}
 
 	public void speakContextFocusedCell(int selRow, int selCol) {

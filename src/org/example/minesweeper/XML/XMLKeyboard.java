@@ -249,6 +249,10 @@ public class XMLKeyboard {
 		return keyList.get(i);
 	}
 	
+	public String toString(int key){
+		return keyButton.get(key);
+	}
+	
 	
 // OTHERS
 

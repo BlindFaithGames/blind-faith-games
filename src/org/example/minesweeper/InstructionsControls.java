@@ -1,9 +1,13 @@
 package org.example.minesweeper;
 
+import org.example.others.Log;
+
 import android.app.Activity;
 import android.os.Bundle;
 
 public class InstructionsControls extends Activity{
+	
+	private static String TAG = "InstructionsControls";
 	
 	private TTS textToSpeech;
 	
@@ -15,6 +19,9 @@ public class InstructionsControls extends Activity{
 		textToSpeech = (TTS) getIntent().getParcelableExtra(Game.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.instructions_controls_title) + " " + getString(R.string.instructions_controls_text));
+	
+		Log.getLog().addEntry(InstructionsControls.TAG,Prefs.configurationToString(this),
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"");
 	}
 	
 	/**
