@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Zarodnik Game</string>
+    
+    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="introMainMenu">Main menu Zarodnik Game</string>
+    <string name="buttonMessage">Go!</string>
+    <string name="golfGamerActivity">Zarodnik game</string>
+    <string name="gameOverMessage">Fin de la partida!</string>
+    <string name="resetButtonMessage">Reiniciar</string>
+    <string name="exitButton">Exit</string>
+
+	<string name="main_title">Android GolfGame</string>
+	<string name="continue_label">Continue</string>
+	<string name="new_game_label">New Game</string>
+	<string name="keyConf_label">Key Configuration</string>
+	<string name="about_label">About</string>
+	<string name="exit_label">Exit</string>
+	<string name="about_title">About Android GolfGame</string>
+	<string name="about_text">\
+		
+	</string>
+	<string name="settings_label">Settings</string>
+	<string name="settings_title">Zarodnik settings</string>
+	<string name="settings_shortcut">s</string>
+	<string name="main_category">Main</string>
+	<string name="profiles_category">Profiles</string>
+	<string name="custom_profile_category">Custom Profile</string>
+	<string name="music_title">Music</string>
+	<string name="music_summary">Play background music</string>
+	<string name="tts_title">Default TTS</string>
+	<string name="tts_summary">Enables voice synthetizer</string>
+	<string name="infoTarget_title">Clue - Target</string>
+	<string name="infoTarget_summary">Enables sound effect to find target</string>
+	<string name="v_feedback_title">Vibration feedback</string>
+	<string name="v_feedback_summary">A range of vibrations that helps to find target</string>
+	<string name="s_feedback_title">Sound effect feedback</string>
+	<string name="s_feedback_summary">Stereo sound that helps to find target</string>
+	<string name="doppler_title">Sound variation</string>
+	<string name="doppler_summary"> Progressive volume down when a shot occurs </string>
+	<string name="profileA_title">Profile A</string>
+	<string name="profileA_summary"> - </string>
+	<string name="profileB_title">Profile B</string>
+	<string name="profileB_summary"> - </string>
+	<string name="game_title">Game</string>
+	<string name="flags_title">Flags settings</string>
+	<string name="flags_shortcut">f</string>
+	<string name="instructions_label">Instructions</string>
+	<string name="instructions_title">Instructions GolfGame</string>
+	<string name="instructions_general_label">Instructions</string>
+	<string name="instructions_controls_label">Controls</string>
+	<string name="instructions_general_text">\
+		
+	</string>
+	<string name="instructions_controls_text">\
+		
+	</string>
+	<string name="synthetizer_title">Synthetizer</string>
+
+	<string name="onup_title">On Up event</string>
+	<string name="onup_summary">Enables to shoot when a on up event occurs</string>
+	<string name="volume_up">Volume Up</string>
+	<string name="volume_down">Volume Down</string>
+	<string name="home">Home</string>
+	<string name="back">Back</string>
+	<string name="options">Options</string>
+	<string name="search">Search</string>
+	<string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
+	<string name="main_menu_initial_TTStext">Main menu</string>  
+	<string name="settings_menu_initial_TTStext">Menu settings</string>  
+	<string name="game_initial_TTStext">Game started!</string>  
+	<string name="game_initial_stage_TTStext">Game started! Stage 1</string>  
+
+	<string name="coordinates_information_button_TTStext">Position</string>  
+	<string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
+	
+	<string name="keydialog">Action configuration</string>
+	<string name="keydialog_text">Press any key</string>
+	<string name="button_speak_record">Play record in game</string>
+
+	<string name="recordSpeech">your actual record is</string>
+	<string name="counterSpeech">your actual count is</string>
+	<string name="newRecordSpeech">new record!</string>	
+	
+	<string name="EndingDialogTitle">Round completed</string>	
+	<string name="EndingPositiveButtonLabel">Ok</string>
+	<string name="EndingPositiveButtonLabelSpeech">Press ok to back to the main menu</string>
+	<string name="alertOutsideShotArea">You are outside of the shot area</string>
+	<string name="ranking_title">Previous games ranking</string>
+	<string name="ranking_speech">time, date and record</string>
+
+</resources>
