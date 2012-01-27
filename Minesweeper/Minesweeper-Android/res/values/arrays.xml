@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Array con los distintos valores que puede tomar la dificultad del sudoku --> 
+<resources>
+	<array name="difficulty">
+		<item>@string/easy_label</item>
+		<item>@string/medium_label</item>
+		<item>@string/hard_label</item>
+	</array>
+	<array name="instructions">
+		<item>@string/instructions_general_label</item>
+		<item>@string/instructions_controls_label</item>
+	</array>	
+</resources>

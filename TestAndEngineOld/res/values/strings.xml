@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="introMainMenu">Main menu Golf Game</string>
+    <string name="buttonMessage">Go!</string>
+    <string name="golfGamerActivity">Golf game</string>
+    <string name="gameOverMessage">Fin de la partida!</string>
+    <string name="resetButtonMessage">Reiniciar</string>
+    <string name="exitButton">Exit</string>
+    <string name="app_name">GolfGame</string>
+	<string name="main_title">Android GolfGame</string>
+	<string name="continue_label">Continue</string>
+	<string name="new_game_label">New Game</string>
+	<string name="keyConf_label">Key Configuration</string>
+	<string name="about_label">About</string>
+	<string name="exit_label">Exit</string>
+	<string name="about_title">About Android GolfGame</string>
+	<string name="about_text">\
+		
+	</string>
+	<string name="settings_label">Settings...</string>
+	<string name="settings_title">Golf Game settings</string>
+	<string name="settings_shortcut">s</string>
+	<string name="music_title">Music</string>
+	<string name="music_summary">Play background music</string>
+	<string name="game_title">Game</string>
+	<string name="flags_title">Flags settings</string>
+	<string name="flags_shortcut">f</string>
+	<string name="instructions_label">Instructions</string>
+	<string name="instructions_title">Instructions GolfGame</string>
+	<string name="instructions_general_label">Instructions</string>
+	<string name="instructions_controls_label">Controls</string>
+	<string name="instructions_general_text">\
+		
+	</string>
+	<string name="instructions_controls_text">\
+		
+	</string>
+	<string name="synthetizer_title">Synthetizer</string>
+	<string name="tts_title">Default TTS</string>
+	<string name="tts_summary">Enables voice synthetizer</string>
+	<string name="volume_up">Volume Up</string>
+	<string name="volume_down">Volume Down</string>
+	<string name="home">Home</string>
+	<string name="back">Back</string>
+	<string name="options">Options</string>
+	<string name="search">Search</string>
+	<string name="alert_dialog_difficulty_TTStext">Alert Dialog difficulty</string>
+	<string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
+	<string name="main_menu_initial_TTStext">Main menu</string>  
+	<string name="settings_menu_initial_TTStext">Menu settings</string>  
+	<string name="game_initial_TTStext">Game started!</string>  
+
+	<string name="coordinates_information_button_TTStext">Position</string>  
+	<string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
+	
+	<string name="keydialog">Action configuration</string>
+	<string name="keydialog_text">Press any key</string>
+</resources>

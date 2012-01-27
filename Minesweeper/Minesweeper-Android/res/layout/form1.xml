@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/q1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Have you had any special keyboard in your Android device?"
+            android:contentDescription="@string/q1_context" >
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radio0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="TalkBack"
+                android:contentDescription="@string/radio10_context" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:contentDescription="@string/no_context" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Physical keyboard" 
+                android:contentDescription="@string/radio12_context">
+            </RadioButton>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/q2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you miss some form of interaction?"
+            android:contentDescription="@string/q2_context" >
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radio3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="More gestures"
+                android:contentDescription="@string/radio20_context" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zones for concrete actions on the screen" 
+                android:contentDescription="@string/radio21_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No" 
+                android:contentDescription="@string/no_context">
+            </RadioButton>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/q3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you think that the voice synthesizer is annoying? Choice (1-5) 1-Totally Disagree 5-Totally agree"
+            android:contentDescription="@string/q3_context" >
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="1" 
+                android:contentDescription="@string/one_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:contentDescription="@string/two_context" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" 
+                android:contentDescription="@string/three_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4" 
+                android:contentDescription="@string/four_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5" 
+                android:contentDescription="@string/five_context">
+            </RadioButton>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonNext1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Next"
+            android:contentDescription="@string/next_context" >
+        </Button>
+    </LinearLayout>
+
+</ScrollView>

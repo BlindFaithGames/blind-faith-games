@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<array name="instructions">
+		<item>@string/instructions_general_label</item>
+		<item>@string/instructions_controls_label</item>
+	</array>	
+</resources>

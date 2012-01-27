@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/q4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="It&apos;s uncomfortable to use physical keys" 
+            android:contentDescription="@string/q4_context">
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="1" 
+                android:contentDescription="@string/one_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2" 
+                 android:contentDescription="@string/two_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" 
+                 android:contentDescription="@string/three_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4" 
+                 android:contentDescription="@string/four_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5" 
+                 android:contentDescription="@string/five_context">
+            </RadioButton>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/q5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Have you changed the key configuration?" 
+             android:contentDescription="@string/q5_context">
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Yes" 
+                 android:contentDescription="@string/yes_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                 android:contentDescription="@string/no_context" >
+            </RadioButton>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/q6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Android device doesn&apos;t have a high number of physical keys" 
+             android:contentDescription="@string/q6_context">
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radio18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="@string/radio30_context"
+                android:text="It&apos;s impossible to play it" >
+
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I don&apos;t miss any key" 
+                 android:contentDescription="@string/radio31_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I think that the game experience would be better"
+                 android:contentDescription="@string/radio32_context" >
+            </RadioButton>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/q7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The game have too much information" 
+             android:contentDescription="@string/q7_context">
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="1" 
+                 android:contentDescription="@string/one_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2" 
+                 android:contentDescription="@string/two_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" 
+                 android:contentDescription="@string/three_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4" 
+                 android:contentDescription="@string/four_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5" 
+                 android:contentDescription="@string/five_context">
+            </RadioButton>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/q8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The game have enough information to play it" 
+             android:contentDescription="@string/q8_context">
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="1" 
+                 android:contentDescription="@string/one_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2" 
+                 android:contentDescription="@string/two_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" 
+                 android:contentDescription="@string/three_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4" 
+                 android:contentDescription="@string/four_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5" 
+                 android:contentDescription="@string/five_context">
+            </RadioButton>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonNext2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Next" 
+             android:contentDescription="@string/next_context">
+        </Button>
+    </LinearLayout>
+
+</ScrollView>

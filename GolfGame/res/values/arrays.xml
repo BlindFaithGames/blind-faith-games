@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<array name="instructions">
+		<item>@string/instructions_general_label</item>
+		<item>@string/instructions_controls_label</item>
+	</array>
+	<array name="modes">
+		<item>@string/StageMode</item>
+		<item>@string/FreeMode</item>
+	</array>	
+</resources>

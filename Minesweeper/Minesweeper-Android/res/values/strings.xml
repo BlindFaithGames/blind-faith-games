@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Menu item text [CHAR LIMIT=NONE] -->
+    <string name="accounts">Accounts</string>
+
+    <!-- Dialog button [CHAR LIMIT=NONE] -->
+    <string name="add_account">Add account...</string>
+
+    <!-- Name of the application in the launcher [CHAR LIMIT=NONE] -->
+    <string name="app_name">Minesweeper</string>
+
+    <!-- Dialog title text [CHAR LIMIT=NONE] -->
+    <string name="attention">Attention</string>
+
+    <!-- Button text [CHAR LIMIT=NONE] -->
+    <string name="connect">Connect</string>
+
+    <!-- Message text for "Connect" screen [CHAR LIMIT=NONE] -->
+    <string name="connect_text">This application requests permission to connect your mobile device to the cloud.</string>
+
+    <!-- Header text for "Connect" screen [CHAR LIMIT=NONE] -->
+    <string name="connect_to_the_cloud">Connect To The Cloud</string>
+
+    <!-- Header text for "Connected" screen [CHAR LIMIT=NONE] -->
+    <string name="connected_to_the_cloud">Connected To The Cloud</string>
+
+    <!-- Message text [CHAR LIMIT=NONE] -->
+    <string name="contacting_server">Contacting server...</string>
+
+    <!-- Button text [CHAR LIMIT=NONE] -->
+    <string name="disconnect">Disconnect</string>
+
+    <!-- Informational text for "Connected" screen with placeholder for account name [CHAR LIMIT=NONE] -->
+    <string name="disconnect_text">This device is currently connected to the cloud as %1$s.</string>
+
+    <!-- Footer text for "Connect" screen [CHAR LIMIT=NONE] -->
+    <string name="do_you_want_to_connect">Do you want to connect?</string>
+
+    <!-- Footer text for "Disconnect" screen [CHAR LIMIT=NONE] -->
+    <string name="do_you_want_to_disconnect">Do you want to disconnect?</string>
+
+    <!-- Initial "hello, world" informational message [CHAR LIMIT=NONE] -->
+    <string name="hello_world_info_text">Demo App Engine sobre Logs</string>
+
+    <!-- Initial "hello, world" response message [CHAR LIMIT=NONE] -->
+    <string name="hello_world_text"></string>
+
+    <!-- Dialog message text [CHAR LIMIT=NONE] -->
+    <string name="needs_account">To receive notifications from this app, you must first create an account.</string>
+
+    <!-- Notification message [CHAR LIMIT=NONE] -->
+    <string name="registration_error">Failed to register/unregister %1$s.</string>
+
+    <!-- Notification message [CHAR LIMIT=NONE] -->
+    <string name="registration_succeeded">Registered %1$s for C2DM messaging.</string>
+
+    <!-- Button text [CHAR LIMIT=NONE] -->
+    <string name="say_hello">Say Hello</string>
+
+    <!-- List view header text [CHAR LIMIT=NONE] -->
+    <string name="select_account">Select the account you wish to authorize:</string>
+
+    <!-- Dialog button text [CHAR LIMIT=NONE] -->
+    <string name="skip">Skip</string>
+
+    <!-- Notification message [CHAR LIMIT=NONE] -->
+    <string name="unregistration_succeeded">Unegistered %1$s for C2DM messaging.</string>
+    <string name="find">Find</string>
+    <string name="create">Create new log</string>
+    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="buttonMessage">Go!</string>
+    <string name="minesweeperActivity">Minesweeper game</string>
+    <string name="gameOverMessage">Fin de la partida!</string>
+    <string name="resetButtonMessage">Reiniciar</string>
+    <string name="exitButton">Exit</string>
+    <string name="main_title">Accesible Minesweeper</string>
+    <string name="continue_label">Continue</string>
+    <string name="new_game_label">New Game</string>
+    <string name="keyConf_label">Key Configuration</string>
+    <string name="about_label">About</string>
+    <string name="exit_label">Exit</string>
+    <string name="about_title">About Android Minesweeper</string>
+    <string name="about_text">
+		Computer Systems Project UCM, 2011-2012.
+</string>
+    <string name="settings_label">Settings</string>
+    <string name="settings_title">Minesweeper settings</string>
+    <string name="settings_shortcut">s</string>
+    <string name="music_title">Music</string>
+    <string name="music_summary">Play background music</string>
+    <string name="new_game_title">Difficulty</string>
+    <string name="easy_label">Easy</string>
+    <string name="medium_label">Medium</string>
+    <string name="hard_label">Hard</string>
+    <string name="game_title">Game</string>
+    <string name="flags_label">Turn Explore</string>
+    <string name="flags_title">Flags settings</string>
+    <string name="flags_shortcut">f</string>
+    <string name="instructions_label">Instructions</string>
+    <string name="instructions_title">Instructions Minesweeper</string>
+    <string name="instructions_general_label">Instructions</string>
+    <string name="instructions_general_title">Instructions Minesweeper</string>
+    <string name="instructions_controls_label">Controls</string>
+    <string name="instructions_controls_title">Controls Minesweeper</string>
+    <string name="instructions_general_text">
+		The board is a grid of cells, and some of them are hiding a mine. Your 
+		goal is to find all of those mines, without detonating any of them.\n\n
+		To accomplish that, you can press any cell -dig mode- or mark it -exploration mode- 
+		with a flag,if you are sure it contains a mine. When you press a cell, several cells
+		can be discovered, and they will show you how many mines are around them.\n\n
+		\n\n
+		Options: make use of the settings while in the main menu in order to 
+		turn on Speech synthesizer as well as music.
+</string>
+    <string name="instructions_controls_text">
+		To play Android Minesweeper there are several controls you should know:\n\n
+		
+		Buttons, use:\n
+		- menu button - listen to cell coordinates\n 
+		- search button - switch between exploration and dig mode\n
+		- volume up button - turn on/off zoom mode\n
+		- volume down button - listen to controls hints\n
+		- call button - listen to cell context information, that is, you will listen every cell information, 
+		that surround the selected one, beginning at the top cell and ending at the top left cell in clockwise order.\n\n
+		
+		If you don\'t have any of this buttons, you can change them, by clicking on Key Configurations.\n\n
+		
+		Play with touch screen, use:\n
+		- one tap, to select a cell\n
+		- two taps, to dig a cell\n
+		- three taps, to explore a cell\n
+		- drag, to listen different features of the cell\n\n
+		
+		Play with keyboard, use:\n
+		- arrows, to select a cell\n
+		- enter button or similar, to dig or explore\n\n
+		
+		While in zoom mode, enter button or tap to dig or explore.
+</string>
+    <string name="synthetizer_title">Synthetizer</string>
+    <string name="LosePositiveButtonLabel">Reset</string>
+    <string name="LoseNegativeButtonLabel">Back to the main menu</string>
+    <string name="WinPositiveButtonLabel">Ok</string>
+    <string name="LoseDialogTitle">Game Over</string>
+    <string name="WinDialogTitle">CONGRATULATIONS</string>
+    <string name="WinDialogMessage">"This time you win!"</string>
+    <string name="tts_title">Default TTS</string>
+    <string name="tts_summary">Enables voice synthetizer</string>
+    <string name="volume_up">Volume Up</string>
+    <string name="volume_down">Volume Down</string>
+    <string name="home">Home</string>
+    <string name="back">Back</string>
+    <string name="options">Options</string>
+    <string name="search">Search</string>
+    <string name="alert_dialog_difficulty_TTStext">Alert Dialog difficulty</string>
+    <string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
+    <string name="main_menu_initial_TTStext">Main menu</string>
+    <string name="settings_menu_initial_TTStext">menu settings</string>
+    <string name=" accounts_menu_initial_TTStext">accounts</string>
+    <string name="game_initial_TTStext">Game started!</string>
+    <string name="exploration_mode_TTStext">Exploration mode</string>
+    <string name="zoom_mode_TTStext">Zoom mode</string>
+    <string name="coordinates_information_button_TTStext">Position</string>
+    <string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
+    <string name="button_coord">Coordinates Button</string>
+    <string name="button_instr">Instructions Button</string>
+    <string name="button_zoom">Zoom Button</string>
+    <string name="button_exploration">Exploration Button</string>
+    <string name="button_context">Reading cell context</string>
+    <string name="context_coordinates_title">Cells context</string>
+    <string name="context_coordinates_summary">Reads cells around the selected</string>
+    <string name="keydialog">Action configuration</string>
+    <string name="keydialog_text">Press any key</string>
+    <string name="form_label">Form</string>
+
+    <!-- Forms -->
+    <string name="q1_context">Have you had any special keyboard in your Android device?</string>
+    <string name="q2_context">Do you miss some form of interaction?</string>
+    <string name="q3_context">Do you think that the voice synthesizer is annoying? Choice (1-5) 1-Totally Disagree 5-Totally agree</string>
+    <string name="q4_context">It\'s uncomfortable to use physical keys</string>
+    <string name="q5_context">Have you changed the key configuration?</string>
+    <string name="q6_context">Your Android device doesn\'t have a high number of physical keys</string>
+    <string name="q7_context">The game have too much information</string>
+    <string name="q8_context">The game have enough information to play it</string>
+    <string name="q10_context">About the boards in the minesweeper, the buttons on the screen are too small</string>
+    <string name="q11_context">About the boards, It\'s uncomfortable that the board dimensions are larger than the screen size in level hard and medium</string>
+    <string name="q12_context">Do you think that it\'s hard to change the game configuration?</string>
+    <string name="q13_context">Are there few configuration options in the menu?</string>
+    <string name="q14_context">Commentaries</string>
+    <string name="radio10_context">TalkBack</string>
+    <string name="no_context">No</string>
+    <string name="yes_context">Yes</string>
+    <string name="radio12_context">Physical keyboard</string>
+    <string name="radio20_context">More gestures</string>
+    <string name="radio30_context">It\'s impossible to play it</string>
+    <string name="radio40_context">Few</string>
+    <string name="radio21_context">Zones for concrete actions on the screen</string>
+    <string name="radio31_context">I don\'t miss any key</string>
+    <string name="radio41_context">There are enough</string>
+    <string name="radio32_context">I think that the game experience would be better</string>
+    <string name="radio42_context">Too many</string>
+    <string name="one_context">1</string>
+    <string name="two_context">2</string>
+    <string name="three_context">3</string>
+    <string name="four_context">4</string>
+    <string name="five_context">5</string>
+    <string name="next_context">Next</string>
+    <string name="finish_context">Finish</string>
+
+</resources>

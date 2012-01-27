@@ -1,0 +1,17 @@
+<ui:UiBinder
+    xmlns:ui='urn:ui:com.google.gwt.uibinder'
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+    <div id="widget">
+<!--         <div id="header"> -->
+<!--             <div ui:field="status" class="status none"></div> -->
+<!--             <p>Try out roundtripping data to App Engine.</p> -->
+<!--             <g:Button ui:field="queryLogsButton">Find all logs</g:Button> -->
+<!--             <g:Button ui:field="deleteLogsButton">Delete all logs</g:Button> -->
+<!--         </div> -->
+<!-- 		<div id="body"> -->
+<!--             <g:FlexTable ui:field="table"></g:FlexTable> -->
+<!--         </div> -->
+    </div>
+   </g:HTMLPanel>
+</ui:UiBinder>
