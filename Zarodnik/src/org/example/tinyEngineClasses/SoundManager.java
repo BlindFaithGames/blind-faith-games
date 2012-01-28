@@ -1,81 +1,92 @@
 package org.example.tinyEngineClasses;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import android.content.Context;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.media.SoundPool.OnLoadCompleteListener;
+import org.pielot.openal.Buffer;
+import org.pielot.openal.SoundEnv;
+import org.pielot.openal.Source;
+
+import android.app.Activity;
 
 public class SoundManager {
-	private SoundPool soundPool;
-	private int soundID;
-	private static HashMap<Integer, Integer> soundMap;
-	boolean loaded = false;
-	private static Context c;
-	private AudioManager audioManager;
-	private float volume;
+	
+	private static final String TAG = "SoundManager";
 
-	public SoundManager(Context context){
-		// Load the sound
-		c = context;
-		if (soundPool !=null) soundPool.release();
-		soundPool = new SoundPool(9, AudioManager.STREAM_MUSIC, 0);
-		soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
-			@Override
-			public void onLoadComplete(SoundPool soundPool, int sampleId,
-						int status) {
-					loaded = true;
-				}
-			});
-		// Getting the user sound settings
-		audioManager = (AudioManager) c.getSystemService(Context.AUDIO_SERVICE);
-		float actualVolume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-		float maxVolume = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		volume = actualVolume / maxVolume;
-		
-		soundMap = new HashMap<Integer,Integer>();
+	private SoundEnv env;
+
+	protected Map<String,List<Source>> sources;
+	
+	protected Map<String,Buffer> buffers;
+	
+	private static SoundManager sm = null;
+	
+	public SoundManager(Activity a){
+		sources = new HashMap<String,List<Source>>();
+		buffers = new HashMap<String, Buffer>();
+		this.env = SoundEnv.getInstance(a);
+		this.env.setListenerOrientation(20);
 	}
 	
-	public void addSound(int index, int SoundID, Context mCon)
-	{
-	    int id = soundPool.load(mCon, SoundID, index);
-		soundMap.put(index, id);
-	}
-	public void setPlay(int sound, int loop, float rate, int side){
-		soundPool.setLoop(sound, loop);
-		soundPool.setPriority(sound, 1);
-		soundPool.setRate(sound, rate);
-		if (side==1)soundPool.setVolume(sound, (float)0.0, volume);
-		else if(side==2)soundPool.setVolume(sound, (float)0.0, volume);
-		else soundPool.setVolume(sound, volume, volume);
-	}
-	
-	public void play(int sound){
-		stopSound(0);stopSound(1);
-		// Is the sound loaded already?
-		if (loaded) {
-			soundID=soundMap.get(sound);
-			soundPool.play(soundID, volume, volume, 1, 0, 1f);
-			}
-	}
-	public void playLooped(int sound, int loop, float rate, int side){
-		stopSound(0);stopSound(1);
-		if (loaded){
-			soundID=soundMap.get(sound);
-			//id, left volume, right volume, priority of sound, loop, rate of play
-			if (side==0) soundPool.play(soundID, 0.0f, volume, 1, loop, rate);
-			else soundPool.play(soundID, volume, 0.0f, 1, loop, rate);
+	public static SoundManager getSoundManager(Activity a){
+		if(sm == null){
+			return sm = new SoundManager(a);
+		}else{
+			return sm;
 		}
-		stopSound(sound);
-	}
-	
-	public void stopSound(int sound){
-		soundID=soundMap.get(sound);
-		soundPool.stop(soundID);
 	}
 
-	public boolean isWiredHeadsetOn() {
-		return  audioManager.isWiredHeadsetOn();
+	public void setListenerPosition(float x, float y, float z) {
+		env.setListenerPos(x, y, z);
+	}
+	
+	public void setListenerOrientation(float heading) {
+		env.setListenerOrientation(heading);
+	}
+	
+	public Source addSource(String soundName){
+		Source source = null;
+		Buffer b; List<Source> lAux;
+		if(soundName != null){
+			b = buffers.get(soundName);
+			if(b == null){
+				try {
+					b = env.addBuffer(soundName);
+					buffers.put(soundName, b);
+					source = env.addSource(b);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else{
+				source = env.addSource(b);
+				lAux = sources.get(soundName);
+				if(lAux == null){
+					lAux = new ArrayList<Source>();
+					lAux.add(source);
+					sources.put(soundName,lAux);
+				}
+				else{
+					lAux.add(source);
+				}
+			}
+			
+		}
+		return source;
+	}
+	
+	public void onLowMemory() {
+		this.env.onLowMemory();
+	}
+
+	public void stopAllSources() {
+		this.env.stopAllSources();
+	}
+
+	public void release() {
+		this.env.release();
 	}
 }

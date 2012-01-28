@@ -88,6 +88,8 @@ public abstract class Game {
 				collidables.add(e);
 			if(e.isRenderable() && e.isEnabled())
 				renderables.add(e);
+			if(e.isRemovable())
+				removables.add(e);
 			e.onUpdate();
 		}
 		

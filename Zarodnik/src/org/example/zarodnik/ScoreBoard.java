@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 
 public class ScoreBoard extends Entity {
 
@@ -28,8 +29,8 @@ public class ScoreBoard extends Entity {
 	private int record;
 	
 	public ScoreBoard(int x, int y, int record,Bitmap img, Game game, List<Mask> mask,
-			boolean animated, int frameCount) {
-		super(x, y, img, game, mask, animated, frameCount);
+			boolean animated, int frameCount, String soundName, Point soundOffset) {
+		super(x, y, img, game, mask, animated, frameCount, null, null);
 		counter = 0;
 		this.game = (ZarodnikGame) game;
 		this.record = record;

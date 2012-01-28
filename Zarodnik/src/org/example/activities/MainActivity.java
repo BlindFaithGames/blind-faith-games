@@ -28,7 +28,6 @@ import android.view.View.OnFocusChangeListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,9 +53,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private TTS textToSpeech;
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
-	
-	private AlertDialog loseDialog;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,8 +77,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
 
-		createEndingDialog();
-		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 
 		// Checking if TTS is installed on device
@@ -93,7 +88,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
-	
 	}	
 	
 	/**
@@ -274,29 +268,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 		return false;
 	}
-	
-	
-    private void createEndingDialog(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.EndingDialogTitle)
-				.setCancelable(false)
-				.setPositiveButton(R.string.EndingPositiveButtonLabel,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								
-							}
-						});
-		loseDialog = builder.create();
-    }
-    
-    private void showEndingDialog(int actualRecord){
-		// Show dialog
-		loseDialog.show();
-		Button buttonPositive = loseDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-		buttonPositive.setContentDescription(getString(R.string.EndingPositiveButtonLabel));
-		textToSpeech.speak(getString(R.string.EndingDialogTitle) + " " + actualRecord + " " + 
-						getString(R.string.EndingPositiveButtonLabel));
-    }
 
 	/**
 	 * ------------------------------------------------------------ Musica

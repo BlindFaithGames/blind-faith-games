@@ -25,30 +25,6 @@
 			android:defaultValue="false"/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/custom_profile_category">
-		<CheckBoxPreference
-			android:key="infoTarget"
-			android:title="@string/infoTarget_title"
-			android:summary="@string/infoTarget_summary"
-			android:defaultValue="false" />
-	    <CheckBoxPreference
-			android:key="On up event"
-			android:title="@string/onup_title"
-			android:summary="@string/onup_summary"
-			android:defaultValue="false" />
-	    <CheckBoxPreference
-			android:key="vibration feedback"
-			android:title="@string/v_feedback_title"
-			android:summary="@string/v_feedback_summary"
-			android:defaultValue="false" />
-	    <CheckBoxPreference
-			android:key="sound feedback"
-			android:title="@string/s_feedback_title"
-			android:summary="@string/s_feedback_summary"
-			android:defaultValue="false" />
-	    <CheckBoxPreference
-			android:key="doppler effect"
-			android:title="@string/doppler_title"
-			android:summary="@string/doppler_summary"
-			android:defaultValue="false" />
+
 	</PreferenceCategory>
 </PreferenceScreen>

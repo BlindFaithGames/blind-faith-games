@@ -64,14 +64,6 @@ public class ZarodnikGameActivity extends Activity {
 	 *  GESTURE DETECTOR
 	 ----------------------------------------------------------------------*/
     class MyGestureDetector extends SimpleOnGestureListener {
-//		@Override
-//		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-//			Log.d(TAG, "VX: "+velocityX + "\n VY: " + velocityY);
-//			/* We should register the event only if up mode is disable */
-//			Input.getInput().addEvent("onFling", e1, e2 ,velocityX, velocityY);
-//			return true;
-//
-//		}
 
 		//@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
@@ -92,6 +84,27 @@ public class ZarodnikGameActivity extends Activity {
     
     class ZarodnikGamePanel extends DrawablePanel{
     	private GestureDetector mGestureDetector;
+    	
+		public ZarodnikGamePanel(Context context) {
+			super(context);
+	        mGestureDetector = new GestureDetector(new MyGestureDetector());
+		}
+		
+		@Override
+		public void onInitalize() {
+		}
+		
+		@Override
+		public void onDraw(Canvas canvas) {
+			super.onDraw(canvas);
+			game.onDraw(canvas);
+		}
+		
+		@Override
+		public void onUpdate() {
+			game.onUpdate();
+		}
+    	
         @Override
         public boolean onTouchEvent(MotionEvent event) {
         	if (mGestureDetector.onTouchEvent(event)){
@@ -158,26 +171,5 @@ public class ZarodnikGameActivity extends Activity {
 			}
 			return found;
 		}
-
-		public ZarodnikGamePanel(Context context) {
-			super(context);
-	        mGestureDetector = new GestureDetector(new MyGestureDetector());
-		}
-		
-		@Override
-		public void onInitalize() {
-		}
-		
-		@Override
-		public void onDraw(Canvas canvas) {
-			super.onDraw(canvas);
-			game.onDraw(canvas);
-		}
-		
-		@Override
-		public void onUpdate() {
-			game.onUpdate();
-		}
-		
     }
 }

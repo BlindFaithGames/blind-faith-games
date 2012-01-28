@@ -7,11 +7,12 @@ import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Mask;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 
 public class Prey extends Entity{
 
-	public Prey(int x, int y, Bitmap img, Game game, List<Mask> mask) {
-		super(x, y, img, game, mask, false, 0);
+	public Prey(int x, int y, Bitmap img, Game game, List<Mask> mask, int frameCount, String soundName, Point soundOffset) {
+		super(x, y, img, game, mask, false, frameCount, soundName, soundOffset);
 	}
 
 	@Override

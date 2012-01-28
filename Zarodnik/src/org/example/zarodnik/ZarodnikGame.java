@@ -24,10 +24,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.view.View;
 
 public class ZarodnikGame extends Game {
+	
+	private static String prey_sound = "cat";
+	
 	
 	public ZarodnikGame(View v, TTS textToSpeech, Context c) {
 		super(v,c,textToSpeech);
@@ -42,10 +46,10 @@ public class ZarodnikGame extends Game {
 		createEntities(record);
 		
 		// Set background image
-		Bitmap field = BitmapFactory.decodeResource(v.getResources(), R.drawable.mar);
+		Bitmap field = BitmapFactory.decodeResource(v.getResources(), R.drawable.field);
 		field = CustomBitmap.getResizedBitmap(field, SCREEN_HEIGHT, SCREEN_WIDTH);
 		Paint brush = new Paint();
-		brush.setAlpha(175);
+		//brush.setAlpha(175);
 		editBackground(brush);
 		setBackground(field);
 	}
@@ -91,23 +95,23 @@ public class ZarodnikGame extends Game {
 		int alto = SCREEN_HEIGHT - predatorBitmap.getHeight();
 		int targetX = positions.nextInt(ancho);
 		int targetY = positions.nextInt(alto);
-		this.addEntity(new Predator(targetX, targetY, predatorBitmap, this, targetMasks));
+		this.addEntity(new Predator(targetX, targetY, predatorBitmap, this, targetMasks, 0, null, null));
 		
-		// Pray
+		// Prey
 		Bitmap preyBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.prey);
 		ArrayList<Mask> preyMasks = new ArrayList<Mask>();
-		targetMasks.add(new MaskBox(0,4*predatorBitmap.getHeight()/5,4*predatorBitmap.getWidth()/5,predatorBitmap.getHeight()/5));	
+		targetMasks.add(new MaskBox(0,4*preyBitmap.getHeight()/5,4*preyBitmap.getWidth()/5,preyBitmap.getHeight()/5));	
 		positions = new Random();
 		int preyX = positions.nextInt(ancho);
 		int preyY = positions.nextInt(alto);
-		this.addEntity(new Predator(preyX, preyY, preyBitmap, this, preyMasks));
+		this.addEntity(new Prey(preyX, preyY, preyBitmap, this, preyMasks, 0, prey_sound, new Point(0,0)));
 		
 		// Player
 		Bitmap playerBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.player);
 		ArrayList<Mask> ballMasks = new ArrayList<Mask>();
 		ballMasks.add(new MaskCircle(playerBitmap.getWidth()/(5*2),playerBitmap.getWidth()/(5*2),playerBitmap.getWidth()/(5*2)));     
 		this.addEntity(new Dot(SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT
-				/ 3, record, playerBitmap, this, ballMasks, context));
+				/ 3, record, playerBitmap, this, ballMasks, context, 0, null, null));
 	}
 	
 	@Override

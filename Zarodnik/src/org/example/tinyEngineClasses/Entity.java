@@ -1,12 +1,15 @@
 package org.example.tinyEngineClasses;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.example.others.RuntimeConfig;
+import org.pielot.openal.Source;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
 
 public abstract class Entity {
 
@@ -23,15 +26,20 @@ public abstract class Entity {
 	private boolean collidable; // colisiona con otras entidades?
 	private boolean visible; // ¿visible? esto determina si se dibuja o no 
 	private boolean frozen; 
+	private boolean removable;
 	private boolean animated;
 	
     private int[] timers;
 	
     private List<Mask> mask; // Mascara para colisiones posiblemente un Rect
     
+    private List<Sound2D> sources; // sources list
+    
 	protected Game game;
+
+
 	
-	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount){
+	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount, String soundName, Point soundOffset){
 		this.x = x;
 		this.y = y;
 		this.img = img;
@@ -47,6 +55,17 @@ public abstract class Entity {
 			anim.Initialize(img, img.getHeight(), img.getWidth()/frameCount, frameCount);
 			anim.play();
 		}
+		if(soundName != null) {
+			SoundManager sm  = SoundManager.getSoundManager(game.getContext());
+			Source s = sm.addSource(soundName);
+			s.setGain(10);
+			s.play(true);
+			Sound2D sound = new Sound2D(soundOffset, s);
+			if(s != null){
+				sources = new ArrayList<Sound2D>();
+				sources.add(sound);
+			}
+		}
 	}
     
 	/**
@@ -57,7 +76,8 @@ public abstract class Entity {
 		if(animated)
 			anim.onDraw((int)x, (int)y,canvas);
 		else
-			canvas.drawBitmap(img, x, y, null);
+			if(img != null)
+				canvas.drawBitmap(img, x, y, null);
 		
 		if(RuntimeConfig.IS_DEBUG_MODE){
 			if(mask != null){
@@ -81,6 +101,15 @@ public abstract class Entity {
 			while(it.hasNext()){
 				m = it.next();
 				m.onUpdate(x,y);
+			}
+		}
+		
+		if(sources != null){
+			Iterator<Sound2D> it = sources.iterator();
+			Sound2D s;
+			while(it.hasNext()){
+				s = it.next();
+				s.getS().setPosition(x + s.getP().x, y + s.getP().y, 0);
 			}
 		}
 	}
@@ -133,6 +162,19 @@ public abstract class Entity {
 	
 	public boolean isRenderable() {
 		return visible;
+	}
+	
+	public boolean isRemovable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public void remove() {
+		removable = true;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	/**
@@ -218,5 +260,9 @@ public abstract class Entity {
 	
 	public int getImgHeight(){
 		return img.getHeight();	
+	}
+	
+	public List<Sound2D> getSources(){
+		return sources;
 	}
 }
