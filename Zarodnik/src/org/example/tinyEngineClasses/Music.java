@@ -37,6 +37,20 @@ public class Music {
 		mp.setLooping(looping);
 		mp.start();
 	}
+	
+	/** Stop old song and start new one */
+	public void playWithBlock(Context context, int resource, boolean looping) {
+		stop(context,resource);
+		
+		MediaPlayer mp;
+		mp = MediaPlayer.create(context, resource);
+		sounds.put(resource, mp);
+		mp.setLooping(looping);
+		mp.start();
+		
+		while(mp.isPlaying()){};
+	}
+
 
 	public void setVolume(float leftVolume, float rightVolume, int resource){
 		sounds.get(resource).setVolume(leftVolume, rightVolume);

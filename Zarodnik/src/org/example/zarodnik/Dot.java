@@ -3,23 +3,18 @@ package org.example.zarodnik;
 import java.util.List;
 
 import org.example.R;
-import org.example.others.RuntimeConfig;
-import org.example.tinyEngineClasses.CustomBitmap;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
+import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SoundManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.os.Vibrator;
 
 /**
  * It represents the player
@@ -29,8 +24,9 @@ import android.os.Vibrator;
 public class Dot extends Entity{
 	
 //	private static final int previous_shot_feedback_sound = R.raw.previous_shoot_feedback_sound;
+	private static final int die_sound = R.raw.pacman_dies;
 
-	private static final double EPSILON = 10;
+	private static final double EPSILON = 15;
 	
 	private static final int originX = ZarodnikGame.SCREEN_WIDTH/2;
 	private static final int originY = ZarodnikGame.SCREEN_HEIGHT - ZarodnikGame.SCREEN_HEIGHT/3;
@@ -61,12 +57,11 @@ public class Dot extends Entity{
 		dotCenterX = this.x + this.getImgWidth()/2;
 		dotCenterY = this.y + this.getImgHeight()/2;
 		
-		speed = 0.1;
+		speed = 0.05;
 		v = new Point(0,0);
 
-		Bitmap scoreBoardImg = BitmapFactory.decodeResource(this.game.getView().getResources(), R.drawable.scoreboard);
-		scoreBoardImg = CustomBitmap.getResizedBitmap(scoreBoardImg, scoreBoardImg.getWidth()*2, scoreBoardImg.getHeight()*2);
-		scoreBoard = new ScoreBoard(0,500,record,scoreBoardImg, game, null, false, 0, null, null);
+		scoreBoard = new ScoreBoard(ZarodnikGame.SCREEN_WIDTH - 200, 30, record,
+									null, game, null, false, 0, null, null);
 		this.game.addEntity(scoreBoard);
 	}
 	
@@ -153,10 +148,17 @@ public class Dot extends Entity{
 		// Predator and prey collides
 		if (e instanceof Predator){
 			// TODO Muerte, guardar puntuación
+			Music.getInstanceMusic().playWithBlock(this.game.getContext(), die_sound, false);
+			
+			this.remove();
+			
+			this.game.getContext().finish();
 		}
 		else if (e instanceof Prey){
 			// TODO eliminar presa
 			e.remove();
+			
+			//Music.getInstanceMusic().play(this.game.getContext(), , false);
 			
 			scoreBoard.incrementCounter();
 		}
@@ -167,5 +169,10 @@ public class Dot extends Entity{
 
 	@Override
 	public void onInit() {}
+
+	@Override
+	public void onRemove() {
+		
+	}
 	
 }

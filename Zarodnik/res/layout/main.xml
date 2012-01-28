@@ -16,7 +16,9 @@
 			android:layout_height="wrap_content"
 			android:text="@string/new_game_label"
 			android:contentDescription="@string/new_game_label"
-			android:layout_marginBottom="50px"/>
+			android:layout_marginBottom="50px"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" />
 		<Button
 			android:id="@+id/instructions_button"
 			android:layout_width="fill_parent"
@@ -24,6 +26,8 @@
 			android:text="@string/instructions_label" 
 			android:contentDescription="@string/instructions_label"
 			android:layout_marginBottom="50px"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" 
 		/>
 		<Button
 			android:id="@+id/about_button"
@@ -32,6 +36,8 @@
 			android:text="@string/about_label"
 			android:contentDescription="@string/about_label"
 			android:layout_marginBottom="50px"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" 
 		/>
 		<Button
 			android:id="@+id/exit_button"
@@ -39,6 +45,8 @@
 			android:layout_height="wrap_content"
 			android:text="@string/exit_label" 
 			android:contentDescription="@string/exit_label" 
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" 
 		/>
 	</LinearLayout>
 </LinearLayout>

@@ -19,8 +19,6 @@ public class AnimationThread extends Thread {
 	public AnimationThread(SurfaceHolder surfaceHolder, ISurface panel) {
 		this.surfaceHolder = surfaceHolder;
 		this.panel = panel;
-		
-		panel.onInitalize();
 	}
 	
 	public boolean isRunning() {
@@ -37,9 +35,26 @@ public class AnimationThread extends Thread {
 		int counter = 0;
 		long next_game_tick = System.currentTimeMillis();
 		long sleep_time = 0;
-		Canvas c;
+		Canvas c = null;
 		long initialTime = System.currentTimeMillis();
 
+    	try {
+            c = surfaceHolder.lockCanvas(null);
+            synchronized (surfaceHolder) {
+            	panel.onDraw(c);
+            	c.drawText("FPS "+ fps, 10, 10, new Paint());
+            }
+        } finally {
+            // do this in a finally so that if an exception is thrown
+            // during the above, we don't leave the Surface in an
+            // inconsistent state
+            if (c != null) {
+                surfaceHolder.unlockCanvasAndPost(c);
+            }
+        }
+		
+		panel.onInitalize();
+		
 	    while (run) {
 	        c = null;
 	    	next_game_tick += SKIP_TICKS;

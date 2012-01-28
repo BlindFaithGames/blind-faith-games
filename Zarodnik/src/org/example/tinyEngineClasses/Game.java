@@ -65,8 +65,8 @@ public abstract class Game {
 	}
 	
 	protected void onDraw(Canvas canvas) {
-		
-		canvas.drawBitmap(background,0,0,brush);
+		if(background != null)
+			canvas.drawBitmap(background,0,0,brush);
 		
 		Iterator<Entity> it = renderables.iterator();
 		Entity e;
@@ -79,9 +79,8 @@ public abstract class Game {
 	}
 	
 	protected void onUpdate(){
-		
+		Entity e1,e2,e = null;
 		Iterator<Entity> it = entities.iterator();
-		Entity e;
 		while(it.hasNext()){
 			e = it.next();
 			if(e.isCollidable() && e.isEnabled())
@@ -95,7 +94,6 @@ public abstract class Game {
 		
 		Iterator<Entity> it1 = collidables.iterator();
 		Iterator<Entity> it2;
-		Entity e1,e2;
 		while(it1.hasNext()){
 			e1 = it1.next();
 			it2 = collidables.iterator();
@@ -106,12 +104,22 @@ public abstract class Game {
 			}
 			
 		}
+		
+		it = entities.iterator();
+		while(it.hasNext()){
+			e = it.next();
+			if(e.isRemovable())
+				removables.add(e);
+		}
 	
 		it  = removables.iterator();
 		while(it.hasNext()){
-			entities.remove(it);
-			collidables.remove(it);
-			renderables.remove(it);
+			e = it.next();
+			e.onRemove();
+			entities.remove(e);
+			collidables.remove(e);
+			renderables.remove(e);
+			e.delete();
 		}
 		
 		collidables.clear();

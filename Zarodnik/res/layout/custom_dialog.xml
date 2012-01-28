@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp" android:gravity="center_horizontal">
+ 
+	<TextView android:id="@+id/TextView01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/dialog_select">
+	</TextView>
+    <Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/Button01main"
+			android:layout_below="@+id/TextView01"
+			android:text="@string/instructions_controls_label"
+			android:contentDescription="@string/instructions_controls_label" android:layout_alignLeft="@+id/TextView01" 
+			android:layout_alignRight="@+id/TextView01"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" />
+	<Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/Button02main"
+			android:layout_below="@+id/Button01main"
+			android:text="@string/instructions_general_label"
+			android:contentDescription="@string/instructions_general_label" 
+			android:layout_alignRight="@+id/Button01main" 
+			android:layout_alignLeft="@+id/Button01main"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button"/>
+
+</RelativeLayout>

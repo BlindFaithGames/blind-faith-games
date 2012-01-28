@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import org.example.R;
 import org.example.tinyEngineClasses.DrawablePanel;
 import org.example.tinyEngineClasses.Input;
+import org.example.tinyEngineClasses.Music;
+import org.example.tinyEngineClasses.SoundManager;
 import org.example.tinyEngineClasses.TTS;
 import org.example.zarodnik.ZarodnikGame;
 import org.example.zarodnik.XML.KeyboardReader;
@@ -23,7 +25,9 @@ import android.view.MotionEvent;
 import android.view.Window;
 
 public class ZarodnikGameActivity extends Activity {
-	private static String TAG = "SporaGameActivity";
+	private static String TAG = "ZarodnikGameActivity";
+	
+	private static final int intro_sound = R.raw.pacman_intro;
 	private TTS textToSpeech;
 	private ZarodnikGame game;
 	
@@ -47,6 +51,12 @@ public class ZarodnikGameActivity extends Activity {
 		setContentView(zarodnikView);
 		
 		game = new ZarodnikGame(zarodnikView,textToSpeech,this);
+    }
+    
+    @Override
+    protected void onDestroy() {
+    	SoundManager.getSoundManager(this).stopAllSources();
+    	super.onDestroy();
     }
     
     private void loadKeyConfiguration() {
@@ -92,6 +102,9 @@ public class ZarodnikGameActivity extends Activity {
 		
 		@Override
 		public void onInitalize() {
+			game.onInit();
+			Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
+			SoundManager.getSoundManager(game.getContext()).playAllSources();
 		}
 		
 		@Override
@@ -171,5 +184,7 @@ public class ZarodnikGameActivity extends Activity {
 			}
 			return found;
 		}
+		
+		
     }
 }

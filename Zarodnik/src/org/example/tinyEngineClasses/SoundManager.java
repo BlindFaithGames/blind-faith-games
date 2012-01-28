@@ -89,4 +89,8 @@ public class SoundManager {
 	public void release() {
 		this.env.release();
 	}
+
+	public void playAllSources() {
+		this.env.playAllSources(true);
+	}
 }

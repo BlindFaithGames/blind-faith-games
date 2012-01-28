@@ -37,8 +37,6 @@ public abstract class Entity {
     
 	protected Game game;
 
-
-	
 	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount, String soundName, Point soundOffset){
 		this.x = x;
 		this.y = y;
@@ -58,8 +56,6 @@ public abstract class Entity {
 		if(soundName != null) {
 			SoundManager sm  = SoundManager.getSoundManager(game.getContext());
 			Source s = sm.addSource(soundName);
-			s.setGain(10);
-			s.play(true);
 			Sound2D sound = new Sound2D(soundOffset, s);
 			if(s != null){
 				sources = new ArrayList<Sound2D>();
@@ -148,6 +144,8 @@ public abstract class Entity {
      */
     public abstract void onInit();
 
+    public abstract void onRemove();
+	
 	public boolean isCollidable() {
 		return collidable;
 	}
@@ -165,8 +163,7 @@ public abstract class Entity {
 	}
 	
 	public boolean isRemovable() {
-		// TODO Auto-generated method stub
-		return false;
+		return removable;
 	}
 	
 	public void remove() {
@@ -203,16 +200,6 @@ public abstract class Entity {
 			return found;
 		}
 		return false;
-	}
-	
-	public boolean equals(Object o){
-		if(o instanceof Entity){
-			Entity e = (Entity) o;
-			return e.getId().equals(id);
-		}
-		else
-			return false;
-		
 	}
 	
 	// GETTERS
@@ -265,4 +252,17 @@ public abstract class Entity {
 	public List<Sound2D> getSources(){
 		return sources;
 	}
+	
+	public void delete() {
+		if(sources != null){
+			Iterator<Sound2D> it = sources.iterator();
+			Sound2D s;
+			while(it.hasNext()){
+				s = it.next();
+				s.getS().stop();
+			}
+		}
+		img.recycle();
+	}
+	
 }

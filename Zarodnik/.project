@@ -32,11 +32,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>OpenAL4Android</name>
-			<type>2</type>
-			<location>C:/Users/Javieku/workspace/si-project/OpenAL4Android/src</location>
-		</link>
-		<link>
 			<name>OpenAL4Android_src</name>
 			<type>2</type>
 			<locationURI>_android_OpenAL4Android_64b3b6b0/src</locationURI>

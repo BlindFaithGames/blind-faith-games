@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.example.R;
+import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.TTS;
@@ -14,10 +15,9 @@ import org.example.zarodnik.XML.KeyboardWriter;
 import org.example.zarodnik.XML.XMLKeyboard;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,9 +26,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -40,7 +38,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
-
+	
 	public static final String KEY_TTS = "org.example.tinyEngineClasses.TTS";
 	public static final String KEY_INSTRUCTIONS_CONTROLS = "org.example.zarodnikGame.mainActivity.iControls";
 	public static final String KEY_INSTRUCTIONS_GENERAL = "org.example.zarodnikGame.mainActivity.iGeneral";
@@ -53,10 +51,15 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private TTS textToSpeech;
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
+	private Dialog instructionsDialog;
+	
+	
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Typeface font;
+		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
@@ -64,19 +67,31 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		keyboard = Input.getKeyboard();
 		this.fillXMLKeyboard();
 		
-		View newButton = findViewById(R.id.new_button);
+		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
+		
+		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
-		View aboutButton = findViewById(R.id.about_button);
+		newButton.setTextSize(RuntimeConfig.FONT_SIZE);
+		newButton.setTypeface(font);	
+		Button aboutButton = (Button) findViewById(R.id.about_button);
 		aboutButton.setOnClickListener(this);
 		aboutButton.setOnFocusChangeListener(this);
-		View instructionsButton = findViewById(R.id.instructions_button);
+		aboutButton.setTextSize(RuntimeConfig.FONT_SIZE);
+		aboutButton.setTypeface(font);
+		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
 		instructionsButton.setOnClickListener(this);
 		instructionsButton.setOnFocusChangeListener(this);
-		View exitButton = findViewById(R.id.exit_button);
+		instructionsButton.setTextSize(RuntimeConfig.FONT_SIZE);
+		instructionsButton.setTypeface(font);
+		Button exitButton = (Button) findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
-
+		exitButton.setTextSize(RuntimeConfig.FONT_SIZE);
+		exitButton.setTypeface(font);
+		
+		createInstructionsDialog();
+		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 
 		// Checking if TTS is installed on device
@@ -90,6 +105,30 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 	}	
 	
+	private void createInstructionsDialog() {
+		Typeface font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
+		TextView text; Button b;
+		
+		instructionsDialog = new Dialog(this);
+		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		instructionsDialog.setContentView(R.layout.custom_dialog);
+		instructionsDialog.setTitle("hola");
+		
+		text = (TextView) instructionsDialog.findViewById(R.id.TextView01);
+		text.setTextSize(RuntimeConfig.FONT_SIZE);
+		text.setTypeface(font);
+		b = (Button) instructionsDialog.findViewById(R.id.Button01main);
+		b.setTextSize(RuntimeConfig.FONT_SIZE);
+		b.setTypeface(font);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b = (Button) instructionsDialog.findViewById(R.id.Button02main);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setTextSize(RuntimeConfig.FONT_SIZE);
+		b.setTypeface(font);
+	}
+
 	/**
 	 * Default keyboard config
 	 */
@@ -129,6 +168,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		case R.id.new_button:
 			startGame();
 			break;
+		case R.id.Button01main: // controls
+			startInstructions(0);
+			break;
+		case R.id.Button02main: // instructions
+			startInstructions(1);
+			break;
 		case R.id.exit_button:
 			finish();
 			break;
@@ -147,39 +192,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 	/** Ask the user what type of instructions */
 	private void openInstructionsDialog() {
-		Builder instructionsAlertDialogBuilder = new AlertDialog.Builder(this)
-				.setTitle(R.string.instructions_title).setItems(
-						R.array.instructions,
-						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialoginterface, int i) {
-								startInstructions(i);
-							}
-						});
-		AlertDialog instructionsAlertDialog = instructionsAlertDialogBuilder
-				.create();
-		instructionsAlertDialog.show();
-		ListView l = instructionsAlertDialog.getListView();
-
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_instructions_TTStext)
 				+ this.getString(R.string.instructions_general_label)
 				+ " "
 				+ this.getString(R.string.instructions_controls_label));
-
-		l.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View view,
-					int position, long id) {
-				TextView option = (TextView) view;
-				textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-				textToSpeech.speak((String) option.getText());
-				textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-
-			}
-		});
+		
+		instructionsDialog.show();
+		
 	}
 
 	/** Start a new game with the given difficulty level 
