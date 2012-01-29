@@ -68,5 +68,4 @@ public abstract class Mask {
 		this.y = y + offsetY;
 	}
 	
-	
 }

@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import org.example.R;
 import org.example.tinyEngineClasses.DrawablePanel;
 import org.example.tinyEngineClasses.Input;
-import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SoundManager;
 import org.example.tinyEngineClasses.TTS;
 import org.example.zarodnik.ZarodnikGame;
@@ -40,7 +39,7 @@ public class ZarodnikGameActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
+
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
@@ -103,7 +102,7 @@ public class ZarodnikGameActivity extends Activity {
 		@Override
 		public void onInitalize() {
 			game.onInit();
-			Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
+//			Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
 			SoundManager.getSoundManager(game.getContext()).playAllSources();
 		}
 		

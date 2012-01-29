@@ -35,4 +35,11 @@ public class MaskCircle  extends Mask{
 		brush.setStyle(Style.STROKE);
 		canvas.drawCircle(this.x, this.y, radius, brush);
 	}
+	
+	public Object clone(Object o){
+		MaskCircle m1, m2;
+		m1 = (MaskCircle) o;
+		m2 = new MaskCircle(m1.offsetX,m1.offsetY,m1.radius);
+		return m2;
+	}
 }

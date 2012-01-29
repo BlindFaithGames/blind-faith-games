@@ -3,6 +3,7 @@ package org.example.zarodnik;
 import java.util.List;
 
 import org.example.R;
+import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
@@ -14,6 +15,7 @@ import org.example.tinyEngineClasses.SoundManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Point;
 
 /**
@@ -23,24 +25,23 @@ import android.graphics.Point;
 
 public class Dot extends Entity{
 	
-//	private static final int previous_shot_feedback_sound = R.raw.previous_shoot_feedback_sound;
 	private static final int die_sound = R.raw.pacman_dies;
 
-	private static final double EPSILON = 15;
+	private static final float EPSILON = 4;
 	
-	private static final int originX = ZarodnikGame.SCREEN_WIDTH/2;
-	private static final int originY = ZarodnikGame.SCREEN_HEIGHT - ZarodnikGame.SCREEN_HEIGHT/3;
-	private boolean launched;
+	private float destX;
+	private float destY;
+	private float speed;
+	private float vx, vy;
 	
-	private double destX;
-	private double destY;
-	private double speed;
-	private Point v;
+	private float dotCenterX, initialX;
+	private float dotCenterY, initialY;
 	
 	private ScoreBoard scoreBoard;
 	
-	private float dotCenterX;
-	private float dotCenterY;
+	private boolean inMovement;
+
+	private float incr;
 
 	/**
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
@@ -54,23 +55,38 @@ public class Dot extends Entity{
 		
 		this.game = (ZarodnikGame) game;
 		
-		dotCenterX = this.x + this.getImgWidth()/2;
-		dotCenterY = this.y + this.getImgHeight()/2;
+		initMovementParameters();
+		inMovement = false;
 		
-		speed = 0.05;
-		v = new Point(0,0);
-
 		scoreBoard = new ScoreBoard(ZarodnikGame.SCREEN_WIDTH - 200, 30, record,
 									null, game, null, false, 0, null, null);
 		this.game.addEntity(scoreBoard);
+	}
+	
+	public void initMovementParameters(){
+		speed = 0.01f;
+		incr = 0.1f;
+		vx = 0;
+		vy = 0;
+		initialX = this.x;
+		initialY = this.y;
+		dotCenterX = this.x + this.getImgWidth()/2;
+		dotCenterY = this.y + this.getImgHeight()/2;
+	}
+	
+	public boolean isInMovement() {
+		return inMovement;
+	}
+
+	public void setInMovement(boolean inMovement) {
+		this.inMovement = inMovement;
 	}
 	
 	/**
 	 * Use a parametric equation to generate the points of the dot's trajectory
 	 * */
 	@Override
-	public void onUpdate() {
-		// TODO si evento scroll, actualizar pos		
+	public void onUpdate() {	
 		onScrollManagement();
 		
 		onDownManagement();
@@ -86,29 +102,39 @@ public class Dot extends Entity{
 		EventType e  = Input.getInput().removeEvent("onDown");
 		
 		if(e != null){
+			initMovementParameters();
 			
-			v.x = (int) (e.getMotionEventE1().getX() - this.x);
-			v.y = (int) (e.getMotionEventE1().getY() - this.y);
+			vx = e.getMotionEventE1().getX() - dotCenterX;
+			vy = e.getMotionEventE1().getY() - dotCenterY;
 			
 			destX = e.getMotionEventE1().getX();
 			
 			destY = e.getMotionEventE1().getY();
 			
+			inMovement = true;
 		}
 		
-		if(v != null){
-     		auxX = (this.x + v.x * speed);
-     		auxY = (this.y + v.y * speed);
+		if(inMovement){
+     		auxX = (initialX + vx * speed);
+     		auxY = (initialY + vy * speed);
      		
-			if(inStage(auxX,auxY) && !inDestination(auxX,auxY)){
+     		speed += incr;
+     		
+			if(inStage(auxX,auxY) && !inDestination(dotCenterX,dotCenterY)){
 				this.x = (int) auxX;
 				this.y = (int) auxY;
+				dotCenterX = this.x + this.getImgWidth()/2;
+				dotCenterY = this.y + this.getImgHeight()/2;
+				inMovement = true;
+			}
+			else{
+				inMovement = false;
 			}
 		} 
 	}
 
 	private boolean inDestination(double auxX, double auxY) {
-		if(x < (destX + EPSILON) && x >= (destX - EPSILON) && y < (destY + EPSILON) && y >= (destY - EPSILON))
+		if(auxX < (destX + EPSILON) && auxX >= (destX - EPSILON) && auxY < (destY + EPSILON) && auxY >= (destY - EPSILON))
 			return true;
 		else
 			return false;
@@ -140,7 +166,10 @@ public class Dot extends Entity{
 	 * */
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
-		
+		if(RuntimeConfig.IS_DEBUG_MODE){
+			canvas.drawRect(destX-EPSILON, destY-EPSILON, destX+EPSILON, destY+EPSILON, new Paint());
+			canvas.drawLine(dotCenterX, dotCenterY,destX, destY, new Paint());
+		}
 	}
 
 	@Override
@@ -148,14 +177,15 @@ public class Dot extends Entity{
 		// Predator and prey collides
 		if (e instanceof Predator){
 			// TODO Muerte, guardar puntuación
+			this.game.stop();
+			
 			Music.getInstanceMusic().playWithBlock(this.game.getContext(), die_sound, false);
 			
 			this.remove();
 			
 			this.game.getContext().finish();
 		}
-		else if (e instanceof Prey){
-			// TODO eliminar presa
+		else if (e instanceof SmartPrey || e instanceof SillyPrey){
 			e.remove();
 			
 			//Music.getInstanceMusic().play(this.game.getContext(), , false);
@@ -171,8 +201,5 @@ public class Dot extends Entity{
 	public void onInit() {}
 
 	@Override
-	public void onRemove() {
-		
-	}
-	
+	public void onRemove() {}	
 }

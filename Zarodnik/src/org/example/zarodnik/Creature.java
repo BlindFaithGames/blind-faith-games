@@ -10,53 +10,132 @@ import org.example.tinyEngineClasses.Mask;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 
-public class Creature extends Entity{
+public abstract class Creature extends Entity{
 	
-	private int die_sound;
+	private enum Sense { UP, DOWN, LEFT, RIGHT };
 	
-	private int direction; // or a point
+	protected ZarodnikGame game;
 	
-	private double speed;
+	protected double speed;
+	
+	private Sense direction; 
 	
 	private Random randomNumber;
+	private int steps;
 	
-	public Creature(int x, int y, Bitmap img, Game game, List<Mask> mask, int frameCount, String soundName, Point soundOffset) {
+	public Creature(int x, int y, Bitmap img, Game game, List<Mask> mask, int frameCount, String soundName, Point soundOffset, int speed) {
 		super(x, y, img, game, mask, false, frameCount, soundName, soundOffset);
 		
-		direction = 1;
-		speed = 1;
+		this.game = (ZarodnikGame) game;
+		
+		this.speed = speed;
 		
 		randomNumber = new Random();
 		
-		//die_sound = R.raw.whatever;
+		direction = selectSense();
+		
+		steps = randomNumber.nextInt(5) + 1;
+	}
+
+	private Sense selectSense() {
+		Sense result = Sense.UP;
+		switch(randomNumber.nextInt(4)){
+			case(0):
+				result = Sense.UP;
+				break;
+			case(1):
+				result = Sense.DOWN;
+				break;
+			case(2):
+				result = Sense.LEFT;
+				break;
+			case(3):
+				result = Sense.RIGHT;
+				break;
+			default:
+				break;
+		}
+		return result;
 	}
 
 	@Override
 	protected void onUpdate() {
+		if(steps == 0){
+			changeMovementSense();
+		}
+		else{
+			steps = moveCreature(direction, speed, steps);
+		}
 		
 		super.onUpdate();
 	}
-	
+
+	private int moveCreature(Sense direction, double speed, int steps) {
+		if(checkIfOutsideScreen(direction,speed)){
+			steps = 0;
+		}else{
+			if(this.game.getPlayer().isInMovement()){
+				switch(direction){
+					case UP:
+						this.y -= speed;
+						break;
+					case DOWN:
+						this.y += speed;
+						break;
+					case LEFT:
+						this.x -= speed;
+						break;
+					case RIGHT:
+						this.x += speed;
+						break;
+					default:
+						break;
+				}
+				steps--;
+			}
+		}
+		return steps;
+	}
+
+	private boolean checkIfOutsideScreen(Sense direction, double speed) {
+		boolean result = false;
+		switch(direction){
+			case UP:
+				result  = this.y - speed < this.getImgHeight();
+				break;
+			case DOWN:
+				result  = this.y - speed > Game.SCREEN_HEIGHT - this.getImgHeight();
+				break;
+			case LEFT:
+				result = this.x - speed < this.getImgWidth();
+				break;
+			case RIGHT:
+				result = this.x - speed > Game.SCREEN_WIDTH - this.getImgWidth();
+				break;
+			default:
+				break;
+		}
+		return result;
+	}
+
 	@Override
 	public void onCollision(Entity e) {
-		// TODO Auto-generated method stub
-		
+		if(e instanceof SmartPrey || e instanceof SillyPrey || e instanceof Predator){
+			changeMovementSense();
+		}
 	}
 
-	@Override
-	public void onTimer(int timer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onInit() {
-		// TODO Auto-generated method stub
+	private void changeMovementSense() {
+		steps = randomNumber.nextInt(50) + 30;
+		direction = selectSense();
 	}
 	
 	@Override
-	public void onRemove() {
-		//Music.getInstanceMusic().play(this.game.getContext(), die_sound, false);
-		// change img and play anim
-	}
+	public void onTimer(int timer) {}
+
+	@Override
+	public void onInit() {}
+	
+	@Override
+	public void onRemove() {}
 }

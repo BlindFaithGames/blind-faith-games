@@ -138,6 +138,10 @@ public abstract class Game {
 		game_is_running = false;
 	}
 	
+	public boolean isRunning(){
+		return game_is_running;
+	}
+	
 	public void addEntity(Entity e){	
 		entities.add(e);
 	}

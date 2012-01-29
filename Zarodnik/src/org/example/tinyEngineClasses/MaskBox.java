@@ -36,4 +36,11 @@ public class MaskBox extends Mask{
 		brush.setStyle(Style.STROKE);
 		canvas.drawRect(this.x,this.y, this.x + width, this.y + height, brush);
 	}
+	
+	public Object clone(Object o){
+		MaskBox m1, m2;
+		m1 = (MaskBox) o;
+		m2 = new MaskBox(m1.offsetX, m1.offsetY, m1.width, m1.height);
+		return m2;
+	}
 }

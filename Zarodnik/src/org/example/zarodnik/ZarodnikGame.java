@@ -35,12 +35,15 @@ import android.view.View;
 
 public class ZarodnikGame extends Game {
 	
+	private static final int maxPredatorNumber = 3;
 	private static String prey_sound = "cat";
 	private static String predator_sound = "snake";
 
 	private int fontSize;
 	private Typeface font;
 	private Paint brush;
+	
+	private Dot player;
 	
 	private boolean flag = false;
 	
@@ -77,6 +80,10 @@ public class ZarodnikGame extends Game {
 		flag = true;
 	}
 	
+	public Dot getPlayer(){
+		return player;
+	}
+	
 	/**
 	 * Loads from internal file system the previous record in Free Mode.
 	 * 
@@ -107,45 +114,63 @@ public class ZarodnikGame extends Game {
 	 * Instantiates the entities in the game.
 	 * 
 	 * */
+	@SuppressWarnings("unchecked")
 	private void createEntities(int record) {
-		// Game entities: predators and preys
-		Entity e; List<Sound2D> sources; Source s;
+		// Game entities: predators, preys and player
+		Entity e; 
+		List<Sound2D> sources; 
+		Source s;
+		int predatorN, predatorX, predatorY, preyX, preyY;
+		int width, height;
+		Random numberGenerator;
+		Bitmap predatorBitmap, preyBitmap, playerBitmap;
+		ArrayList<Mask> predatorMasks, preyMasks, playerMasks;
 		
-		Bitmap predatorBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.predator);
-		ArrayList<Mask> predatorMasks = new ArrayList<Mask>();
-		predatorMasks.add(new MaskBox(0,0,predatorBitmap.getWidth(),predatorBitmap.getHeight()));	
-		Random positions = new Random();
-		int ancho = SCREEN_WIDTH - predatorBitmap.getWidth();
-		int alto = SCREEN_HEIGHT - predatorBitmap.getHeight();
-		int targetX = positions.nextInt(ancho);
-		int targetY = positions.nextInt(alto);
-		e = new Predator(targetX, targetY, predatorBitmap, this, predatorMasks, 0, 
-				predator_sound, new Point(predatorBitmap.getWidth()/2,predatorBitmap.getWidth()/2));
-		this.addEntity(e);
-		sources = e.getSources();
-		if(!sources.isEmpty()){
-			s = sources.get(0).getS();
-			s.setGain(5);
-			s.setPitch(0.5f);
+		numberGenerator = new Random();
+		predatorN = numberGenerator.nextInt(maxPredatorNumber) + 1;
+		predatorBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.predator);
+
+		width = SCREEN_WIDTH - predatorBitmap.getWidth()*2;
+		height = SCREEN_HEIGHT - predatorBitmap.getHeight()*2;
+		while(predatorN != 0){
+			predatorX = numberGenerator.nextInt(width);
+			predatorY = numberGenerator.nextInt(height);
+		
+			predatorMasks = new ArrayList<Mask>();
+			predatorMasks.add(new MaskBox(0,0,predatorBitmap.getWidth(),predatorBitmap.getHeight()));	
+			
+			e = new Predator(predatorX, predatorY, predatorBitmap, this, predatorMasks, 0, 
+					predator_sound, new Point(predatorBitmap.getWidth()/2,predatorBitmap.getWidth()/2));
+			
+			this.addEntity(e);
+			
+			sources = e.getSources();
+			if(!sources.isEmpty()){
+				s = sources.get(0).getS();
+				s.setGain(5);
+				s.setPitch(0.5f);
+			}
+			predatorN--;
 		}
 		
 		// Prey
-		Bitmap preyBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.prey);
-		ArrayList<Mask> preyMasks = new ArrayList<Mask>();
+		preyBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.prey);
+		preyMasks = new ArrayList<Mask>();
 		preyMasks.add(new MaskBox(0,0,preyBitmap.getWidth(),preyBitmap.getHeight()));	
-		positions = new Random();
-		int preyX = positions.nextInt(ancho);
-		int preyY = positions.nextInt(alto);
-		e = new Prey(preyX, preyY, preyBitmap, this, preyMasks, 0, 
+		numberGenerator = new Random();
+		preyX = numberGenerator.nextInt(width) + 30;
+		preyY = numberGenerator.nextInt(height) + 30;
+		e = new SmartPrey(preyX, preyY, preyBitmap, this, preyMasks, 0, 
 				prey_sound, new Point(preyBitmap.getWidth()/2,preyBitmap.getWidth()/2));
 		this.addEntity(e);
 		
 		// Player
-		Bitmap playerBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.player);
-		ArrayList<Mask> ballMasks = new ArrayList<Mask>();
-		ballMasks.add(new MaskCircle(playerBitmap.getWidth()/2,playerBitmap.getWidth()/2,playerBitmap.getWidth()/2));     
-		this.addEntity(new Dot(SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT
-				/ 3, record, playerBitmap, this, ballMasks, context, 0, null, null));
+		playerBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.player);
+		playerMasks = new ArrayList<Mask>();
+		playerMasks.add(new MaskCircle(playerBitmap.getWidth()/2,playerBitmap.getWidth()/2,playerBitmap.getWidth()/2));     
+		player = new Dot(SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT
+				/ 3, record, playerBitmap, this, playerMasks, context, 0, null, null);
+		this.addEntity(player);
 	}
 	
 	@Override
@@ -157,11 +182,18 @@ public class ZarodnikGame extends Game {
           for(int j = 0; j < height; j++){
                        canvas.drawBitmap(grass, grass.getWidth()*i, grass.getHeight()*j, null);
           }
-         }
+        }
+        
         if(flag ){
-        	canvas.drawText("Ready... Go!", 3*Game.SCREEN_WIDTH/7, Game.SCREEN_HEIGHT/2, brush);
+        	canvas.drawText(this.getContext().getString(R.string.initial_message), 3*Game.SCREEN_WIDTH/7, Game.SCREEN_HEIGHT/2, brush);
         	flag = false;
         }
+        
+        if(this.isRunning()){
+        	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), 3*Game.SCREEN_WIDTH/7, Game.SCREEN_HEIGHT/2, brush);
+        	flag = false;
+        }
+        
 		super.onDraw(canvas);
 	}
 	
