@@ -7,6 +7,7 @@ import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Mask;
+import org.example.tinyEngineClasses.SpriteMap;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -28,8 +29,8 @@ public abstract class Creature extends Entity{
 	private Random randomNumber;
 	private int steps;
 	
-	public Creature(int x, int y, Bitmap img, Game game, List<Mask> mask, int frameCount, String soundName, Point soundOffset, int speed) {
-		super(x, y, img, game, mask, false, frameCount, soundName, soundOffset);
+	public Creature(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int speed) {
+		super(x, y, img, game, mask, animations, soundName, soundOffset);
 		
 		this.game = (ZarodnikGame) game;
 		
@@ -86,13 +87,30 @@ public abstract class Creature extends Entity{
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		
+		switch(direction){
+			case UP:
+				this.playAnim("up", 15, true);
+				break;
+			case DOWN:
+				this.playAnim("down", 15, true);
+				break;
+			case LEFT:
+				this.playAnim("left", 15, true);
+				break;
+			case RIGHT:
+				this.playAnim("right", 15, true);
+				break;
+			default:
+				break;
+	}
+		
 		if(RuntimeConfig.IS_DEBUG_MODE){
 			Paint brush = new Paint();
 			brush.setColor(Color.RED);
 			brush.setStyle(Style.STROKE);
-			int auxX = (int) (this.x - this.getImgWidth()*5.5);
-			int auxY = (int) (this.y - this.getImgHeight()*5.5);
-			canvas.drawRect(auxX, auxY, auxX + 12*this.getImgWidth(), auxY + 12*this.getImgHeight(), brush);
+			int auxX = (int) (this.x - this.getImgWidth()*3.5);
+			int auxY = (int) (this.y - this.getImgHeight()*3.5);
+			canvas.drawRect(auxX, auxY, auxX + 8*this.getImgWidth(), auxY + 8*this.getImgHeight(), brush);
 		}
 	}
 
@@ -166,8 +184,8 @@ public abstract class Creature extends Entity{
 	public void onRemove() {}
 	
 	private boolean checkAround() {
-		boolean result = (Math.abs(this.game.getPlayer().getX() - (2*this.x + this.getImgWidth())/2) < this.getImgWidth()*6)
-				&& (Math.abs(this.game.getPlayer().getY() - (2*this.y + this.getImgHeight())/2) < this.getImgHeight()*6);
+		boolean result = (Math.abs(this.game.getPlayer().getX() - (2*this.x + this.getImgWidth())/2) < this.getImgWidth()*4)
+				&& (Math.abs(this.game.getPlayer().getY() - (2*this.y + this.getImgHeight())/2) < this.getImgHeight()*4);
 		return result;
 	}
 	

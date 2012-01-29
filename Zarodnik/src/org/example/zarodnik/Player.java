@@ -5,21 +5,18 @@ import java.util.List;
 
 import org.example.R;
 import org.example.others.RuntimeConfig;
-import org.example.tinyEngineClasses.AnimatedSprite;
 import org.example.tinyEngineClasses.CustomBitmap;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
-import org.example.tinyEngineClasses.MaskBox;
-import org.example.tinyEngineClasses.MaskCircle;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
+import org.example.tinyEngineClasses.MaskCircle;
 import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SoundManager;
+import org.example.tinyEngineClasses.SpriteMap;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -29,7 +26,7 @@ import android.graphics.Point;
  * 
  * */
 
-public class Dot extends Entity{
+public class Player extends Entity{
 	
 	private static final int die_sound = R.raw.pacman_dies;
 
@@ -53,25 +50,25 @@ public class Dot extends Entity{
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
 	 * 
 	 * */
-	public Dot(int x, int y, int record, Bitmap img, Game game, List<Mask> mask,
-			Context context, int frameCount, String soundName, Point soundOffset) {
-		super(x, y, img, game, mask, true, 1, soundName, soundOffset);
+	public Player(int x, int y, int record, Bitmap img, Game game, List<Mask> mask,
+			SpriteMap animations, String soundName, Point soundOffset) {
+		super(x, y, img, game, mask, animations, soundName, soundOffset);
 
-		this.stopAnim();
-		
 		this.game = (ZarodnikGame) game;
 		
 		initMovementParameters();
 		inMovement = false;
 		
-		scoreBoard = new ScoreBoard(ZarodnikGame.SCREEN_WIDTH - 200, 30, record,
-									null, game, null, false, 0, null, null);
+		if(animations != null)
+			animations.playAnim("andar", 15, true);
+		
+		scoreBoard = new ScoreBoard(ZarodnikGame.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
 		this.game.addEntity(scoreBoard);
 	}
 	
 	public void initMovementParameters(){
 		speed = 0.01f;
-		incr = 0.06f;
+		incr = 0.03f;
 		vx = 0;
 		vy = 0;
 		initialX = this.x;
@@ -160,8 +157,7 @@ public class Dot extends Entity{
 	 * 
 	 * */
 	private void onScrollManagement() {
-		EventType e  = Input.getInput().removeEvent("onScroll");
-
+	//	EventType e  = Input.getInput().removeEvent("onScroll");
 	}
 
 	/**
@@ -182,15 +178,12 @@ public class Dot extends Entity{
 	public void onCollision(Entity e) {
 		// Predator and prey collides
 		if (e instanceof Predator){
-			// TODO Muerte, guardar puntuación
 			this.game.stop();
 			
 			this.remove();
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){
 			e.remove();
-			
-			//Music.getInstanceMusic().play(this.game.getContext(), , false);
 			
 			this.resize();
 			
@@ -200,20 +193,12 @@ public class Dot extends Entity{
 	
 
 	private void resize() {
-		int framesN;
-		AnimatedSprite anim;
 		Bitmap img;
 		List<Mask> maskList;
 		
 		img = this.getImg();
 		img = CustomBitmap.getResizedBitmap(img, img.getHeight()*2, img.getWidth()*2);
 		this.setImg(img);
-		
-		anim = new AnimatedSprite();
-		framesN = this.getAnimation().getFrameCount();
-		anim.Initialize(img, img.getHeight(), img.getWidth()/framesN, framesN);
-		anim.play();
-		this.setAnim(anim);
 		
 		maskList = new ArrayList<Mask>();
 		maskList.add(new MaskCircle(img.getWidth()/2,img.getWidth()/2,img.getWidth()/2));

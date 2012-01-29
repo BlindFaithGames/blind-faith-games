@@ -1,6 +1,5 @@
 package org.example.others;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class Entry {
@@ -21,13 +20,6 @@ public class Entry {
 		this.id = id;
 		this.tag = tag;
 		
-		/*Calendar c = Calendar.getInstance();
-		timestamp.setDate(c.get(Calendar.DAY_OF_MONTH));
-		timestamp.setMonth(c.get(Calendar.MONTH));
-		timestamp.setYear(c.get(Calendar.YEAR));
-		timestamp.setHours(c.get(Calendar.HOUR));
-		timestamp.setMinutes(c.get(Calendar.MINUTE));
-		timestamp.setSeconds(c.get(Calendar.SECOND));*/
 		
 		this.configurationSettings = configurationSettings;
 		this.type = type;

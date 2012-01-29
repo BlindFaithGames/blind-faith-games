@@ -14,6 +14,7 @@ import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
+import org.example.tinyEngineClasses.SpriteMap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,8 +36,8 @@ public class ScoreBoard extends Entity {
 	private Paint brush;
 	
 	public ScoreBoard(int x, int y, int record,Bitmap img, Game game, List<Mask> mask,
-			boolean animated, int frameCount, String soundName, Point soundOffset) {
-		super(x, y, img, game, mask, animated, frameCount, null, null);
+			SpriteMap animations, String soundName, Point soundOffset) {
+		super(x, y, img, game, mask, animations, null, null);
 		counter = 0;
 		this.game = (ZarodnikGame) game;
 		this.record = record;

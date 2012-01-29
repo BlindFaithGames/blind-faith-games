@@ -103,8 +103,4 @@ public class SettingsActivity extends PreferenceActivity implements
 
 	}
 	
-	private void manageCustomProfile() {
-		profileA.setChecked(false);
-		profileB.setChecked(false);
-	}
 }

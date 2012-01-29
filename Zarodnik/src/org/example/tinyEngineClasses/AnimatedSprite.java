@@ -26,6 +26,7 @@ public class AnimatedSprite {
 		frameDelay = 5;
 		triggerDelay = 5;
 	}
+
 	
 	public void Initialize(Bitmap bitmap, int height, int width, int frameCount) {
 		this.animation = bitmap;
@@ -47,6 +48,22 @@ public class AnimatedSprite {
 		return yPos;
 	}
 	
+	public int getFrameCount() {
+		return numFrames;
+	}
+	
+	public int getNumFrames(){
+		return numFrames;
+	}
+	
+	public int getCurrentFrame() {
+		return currentFrame;
+	}
+	
+	public boolean isFinished(){
+		return stop;
+	}
+	
 	public void setXPos(int value) {
 		xPos = value;
 	}
@@ -54,11 +71,11 @@ public class AnimatedSprite {
 	public void setYPos(int value) {
 		yPos = value;
 	}
-	
-	public int getNumFrames(){
-		return numFrames;
+
+	public void setFrameDelay(int framesPerStep) {
+		frameDelay = framesPerStep;
 	}
-	
+
 	public void play() {
 		stop = false;
 	}
@@ -88,8 +105,6 @@ public class AnimatedSprite {
 				
 				sRectangle.left = currentFrame * spriteWidth;
 				sRectangle.right = sRectangle.left + spriteWidth;
-				
-				
 				}
 			}
 	}
@@ -98,9 +113,5 @@ public class AnimatedSprite {
 		Rect dest = new Rect(x, y, x + spriteWidth,
 										y + spriteHeight);
 		canvas.drawBitmap(animation, sRectangle, dest, null);
-	}
-
-	public int getFrameCount() {
-		return numFrames;
 	}
 }

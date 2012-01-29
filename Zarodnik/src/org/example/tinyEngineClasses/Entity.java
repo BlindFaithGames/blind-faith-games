@@ -20,16 +20,16 @@ public abstract class Entity {
 	protected int y;
 	
 	private Bitmap img; // imagen
-	private AnimatedSprite anim; // animacion
+	//private AnimatedSprite anim; // animacion
+	private SpriteMap animations;
 	
 	private boolean enabled; // habilitada
 	private boolean collidable; // colisiona con otras entidades?
 	private boolean visible; // ¿visible? esto determina si se dibuja o no 
-	private boolean frozen; 
+	//private boolean frozen; 
 	private boolean removable;
-	private boolean animated;
 	
-    private int[] timers;
+    //private int[] timers;
 	
     private List<Mask> mask; // Mascara para colisiones posiblemente un Rect
     
@@ -38,22 +38,17 @@ public abstract class Entity {
     
 	protected Game game;
 
-	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, boolean animated, int frameCount, String soundName, Point soundOffset){
+
+	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset){
 		this.x = x;
 		this.y = y;
 		this.img = img;
 		this.game = game;
 		this.mask = mask;
-		this.animated = animated;
 		enabled = true;
 		collidable = true;
 		visible = true;
-		frozen = false;
-		if(animated){
-			anim = new AnimatedSprite();
-			anim.Initialize(img, img.getHeight(), img.getWidth()/frameCount, frameCount);
-			anim.play();
-		}
+		this.animations = animations;
 		if(soundName != null) {
 			SoundManager sm  = SoundManager.getSoundManager(game.getContext());
 			Source s = sm.addSource(soundName);
@@ -71,8 +66,8 @@ public abstract class Entity {
 	 * 
 	 * */
 	protected  void onDraw(Canvas canvas){
-		if(animated)
-			anim.onDraw((int)x, (int)y,canvas);
+		if(animations != null)
+			animations.onDraw((int)x, (int)y,canvas);
 		else
 			if(img != null)
 				canvas.drawBitmap(img, x, y, null);
@@ -90,8 +85,8 @@ public abstract class Entity {
 	
     /** Updates the animation entity and its mask set.*/
 	protected void onUpdate(){
-		if(animated)
-			anim.onUpdate();
+		if(animations != null)
+			animations.onUpdate();
 		
 		if(mask != null){
 			Iterator<Mask> it = mask.iterator();
@@ -220,10 +215,6 @@ public abstract class Entity {
 	public Bitmap getImg() {
 		return img;
 	}
-	
-	public AnimatedSprite getAnimation() {
-		return anim;
-	}
 
 	// SETTERS
 	public void setX(int x) {
@@ -238,33 +229,32 @@ public abstract class Entity {
 		this.img = img;
 	}
 	
-	public void setAnim(AnimatedSprite anim) {
-		this.anim = anim;
-	}
-	
 	public void setMask(List<Mask> maskList) {
 		this.mask = maskList;
 	}
 	
-	public void playAnim(){
-		if(animated)
-			anim.play();
+	public void playAnim(String name, int framesPerStep, boolean loop){
+		if(animations != null)
+			animations.playAnim(name, framesPerStep, loop);
 	}
 	
-	public void stopAnim(){
-		if(animated)
-			anim.stop();
+	public void stopAnim(String name){
+		if(animations != null)
+			animations.stopAnim();
 	}
 	
 	public int getImgWidth(){
-		if(!animated)
+		if(animations == null)
 			return img.getWidth();	
 		else
-			return img.getWidth()/anim.getNumFrames();
+			return animations.getWidth();
 	}
 	
 	public int getImgHeight(){
-		return img.getHeight();	
+		if(animations == null)
+			return img.getHeight();	
+		else
+			return animations.getHeight();
 	}
 	
 	public List<Sound2D> getSources(){
@@ -280,7 +270,8 @@ public abstract class Entity {
 				s.getS().stop();
 			}
 		}
-		img.recycle();
+		if(img != null)
+			img.recycle();
 	}
 	
 	public void playAllSources(){

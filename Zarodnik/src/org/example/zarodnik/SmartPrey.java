@@ -5,6 +5,7 @@ import java.util.List;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.Music;
+import org.example.tinyEngineClasses.SpriteMap;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -13,9 +14,9 @@ public class SmartPrey extends Creature {
 
 	private int die_sound;
 	
-	public SmartPrey(int x, int y, Bitmap img, Game game, List<Mask> mask, int frameCount, String soundName, Point soundOffset, int dieSound) {
+	public SmartPrey(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int dieSound) {
 
-		super(x, y, img, game, mask, frameCount, soundName, soundOffset, 1);
+		super(x, y, img, game, mask, animations, soundName, soundOffset, 1);
 	
 		die_sound = dieSound;
 	}
