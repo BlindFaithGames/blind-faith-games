@@ -14,14 +14,12 @@ import android.app.Activity;
 
 public class SoundManager {
 	
-	private static final String TAG = "SoundManager";
-
 	private SoundEnv env;
 
 	protected Map<String,List<Source>> sources;
 	
 	protected Map<String,Buffer> buffers;
-	
+
 	private static SoundManager sm = null;
 	
 	public SoundManager(Activity a){

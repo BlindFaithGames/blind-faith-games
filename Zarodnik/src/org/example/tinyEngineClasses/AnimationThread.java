@@ -37,7 +37,7 @@ public class AnimationThread extends Thread {
 		long sleep_time = 0;
 		Canvas c = null;
 		long initialTime = System.currentTimeMillis();
-
+		
     	try {
             c = surfaceHolder.lockCanvas(null);
             synchronized (surfaceHolder) {

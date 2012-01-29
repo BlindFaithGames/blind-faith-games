@@ -41,7 +41,7 @@ public abstract class Game {
 	private Paint brush;
 	
 	public Game(View v, Context context, TTS textToSpeech){
-		game_is_running = false;
+		game_is_running = true;
 		this.context = (Activity) context;
 		this.v = v;
 		this.textToSpeech = textToSpeech;
@@ -105,12 +105,12 @@ public abstract class Game {
 			
 		}
 		
-		it = entities.iterator();
+		/*it = entities.iterator();
 		while(it.hasNext()){
 			e = it.next();
 			if(e.isRemovable())
 				removables.add(e);
-		}
+		}*/
 	
 		it  = removables.iterator();
 		while(it.hasNext()){
@@ -123,6 +123,7 @@ public abstract class Game {
 		}
 		
 		collidables.clear();
+		removables.clear();
 		
 		EventType event = Input.getInput().removeEvent("onKeySearch");
 		if(event != null){

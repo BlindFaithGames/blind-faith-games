@@ -3,12 +3,17 @@ package org.example.zarodnik;
 import java.util.List;
 import java.util.Random;
 
+import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Mask;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Paint.Style;
 
 public abstract class Creature extends Entity{
 	
@@ -60,6 +65,13 @@ public abstract class Creature extends Entity{
 
 	@Override
 	protected void onUpdate() {
+		if(checkAround()){
+			this.playAllSources();
+		}
+		else{
+			this.stopAllSources();
+		}
+		
 		if(steps == 0){
 			changeMovementSense();
 		}
@@ -68,6 +80,20 @@ public abstract class Creature extends Entity{
 		}
 		
 		super.onUpdate();
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		
+		if(RuntimeConfig.IS_DEBUG_MODE){
+			Paint brush = new Paint();
+			brush.setColor(Color.RED);
+			brush.setStyle(Style.STROKE);
+			int auxX = (int) (this.x - this.getImgWidth()*5.5);
+			int auxY = (int) (this.y - this.getImgHeight()*5.5);
+			canvas.drawRect(auxX, auxY, auxX + 12*this.getImgWidth(), auxY + 12*this.getImgHeight(), brush);
+		}
 	}
 
 	private int moveCreature(Sense direction, double speed, int steps) {
@@ -138,4 +164,11 @@ public abstract class Creature extends Entity{
 	
 	@Override
 	public void onRemove() {}
+	
+	private boolean checkAround() {
+		boolean result = (Math.abs(this.game.getPlayer().getX() - (2*this.x + this.getImgWidth())/2) < this.getImgWidth()*6)
+				&& (Math.abs(this.game.getPlayer().getY() - (2*this.y + this.getImgHeight())/2) < this.getImgHeight()*6);
+		return result;
+	}
+	
 }

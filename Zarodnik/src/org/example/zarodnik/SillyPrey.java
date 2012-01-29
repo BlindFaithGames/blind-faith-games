@@ -8,7 +8,7 @@ import org.example.tinyEngineClasses.Mask;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 
-public class SillyPrey extends Prey {
+public class SillyPrey extends Creature {
 
 	private int die_sound;
 	

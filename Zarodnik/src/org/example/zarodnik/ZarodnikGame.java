@@ -36,6 +36,7 @@ import android.view.View;
 public class ZarodnikGame extends Game {
 	
 	private static final int maxPredatorNumber = 3;
+	private static final int prey_sound_die = R.raw.cat_angry;
 	private static String prey_sound = "cat";
 	private static String predator_sound = "snake";
 
@@ -72,7 +73,7 @@ public class ZarodnikGame extends Game {
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		
 		brush = new Paint();
-		brush.setTextSize(fontSize);
+		brush.setTextSize(fontSize*2);
 		brush.setARGB(255, 51, 51, 51);
 		if(font != null)
 			brush.setTypeface(font);
@@ -114,7 +115,6 @@ public class ZarodnikGame extends Game {
 	 * Instantiates the entities in the game.
 	 * 
 	 * */
-	@SuppressWarnings("unchecked")
 	private void createEntities(int record) {
 		// Game entities: predators, preys and player
 		Entity e; 
@@ -161,7 +161,7 @@ public class ZarodnikGame extends Game {
 		preyX = numberGenerator.nextInt(width) + 30;
 		preyY = numberGenerator.nextInt(height) + 30;
 		e = new SmartPrey(preyX, preyY, preyBitmap, this, preyMasks, 0, 
-				prey_sound, new Point(preyBitmap.getWidth()/2,preyBitmap.getWidth()/2));
+				prey_sound, new Point(preyBitmap.getWidth()/2,preyBitmap.getWidth()/2),prey_sound_die);
 		this.addEntity(e);
 		
 		// Player
@@ -185,13 +185,14 @@ public class ZarodnikGame extends Game {
         }
         
         if(flag ){
-        	canvas.drawText(this.getContext().getString(R.string.initial_message), 3*Game.SCREEN_WIDTH/7, Game.SCREEN_HEIGHT/2, brush);
+        	brush.setARGB(255, 0, 0, 51);
+        	canvas.drawText(this.getContext().getString(R.string.initial_message), 1*Game.SCREEN_WIDTH/3, Game.SCREEN_HEIGHT/2, brush);
         	flag = false;
         }
         
-        if(this.isRunning()){
-        	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), 3*Game.SCREEN_WIDTH/7, Game.SCREEN_HEIGHT/2, brush);
-        	flag = false;
+        if(!this.isRunning()){
+        	brush.setARGB(255, 0, 0, 51);
+        	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), 1*Game.SCREEN_WIDTH/3, Game.SCREEN_HEIGHT/2, brush);
         }
         
 		super.onDraw(canvas);

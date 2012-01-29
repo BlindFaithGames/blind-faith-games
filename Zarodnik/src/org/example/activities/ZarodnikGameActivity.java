@@ -27,6 +27,7 @@ public class ZarodnikGameActivity extends Activity {
 	private static String TAG = "ZarodnikGameActivity";
 	
 	private static final int intro_sound = R.raw.pacman_intro;
+
 	private TTS textToSpeech;
 	private ZarodnikGame game;
 	
@@ -102,8 +103,8 @@ public class ZarodnikGameActivity extends Activity {
 		@Override
 		public void onInitalize() {
 			game.onInit();
-//			Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
-			SoundManager.getSoundManager(game.getContext()).playAllSources();
+			//Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
+			//SoundManager.getSoundManager(game.getContext()).playAllSources();
 		}
 		
 		@Override
@@ -183,7 +184,5 @@ public class ZarodnikGameActivity extends Activity {
 			}
 			return found;
 		}
-		
-		
     }
 }

@@ -99,4 +99,8 @@ public class AnimatedSprite {
 										y + spriteHeight);
 		canvas.drawBitmap(animation, sRectangle, dest, null);
 	}
+
+	public int getFrameCount() {
+		return numFrames;
+	}
 }

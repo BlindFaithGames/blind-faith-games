@@ -19,7 +19,6 @@ public class CustomBitmap {
 
 		Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
 		return resizedBitmap;
-
 	}
 
 }

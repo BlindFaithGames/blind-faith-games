@@ -34,6 +34,7 @@ public abstract class Entity {
     private List<Mask> mask; // Mascara para colisiones posiblemente un Rect
     
     private List<Sound2D> sources; // sources list
+    private boolean isPlaying;
     
 	protected Game game;
 
@@ -61,6 +62,7 @@ public abstract class Entity {
 				sources = new ArrayList<Sound2D>();
 				sources.add(sound);
 			}
+			isPlaying = false;
 		}
 	}
     
@@ -203,7 +205,6 @@ public abstract class Entity {
 	}
 	
 	// GETTERS
-
 	public String getId() {
 		return id;
 	}
@@ -216,9 +217,15 @@ public abstract class Entity {
 		return y;
 	}
 	
-	// SETTERS
+	public Bitmap getImg() {
+		return img;
+	}
 	
+	public AnimatedSprite getAnimation() {
+		return anim;
+	}
 
+	// SETTERS
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -227,6 +234,17 @@ public abstract class Entity {
 		this.y = y;
 	}
 
+	public void setImg(Bitmap img) {
+		this.img = img;
+	}
+	
+	public void setAnim(AnimatedSprite anim) {
+		this.anim = anim;
+	}
+	
+	public void setMask(List<Mask> maskList) {
+		this.mask = maskList;
+	}
 	
 	public void playAnim(){
 		if(animated)
@@ -265,4 +283,25 @@ public abstract class Entity {
 		img.recycle();
 	}
 	
+	public void playAllSources(){
+		if(!isPlaying){
+			Iterator<Sound2D> it = sources.iterator();
+			Sound2D s;
+			while(it.hasNext()){
+				s = it.next();
+				s.getS().play(true);
+			}
+			isPlaying = true;
+		}
+	}
+	
+	public void stopAllSources(){
+		Iterator<Sound2D> it = sources.iterator();
+		Sound2D s;
+		while(it.hasNext()){
+			s = it.next();
+			s.getS().stop();
+		}
+		isPlaying = false;
+	}
 }
