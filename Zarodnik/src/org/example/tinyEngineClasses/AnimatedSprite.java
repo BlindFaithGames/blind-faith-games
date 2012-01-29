@@ -26,6 +26,7 @@ public class AnimatedSprite {
 		frameDelay = 5;
 		triggerDelay = 5;
 	}
+
 	
 	public void Initialize(Bitmap bitmap, int height, int width, int frameCount) {
 		this.animation = bitmap;
@@ -57,6 +58,19 @@ public class AnimatedSprite {
 	
 	public int getNumFrames(){
 		return numFrames;
+	}
+	
+	public boolean isFinished(){
+		return stop;
+	}
+	
+
+	public void setFrameDelay(int framesPerStep) {
+		frameDelay = framesPerStep;
+	}
+	
+	public int getCurrentFrame() {
+		return currentFrame;
 	}
 	
 	public void play() {
@@ -99,4 +113,5 @@ public class AnimatedSprite {
 										y + spriteHeight);
 		canvas.drawBitmap(animation, sRectangle, dest, null);
 	}
+
 }
