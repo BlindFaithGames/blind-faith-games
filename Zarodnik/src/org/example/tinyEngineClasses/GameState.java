@@ -20,10 +20,10 @@ import android.view.WindowManager;
 
 public abstract class GameState {
 	
-	protected View v;
-	
 	public static int SCREEN_WIDTH;
 	public static int SCREEN_HEIGHT;
+	
+	protected View v;
 	
 	protected Activity context;
 	
@@ -50,6 +50,7 @@ public abstract class GameState {
 		renderables = new ArrayList<Entity>();
 		removables = new ArrayList<Entity>();
 		brush = null;
+		
 		Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		SCREEN_WIDTH = display.getWidth();
 		SCREEN_HEIGHT = display.getHeight();
@@ -177,4 +178,53 @@ public abstract class GameState {
 	public void setTextToSpeech(TTS textToSpeech) {
 		this.textToSpeech = textToSpeech;
 	}
+	
+	
+	public boolean positionFreeEntities(Entity e1){
+		Iterator<Entity> it = entities.iterator();
+		Iterator<Mask> i;
+		boolean empty = true;
+		Entity e; Mask m; int w,h;
+		while (empty && it.hasNext()){
+			e = it.next();
+			if (e.isCollidable()){
+				i = e.getMask().iterator();
+				while (empty && i.hasNext()){
+					m = i.next();
+					if (m instanceof MaskBox){
+						w = ((MaskBox)m).getWidth();
+						h = ((MaskBox)m).getHeight();
+					} else{
+						w = h = ((MaskCircle)m).getRadius();
+					}
+						
+					empty = !encloses(w, h, e1, e.getX(),e.getY());
+				}
+			}
+		}
+		return empty;
+	}
+
+	private boolean encloses(int w1, int h1, Entity e, float ex, float ey) {
+		// para cada máscara de e
+		Iterator<Mask> i = e.getMask().iterator();
+		boolean ok = true; Mask m;
+		int w, h;
+		while (ok && i.hasNext()){
+			m = i.next();
+			if (m instanceof MaskBox){
+				w = ((MaskBox)m).getWidth();
+				h = ((MaskBox)m).getHeight();
+			} else{
+				w = h = ((MaskCircle)m).getRadius();
+			}
+			if ((ey <= e.getY() + h) && (ey + h1 >= e.getY()))			// width match
+				if ((ex <= e.getX() + w) && (ex + w1 >= e.getX()))		// heigh match
+					ok = false;
+			
+		}
+
+		return !ok;
+	}
+
 }

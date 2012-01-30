@@ -11,8 +11,8 @@ import android.graphics.Point;
 
 public class Predator extends Creature{
 
-	public Predator(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset) {
-		super(x, y, img, game, mask, animations,soundName, soundOffset,1);
+	public Predator(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable) {
+		super(x, y, img, game, mask, animations,soundName, soundOffset, collidable, 1);
 	}
 
 }

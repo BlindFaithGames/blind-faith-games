@@ -2,6 +2,7 @@ package org.example.zarodnik;
 
 import java.util.List;
 
+import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.Music;
@@ -14,9 +15,9 @@ public class SmartPrey extends Creature {
 
 	private int die_sound;
 	
-	public SmartPrey(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int dieSound) {
+	public SmartPrey(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable, int dieSound) {
 
-		super(x, y, img, game, mask, animations, soundName, soundOffset, 1);
+		super(x, y, img, game, mask, animations, soundName, soundOffset, collidable, 1);
 	
 		die_sound = dieSound;
 	}
@@ -69,6 +70,14 @@ public class SmartPrey extends Creature {
 	public void onRemove() {
 		super.onRemove();
 		
-		Music.getInstanceMusic().play(this.game.getContext(), die_sound, false);
+		Music.getInstanceMusic().playWithBlock(this.game.getContext(), die_sound, false);
+	}
+	
+	@Override
+	public void onCollision(Entity e) {
+		super.onCollision(e);
+		if (e instanceof Player){
+			
+		}
 	}
 }

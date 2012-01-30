@@ -4,17 +4,16 @@ import java.io.IOException;
 
 import org.example.R;
 import org.example.others.RuntimeConfig;
+import org.example.tinyEngineClasses.BitmapScaler;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
-import org.example.tinyEngineClasses.BitmapScaler;
 import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.TTS;
 import org.example.tinyEngineClasses.VolumeManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -36,7 +35,7 @@ public class ZarodnikIntro extends GameState {
 	private static final int textoffSetX = 0;
 	private static final int textoffSetY = 40;
 	
-	private static final int stepsPerLetter = RuntimeConfig.TEXT_SPEED;
+	private int stepsPerLetter = RuntimeConfig.TEXT_SPEED;
 	
 	public ZarodnikIntro(View v, TTS textToSpeech, Context c) {
 		super(v,c,textToSpeech);
@@ -69,7 +68,7 @@ public class ZarodnikIntro extends GameState {
 	@Override
 	public void onInit() {
 		super.onInit();
-		getTextToSpeech().speak(this.context.getString(R.string.intro_game_text));
+		getTextToSpeech().speak(this.context.getString(R.string.intro_game_tts));
 	}
 	
 	@Override
@@ -77,7 +76,7 @@ public class ZarodnikIntro extends GameState {
 		super.onDraw(canvas);
 		introTextEffect(canvas);
 		if(nextChar-1 == introMessage.length()){
-			canvas.drawBitmap(arrow, 500 - arrow.getWidth(), 500 - arrow.getHeight(), null);
+			canvas.drawBitmap(arrow, SCREEN_WIDTH/2 - arrow.getWidth(), (SCREEN_HEIGHT - SCREEN_HEIGHT/5)  - arrow.getHeight(), null);
 		}
 	}
 	
@@ -141,11 +140,18 @@ public class ZarodnikIntro extends GameState {
 			Music.getInstanceMusic().stop(this.getContext(), R.raw.prelude);
 			this.stop();
 		}
+		else{
+			if(e != null){
+				stepsPerLetter = 1;
+				steps = 0;
+			}
+		}
 		e = Input.getInput().removeEvent("onScroll");
 		if(e != null){
 			Music.getInstanceMusic().stop(this.getContext(), R.raw.prelude);
 			this.stop();
 		}
+		
 		steps++;
 	}
 }

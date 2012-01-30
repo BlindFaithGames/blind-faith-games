@@ -29,8 +29,10 @@ public abstract class Creature extends Entity{
 	private Random randomNumber;
 	private int steps;
 	
-	public Creature(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int speed) {
-		super(x, y, img, game, mask, animations, soundName, soundOffset);
+
+	public Creature(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable, int speed) {
+		super(x, y, img, game, mask, animations, soundName, soundOffset, collidable);
+
 		
 		this.game = (ZarodnikGameplay) game;
 		
@@ -89,20 +91,20 @@ public abstract class Creature extends Entity{
 		
 		switch(direction){
 			case UP:
-				this.playAnim("up", 15, true);
+				this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, false);
 				break;
 			case DOWN:
-				this.playAnim("down", 15, true);
+				this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, false);
 				break;
 			case LEFT:
-				this.playAnim("left", 15, true);
+				this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, false);
 				break;
 			case RIGHT:
-				this.playAnim("right", 15, true);
+				this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, false);
 				break;
 			default:
 				break;
-	}
+		}
 		
 		if(RuntimeConfig.IS_DEBUG_MODE){
 			Paint brush = new Paint();
@@ -112,6 +114,7 @@ public abstract class Creature extends Entity{
 			int auxY = (int) (this.y - this.getImgHeight()*3.5);
 			canvas.drawRect(auxX, auxY, auxX + 8*this.getImgWidth(), auxY + 8*this.getImgHeight(), brush);
 		}
+	
 	}
 
 	private int moveCreature(Sense direction, double speed, int steps) {

@@ -19,7 +19,6 @@ import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.MaskBox;
-import org.example.tinyEngineClasses.MaskCircle;
 import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.Sound2D;
 import org.example.tinyEngineClasses.SpriteMap;
@@ -35,10 +34,10 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.AudioManager;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 public class ZarodnikGameplay extends GameState {
-	
 	
 	private static final int intro_sound = R.raw.pacman_intro;
 	
@@ -47,7 +46,7 @@ public class ZarodnikGameplay extends GameState {
 
 	private static String prey_sound = "cat";
 	private static String predator_sound = "snake";
-
+	
 	private int fontSize;
 	private Typeface font;
 	private Paint brush;
@@ -59,14 +58,19 @@ public class ZarodnikGameplay extends GameState {
 	public ZarodnikGameplay(View v, TTS textToSpeech, Context c) {
 		super(v,c,textToSpeech);
 		
-		int record;
+		int record, sheetSize;
 		
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		textToSpeech.setInitialSpeech(this.context.getString(R.string.game_initial_TTStext));
-		
+		textToSpeech.setInitialSpeech("");
+
 		record = loadRecord();
 		
-		createEntities(record);
+		if(SCREEN_WIDTH > 800)
+			sheetSize = 400;
+		else
+			sheetSize = 800;
+		
+		createEntities(record,sheetSize);
 		
 		// Set background image
 		Bitmap field = BitmapFactory.decodeResource(v.getResources(), R.drawable.background);
@@ -84,6 +88,7 @@ public class ZarodnikGameplay extends GameState {
 			brush.setTypeface(font);
 		
 		flag = true;
+		
 	}
 	
 	public Player getPlayer(){
@@ -118,20 +123,21 @@ public class ZarodnikGameplay extends GameState {
 	
 	/**
 	 * Instantiates the entities in the game.
+	 * @param sheetSize 
 	 * 
 	 * */
-	private void createEntities(int record) {
+	private void createEntities(int record, int sheetSize) {
 		// Game entities: predators, preys and player
 		
-		// Predators
-		createPredator();
-		// Prey
-		createPrey();
 		// Player
-		createPlayer(record);
+		createPlayer(record, sheetSize);
+		// Predators
+		createPredator(sheetSize);
+		// Prey
+		createPrey(sheetSize);
 	}
 	
-	private void createPredator() {
+	private void createPredator(int sheetSize) {
 		Entity e; 
 		List<Sound2D> sources; 
 		Source s;
@@ -148,7 +154,7 @@ public class ZarodnikGameplay extends GameState {
 		
 		BitmapScaler scaler;
 		try {
-			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.predatorsheetm, 500);
+			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.predatorsheetx, sheetSize);
 			predatorBitmap = scaler.getScaled();
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -159,7 +165,7 @@ public class ZarodnikGameplay extends GameState {
 		frameH = predatorBitmap.getHeight() / 1;
 		width = SCREEN_WIDTH - frameW*2;
 		height = SCREEN_HEIGHT - frameH*2;
-		while(predatorN != 0){
+		while (predatorN != 0){
 			predatorX = numberGenerator.nextInt(width);
 			predatorY = numberGenerator.nextInt(height);
 		
@@ -169,24 +175,32 @@ public class ZarodnikGameplay extends GameState {
 			SpriteMap animations = new SpriteMap(1, 8, predatorBitmap, 0);
 			aux = new ArrayList<Integer>();
 			aux.add(6);
-			animations.addAnim("up", aux, 15, false);
+			animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 			aux = new ArrayList<Integer>();
 			aux.add(4);
 			aux.add(5);
-			animations.addAnim("down", aux, 15, false);
+			animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 			aux = new ArrayList<Integer>();
 			aux.add(2);
 			aux.add(3);
-			animations.addAnim("left", aux, 15, false);
+			animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 			aux = new ArrayList<Integer>();
 			aux.add(0);
 			aux.add(1);
-			animations.addAnim("right", aux, 15, false);
+			animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+			aux = new ArrayList<Integer>();
 			aux.add(7);
-			animations.addAnim("die", aux, 15, false);
+			animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 			
 			e = new Predator(predatorX, predatorY, null, this, predatorMasks, animations, 
-					predator_sound, new Point(frameW/2,frameW/2));
+					predator_sound, new Point(frameW/2,frameW/2), true);
+			
+			
+			while (!this.positionFreeEntities(e)){
+				predatorX = numberGenerator.nextInt(width);
+				predatorY = numberGenerator.nextInt(height);
+				e.setX(predatorX); e.setY(predatorY);
+			}
 			
 			this.addEntity(e);
 			
@@ -200,7 +214,8 @@ public class ZarodnikGameplay extends GameState {
 		}
 	}
 
-	private void createPrey() {
+
+	private void createPrey(int sheetSize) {
 		int  preyX, preyY;
 		int frameW, frameH;
 		int width, height;
@@ -212,30 +227,34 @@ public class ZarodnikGameplay extends GameState {
 		
 		BitmapScaler scaler;
 		try {
-			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.preysheetm, 500);
+			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.preysheetx, sheetSize);
 			preyBitmap = scaler.getScaled();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+		
+		/*-------- Animations --------------------------------------*/
 		SpriteMap animations = new SpriteMap(1, 9, preyBitmap, 0);
 		aux = new ArrayList<Integer>();
 		aux.add(6);
 		aux.add(7);
-		animations.addAnim("up", aux, 15, false);
+		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		aux = new ArrayList<Integer>();
 		aux.add(4);
 		aux.add(5);
-		animations.addAnim("down", aux, 15, false);
+		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		aux = new ArrayList<Integer>();
 		aux.add(2);
 		aux.add(3);
-		animations.addAnim("left", aux, 15, false);
+		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		aux = new ArrayList<Integer>();
 		aux.add(0);
 		aux.add(1);
-		animations.addAnim("right", aux, 15, false);
+		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		aux = new ArrayList<Integer>();
 		aux.add(8);
-		animations.addAnim("die", aux, 15, false);
+		animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		/*----------------------------------------------*/
 		
 		frameW = preyBitmap.getWidth() / 9;
 		frameH = preyBitmap.getHeight() / 1;
@@ -246,39 +265,88 @@ public class ZarodnikGameplay extends GameState {
 		numberGenerator = new Random();
 		width = SCREEN_WIDTH - frameW*2;
 		height = SCREEN_HEIGHT - frameH*2;
-		preyX = numberGenerator.nextInt(width) + 30;
-		preyY = numberGenerator.nextInt(height) + 30;
+		preyX = numberGenerator.nextInt(width);
+		preyY = numberGenerator.nextInt(height);
 		
 		e = new SmartPrey(preyX, preyY, null, this, preyMasks, animations,  
-				prey_sound, new Point(frameW/2,frameW/2),prey_sound_die);
+				prey_sound, new Point(frameW/2,frameW/2),true, prey_sound_die);
+		
+		while (!this.positionFreeEntities(e)){
+			preyX = numberGenerator.nextInt(width);
+			preyY = numberGenerator.nextInt(height);
+			e.setX(preyX); e.setY(preyY);
+		}
 		
 		this.addEntity(e);
 	}
 	
-	private void createPlayer(int record) {
-		ArrayList<Integer> aux;
+	private void createPlayer(int record, int sheetSize) {
+		int  playerX, playerY;
+		int frameW, frameH;
 		Bitmap playerBitmap = null;
+		ArrayList<Integer> aux;
 		ArrayList<Mask> playerMasks;
-	
+		
 		BitmapScaler scaler;
+		
 		try {
-			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.player, 50);
+			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.playersheetx, sheetSize);
 			playerBitmap = scaler.getScaled();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
-		SpriteMap animations = new SpriteMap(1, 1, playerBitmap, 0);
+		
+		/*-------- Animations --------------------------------------*/
+		SpriteMap animations = new SpriteMap(1, 9, playerBitmap, 0);
 		aux = new ArrayList<Integer>();
 		aux.add(0);
-		animations.addAnim("andar", aux, 15, false);
+		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
 		aux = new ArrayList<Integer>();
+		aux.add(1);
+		animations.addAnim("eatR", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		
-		int frameW = playerBitmap.getWidth();
+		aux = new ArrayList<Integer>();
+		aux.add(2);
+		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(3);
+		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(4);
+		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(5);
+		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(6);
+		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(7);
+		animations.addAnim("eatU", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(8);
+		animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		/*--------------------------------------------------*/
+		
+		frameW = playerBitmap.getWidth() / 9;
+		frameH = playerBitmap.getHeight() / 1;
+		
 		playerMasks = new ArrayList<Mask>();
-		playerMasks.add(new MaskCircle(frameW/2,frameW/2,frameW/2)); 
+		playerMasks.add(new MaskBox(0,0,frameW,frameH));	
+
+		playerX = SCREEN_WIDTH / 2;
+		playerY = SCREEN_HEIGHT - SCREEN_HEIGHT / 3;
 		
-		player = new Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT
-				/ 3, record, playerBitmap, this, playerMasks, null, null, null);
+		player = new Player(playerX, playerY, record, playerBitmap, this, playerMasks, animations, null, null);
+		
 		this.addEntity(player);
 	}
 	
@@ -286,6 +354,7 @@ public class ZarodnikGameplay extends GameState {
 	public void onInit() {
 		super.onInit();
 		Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
+		this.getTextToSpeech().speak(this.getContext().getString(R.string.game_play_initial_TTStext));
 	}
 
 	@Override

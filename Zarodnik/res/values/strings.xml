@@ -59,7 +59,7 @@
 	<string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
 	<string name="main_menu_initial_TTStext">Main menu</string>  
 	<string name="settings_menu_initial_TTStext">Menu settings</string>  
-	<string name="game_initial_TTStext">Game started!</string>  
+	<string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen</string>  
 
 	<string name="coordinates_information_button_TTStext">Position</string>  
 	<string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
@@ -82,5 +82,10 @@
 	
 	<string name="intro_game_text">The world is veiled in darknessThe wind stops, the sea is \nwild, and the earth begins to\nrot.\nThe people wait, their\nonly 
 	hope, a prophecy.... \n\'When the world is in darkness four warriors will come....\'\nafter a long journey, four\nyoung warriors arrive each\nholding an ORB. </string>
+	<string name="intro_game_tts">The world is veiled in darknessThe wind stops, the sea is \nwild, and the earth begins to\nrot.\nThe people wait, their\nonly 
+	
+	hope, a prophecy.... \n\'When the world is in darkness four warriors will come....\'\nafter a long journey, four\nyoung warriors arrive each\nholding an ORB.Touch the screen to begin </string>
+	
 	<string name="game_over_text">The game concludes here </string>
+	<string name="game_over_tts">The game concludes here. Touch the screen to end</string>
 </resources>

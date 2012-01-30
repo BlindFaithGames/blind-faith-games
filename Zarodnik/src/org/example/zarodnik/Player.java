@@ -1,11 +1,12 @@
 package org.example.zarodnik;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.example.R;
 import org.example.others.RuntimeConfig;
-import org.example.tinyEngineClasses.CustomBitmap;
+import org.example.tinyEngineClasses.BitmapScaler;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
@@ -43,8 +44,10 @@ public class Player extends Entity{
 	private ScoreBoard scoreBoard;
 	
 	private boolean inMovement;
-
 	private float incr;
+	private enum Sense { UP, DOWN, LEFT, RIGHT };
+	private Sense direction;
+	
 
 	/**
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
@@ -52,18 +55,18 @@ public class Player extends Entity{
 	 * */
 	public Player(int x, int y, int record, Bitmap img, GameState game, List<Mask> mask,
 			SpriteMap animations, String soundName, Point soundOffset) {
-		super(x, y, img, game, mask, animations, soundName, soundOffset);
+		super(x, y, img, game, mask, animations, soundName, soundOffset, true);
 
-		this.game = (ZarodnikGameplay) game;
+		this.gameState = (ZarodnikGameplay) game;
 		
 		initMovementParameters();
 		inMovement = false;
 		
 		if(animations != null)
-			animations.playAnim("andar", 15, true);
+			animations.playAnim("up", 15, true);
 		
 		scoreBoard = new ScoreBoard(ZarodnikGameplay.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
-		this.game.addEntity(scoreBoard);
+		this.gameState.addEntity(scoreBoard);
 	}
 	
 	public void initMovementParameters(){
@@ -94,7 +97,7 @@ public class Player extends Entity{
 		
 		onDownManagement();
 		
-		SoundManager.getSoundManager(this.game.getContext()).setListenerPosition(x, y, 0f);
+		SoundManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
 		
 		super.onUpdate();
 	}
@@ -121,6 +124,9 @@ public class Player extends Entity{
      		auxX = (initialX + vx * speed);
      		auxY = (initialY + vy * speed);
      		
+			// We calculate the player direction
+     		calculateDirection();
+     		
      		speed += incr;
      		
 			if(inStage(auxX,auxY) && !inDestination(dotCenterX,dotCenterY)){
@@ -134,6 +140,29 @@ public class Player extends Entity{
 				inMovement = false;
 			}
 		} 
+	}
+	
+	private void calculateDirection() {
+		if (Math.abs(initialX - destX) > Math.abs(initialY - destY)){
+			if (destX < initialX){
+				direction = Sense.LEFT;
+				this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, false);
+			}
+			else{
+				direction = Sense.RIGHT;
+				this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, false);
+			}
+		}
+		else{
+			if (destY < initialY){
+				direction = Sense.UP;
+				this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, false);
+			}
+			else{
+				direction = Sense.DOWN;
+				this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, false);
+			}
+		}
 	}
 
 	private boolean inDestination(double auxX, double auxY) {
@@ -178,12 +207,27 @@ public class Player extends Entity{
 	public void onCollision(Entity e) {
 		// Predator and prey collides
 		if (e instanceof Predator){
+			this.playAnim("die", 0, false);
 			this.remove();
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){
-			e.remove();
 			
 			this.resize();
+			
+			switch (direction) {
+				case UP: this.playAnim("eatU", RuntimeConfig.FRAMES_PER_STEP, false);
+					break;
+				case DOWN: this.playAnim("eatD", RuntimeConfig.FRAMES_PER_STEP, false);
+					break;
+				case RIGHT: this.playAnim("eatR", RuntimeConfig.FRAMES_PER_STEP, false);
+					break;
+				case LEFT: this.playAnim("eatL", RuntimeConfig.FRAMES_PER_STEP, false);
+					break;
+			}
+			
+			e.remove();
+			
+			e.playAnim("die", 0, false);
 			
 			scoreBoard.incrementCounter();
 		}
@@ -193,13 +237,71 @@ public class Player extends Entity{
 	private void resize() {
 		Bitmap img;
 		List<Mask> maskList;
+		int imgW, imgH, frameW, frameH;
+		ArrayList<Integer> aux;
 		
 		img = this.getImg();
-		img = CustomBitmap.getResizedBitmap(img, img.getHeight()*2, img.getWidth()*2);
+		imgW = img.getWidth();
+		imgH = img.getHeight();
+	
+		BitmapScaler scaler;
+		
+		try {
+			scaler = new BitmapScaler(this.gameState.getContext().getResources(), R.drawable.playersheetx, (int) (imgW*1.5));
+			img = scaler.getScaled();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
 		this.setImg(img);
 		
+		/*-------- Animations --------------------------------------*/
+		SpriteMap animations = new SpriteMap(1, 9, img, 0);
+		aux = new ArrayList<Integer>();
+		aux.add(0);
+		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(1);
+		animations.addAnim("eatR", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(2);
+		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(3);
+		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(4);
+		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(5);
+		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(6);
+		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(6);
+		aux.add(7);
+		animations.addAnim("eatU", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(8);
+		animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		this.setSpriteMap(animations);
+		
+		imgW = img.getWidth();
+		imgH = img.getHeight();
+		frameW = imgW / 9;
+		frameH = imgH / 1;
 		maskList = new ArrayList<Mask>();
-		maskList.add(new MaskCircle(img.getWidth()/2,img.getWidth()/2,img.getWidth()/2));
+		maskList.add(new MaskCircle(frameW/2,frameH/2,frameW/2));
 		this.setMask(maskList);
 	}
 
@@ -211,7 +313,7 @@ public class Player extends Entity{
 
 	@Override
 	public void onRemove() {
-		Music.getInstanceMusic().playWithBlock(this.game.getContext(), die_sound, false);
-		this.game.getContext().finish();
+		Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), die_sound, false);
+		this.gameState.stop();
 	}	
 }

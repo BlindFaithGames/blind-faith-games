@@ -84,7 +84,7 @@ public class SpriteMap {
 			if (oldAnim != null) {
 				// Si había animación anterior puede que sea la misma
 				if (!oldAnim.equals(currentAnim))	{
-					currentFrame = 0;  // Reset animation because it has changed
+					frame = 0;  // Reset animation because it has changed
 					finished = false;
 				}
 			}

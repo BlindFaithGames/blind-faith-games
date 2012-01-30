@@ -5,9 +5,10 @@ import java.util.List;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 
 public class Game {
-
+	
 	private List<GameState> gameStates;
 	private GameState actualState;
 	
@@ -16,6 +17,8 @@ public class Game {
 	private int next;
 	private boolean endGame;
 	private boolean stateChangedLastStep;
+	
+	int clearCanvas = 0; // two gameSteeps needed to clear the canvas content.
 	
 	public Game(List<GameState> gameStates, ArrayList<Integer> order){
 		this.gameStates = gameStates;
@@ -32,16 +35,15 @@ public class Game {
 	}
 
 	public void onDraw(Canvas canvas) {
-		actualState.onDraw(canvas);
-		if(!actualState.isRunning()){
-			canvas.drawColor(Color.BLACK);
+		if(stateChangedLastStep){
+			clearCanvas(canvas);
 		}
+		actualState.onDraw(canvas);
 	}
 
 	public void onUpdate() {
 		if(stateChangedLastStep){
 			actualState.onInit();
-			stateChangedLastStep = false;
 		}
 		
 		actualState.onUpdate();
@@ -67,4 +69,16 @@ public class Game {
 	public boolean isEndGame(){
 		return endGame;
 	}
+	
+	private void clearCanvas(Canvas canvas) {
+		clearCanvas++;
+		if(clearCanvas == 2){
+			clearCanvas = 0;
+			stateChangedLastStep = false;
+		}
+		canvas.drawColor(Color.BLACK, PorterDuff.Mode.CLEAR);
+	}
+
 }
+
+	

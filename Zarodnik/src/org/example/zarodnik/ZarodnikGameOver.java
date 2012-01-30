@@ -8,7 +8,6 @@ import org.example.tinyEngineClasses.BitmapScaler;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
-import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.TTS;
 import org.example.tinyEngineClasses.VolumeManager;
 
@@ -32,10 +31,10 @@ public class ZarodnikGameOver extends GameState {
 	
 	private Bitmap arrow;
 	
-	private static final int textoffSetX = SCREEN_WIDTH / 3;
+	private static final int textoffSetX = SCREEN_WIDTH / 7;
 	private static final int textoffSetY = SCREEN_HEIGHT / 2;
 	
-	private static final int stepsPerLetter = 1;
+	private int stepsPerLetter = RuntimeConfig.TEXT_SPEED;
 	
 	public ZarodnikGameOver(View v, TTS textToSpeech, Context c) {
 		super(v,c,textToSpeech);
@@ -63,12 +62,19 @@ public class ZarodnikGameOver extends GameState {
 		}
 	}
 	
+	
+	@Override
+	public void onInit() {
+		super.onInit();
+		getTextToSpeech().speak(this.context.getString(R.string.game_over_tts));
+	}
+	
 	@Override
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		introTextEffect(canvas);
 		if(nextChar-1 == message.length()){
-			canvas.drawBitmap(arrow, 500 - arrow.getWidth(), 500 - arrow.getHeight(), null);
+			canvas.drawBitmap(arrow, SCREEN_WIDTH/2 - arrow.getWidth(), (SCREEN_HEIGHT - SCREEN_HEIGHT/5)  - arrow.getHeight(), null);
 		}
 	}
 	
@@ -107,16 +113,16 @@ public class ZarodnikGameOver extends GameState {
 			if (e != null)
 				VolumeManager.adjustStreamVolume(this.context, AudioManager.ADJUST_LOWER);
 		}
-		
+
 		e = Input.getInput().removeEvent("onDown");
 		if(e != null && nextChar-1 == message.length()){
-			Music.getInstanceMusic().stop(this.getContext(), R.raw.prelude);
 			this.stop();
 		}
-		e = Input.getInput().removeEvent("onScroll");
-		if(e != null){
-			Music.getInstanceMusic().stop(this.getContext(), R.raw.prelude);
-			this.stop();
+		else{
+			if(e != null){
+				stepsPerLetter = 1;
+				steps = 0;
+			}
 		}
 		steps++;
 	}

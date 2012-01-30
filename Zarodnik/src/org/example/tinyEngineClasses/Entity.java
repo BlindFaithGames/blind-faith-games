@@ -20,7 +20,6 @@ public abstract class Entity {
 	protected int y;
 	
 	private Bitmap img; // imagen
-	//private AnimatedSprite anim; // animacion
 	private SpriteMap animations;
 	
 	private boolean enabled; // habilitada
@@ -36,21 +35,20 @@ public abstract class Entity {
     private List<Sound2D> sources; // sources list
     private boolean isPlaying;
     
-	protected GameState game;
+	protected GameState gameState;
 
-
-	public Entity(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset){
+	public Entity(int x, int y, Bitmap img, GameState gameState, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collide){
 		this.x = x;
 		this.y = y;
 		this.img = img;
-		this.game = game;
+		this.gameState = gameState;
 		this.mask = mask;
 		enabled = true;
-		collidable = true;
+		collidable = collide;
 		visible = true;
 		this.animations = animations;
 		if(soundName != null) {
-			SoundManager sm  = SoundManager.getSoundManager(game.getContext());
+			SoundManager sm  = SoundManager.getSoundManager(gameState.getContext());
 			Source s = sm.addSource(soundName);
 			Sound2D sound = new Sound2D(soundOffset, s);
 			if(s != null){
@@ -151,7 +149,7 @@ public abstract class Entity {
 		return enabled;
 	}
 
-	private List<Mask> getMask() {
+	public List<Mask> getMask() {
 		return mask;
 	}
 	
@@ -171,6 +169,10 @@ public abstract class Entity {
 		this.enabled = enabled;
 	}
 
+	public void setSpriteMap(SpriteMap animations) {
+		this.animations= animations;
+	}
+	
 	/**
 	 * Two entities collides if one of their mask collides with a mask of the other.
 	 * 
@@ -215,7 +217,8 @@ public abstract class Entity {
 	public Bitmap getImg() {
 		return img;
 	}
-
+	
+	
 	// SETTERS
 	public void setX(int x) {
 		this.x = x;
