@@ -2,14 +2,18 @@ package org.example.activities;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import org.example.R;
 import org.example.tinyEngineClasses.DrawablePanel;
+import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
-import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SoundManager;
 import org.example.tinyEngineClasses.TTS;
-import org.example.zarodnik.ZarodnikGame;
+import org.example.zarodnik.ZarodnikGameOver;
+import org.example.zarodnik.ZarodnikGameplay;
+import org.example.zarodnik.ZarodnikIntro;
 import org.example.zarodnik.XML.KeyboardReader;
 import org.example.zarodnik.XML.XMLKeyboard;
 
@@ -26,11 +30,9 @@ import android.view.Window;
 
 public class ZarodnikGameActivity extends Activity {
 	private static String TAG = "ZarodnikGameActivity";
-	
-	private static final int intro_sound = R.raw.pacman_intro;
 
 	private TTS textToSpeech;
-	private ZarodnikGame game;
+	private Game game;
 	
 	private boolean mIsScrolling = false;
 	
@@ -51,10 +53,23 @@ public class ZarodnikGameActivity extends Activity {
 		DrawablePanel zarodnikView = new ZarodnikGamePanel(this);
 		setContentView(zarodnikView);
 		
-		game = new ZarodnikGame(zarodnikView,textToSpeech,this);
+		createGame(zarodnikView);
     }
     
-    @Override
+    private void createGame(DrawablePanel zarodnikView) {
+    	ArrayList<Integer> order = new ArrayList<Integer>();
+    	order.add(0);
+    	order.add(1);
+    	order.add(2);
+		ArrayList<GameState> gameStates = new ArrayList<GameState>();
+		gameStates.add(new ZarodnikIntro(zarodnikView,textToSpeech,this));
+		gameStates.add(new ZarodnikGameplay(zarodnikView,textToSpeech,this));
+		gameStates.add(new ZarodnikGameOver(zarodnikView,textToSpeech,this));
+		
+		game = new Game(gameStates,order);
+	}
+
+	@Override
     protected void onDestroy() {
     	SoundManager.getSoundManager(this).stopAllSources();
     	super.onDestroy();
@@ -104,7 +119,6 @@ public class ZarodnikGameActivity extends Activity {
 		@Override
 		public void onInitalize() {
 			game.onInit();
-			Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
 		}
 		
 		@Override
@@ -116,6 +130,8 @@ public class ZarodnikGameActivity extends Activity {
 		@Override
 		public void onUpdate() {
 			game.onUpdate();
+			if(game.isEndGame())
+				((Activity) this.getContext()).finish();
 		}
     	
         @Override

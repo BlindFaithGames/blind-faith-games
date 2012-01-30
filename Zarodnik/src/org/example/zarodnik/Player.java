@@ -7,7 +7,7 @@ import org.example.R;
 import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.CustomBitmap;
 import org.example.tinyEngineClasses.Entity;
-import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
@@ -50,11 +50,11 @@ public class Player extends Entity{
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
 	 * 
 	 * */
-	public Player(int x, int y, int record, Bitmap img, Game game, List<Mask> mask,
+	public Player(int x, int y, int record, Bitmap img, GameState game, List<Mask> mask,
 			SpriteMap animations, String soundName, Point soundOffset) {
 		super(x, y, img, game, mask, animations, soundName, soundOffset);
 
-		this.game = (ZarodnikGame) game;
+		this.game = (ZarodnikGameplay) game;
 		
 		initMovementParameters();
 		inMovement = false;
@@ -62,7 +62,7 @@ public class Player extends Entity{
 		if(animations != null)
 			animations.playAnim("andar", 15, true);
 		
-		scoreBoard = new ScoreBoard(ZarodnikGame.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
+		scoreBoard = new ScoreBoard(ZarodnikGameplay.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
 		this.game.addEntity(scoreBoard);
 	}
 	
@@ -144,7 +144,7 @@ public class Player extends Entity{
 	}
 
 	private boolean inStage(double d, double e) {
-		if(d < ZarodnikGame.SCREEN_WIDTH && d >= 0 && e < ZarodnikGame.SCREEN_HEIGHT && e >= 0)
+		if(d < ZarodnikGameplay.SCREEN_WIDTH && d >= 0 && e < ZarodnikGameplay.SCREEN_HEIGHT && e >= 0)
 			return true;
 		else
 			return false;
@@ -178,8 +178,6 @@ public class Player extends Entity{
 	public void onCollision(Entity e) {
 		// Predator and prey collides
 		if (e instanceof Predator){
-			this.game.stop();
-			
 			this.remove();
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){

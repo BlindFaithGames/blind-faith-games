@@ -36,10 +36,10 @@ public abstract class Entity {
     private List<Sound2D> sources; // sources list
     private boolean isPlaying;
     
-	protected Game game;
+	protected GameState game;
 
 
-	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset){
+	public Entity(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset){
 		this.x = x;
 		this.y = y;
 		this.img = img;

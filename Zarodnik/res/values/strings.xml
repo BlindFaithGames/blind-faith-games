@@ -60,7 +60,6 @@
 	<string name="main_menu_initial_TTStext">Main menu</string>  
 	<string name="settings_menu_initial_TTStext">Menu settings</string>  
 	<string name="game_initial_TTStext">Game started!</string>  
-	<string name="game_initial_stage_TTStext">Game started!</string>  
 
 	<string name="coordinates_information_button_TTStext">Position</string>  
 	<string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
@@ -81,4 +80,7 @@
 	<string name="ending_lose_message">Game Over</string>
 	<string name="ending_win_message">You find your prey</string>
 	
+	<string name="intro_game_text">The world is veiled in darknessThe wind stops, the sea is \nwild, and the earth begins to\nrot.\nThe people wait, their\nonly 
+	hope, a prophecy.... \n\'When the world is in darkness four warriors will come....\'\nafter a long journey, four\nyoung warriors arrive each\nholding an ORB. </string>
+	<string name="game_over_text">The game concludes here </string>
 </resources>

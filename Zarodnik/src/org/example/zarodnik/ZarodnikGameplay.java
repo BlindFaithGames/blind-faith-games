@@ -14,12 +14,13 @@ import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.BitmapScaler;
 import org.example.tinyEngineClasses.CustomBitmap;
 import org.example.tinyEngineClasses.Entity;
-import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.MaskBox;
 import org.example.tinyEngineClasses.MaskCircle;
+import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.Sound2D;
 import org.example.tinyEngineClasses.SpriteMap;
 import org.example.tinyEngineClasses.TTS;
@@ -36,10 +37,14 @@ import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.view.View;
 
-public class ZarodnikGame extends Game {
+public class ZarodnikGameplay extends GameState {
+	
+	
+	private static final int intro_sound = R.raw.pacman_intro;
 	
 	private static final int maxPredatorNumber = 3;
 	private static final int prey_sound_die = R.raw.cat_angry;
+
 	private static String prey_sound = "cat";
 	private static String predator_sound = "snake";
 
@@ -51,14 +56,14 @@ public class ZarodnikGame extends Game {
 	
 	private boolean flag = false;
 	
-	public ZarodnikGame(View v, TTS textToSpeech, Context c) {
+	public ZarodnikGameplay(View v, TTS textToSpeech, Context c) {
 		super(v,c,textToSpeech);
 		
 		int record;
 		
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		
 		textToSpeech.setInitialSpeech(this.context.getString(R.string.game_initial_TTStext));
+		
 		record = loadRecord();
 		
 		createEntities(record);
@@ -276,19 +281,25 @@ public class ZarodnikGame extends Game {
 				/ 3, record, playerBitmap, this, playerMasks, null, null, null);
 		this.addEntity(player);
 	}
+	
+	@Override
+	public void onInit() {
+		super.onInit();
+		Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
+	}
 
 	@Override
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-        if(flag ){
-        	brush.setARGB(255, 0, 0, 51);
-        	canvas.drawText(this.getContext().getString(R.string.initial_message), 1*Game.SCREEN_WIDTH/3, Game.SCREEN_HEIGHT/2, brush);
+        if(flag){
+    		brush.setARGB(255, 0, 0, 51);
+    	    canvas.drawText(this.getContext().getString(R.string.initial_message), 1*GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
         	flag = false;
         }
         
-        if(!this.isRunning()){
+        if(player.isRemovable()){
         	brush.setARGB(255, 0, 0, 51);
-        	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), 1*Game.SCREEN_WIDTH/3, Game.SCREEN_HEIGHT/2, brush);
+        	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), 1*GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
         }
         
 	}
@@ -304,7 +315,6 @@ public class ZarodnikGame extends Game {
 			if (e != null)
 				VolumeManager.adjustStreamVolume(this.context, AudioManager.ADJUST_LOWER);
 		}
-		
 	}
 
 }

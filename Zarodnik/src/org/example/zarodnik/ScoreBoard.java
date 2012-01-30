@@ -10,7 +10,7 @@ import org.example.R;
 import org.example.activities.MainActivity;
 import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
-import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
@@ -26,7 +26,7 @@ import android.graphics.Typeface;
 
 public class ScoreBoard extends Entity {
 
-	private ZarodnikGame game;
+	private ZarodnikGameplay game;
 	
 	private int counter;
 	private int record;
@@ -35,11 +35,11 @@ public class ScoreBoard extends Entity {
 	private Typeface font;
 	private Paint brush;
 	
-	public ScoreBoard(int x, int y, int record,Bitmap img, Game game, List<Mask> mask,
+	public ScoreBoard(int x, int y, int record,Bitmap img, GameState game, List<Mask> mask,
 			SpriteMap animations, String soundName, Point soundOffset) {
 		super(x, y, img, game, mask, animations, null, null);
 		counter = 0;
-		this.game = (ZarodnikGame) game;
+		this.game = (ZarodnikGameplay) game;
 		this.record = record;
 		
 		fontSize = RuntimeConfig.FONT_SIZE;
@@ -57,7 +57,7 @@ public class ScoreBoard extends Entity {
 		super.onDraw(canvas);
 		
 		brush.setARGB(255, 51, 51, 51);
-		canvas.drawRect(new Rect(0,0,Game.SCREEN_WIDTH,fontSize + 10), brush);
+		canvas.drawRect(new Rect(0,0,GameState.SCREEN_WIDTH,fontSize + 10), brush);
 		
 		if(record >= 0){
 			brush.setARGB(255, 51, 153, 255);

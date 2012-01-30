@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
-import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.SpriteMap;
 
@@ -20,7 +20,7 @@ public abstract class Creature extends Entity{
 	
 	private enum Sense { UP, DOWN, LEFT, RIGHT };
 	
-	protected ZarodnikGame game;
+	protected ZarodnikGameplay game;
 	
 	protected double speed;
 	
@@ -29,10 +29,10 @@ public abstract class Creature extends Entity{
 	private Random randomNumber;
 	private int steps;
 	
-	public Creature(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int speed) {
+	public Creature(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int speed) {
 		super(x, y, img, game, mask, animations, soundName, soundOffset);
 		
-		this.game = (ZarodnikGame) game;
+		this.game = (ZarodnikGameplay) game;
 		
 		this.speed = speed;
 		
@@ -148,13 +148,13 @@ public abstract class Creature extends Entity{
 				result  = this.y - speed < this.getImgHeight();
 				break;
 			case DOWN:
-				result  = this.y - speed > Game.SCREEN_HEIGHT - this.getImgHeight();
+				result  = this.y - speed > GameState.SCREEN_HEIGHT - this.getImgHeight();
 				break;
 			case LEFT:
 				result = this.x - speed < this.getImgWidth();
 				break;
 			case RIGHT:
-				result = this.x - speed > Game.SCREEN_WIDTH - this.getImgWidth();
+				result = this.x - speed > GameState.SCREEN_WIDTH - this.getImgWidth();
 				break;
 			default:
 				break;

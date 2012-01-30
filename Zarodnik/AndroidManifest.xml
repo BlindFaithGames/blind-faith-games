@@ -26,12 +26,12 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/settings_title"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.InstructionsActivity"
             android:label="@string/instructions_title"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.ZarodnikGameActivity"
@@ -41,22 +41,22 @@
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/about_title"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.CheckKeyActivity"
             android:label="@string/keyConf_label"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.KeyConfActivity"
             android:label="@string/keyConf_label"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.RankingActivity"
             android:label="@string/ranking_title"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

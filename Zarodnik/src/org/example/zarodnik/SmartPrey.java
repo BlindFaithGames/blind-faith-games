@@ -2,7 +2,7 @@ package org.example.zarodnik;
 
 import java.util.List;
 
-import org.example.tinyEngineClasses.Game;
+import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SpriteMap;
@@ -14,7 +14,7 @@ public class SmartPrey extends Creature {
 
 	private int die_sound;
 	
-	public SmartPrey(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int dieSound) {
+	public SmartPrey(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int dieSound) {
 
 		super(x, y, img, game, mask, animations, soundName, soundOffset, 1);
 	
@@ -30,20 +30,20 @@ public class SmartPrey extends Creature {
     		super.onUpdate();
 			dx = this.game.getPlayer().getX() - this.x;
 			dy = this.game.getPlayer().getY() - this.y;
-			if(dx < 0 && dy < 0 && this.x + speed < Game.SCREEN_WIDTH - getImgWidth() 
-								&& this.y + speed < Game.SCREEN_HEIGHT - getImgHeight()){
+			if(dx < 0 && dy < 0 && this.x + speed < GameState.SCREEN_WIDTH - getImgWidth() 
+								&& this.y + speed < GameState.SCREEN_HEIGHT - getImgHeight()){
 				this.x += speed;
 				this.y += speed;
 			}
 			else{
-				if(dx < 0 && dy > 0 && this.x + speed < Game.SCREEN_WIDTH - getImgWidth() 
+				if(dx < 0 && dy > 0 && this.x + speed < GameState.SCREEN_WIDTH - getImgWidth() 
 									&& this.y - speed > getImgHeight()){
 					this.x += speed;
 					this.y -= speed;
 				}
 				else{
 					if(dx > 0 && dy < 0 && this.x - speed > getImgWidth() 
-										&& this.y + speed < Game.SCREEN_HEIGHT - getImgHeight()){
+										&& this.y + speed < GameState.SCREEN_HEIGHT - getImgHeight()){
     					this.x -= speed;
     					this.y += speed;
 					}
