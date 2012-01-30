@@ -37,7 +37,7 @@ public class ScoreBoard extends Entity {
 	
 	public ScoreBoard(int x, int y, int record,Bitmap img, Game game, List<Mask> mask,
 			SpriteMap animations, String soundName, Point soundOffset) {
-		super(x, y, img, game, mask, animations, null, null);
+		super(x, y, img, game, mask, animations, null, null, false);
 		counter = 0;
 		this.game = (ZarodnikGame) game;
 		this.record = record;

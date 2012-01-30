@@ -45,6 +45,11 @@ public class Player extends Entity{
 	private boolean inMovement;
 
 	private float incr;
+	
+	private enum Sense { UP, DOWN, LEFT, RIGHT };
+	
+	private Sense direction;
+	
 
 	/**
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
@@ -52,7 +57,7 @@ public class Player extends Entity{
 	 * */
 	public Player(int x, int y, int record, Bitmap img, Game game, List<Mask> mask,
 			SpriteMap animations, String soundName, Point soundOffset) {
-		super(x, y, img, game, mask, animations, soundName, soundOffset);
+		super(x, y, img, game, mask, animations, soundName, soundOffset, true);
 
 		this.game = (ZarodnikGame) game;
 		
@@ -60,7 +65,7 @@ public class Player extends Entity{
 		inMovement = false;
 		
 		if(animations != null)
-			animations.playAnim("andar", 15, true);
+			animations.playAnim("up", 15, true);
 		
 		scoreBoard = new ScoreBoard(ZarodnikGame.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
 		this.game.addEntity(scoreBoard);
@@ -121,6 +126,9 @@ public class Player extends Entity{
      		auxX = (initialX + vx * speed);
      		auxY = (initialY + vy * speed);
      		
+			// We calculate the player direction
+     		calculateDirection();
+     		
      		speed += incr;
      		
 			if(inStage(auxX,auxY) && !inDestination(dotCenterX,dotCenterY)){
@@ -134,6 +142,29 @@ public class Player extends Entity{
 				inMovement = false;
 			}
 		} 
+	}
+
+	private void calculateDirection() {
+		if (Math.abs(initialX - destX) > Math.abs(initialY - destY)){
+			if (destX < initialX){
+				direction = Sense.LEFT;
+				this.playAnim("left", 15, false);
+			}
+			else{
+				direction = Sense.RIGHT;
+				this.playAnim("right", 15, false);
+			}
+		}
+		else{
+			if (destY < initialY){
+				direction = Sense.UP;
+				this.playAnim("up", 15, false);
+			}
+			else{
+				direction = Sense.DOWN;
+				this.playAnim("down", 15, false);
+			}
+		}
 	}
 
 	private boolean inDestination(double auxX, double auxY) {
@@ -178,11 +209,23 @@ public class Player extends Entity{
 	public void onCollision(Entity e) {
 		// Predator and prey collides
 		if (e instanceof Predator){
+			this.playAnim("die", 15, false);
+			
 			this.game.stop();
 			
 			this.remove();
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){
+			switch (direction) {
+			case UP: this.playAnim("eatU", 15, false);
+				break;
+			case DOWN: this.playAnim("eatD", 15, false);
+				break;
+			case RIGHT: this.playAnim("eatR", 15, false);
+				break;
+			case LEFT: this.playAnim("eatL", 15, false);
+				break;
+			}
 			e.remove();
 			
 			this.resize();

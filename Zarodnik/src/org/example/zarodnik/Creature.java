@@ -30,7 +30,7 @@ public abstract class Creature extends Entity{
 	private int steps;
 	
 	public Creature(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, int speed) {
-		super(x, y, img, game, mask, animations, soundName, soundOffset);
+		super(x, y, img, game, mask, animations, soundName, soundOffset, true);
 		
 		this.game = (ZarodnikGame) game;
 		

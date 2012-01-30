@@ -118,12 +118,12 @@ public class ZarodnikGame extends Game {
 	private void createEntities(int record) {
 		// Game entities: predators, preys and player
 		
+		// Player
+		createPlayer(record);
 		// Predators
 		createPredator();
 		// Prey
 		createPrey();
-		// Player
-		createPlayer(record);
 	}
 	
 	private void createPredator() {
@@ -143,7 +143,7 @@ public class ZarodnikGame extends Game {
 		
 		BitmapScaler scaler;
 		try {
-			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.predatorsheetm, 500);
+			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.predatorsheetm, 800);
 			predatorBitmap = scaler.getScaled();
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -154,9 +154,11 @@ public class ZarodnikGame extends Game {
 		frameH = predatorBitmap.getHeight() / 1;
 		width = SCREEN_WIDTH - frameW*2;
 		height = SCREEN_HEIGHT - frameH*2;
-		while(predatorN != 0){
-			predatorX = numberGenerator.nextInt(width);
-			predatorY = numberGenerator.nextInt(height);
+		while (predatorN != 0){
+//			predatorX = numberGenerator.nextInt(width);
+//			predatorY = numberGenerator.nextInt(height);
+			predatorX = 329 + predatorN;
+			predatorY = 60;
 		
 			predatorMasks = new ArrayList<Mask>();
 			predatorMasks.add(new MaskBox(0,0,frameW,frameH));	
@@ -183,6 +185,13 @@ public class ZarodnikGame extends Game {
 			e = new Predator(predatorX, predatorY, null, this, predatorMasks, animations, 
 					predator_sound, new Point(frameW/2,frameW/2));
 			
+			
+			while (!this.positionFreeEntities(e)){
+				predatorX = numberGenerator.nextInt(width);
+				predatorY = numberGenerator.nextInt(height);
+				e.setX(predatorX); e.setY(predatorY);
+			}
+			
 			this.addEntity(e);
 			
 			sources = e.getSources();
@@ -194,6 +203,7 @@ public class ZarodnikGame extends Game {
 			predatorN--;
 		}
 	}
+
 
 	private void createPrey() {
 		int  preyX, preyY;
@@ -207,11 +217,13 @@ public class ZarodnikGame extends Game {
 		
 		BitmapScaler scaler;
 		try {
-			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.preysheetm, 500);
+			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.preysheetm, 800);
 			preyBitmap = scaler.getScaled();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+		
+		/*-------- Animations --------------------------------------*/
 		SpriteMap animations = new SpriteMap(1, 9, preyBitmap, 0);
 		aux = new ArrayList<Integer>();
 		aux.add(6);
@@ -231,6 +243,7 @@ public class ZarodnikGame extends Game {
 		animations.addAnim("right", aux, 15, false);
 		aux.add(8);
 		animations.addAnim("die", aux, 15, false);
+		/*----------------------------------------------*/
 		
 		frameW = preyBitmap.getWidth() / 9;
 		frameH = preyBitmap.getHeight() / 1;
@@ -241,39 +254,90 @@ public class ZarodnikGame extends Game {
 		numberGenerator = new Random();
 		width = SCREEN_WIDTH - frameW*2;
 		height = SCREEN_HEIGHT - frameH*2;
-		preyX = numberGenerator.nextInt(width) + 30;
-		preyY = numberGenerator.nextInt(height) + 30;
+		preyX = numberGenerator.nextInt(width);
+		preyY = numberGenerator.nextInt(height);
 		
 		e = new SmartPrey(preyX, preyY, null, this, preyMasks, animations,  
 				prey_sound, new Point(frameW/2,frameW/2),prey_sound_die);
+		
+		while (!this.positionFreeEntities(e)){
+			preyX = numberGenerator.nextInt(width);
+			preyY = numberGenerator.nextInt(height);
+			e.setX(preyX); e.setY(preyY);
+		}
 		
 		this.addEntity(e);
 	}
 	
 	private void createPlayer(int record) {
-		ArrayList<Integer> aux;
+		int  playerX, playerY;
+		int frameW, frameH;
 		Bitmap playerBitmap = null;
+		ArrayList<Integer> aux;
 		ArrayList<Mask> playerMasks;
-	
+		
 		BitmapScaler scaler;
 		try {
-			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.player, 50);
+			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.playersheetm, 800);
 			playerBitmap = scaler.getScaled();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
-		SpriteMap animations = new SpriteMap(1, 1, playerBitmap, 0);
+		
+		/*-------- Animations --------------------------------------*/
+		SpriteMap animations = new SpriteMap(1, 9, playerBitmap, 0);
 		aux = new ArrayList<Integer>();
 		aux.add(0);
-		animations.addAnim("andar", aux, 15, false);
+		animations.addAnim("right", aux, 15, false);
+		
 		aux = new ArrayList<Integer>();
+		aux.add(0);
+		aux.add(1);
+		animations.addAnim("eatR", aux, 15, false);
 		
-		int frameW = playerBitmap.getWidth();
+		aux = new ArrayList<Integer>();
+		aux.add(2);
+		animations.addAnim("left", aux, 15, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(2);
+		aux.add(3);
+		animations.addAnim("eatL", aux, 15, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(4);
+		animations.addAnim("down", aux, 15, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(4);
+		aux.add(5);
+		animations.addAnim("eatD", aux, 15, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(6);
+		animations.addAnim("up", aux, 15, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(6);
+		aux.add(7);
+		animations.addAnim("eatU", aux, 15, false);
+		
+		aux.add(8);
+		animations.addAnim("die", aux, 15, false);
+		
+		/*--------------------------------------------------*/
+		
+		frameW = playerBitmap.getWidth() / 9;
+		frameH = playerBitmap.getHeight() / 1;
+		
 		playerMasks = new ArrayList<Mask>();
-		playerMasks.add(new MaskCircle(frameW/2,frameW/2,frameW/2)); 
+		playerMasks.add(new MaskBox(0,0,frameW,frameH));	
+
+		playerX = SCREEN_WIDTH / 2;
+		playerY = SCREEN_HEIGHT - SCREEN_HEIGHT / 3;
 		
-		player = new Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT
-				/ 3, record, playerBitmap, this, playerMasks, null, null, null);
+		player = new Player(playerX, playerY, record, playerBitmap, this, playerMasks, animations, null, null);
+		
 		this.addEntity(player);
 	}
 

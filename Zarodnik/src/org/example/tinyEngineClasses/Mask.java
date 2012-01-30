@@ -55,6 +55,14 @@ public abstract class Mask {
 		return false;
 	}
 
+	public int getOffsetX() {
+		return offsetX;
+	}
+
+	public int getOffsetY() {
+		return offsetY;
+	}
+
 	public int getX() {
 		return x;
 	}

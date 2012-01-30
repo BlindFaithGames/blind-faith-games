@@ -39,14 +39,14 @@ public abstract class Entity {
 	protected Game game;
 
 
-	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset){
+	public Entity(int x, int y, Bitmap img, Game game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collide){
 		this.x = x;
 		this.y = y;
 		this.img = img;
 		this.game = game;
 		this.mask = mask;
 		enabled = true;
-		collidable = true;
+		collidable = collide;
 		visible = true;
 		this.animations = animations;
 		if(soundName != null) {
@@ -151,7 +151,7 @@ public abstract class Entity {
 		return enabled;
 	}
 
-	private List<Mask> getMask() {
+	public List<Mask> getMask() {
 		return mask;
 	}
 	
