@@ -67,4 +67,12 @@ public class Music {
 		}
 		
 	}
+
+	public boolean isPlaying(int sound) {
+			MediaPlayer mp  = sounds.get(sound);
+		 	if(mp != null){
+		 		return mp.isPlaying();
+		 	}
+		 		return false;
+	}
 }

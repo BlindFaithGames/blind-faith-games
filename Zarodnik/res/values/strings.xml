@@ -4,7 +4,8 @@
     <string name="app_name">Zarodnik Game</string>
     
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Main menu Zarodnik Game</string>
+    <string name="introMainMenu">Main menu Zarodnik Game to interact you can do a touch on the screen to know the button,
+    k and a long touch to select one of the next options</string>
     <string name="buttonMessage">Go!</string>
     <string name="zarodnik_activity">Zarodnik game</string>
     <string name="exitButton">Exit</string>

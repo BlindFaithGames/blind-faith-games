@@ -19,12 +19,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,7 +32,7 @@ import android.widget.TextView;
  * This class implements the music manager of the game
  */
 
-public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener  {
+public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener {
 	
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
@@ -52,13 +50,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
 	private Dialog instructionsDialog;
-	
-	
+	private View focusedView;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Typeface font;
+		Typeface font; int fontSize; 
 		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -69,25 +66,37 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
+		fontSize = (int) (RuntimeConfig.FONT_SIZE);
+		
 		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
-		newButton.setTextSize(RuntimeConfig.FONT_SIZE);
+		newButton.setOnLongClickListener(this);
+		newButton.setTextSize(fontSize);
 		newButton.setTypeface(font);	
-		Button aboutButton = (Button) findViewById(R.id.about_button);
-		aboutButton.setOnClickListener(this);
-		aboutButton.setOnFocusChangeListener(this);
-		aboutButton.setTextSize(RuntimeConfig.FONT_SIZE);
-		aboutButton.setTypeface(font);
+		Button settingsButton = (Button) findViewById(R.id.settings_button);
+		settingsButton.setOnClickListener(this);
+		settingsButton.setOnFocusChangeListener(this);
+		settingsButton.setOnLongClickListener(this);
+		settingsButton.setTextSize(fontSize);
+		settingsButton.setTypeface(font);
+		Button keyConfButton = (Button) findViewById(R.id.keyConf_button);
+		keyConfButton.setOnClickListener(this);
+		keyConfButton.setOnFocusChangeListener(this);
+		keyConfButton.setOnLongClickListener(this);
+		keyConfButton.setTextSize(fontSize);
+		keyConfButton.setTypeface(font);
 		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
 		instructionsButton.setOnClickListener(this);
 		instructionsButton.setOnFocusChangeListener(this);
-		instructionsButton.setTextSize(RuntimeConfig.FONT_SIZE);
+		instructionsButton.setOnLongClickListener(this);
+		instructionsButton.setTextSize(fontSize);
 		instructionsButton.setTypeface(font);
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
+		exitButton.setOnLongClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
-		exitButton.setTextSize(RuntimeConfig.FONT_SIZE);
+		exitButton.setTextSize(fontSize);
 		exitButton.setTypeface(font);
 		
 		createInstructionsDialog();
@@ -97,8 +106,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
 				+ newButton.getContentDescription() + " "
+				+ settingsButton.getContentDescription() + " "
+				+ keyConfButton.getContentDescription() + " "
 				+ instructionsButton.getContentDescription() + " "
-				+ aboutButton.getContentDescription() + " "
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
@@ -122,9 +132,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setTypeface(font);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
 		b = (Button) instructionsDialog.findViewById(R.id.Button02main);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
 		b.setTextSize(RuntimeConfig.FONT_SIZE);
 		b.setTypeface(font);
 	}
@@ -152,34 +164,53 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 	}
 
-	/**
-	 * onClick manager
-	 */
-	public void onClick(View arg0) {
-		switch (arg0.getId()) {
-		case R.id.about_button:
-			Intent i = new Intent(this, AboutActivity.class);
-			i.putExtra(KEY_TTS, textToSpeech);
-			startActivity(i);
-			break;
-		case R.id.instructions_button:
-			openInstructionsDialog();
-			break;
-		case R.id.new_button:
-			startGame();
-			break;
-		case R.id.Button01main: // controls
-			startInstructions(0);
-			break;
-		case R.id.Button02main: // instructions
-			startInstructions(1);
-			break;
-		case R.id.exit_button:
-			finish();
-			break;
+	public void onClick(View v) {
+		if(focusedView != null){
+			if(focusedView.getId() == v.getId())
+				menuAction(v);
+			else
+				textToSpeech.speak(v);
 		}
+		else
+			textToSpeech.speak(v);
 	}
 	
+	public boolean onLongClick(View v) {
+		menuAction(v);
+		return true;
+	}
+	
+
+	private void menuAction(View v) {
+		Intent i;
+		switch (v.getId()) {
+			case R.id.settings_button:
+				i = new Intent(this, SettingsActivity.class);
+				i.putExtra(KEY_TTS, textToSpeech);
+				startActivity(i);
+				break;
+			case R.id.keyConf_button:
+				i = new Intent(this, KeyConfActivity.class);
+				i.putExtra(KEY_TTS, textToSpeech);
+				startActivity(i);
+				break;
+			case R.id.instructions_button:
+				openInstructionsDialog();
+				break;
+			case R.id.new_button:
+				startGame();
+				break;
+			case R.id.Button01main: // controls
+				startInstructions(0);
+				break;
+			case R.id.Button02main: // instructions
+				startInstructions(1);
+				break;
+			case R.id.exit_button:
+				finish();
+				break;
+		}
+	}
 
 	/**
 	 * OnFocusChangeListener Interface
@@ -187,6 +218,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public void onFocusChange(View v, boolean hasFocus) {
 		if (hasFocus) {
 			textToSpeech.speak(v);
+			focusedView = v;
 		}
 	}
 
@@ -252,41 +284,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			finish();
 			break;
 		}
-	}
-
-	/**
-	 * It creates the options menu
-	 */
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		textToSpeech.speak(this
-				.getString(R.string.settings_menu_initial_TTStext));
-		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		textToSpeech.speak(this
-				.getString(R.string.key_configuration_menu_initial_TTStext));
-		textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-		return true;
-	}
-
-	/**
-	 * Manages what to do depending on the selected item
-	 */
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.settings:
-			Intent i = new Intent(this, SettingsActivity.class);
-			i.putExtra(KEY_TTS, textToSpeech);
-			startActivity(i);
-			return true;
-		case R.id.keyConf:
-			Intent i1 = new Intent(this, KeyConfActivity.class);
-			i1.putExtra(KEY_TTS, textToSpeech);
-			startActivity(i1);
-			return true;
-		}
-		return false;
 	}
 
 	/**

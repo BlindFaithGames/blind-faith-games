@@ -30,9 +30,10 @@ import android.graphics.Point;
 public class Player extends Entity{
 	
 	private static final int die_sound = R.raw.pacman_dies;
-
-	private static final float EPSILON = 8;
+	private static final int move_sound = R.raw.bubble;
 	
+	private static final float EPSILON = 8;
+
 	private float destX;
 	private float destY;
 	private float speed;
@@ -105,6 +106,7 @@ public class Player extends Entity{
 
 		SoundManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
 		
+		
 		super.onUpdate();
 	}
 	
@@ -123,6 +125,9 @@ public class Player extends Entity{
 			destY = e.getMotionEventE1().getY();
 			
 			inMovement = true;
+			if(!Music.getInstanceMusic().isPlaying(move_sound)){
+				Music.getInstanceMusic().play(this.gameState.getContext(), move_sound, true);
+			}
 		}
 		
 		if (inMovement){
@@ -143,6 +148,7 @@ public class Player extends Entity{
 			}
 			else{
 				inMovement = false;
+				Music.getInstanceMusic().stop(this.gameState.getContext(), move_sound);
 			}
 		} 
 	}
