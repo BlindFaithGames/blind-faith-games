@@ -13,6 +13,8 @@ import android.graphics.Point;
 
 public abstract class Entity {
 
+	private static final int N_TIMERS = 5;
+	
 	private String id;
 	
 	protected int x; //coordenadas
@@ -25,10 +27,10 @@ public abstract class Entity {
 	private boolean enabled; // habilitada
 	private boolean collidable; // colisiona con otras entidades?
 	private boolean visible; // ¿visible? esto determina si se dibuja o no 
-	//private boolean frozen; 
+	private boolean frozen; 
 	private boolean removable;
 	
-    //private int[] timers;
+    private int[] timers;
 	
     private List<Mask> mask; // Mascara para colisiones posiblemente un Rect
     
@@ -46,7 +48,12 @@ public abstract class Entity {
 		enabled = true;
 		collidable = collide;
 		visible = true;
+		frozen = false;
 		this.animations = animations;
+		timers = new int[N_TIMERS];
+		for(int i = 0; i < N_TIMERS; i++){
+			timers[i] = -1;
+		}
 		if(soundName != null) {
 			SoundManager sm  = SoundManager.getSoundManager(gameState.getContext());
 			Source s = sm.addSource(soundName);
@@ -103,10 +110,19 @@ public abstract class Entity {
 				s.getS().setPosition(x + s.getP().x, y + s.getP().y, 0);
 			}
 		}
+		
+		for(int i = 0; i < N_TIMERS; i++){
+			if(timers[i] > 0)
+				timers[i]--;
+			if (timers[i] == 0){
+				this.onTimer(i);
+				timers[i]--;
+			}
+		}
+		
 	}
 	
-	
-    /** Collision event
+	/** Collision event
             Actions to do when two entities collides.
             @param e the entity that collides with this
     */
@@ -131,7 +147,10 @@ public abstract class Entity {
             @param number selecciona el timer
             @param count selecciona el tiempo que le vamos a dar al timer
     */
-    void setTimer(int number,int count) {
+    public void setTimer(int number,int count) {
+    	if(number < N_TIMERS && number >= 0){
+    		timers[number] = count;
+    	}
 	}
     
     /** Evento de Inicialización
@@ -147,6 +166,10 @@ public abstract class Entity {
 	
 	public boolean isEnabled() {
 		return enabled;
+	}
+	
+	public boolean isFrozen() {
+		return frozen;
 	}
 
 	public List<Mask> getMask() {
@@ -236,6 +259,14 @@ public abstract class Entity {
 		this.mask = maskList;
 	}
 	
+    public void setCollidable(boolean collidable) {
+		this.collidable = collidable;
+	}
+    
+    public void setFrozen(boolean frozen) {
+    	this.frozen = frozen;
+	}
+
 	public void playAnim(String name, int framesPerStep, boolean loop){
 		if(animations != null)
 			animations.playAnim(name, framesPerStep, loop);

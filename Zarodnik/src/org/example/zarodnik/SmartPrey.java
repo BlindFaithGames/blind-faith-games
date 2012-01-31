@@ -2,6 +2,7 @@ package org.example.zarodnik;
 
 import java.util.List;
 
+import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Mask;
@@ -24,41 +25,42 @@ public class SmartPrey extends Creature {
 	
     @Override
     protected void onUpdate() {
-    	double dx, dy;
-    	if(!checkAround())
-    		super.onUpdate();
-    	else{
-    		super.onUpdate();
-			dx = this.game.getPlayer().getX() - this.x;
-			dy = this.game.getPlayer().getY() - this.y;
-			if(dx < 0 && dy < 0 && this.x + speed < GameState.SCREEN_WIDTH - getImgWidth() 
-								&& this.y + speed < GameState.SCREEN_HEIGHT - getImgHeight()){
+    	super.onUpdate();
+    	if(checkAround() && !this.die)
+    			avoidPlayer();
+    }
+
+	private void avoidPlayer() {
+		double dx, dy;
+
+		dx = this.game.getPlayer().getX() - this.x;
+		dy = this.game.getPlayer().getY() - this.y;
+		if(dx < 0 && dy < 0 && this.x + speed < GameState.SCREEN_WIDTH - getImgWidth() 
+							&& this.y + speed < GameState.SCREEN_HEIGHT - getImgHeight()){
+			this.x += speed;
+			this.y += speed;
+		}
+		else{
+			if(dx < 0 && dy > 0 && this.x + speed < GameState.SCREEN_WIDTH - getImgWidth() 
+								&& this.y - speed > getImgHeight()){
 				this.x += speed;
-				this.y += speed;
+				this.y -= speed;
 			}
 			else{
-				if(dx < 0 && dy > 0 && this.x + speed < GameState.SCREEN_WIDTH - getImgWidth() 
-									&& this.y - speed > getImgHeight()){
-					this.x += speed;
-					this.y -= speed;
+				if(dx > 0 && dy < 0 && this.x - speed > getImgWidth() 
+									&& this.y + speed < GameState.SCREEN_HEIGHT - getImgHeight()){
+					this.x -= speed;
+					this.y += speed;
 				}
 				else{
-					if(dx > 0 && dy < 0 && this.x - speed > getImgWidth() 
-										&& this.y + speed < GameState.SCREEN_HEIGHT - getImgHeight()){
+					if(this.x - speed > getImgWidth() && this.y - speed > getImgHeight()){
     					this.x -= speed;
-    					this.y += speed;
-					}
-					else{
-						if(this.x - speed > getImgWidth() && this.y - speed > getImgHeight()){
-	    					this.x -= speed;
-	    					this.y -= speed;
-						}
+    					this.y -= speed;
 					}
 				}
 			}
-			
 		}
-    }
+	}
 
 	private boolean checkAround() {
 		boolean result = (Math.abs(this.game.getPlayer().getX() - this.x) < 50)
@@ -69,15 +71,27 @@ public class SmartPrey extends Creature {
 	@Override
 	public void onRemove() {
 		super.onRemove();
-		
-		Music.getInstanceMusic().playWithBlock(this.game.getContext(), die_sound, false);
 	}
 	
 	@Override
 	public void onCollision(Entity e) {
 		super.onCollision(e);
 		if (e instanceof Player){
-			
 		}
+	}
+	
+	@Override
+	public void onTimer(int timer) {
+		if(timer == 0)
+			this.remove();
+	}
+
+	@Override
+	public void onDie() {
+		Music.getInstanceMusic().play(this.gameState.getContext(), die_sound, false);
+		this.setDie(true);
+		this.setTimer(0, RuntimeConfig.FRAMES_PER_STEP*4);
+		this.playAnim("die", RuntimeConfig.FRAMES_PER_STEP, false);
+		this.setCollidable(false);
 	}
 }

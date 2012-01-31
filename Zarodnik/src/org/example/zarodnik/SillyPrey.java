@@ -5,6 +5,7 @@ import java.util.List;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Mask;
+import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SpriteMap;
 
 import android.graphics.Bitmap;
@@ -12,11 +13,11 @@ import android.graphics.Point;
 
 public class SillyPrey extends Creature {
 
-	//private int die_sound;
+	private int die_sound;
 	
 	public SillyPrey(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable) {
 		super(x, y, img, game, mask, animations, soundName, soundOffset, collidable, 1);
-		
+		this.die_sound = die_sound;
 	}
 	
 	@Override
@@ -25,5 +26,10 @@ public class SillyPrey extends Creature {
 		if (e instanceof Player){
 			this.playAnim("die", 1, false);
 		}
+	}
+
+	@Override
+	public void onDie() {
+		Music.getInstanceMusic().play(this.gameState.getContext(), die_sound, false);
 	}
 }

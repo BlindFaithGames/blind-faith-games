@@ -29,6 +29,8 @@ public abstract class Creature extends Entity{
 	private Random randomNumber;
 	private int steps;
 	
+	protected boolean die;
+	
 
 	public Creature(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable, int speed) {
 		super(x, y, img, game, mask, animations, soundName, soundOffset, collidable);
@@ -43,6 +45,8 @@ public abstract class Creature extends Entity{
 		direction = selectSense();
 		
 		steps = randomNumber.nextInt(5) + 1;
+		
+		this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, true);
 	}
 
 	private Sense selectSense() {
@@ -74,37 +78,22 @@ public abstract class Creature extends Entity{
 		else{
 			this.stopAllSources();
 		}
-		
-		if(steps == 0){
-			changeMovementSense();
+		if(!die){
+			if(steps == 0){
+				changeMovementSense();
+			}
+			else{
+				steps = moveCreature(direction, speed, steps);
+			}
 		}
-		else{
-			steps = moveCreature(direction, speed, steps);
-		}
-		
 		super.onUpdate();
 	}
 	
+	public abstract void onDie();
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		
-		switch(direction){
-			case UP:
-				this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, false);
-				break;
-			case DOWN:
-				this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, false);
-				break;
-			case LEFT:
-				this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, false);
-				break;
-			case RIGHT:
-				this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, false);
-				break;
-			default:
-				break;
-		}
 		
 		if(RuntimeConfig.IS_DEBUG_MODE){
 			Paint brush = new Paint();
@@ -125,19 +114,23 @@ public abstract class Creature extends Entity{
 				switch(direction){
 					case UP:
 						this.y -= speed;
+						this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
 						break;
 					case DOWN:
 						this.y += speed;
+						this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, true);
 						break;
 					case LEFT:
 						this.x -= speed;
+						this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, true);
 						break;
 					case RIGHT:
 						this.x += speed;
+						this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, true);
 						break;
 					default:
 						break;
-				}
+				}	
 				steps--;
 			}
 		}
@@ -190,6 +183,11 @@ public abstract class Creature extends Entity{
 		boolean result = (Math.abs(this.game.getPlayer().getX() - (2*this.x + this.getImgWidth())/2) < this.getImgWidth()*4)
 				&& (Math.abs(this.game.getPlayer().getY() - (2*this.y + this.getImgHeight())/2) < this.getImgHeight()*4);
 		return result;
+	}
+	
+
+	public void setDie(boolean die) {
+		this.die = die;
 	}
 	
 }

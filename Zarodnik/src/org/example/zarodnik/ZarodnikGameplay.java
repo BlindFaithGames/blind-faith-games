@@ -64,10 +64,7 @@ public class ZarodnikGameplay extends GameState {
 
 		record = loadRecord();
 		
-		if (SCREEN_WIDTH > 800)
-			sheetSize = 800;
-		else
-			sheetSize = 400;
+		sheetSize = 400;
 		
 		createEntities(record,sheetSize);
 		
@@ -144,14 +141,16 @@ public class ZarodnikGameplay extends GameState {
 		ArrayList<Integer> aux;
 		ArrayList<Mask> playerMasks;
 		
-		BitmapScaler scaler;
+		/*BitmapScaler scaler;
 		
 		try {
 			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.playersheetx, sheetSize);
 			playerBitmap = scaler.getScaled();
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		}
+		}*/
+		
+		playerBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.playersheetm);
 		
 		/*-------- Animations --------------------------------------*/
 		SpriteMap animations = new SpriteMap(8, 3, playerBitmap, 0);
@@ -179,7 +178,7 @@ public class ZarodnikGameplay extends GameState {
 		aux.add(20);
 		aux.add(19);
 		aux.add(18);
-		animations.addAnim("rigth", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, true);
 		
 		aux = new ArrayList<Integer>();
 		aux.add(18);

@@ -94,7 +94,9 @@ public abstract class GameState {
 				renderables.add(e);
 			if(e.isRemovable())
 				removables.add(e);
-			e.onUpdate();
+			if(!e.isFrozen()){
+				e.onUpdate();
+			}
 		}
 		
 		Iterator<Entity> it1 = collidables.iterator();

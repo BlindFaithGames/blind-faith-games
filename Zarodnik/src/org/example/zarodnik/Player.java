@@ -49,6 +49,8 @@ public class Player extends Entity{
 	private enum Sense { UP, DOWN, LEFT, RIGHT };
 	private Sense direction;
 	
+	private boolean eating;
+	
 	// The player size express in dps
 	private static float SIZE_DP;
 	
@@ -65,14 +67,12 @@ public class Player extends Entity{
 		
 		initMovementParameters();
 		inMovement = false;
+		eating = false;
 		
 		if(animations != null)
 			animations.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
 		
-		if (GameState.SCREEN_WIDTH > 800)
-			SIZE_DP = 400;
-		else
-			SIZE_DP = 800;
+		SIZE_DP = 200;
 		
 		scoreBoard = new ScoreBoard(ZarodnikGameplay.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
 		this.gameState.addEntity(scoreBoard);
@@ -103,13 +103,31 @@ public class Player extends Entity{
 	@Override
 	public void onUpdate() {	
 		onMoveManagement();
+		
+		onEat();
+
+		
 
 		SoundManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
-		
 		
 		super.onUpdate();
 	}
 	
+	private void onEat() {
+		if(eating){
+			switch (direction) {
+				case UP: this.playAnim("eatU", 5, false);
+					break;
+				case DOWN: this.playAnim("eatD", 5, false);
+					break;
+				case RIGHT: this.playAnim("eatR", 5, false);
+					break;
+				case LEFT: this.playAnim("eatL", 5, false);
+					break;
+			}
+		}
+	}
+
 	private void onMoveManagement() {
 		double auxX,auxY;
 		EventType e  = Input.getInput().removeEvent("onDrag"); 
@@ -158,19 +176,17 @@ public class Player extends Entity{
 			if (destX < initialX){
 				direction = Sense.LEFT;
 				this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, true);
-			}
-			else{
+			}else{
 				direction = Sense.RIGHT;
 				this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, true);
-			}
+				}
 		}
 		else{
 			if (destY < initialY){
 				direction = Sense.UP;
 				this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
-			}
-			else{
-				direction = Sense.DOWN;
+			}else{
+				direction = Sense.DOWN;	
 				this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, true);
 			}
 		}
@@ -211,8 +227,11 @@ public class Player extends Entity{
 			inMovement = false;
 			destX = x;
 			destY = y;
+			
 			this.playAnim("die", RuntimeConfig.FRAMES_PER_STEP, false);
-			this.remove();
+			//TODO: Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.die_sound, false); sonido de muerte del bicho
+			this.setTimer(0,RuntimeConfig.FRAMES_PER_STEP*4);
+			this.setCollidable(false);
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){
 			inMovement = false;
@@ -220,21 +239,12 @@ public class Player extends Entity{
 			destY = y;
 			this.resize();
 			
-			switch (direction) {
-				case UP: this.playAnim("eatU", RuntimeConfig.FRAMES_PER_STEP, false);
-					break;
-				case DOWN: this.playAnim("eatD", RuntimeConfig.FRAMES_PER_STEP, false);
-					break;
-				case RIGHT: this.playAnim("eatR", RuntimeConfig.FRAMES_PER_STEP, false);
-					break;
-				case LEFT: this.playAnim("eatL", RuntimeConfig.FRAMES_PER_STEP, false);
-					break;
-			}
-			
-			e.remove();
-			
-			e.playAnim("die", 0, false);
-			
+			eating = true;
+			onEat();
+			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP);
+		
+			((Creature) e).onDie();
+	
 			scoreBoard.incrementCounter();
 		}
 	}
@@ -253,17 +263,17 @@ public class Player extends Entity{
 		BitmapScaler scaler;
 		
 		// We increments 150 pixels
-		SIZE_DP += 150;
+		SIZE_DP += 50;
 		
 		// Convert the dps to pixels, based on density scale
 		int size = (int) (SIZE_DP * GameState.scale);
-		
-		try {
-			scaler = new BitmapScaler(this.gameState.getContext().getResources(), R.drawable.playersheetx, size);/*(int) (imgW*1.3));*/
-			img = scaler.getScaled();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+        try {
+            scaler = new BitmapScaler(this.gameState.getContext().getResources(), R.drawable.playersheetm, size);
+            img = scaler.getScaled();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+		//img = BitmapFactory.decodeResource(this.gameState.getContext().getResources(), R.drawable.playersheetm);
 		
 		this.setImg(img);
 		
@@ -293,7 +303,7 @@ public class Player extends Entity{
 		aux.add(20);
 		aux.add(19);
 		aux.add(18);
-		animations.addAnim("rigth", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, true);
 		
 		aux = new ArrayList<Integer>();
 		aux.add(18);
@@ -347,15 +357,20 @@ public class Player extends Entity{
 		
 		imgW = img.getWidth();
 		imgH = img.getHeight();
-		frameW = imgW / 9;
-		frameH = imgH / 1;
+		frameW = imgW / 3;
+		frameH = imgH / 8;
 		maskList = new ArrayList<Mask>();
 		maskList.add(new MaskCircle(frameW/2,frameH/2,frameW/3));
 		this.setMask(maskList);
 	}
 
 	@Override
-	public void onTimer(int timer) {}
+	public void onTimer(int timer) {
+		if(timer == 0)
+			this.remove();
+		if(timer == 1)
+			eating = false;
+	}
 
 	@Override
 	public void onInit() {}
@@ -363,6 +378,7 @@ public class Player extends Entity{
 	@Override
 	public void onRemove() {
 		Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), die_sound, false);
+		Music.getInstanceMusic().stop(this.gameState.getContext(), move_sound);
 		this.gameState.stop();
 	}	
 }
