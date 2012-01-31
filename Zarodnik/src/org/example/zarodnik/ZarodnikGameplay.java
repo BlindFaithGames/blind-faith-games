@@ -18,7 +18,7 @@ import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
 import org.example.tinyEngineClasses.Mask;
-import org.example.tinyEngineClasses.MaskBox;
+import org.example.tinyEngineClasses.MaskCircle;
 import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.Sound2D;
 import org.example.tinyEngineClasses.SpriteMap;
@@ -34,7 +34,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.AudioManager;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 public class ZarodnikGameplay extends GameState {
@@ -65,7 +64,7 @@ public class ZarodnikGameplay extends GameState {
 
 		record = loadRecord();
 		
-		if(SCREEN_WIDTH > 800)
+		if (SCREEN_WIDTH > 800)
 			sheetSize = 400;
 		else
 			sheetSize = 800;
@@ -77,7 +76,7 @@ public class ZarodnikGameplay extends GameState {
 		field = CustomBitmap.getResizedBitmap(field, SCREEN_HEIGHT, SCREEN_WIDTH);
 		setBackground(field);
 		
-		fontSize = RuntimeConfig.FONT_SIZE;
+		fontSize = (int) (RuntimeConfig.FONT_SIZE * GameState.scale);
 		
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		
@@ -137,6 +136,77 @@ public class ZarodnikGameplay extends GameState {
 		createPrey(sheetSize);
 	}
 	
+	
+	private void createPlayer(int record, int sheetSize) {
+		int  playerX, playerY;
+		int frameW, frameH;
+		Bitmap playerBitmap = null;
+		ArrayList<Integer> aux;
+		ArrayList<Mask> playerMasks;
+		
+		BitmapScaler scaler;
+		
+		try {
+			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.playersheetx, sheetSize);
+			playerBitmap = scaler.getScaled();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		/*-------- Animations --------------------------------------*/
+		SpriteMap animations = new SpriteMap(1, 9, playerBitmap, 0);
+		aux = new ArrayList<Integer>();
+		aux.add(0);
+		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(1);
+		animations.addAnim("eatR", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(2);
+		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(3);
+		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(4);
+		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(5);
+		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(6);
+		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(7);
+		animations.addAnim("eatU", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(8);
+		animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		/*--------------------------------------------------*/
+		
+		frameW = playerBitmap.getWidth() / 9;
+		frameH = playerBitmap.getHeight() / 1;
+		
+		playerMasks = new ArrayList<Mask>();
+		playerMasks.add(new MaskCircle(frameW/2,frameH/2,frameW/3));
+
+		playerX = SCREEN_WIDTH / 2;
+		playerY = SCREEN_HEIGHT - SCREEN_HEIGHT / 3;
+		
+		player = new Player(playerX, playerY, record, playerBitmap, this, playerMasks, animations, null, null);
+		
+		this.addEntity(player);
+	}
+	
 	private void createPredator(int sheetSize) {
 		Entity e; 
 		List<Sound2D> sources; 
@@ -170,7 +240,7 @@ public class ZarodnikGameplay extends GameState {
 			predatorY = numberGenerator.nextInt(height);
 		
 			predatorMasks = new ArrayList<Mask>();
-			predatorMasks.add(new MaskBox(0,0,frameW,frameH));	
+			predatorMasks.add(new MaskCircle(frameW/2,frameH/2,frameW/3));	
 			
 			SpriteMap animations = new SpriteMap(1, 8, predatorBitmap, 0);
 			aux = new ArrayList<Integer>();
@@ -260,7 +330,7 @@ public class ZarodnikGameplay extends GameState {
 		frameH = preyBitmap.getHeight() / 1;
 		
 		preyMasks = new ArrayList<Mask>();
-		preyMasks.add(new MaskBox(0,0,frameW,frameH));	
+		preyMasks.add(new MaskCircle(frameW/2,frameH/2,frameW/3));	
 		
 		numberGenerator = new Random();
 		width = SCREEN_WIDTH - frameW*2;
@@ -280,81 +350,12 @@ public class ZarodnikGameplay extends GameState {
 		this.addEntity(e);
 	}
 	
-	private void createPlayer(int record, int sheetSize) {
-		int  playerX, playerY;
-		int frameW, frameH;
-		Bitmap playerBitmap = null;
-		ArrayList<Integer> aux;
-		ArrayList<Mask> playerMasks;
-		
-		BitmapScaler scaler;
-		
-		try {
-			scaler = new BitmapScaler(this.getContext().getResources(), R.drawable.playersheetx, sheetSize);
-			playerBitmap = scaler.getScaled();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		
-		/*-------- Animations --------------------------------------*/
-		SpriteMap animations = new SpriteMap(1, 9, playerBitmap, 0);
-		aux = new ArrayList<Integer>();
-		aux.add(0);
-		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(1);
-		animations.addAnim("eatR", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(2);
-		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(3);
-		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(4);
-		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(5);
-		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(6);
-		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(7);
-		animations.addAnim("eatU", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(8);
-		animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		/*--------------------------------------------------*/
-		
-		frameW = playerBitmap.getWidth() / 9;
-		frameH = playerBitmap.getHeight() / 1;
-		
-		playerMasks = new ArrayList<Mask>();
-		playerMasks.add(new MaskBox(0,0,frameW,frameH));	
-
-		playerX = SCREEN_WIDTH / 2;
-		playerY = SCREEN_HEIGHT - SCREEN_HEIGHT / 3;
-		
-		player = new Player(playerX, playerY, record, playerBitmap, this, playerMasks, animations, null, null);
-		
-		this.addEntity(player);
-	}
-	
 	@Override
 	public void onInit() {
 		super.onInit();
 		Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
 		this.getTextToSpeech().speak(this.getContext().getString(R.string.game_play_initial_TTStext));
+		Input.getInput().clean();
 	}
 
 	@Override
@@ -368,6 +369,7 @@ public class ZarodnikGameplay extends GameState {
         
         if(player.isRemovable()){
         	brush.setARGB(255, 0, 0, 51);
+        	// TODO cambiar tamaño
         	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), 1*GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
         }
         

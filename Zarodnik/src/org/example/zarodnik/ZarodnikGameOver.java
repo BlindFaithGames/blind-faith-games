@@ -45,7 +45,7 @@ public class ZarodnikGameOver extends GameState {
 		message = this.getContext().getString(R.string.game_over_text);
 		nextChar = 0;
 		
-		fontSize = RuntimeConfig.FONT_SIZE;	
+		fontSize = (int) (RuntimeConfig.FONT_SIZE_INTRO * GameState.scale);	
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		brush = new Paint();
 		brush.setTextSize(fontSize);

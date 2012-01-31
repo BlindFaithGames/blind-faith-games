@@ -22,6 +22,7 @@ public abstract class GameState {
 	
 	public static int SCREEN_WIDTH;
 	public static int SCREEN_HEIGHT;
+	public static float scale;
 	
 	protected View v;
 	
@@ -40,6 +41,7 @@ public abstract class GameState {
 
 	private Paint brush;
 	
+	
 	public GameState(View v, Context context, TTS textToSpeech){
 		game_is_running = true;
 		this.context = (Activity) context;
@@ -54,6 +56,8 @@ public abstract class GameState {
 		Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		SCREEN_WIDTH = display.getWidth();
 		SCREEN_HEIGHT = display.getHeight();
+		// Get the screen's density scale
+		scale = context.getResources().getDisplayMetrics().density;
 	}
 	
 	public void onInit() {
@@ -195,7 +199,7 @@ public abstract class GameState {
 						w = ((MaskBox)m).getWidth();
 						h = ((MaskBox)m).getHeight();
 					} else{
-						w = h = ((MaskCircle)m).getRadius();
+						w = h = ((MaskCircle)m).getRadius() * 2;
 					}
 						
 					empty = !encloses(w, h, e1, e.getX(),e.getY());
@@ -216,7 +220,7 @@ public abstract class GameState {
 				w = ((MaskBox)m).getWidth();
 				h = ((MaskBox)m).getHeight();
 			} else{
-				w = h = ((MaskCircle)m).getRadius();
+				w = h = ((MaskCircle)m).getRadius() * 2;
 			}
 			if ((ey <= e.getY() + h) && (ey + h1 >= e.getY()))			// width match
 				if ((ex <= e.getX() + w) && (ex + w1 >= e.getX()))		// heigh match

@@ -80,11 +80,11 @@
 	<string name="ending_lose_message">Game Over</string>
 	<string name="ending_win_message">You find your prey</string>
 	
-	<string name="intro_game_text">The world is veiled in darknessThe wind stops, the sea is \nwild, and the earth begins to\nrot.\nThe people wait, their\nonly 
-	hope, a prophecy.... \n\'When the world is in darkness four warriors will come....\'\nafter a long journey, four\nyoung warriors arrive each\nholding an ORB. </string>
-	<string name="intro_game_tts">The world is veiled in darknessThe wind stops, the sea is \nwild, and the earth begins to\nrot.\nThe people wait, their\nonly 
+	<string name="intro_game_text">The world is veiled in darkness. The wind stops, the sea is wild, and the earth begins to rot.\nThe people wait, their only 
+	hope, a prophecy... \n\'When the world is in darkness four warriors will come...\'\nafter a long journey, four young warriors arrive each holding an ORB. </string>
 	
-	hope, a prophecy.... \n\'When the world is in darkness four warriors will come....\'\nafter a long journey, four\nyoung warriors arrive each\nholding an ORB.Touch the screen to begin </string>
+	<string name="intro_game_tts">The world is veiled in darknessThe wind stops, the sea is wild, and the earth begins to rot.\nThe people wait, their only 	
+	hope, a prophecy... \n\'When the world is in darkness four warriors will come...\'\nafter a long journey, four young warriors arrive each holding an ORB.Touch the screen to begin </string>
 	
 	<string name="game_over_text">The game concludes here </string>
 	<string name="game_over_tts">The game concludes here. Touch the screen to end</string>

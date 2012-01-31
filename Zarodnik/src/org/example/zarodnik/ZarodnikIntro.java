@@ -46,7 +46,7 @@ public class ZarodnikIntro extends GameState {
 		introMessage = this.getContext().getString(R.string.intro_game_text);
 		nextChar = 0;
 		
-		fontSize = RuntimeConfig.FONT_SIZE;	
+		fontSize = (int) (RuntimeConfig.FONT_SIZE_INTRO * GameState.scale);	
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		brush = new Paint();
 		brush.setTextSize(fontSize);

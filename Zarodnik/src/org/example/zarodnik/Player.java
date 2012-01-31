@@ -48,6 +48,9 @@ public class Player extends Entity{
 	private enum Sense { UP, DOWN, LEFT, RIGHT };
 	private Sense direction;
 	
+	// The player size express in dps
+	private static float SIZE_DP;
+	
 
 	/**
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
@@ -64,6 +67,11 @@ public class Player extends Entity{
 		
 		if(animations != null)
 			animations.playAnim("up", 15, true);
+		
+		if (GameState.SCREEN_WIDTH > 800)
+			SIZE_DP = 400;
+		else
+			SIZE_DP = 800;
 		
 		scoreBoard = new ScoreBoard(ZarodnikGameplay.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
 		this.gameState.addEntity(scoreBoard);
@@ -93,15 +101,53 @@ public class Player extends Entity{
 	 * */
 	@Override
 	public void onUpdate() {	
-		onScrollManagement();
+		onMoveManagement();
 		
-		onDownManagement();
+//		onDownManagement();
 		
 		SoundManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
 		
 		super.onUpdate();
 	}
 	
+	private void onMoveManagement() {
+		double auxX,auxY;
+		EventType e  = Input.getInput().removeEvent("onMove");
+		
+		if (e != null){
+			initMovementParameters();
+			
+			vx = e.getMotionEventE1().getX() - dotCenterX;
+			vy = e.getMotionEventE1().getY() - dotCenterY;
+			
+			destX = e.getMotionEventE1().getX();
+			
+			destY = e.getMotionEventE1().getY();
+			
+			inMovement = true;
+		}
+		
+		if (inMovement){
+     		auxX = (initialX + vx * speed);
+     		auxY = (initialY + vy * speed);
+     		
+			// We calculate the player direction
+     		calculateDirection();
+     		
+     		speed += incr;
+     		
+			if (inStage(auxX,auxY) && !inDestination(dotCenterX,dotCenterY)){
+				this.x = (int) auxX;
+				this.y = (int) auxY;
+				dotCenterX = this.x + this.getImgWidth()/2;
+				dotCenterY = this.y + this.getImgHeight()/2;
+				inMovement = true;
+			}
+			else{
+				inMovement = false;
+			}
+		} 
+	}
 	
 	private void onDownManagement() {
 		double auxX,auxY;
@@ -180,16 +226,6 @@ public class Player extends Entity{
 	}
 
 	/**
-	 * If onFling event occurs initializes the shot 
-	 * In case of onScroll event manage the vibration or plays stereo sound and the animation. Also it plays a sound effect 
-	 * if the event isn't on the shot area.
-	 * 
-	 * */
-	private void onScrollManagement() {
-	//	EventType e  = Input.getInput().removeEvent("onScroll");
-	}
-
-	/**
 	 * It calls father's onDraw and 
 	 * 
 	 * @param canvas surface which will be drawn
@@ -207,11 +243,16 @@ public class Player extends Entity{
 	public void onCollision(Entity e) {
 		// Predator and prey collides
 		if (e instanceof Predator){
+			inMovement = false;
+			destX = x;
+			destY = y;
 			this.playAnim("die", 0, false);
 			this.remove();
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){
-			
+			inMovement = false;
+			destX = x;
+			destY = y;
 			this.resize();
 			
 			switch (direction) {
@@ -246,8 +287,14 @@ public class Player extends Entity{
 	
 		BitmapScaler scaler;
 		
+		// We increments 150 pixels
+		SIZE_DP += 150;
+		
+		// Convert the dps to pixels, based on density scale
+		int size = (int) (SIZE_DP * GameState.scale);
+		
 		try {
-			scaler = new BitmapScaler(this.gameState.getContext().getResources(), R.drawable.playersheetx, (int) (imgW*1.5));
+			scaler = new BitmapScaler(this.gameState.getContext().getResources(), R.drawable.playersheetx, size);/*(int) (imgW*1.3));*/
 			img = scaler.getScaled();
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -301,7 +348,7 @@ public class Player extends Entity{
 		frameW = imgW / 9;
 		frameH = imgH / 1;
 		maskList = new ArrayList<Mask>();
-		maskList.add(new MaskCircle(frameW/2,frameH/2,frameW/2));
+		maskList.add(new MaskCircle(frameW/2,frameH/2,frameW/3));
 		this.setMask(maskList);
 	}
 

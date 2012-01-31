@@ -35,7 +35,7 @@ public class ZarodnikGameActivity extends Activity {
 	private Game game;
 	
 	private boolean mIsScrolling = false;
-	
+
 	// Cargamos la conf desde un .xml
 	private XMLKeyboard keyboard;
 	
@@ -86,24 +86,23 @@ public class ZarodnikGameActivity extends Activity {
 		keyboard = reader.loadEditedKeyboard(fis);
 	}
     
-	/*---------------------------------------------------------------------
-	 *  GESTURE DETECTOR
-	 ----------------------------------------------------------------------*/
+    /*---------------------------------------------------------------------
+     *  GESTURE DETECTOR
+     ----------------------------------------------------------------------*/
     class MyGestureDetector extends SimpleOnGestureListener {
 
-		//@Override
-		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-			Log.d(TAG, "Scroll: " + e1.toString() + "\n" + e2.toString());
-			mIsScrolling = true; 
-			Input.getInput().addEvent("onScroll", e1, e2, distanceX, distanceY);
-			return true;
-		}
-    }
-	/*---------------------------------------------------------------------
-	 *  FIN GESTURE DETECTOR
-	 ----------------------------------------------------------------------*/
+            //@Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                    Log.d(TAG, "Scroll: " + e1.toString() + "\n" + e2.toString());
+                    mIsScrolling = true; 
+                    Input.getInput().addEvent("onScroll", e1, e2, distanceX, distanceY);
+                    return true;
+            }
+}
+    /*---------------------------------------------------------------------
+     *  FIN GESTURE DETECTOR
+     ----------------------------------------------------------------------*/
 
-    
 	/*---------------------------------------------------------------------
 	 *  DRAWABLE PANEL
 	 ----------------------------------------------------------------------*/
@@ -113,7 +112,7 @@ public class ZarodnikGameActivity extends Activity {
     	
 		public ZarodnikGamePanel(Context context) {
 			super(context);
-	        mGestureDetector = new GestureDetector(new MyGestureDetector());
+			mGestureDetector = new GestureDetector(new MyGestureDetector());
 		}
 		
 		@Override
@@ -136,10 +135,10 @@ public class ZarodnikGameActivity extends Activity {
     	
         @Override
         public boolean onTouchEvent(MotionEvent event) {
-        	if (mGestureDetector.onTouchEvent(event)){
-        		return true;
-        	}
-        	else if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (mGestureDetector.onTouchEvent(event)){
+                return true;
+            }
+            else if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (mIsScrolling) {
                     Log.d(TAG,"onUp: " + event.toString());
                     mIsScrolling  = false;
@@ -149,6 +148,9 @@ public class ZarodnikGameActivity extends Activity {
             }
             else if (event.getAction() == MotionEvent.ACTION_MOVE){
             	mIsScrolling = true;
+            	Log.d(TAG, "Move: " + event.toString());
+    			Input.getInput().addEvent("onMove", MotionEvent.obtain(event), null, -1, -1);
+    			return true;
             }
             else if (event.getAction() == MotionEvent.ACTION_DOWN){
             	Log.d(TAG, "onDown: " + event.toString());
