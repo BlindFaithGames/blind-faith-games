@@ -31,8 +31,8 @@ public class ZarodnikGameOver extends GameState {
 	
 	private Bitmap arrow;
 	
-	private static final int textoffSetX = SCREEN_WIDTH / 7;
-	private static final int textoffSetY = SCREEN_HEIGHT / 2;
+	private static int textoffSetX;
+	private static int textoffSetY;
 	
 	private int stepsPerLetter = RuntimeConfig.TEXT_SPEED;
 	
@@ -60,6 +60,8 @@ public class ZarodnikGameOver extends GameState {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+		textoffSetX = SCREEN_WIDTH  / 4;
+		textoffSetY = SCREEN_HEIGHT / 2;
 	}
 	
 	

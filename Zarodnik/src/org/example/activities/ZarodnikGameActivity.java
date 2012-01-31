@@ -108,7 +108,10 @@ public class ZarodnikGameActivity extends Activity {
 	 ----------------------------------------------------------------------*/
     
     class ZarodnikGamePanel extends DrawablePanel{
-    	private GestureDetector mGestureDetector;
+
+		private GestureDetector mGestureDetector;
+		
+		private boolean dragging;
     	
 		public ZarodnikGamePanel(Context context) {
 			super(context);
@@ -135,6 +138,7 @@ public class ZarodnikGameActivity extends Activity {
     	
         @Override
         public boolean onTouchEvent(MotionEvent event) {
+        	onDrag(event);
             if (mGestureDetector.onTouchEvent(event)){
                 return true;
             }
@@ -159,6 +163,20 @@ public class ZarodnikGameActivity extends Activity {
             }
             return false;
         }
+        
+        private void onDrag(MotionEvent event) {
+    		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+    			dragging = true;
+    			Input.getInput().addEvent("onDrag", MotionEvent.obtain(event), null, -1, -1);
+    		}
+    		if (event.getAction() == MotionEvent.ACTION_UP) {
+    			dragging = false;
+    		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+    			if (dragging) {
+    				Input.getInput().addEvent("onDrag", MotionEvent.obtain(event), null, -1, -1);
+    			}
+    		}	
+    	}
         
         @Override
         public boolean onKeyDown(int keyCode, KeyEvent event){

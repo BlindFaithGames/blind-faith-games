@@ -102,9 +102,7 @@ public class Player extends Entity{
 	@Override
 	public void onUpdate() {	
 		onMoveManagement();
-		
-//		onDownManagement();
-		
+
 		SoundManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
 		
 		super.onUpdate();
@@ -112,7 +110,7 @@ public class Player extends Entity{
 	
 	private void onMoveManagement() {
 		double auxX,auxY;
-		EventType e  = Input.getInput().removeEvent("onMove");
+		EventType e  = Input.getInput().removeEvent("onDrag"); 
 		
 		if (e != null){
 			initMovementParameters();
@@ -137,45 +135,6 @@ public class Player extends Entity{
      		speed += incr;
      		
 			if (inStage(auxX,auxY) && !inDestination(dotCenterX,dotCenterY)){
-				this.x = (int) auxX;
-				this.y = (int) auxY;
-				dotCenterX = this.x + this.getImgWidth()/2;
-				dotCenterY = this.y + this.getImgHeight()/2;
-				inMovement = true;
-			}
-			else{
-				inMovement = false;
-			}
-		} 
-	}
-	
-	private void onDownManagement() {
-		double auxX,auxY;
-		EventType e  = Input.getInput().removeEvent("onDown");
-		
-		if(e != null){
-			initMovementParameters();
-			
-			vx = e.getMotionEventE1().getX() - dotCenterX;
-			vy = e.getMotionEventE1().getY() - dotCenterY;
-			
-			destX = e.getMotionEventE1().getX();
-			
-			destY = e.getMotionEventE1().getY();
-			
-			inMovement = true;
-		}
-		
-		if(inMovement){
-     		auxX = (initialX + vx * speed);
-     		auxY = (initialY + vy * speed);
-     		
-			// We calculate the player direction
-     		calculateDirection();
-     		
-     		speed += incr;
-     		
-			if(inStage(auxX,auxY) && !inDestination(dotCenterX,dotCenterY)){
 				this.x = (int) auxX;
 				this.y = (int) auxY;
 				dotCenterX = this.x + this.getImgWidth()/2;

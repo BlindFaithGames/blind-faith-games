@@ -81,7 +81,7 @@ public class ZarodnikGameplay extends GameState {
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		
 		brush = new Paint();
-		brush.setTextSize(fontSize*2);
+		brush.setTextSize(fontSize);
 		brush.setARGB(255, 51, 51, 51);
 		if(font != null)
 			brush.setTypeface(font);
@@ -363,14 +363,13 @@ public class ZarodnikGameplay extends GameState {
 		super.onDraw(canvas);
         if(flag){
     		brush.setARGB(255, 0, 0, 51);
-    	    canvas.drawText(this.getContext().getString(R.string.initial_message), 1*GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
+    	    canvas.drawText(this.getContext().getString(R.string.initial_message), GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
         	flag = false;
         }
         
         if(player.isRemovable()){
         	brush.setARGB(255, 0, 0, 51);
-        	// TODO cambiar tamaño
-        	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), 1*GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
+        	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
         }
         
 	}

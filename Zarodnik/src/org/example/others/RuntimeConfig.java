@@ -13,3 +13,4 @@ public class RuntimeConfig {
 	public static final int TILE_SIZE = 10;
 
 }
+	 
