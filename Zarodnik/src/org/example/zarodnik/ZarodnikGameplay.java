@@ -65,9 +65,9 @@ public class ZarodnikGameplay extends GameState {
 		record = loadRecord();
 		
 		if (SCREEN_WIDTH > 800)
-			sheetSize = 400;
-		else
 			sheetSize = 800;
+		else
+			sheetSize = 400;
 		
 		createEntities(record,sheetSize);
 		
@@ -154,47 +154,83 @@ public class ZarodnikGameplay extends GameState {
 		}
 		
 		/*-------- Animations --------------------------------------*/
-		SpriteMap animations = new SpriteMap(1, 9, playerBitmap, 0);
+		SpriteMap animations = new SpriteMap(8, 3, playerBitmap, 0);
 		aux = new ArrayList<Integer>();
 		aux.add(0);
-		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		aux.add(1);
+		aux.add(2);
+		aux.add(1);
+		aux.add(0);
+		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, true);
 		
 		aux = new ArrayList<Integer>();
-		aux.add(1);
+		aux.add(0);
+		aux.add(3);
+		aux.add(4);
+		aux.add(5);
+		aux.add(4);
+		aux.add(3);
+		aux.add(0);
+		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+
+		aux = new ArrayList<Integer>();
+		aux.add(18);
+		aux.add(19);
+		aux.add(20);
+		aux.add(19);
+		aux.add(18);
+		animations.addAnim("rigth", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(18);
+		aux.add(21);
+		aux.add(22);
+		aux.add(23);
+		aux.add(22);
+		aux.add(21);
+		aux.add(18);
 		animations.addAnim("eatR", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		
 		aux = new ArrayList<Integer>();
-		aux.add(2);
-		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(3);
-		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(4);
-		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
-		aux.add(5);
-		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		aux.add(6);
+		aux.add(7);
+		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, true);
 		
 		aux = new ArrayList<Integer>();
 		aux.add(6);
-		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
+		aux.add(8);
 		aux.add(7);
+		aux.add(6);
 		animations.addAnim("eatU", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		
 		aux = new ArrayList<Integer>();
-		aux.add(8);
+		aux.add(9);
+		aux.add(10);
+		aux.add(11);
+		aux.add(10);
+		aux.add(9);
+		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(9);
+		aux.add(12);
+		aux.add(13);
+		aux.add(14);
+		aux.add(13);
+		aux.add(12);
+		aux.add(9);
+		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(15);
+		aux.add(16);
+		aux.add(17);
 		animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		
 		/*--------------------------------------------------*/
 		
-		frameW = playerBitmap.getWidth() / 9;
-		frameH = playerBitmap.getHeight() / 1;
+		frameW = playerBitmap.getWidth() / 3;
+		frameH = playerBitmap.getHeight() / 8;
 		
 		playerMasks = new ArrayList<Mask>();
 		playerMasks.add(new MaskCircle(frameW/2,frameH/2,frameW/3));
