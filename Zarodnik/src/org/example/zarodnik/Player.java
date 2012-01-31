@@ -67,7 +67,7 @@ public class Player extends Entity{
 		inMovement = false;
 		
 		if(animations != null)
-			animations.playAnim("up", 15, true);
+			animations.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
 		
 		if (GameState.SCREEN_WIDTH > 800)
 			SIZE_DP = 400;
@@ -157,21 +157,21 @@ public class Player extends Entity{
 		if (Math.abs(initialX - destX) > Math.abs(initialY - destY)){
 			if (destX < initialX){
 				direction = Sense.LEFT;
-				this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, false);
+				this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, true);
 			}
 			else{
 				direction = Sense.RIGHT;
-				this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, false);
+				this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, true);
 			}
 		}
 		else{
 			if (destY < initialY){
 				direction = Sense.UP;
-				this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, false);
+				this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
 			}
 			else{
 				direction = Sense.DOWN;
-				this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, false);
+				this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, true);
 			}
 		}
 	}
@@ -211,7 +211,7 @@ public class Player extends Entity{
 			inMovement = false;
 			destX = x;
 			destY = y;
-			this.playAnim("die", 0, false);
+			this.playAnim("die", RuntimeConfig.FRAMES_PER_STEP, false);
 			this.remove();
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){
@@ -268,43 +268,80 @@ public class Player extends Entity{
 		this.setImg(img);
 		
 		/*-------- Animations --------------------------------------*/
-		SpriteMap animations = new SpriteMap(1, 9, img, 0);
+		SpriteMap animations = new SpriteMap(8, 3, img, 0);
 		aux = new ArrayList<Integer>();
 		aux.add(0);
-		animations.addAnim("right", aux, RuntimeConfig.FRAMES_PER_STEP, true);
-		
-		aux = new ArrayList<Integer>();
 		aux.add(1);
-		animations.addAnim("eatR", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
 		aux.add(2);
+		aux.add(1);
+		aux.add(0);
 		animations.addAnim("left", aux, RuntimeConfig.FRAMES_PER_STEP, true);
 		
 		aux = new ArrayList<Integer>();
+		aux.add(0);
 		aux.add(3);
-		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
-		
-		aux = new ArrayList<Integer>();
 		aux.add(4);
-		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, true);
-		
-		aux = new ArrayList<Integer>();
 		aux.add(5);
-		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		aux.add(4);
+		aux.add(3);
+		aux.add(0);
+		animations.addAnim("eatL", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+
+		aux = new ArrayList<Integer>();
+		aux.add(18);
+		aux.add(19);
+		aux.add(20);
+		aux.add(19);
+		aux.add(18);
+		animations.addAnim("rigth", aux, RuntimeConfig.FRAMES_PER_STEP, true);
 		
 		aux = new ArrayList<Integer>();
-		aux.add(6);
-		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		aux.add(18);
+		aux.add(21);
+		aux.add(22);
+		aux.add(23);
+		aux.add(22);
+		aux.add(21);
+		aux.add(18);
+		animations.addAnim("eatR", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		
 		aux = new ArrayList<Integer>();
 		aux.add(6);
 		aux.add(7);
+		animations.addAnim("up", aux, RuntimeConfig.FRAMES_PER_STEP, true);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(6);
+		aux.add(8);
+		aux.add(7);
+		aux.add(6);
 		animations.addAnim("eatU", aux, RuntimeConfig.FRAMES_PER_STEP, false);
 		
 		aux = new ArrayList<Integer>();
-		aux.add(8);
+		aux.add(9);
+		aux.add(10);
+		aux.add(11);
+		aux.add(10);
+		aux.add(9);
+		animations.addAnim("down", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(9);
+		aux.add(12);
+		aux.add(13);
+		aux.add(14);
+		aux.add(13);
+		aux.add(12);
+		aux.add(9);
+		animations.addAnim("eatD", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		aux = new ArrayList<Integer>();
+		aux.add(15);
+		aux.add(16);
+		aux.add(17);
 		animations.addAnim("die", aux, RuntimeConfig.FRAMES_PER_STEP, false);
+		
+		/*--------------------------------------------------*/
 		
 		this.setSpriteMap(animations);
 		
