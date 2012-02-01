@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.TextView;
 
-public class InstructionsActivity extends Activity implements OnClickListener{
+public class ControlsActivity extends Activity implements OnClickListener{
 	private TTS textToSpeech;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +22,12 @@ public class InstructionsActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.instructions_general);
-		
-//		ScrollView scrollView = (ScrollView) this.findViewById(R.id.instructions_scrollview);
-		
-//		scrollView.setOnLongClickListener(this);
+		setContentView(R.layout.instructions_controls);
 		
 		Typeface font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
 		
-		TextView t = (TextView) findViewById(R.id.instructions_general_content);
-		String speech = getString(R.string.instructions_general_label) + " " + t.getContentDescription() + "Click to continue";
+		TextView t = (TextView) findViewById(R.id.instructions_controls_content);
+		String speech = getString(R.string.instructions_controls_label) + " " + t.getContentDescription() + "Click to continue";
 		
 		t.setTextSize(fontSize);
 		t.setTypeface(font);
@@ -58,5 +54,4 @@ public class InstructionsActivity extends Activity implements OnClickListener{
 		this.finish();
 	}
 
-	
 }

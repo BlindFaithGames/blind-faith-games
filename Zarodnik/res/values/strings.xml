@@ -39,13 +39,17 @@
 	<string name="flags_shortcut">f</string>
 	<string name="instructions_label">Instructions</string>
 	<string name="instructions_title">Instructions Zarodnik</string>
+	<string name="controls_title">Controls Zarodnik</string>
 	<string name="instructions_general_label">Instructions</string>
 	<string name="instructions_controls_label">Controls</string>
-	<string name="instructions_general_text">hey
-		
+	<string name="instructions_general_text">
+		The game objetive is to eat as many preys as you can, avoiding every predator that you can listen around the screen.
+		The more preys eat, the better the game.
+
 	</string>
-	<string name="instructions_controls_text">hey
-		
+	<string name="instructions_controls_text">
+		You have to touch and drag the screen in order to move the player. You will listen different sounds around the screen. 
+		To know more, go to the game tutorial.
 	</string>
 	<string name="synthetizer_title">Synthetizer</string>
 

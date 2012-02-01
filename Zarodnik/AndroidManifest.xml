@@ -32,6 +32,11 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name=".activities.ControlsActivity"
+            android:label="@string/controls_title"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name=".activities.ZarodnikGameActivity"
             android:label="@string/game_title"
             android:screenOrientation="landscape" >

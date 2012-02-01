@@ -264,13 +264,13 @@ public class Player extends Entity{
 	
 		BitmapScaler scaler;
 		
-		// We increments 150 pixels
+		// We increments 50 pixels
 		SIZE_DP += 50;
 		
 		// Convert the dps to pixels, based on density scale
 		int size = (int) (SIZE_DP * GameState.scale);
         try {
-            scaler = new BitmapScaler(this.gameState.getContext().getResources(), R.drawable.playersheetm, size);
+            scaler = new BitmapScaler(this.gameState.getContext().getResources(), R.drawable.playersheetx, size);
             img = scaler.getScaled();
         } catch (IOException ex) {
             ex.printStackTrace();

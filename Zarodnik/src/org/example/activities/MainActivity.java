@@ -250,15 +250,16 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void startInstructions(int i) {
 		Intent intent;
 		
-		intent = new Intent(this, InstructionsActivity.class);
-		intent.putExtra(KEY_TYPE_INSTRUCTIONS, i);
-		
-		if (i == 0)
+		if (i == 0){
+			intent = new Intent(this, ControlsActivity.class);
 			intent.putExtra(KEY_INSTRUCTIONS_CONTROLS, getString(R.id.instructions_controls_content));
-		else
+		}
+		else{
+			intent = new Intent(this, InstructionsActivity.class);
 			intent.putExtra(KEY_INSTRUCTIONS_GENERAL, getString(R.id.instructions_general_content));
-		
-		
+			
+		}	
+		intent.putExtra(KEY_TYPE_INSTRUCTIONS, i);		
 		intent.putExtra(KEY_TTS, textToSpeech);
 
 		startActivity(intent);
