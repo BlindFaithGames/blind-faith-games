@@ -309,24 +309,28 @@ public abstract class Entity {
 	}
 	
 	public void playAllSources(){
-		if(!isPlaying){
-			Iterator<Sound2D> it = sources.iterator();
-			Sound2D s;
-			while(it.hasNext()){
-				s = it.next();
-				s.getS().play(true);
+		if(sources != null){
+			if(!isPlaying){
+				Iterator<Sound2D> it = sources.iterator();
+				Sound2D s;
+				while(it.hasNext()){
+					s = it.next();
+					s.getS().play(true);
+				}
+				isPlaying = true;
 			}
-			isPlaying = true;
 		}
 	}
 	
 	public void stopAllSources(){
-		Iterator<Sound2D> it = sources.iterator();
-		Sound2D s;
-		while(it.hasNext()){
-			s = it.next();
-			s.getS().stop();
+		if(sources != null){
+			Iterator<Sound2D> it = sources.iterator();
+			Sound2D s;
+			while(it.hasNext()){
+				s = it.next();
+				s.getS().stop();
+			}
+			isPlaying = false;
 		}
-		isPlaying = false;
 	}
 }

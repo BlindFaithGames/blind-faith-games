@@ -42,7 +42,7 @@ public class ScoreBoard extends Entity {
 		this.game = (ZarodnikGameplay) game;
 		this.record = record;
 		
-		fontSize = RuntimeConfig.FONT_SIZE;
+		fontSize = this.game.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu);
 		
 		font = Typeface.createFromAsset(this.game.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		

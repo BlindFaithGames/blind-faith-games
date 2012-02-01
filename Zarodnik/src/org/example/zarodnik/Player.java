@@ -29,6 +29,9 @@ import android.graphics.Point;
 
 public class Player extends Entity{
 	
+	private enum State { EAT, MOVE, DIE };
+	private State state;
+	
 	private static final int die_sound = R.raw.pacman_dies;
 	private static final int move_sound = R.raw.bubble;
 	
@@ -49,8 +52,6 @@ public class Player extends Entity{
 	private enum Sense { UP, DOWN, LEFT, RIGHT };
 	private Sense direction;
 	
-	private boolean eating;
-	
 	// The player size express in dps
 	private static float SIZE_DP;
 	
@@ -67,7 +68,7 @@ public class Player extends Entity{
 		
 		initMovementParameters();
 		inMovement = false;
-		eating = false;
+		state = State.MOVE;
 		
 		if(animations != null)
 			animations.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
@@ -114,7 +115,7 @@ public class Player extends Entity{
 	}
 	
 	private void onEat() {
-		if(eating){
+		if(state == State.EAT){
 			switch (direction) {
 				case UP: this.playAnim("eatU", 5, false);
 					break;
@@ -132,7 +133,7 @@ public class Player extends Entity{
 		double auxX,auxY;
 		EventType e  = Input.getInput().removeEvent("onDrag"); 
 		
-		if (e != null){
+		if (e != null && state != State.DIE){
 			initMovementParameters();
 			
 			vx = e.getMotionEventE1().getX() - dotCenterX;
@@ -229,6 +230,7 @@ public class Player extends Entity{
 			destY = y;
 			
 			this.playAnim("die", RuntimeConfig.FRAMES_PER_STEP, false);
+			state = State.DIE;
 			//TODO: Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.die_sound, false); sonido de muerte del bicho
 			this.setTimer(0,RuntimeConfig.FRAMES_PER_STEP*4);
 			this.setCollidable(false);
@@ -239,7 +241,7 @@ public class Player extends Entity{
 			destY = y;
 			this.resize();
 			
-			eating = true;
+			state = State.EAT;
 			onEat();
 			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP);
 		
@@ -369,7 +371,7 @@ public class Player extends Entity{
 		if(timer == 0)
 			this.remove();
 		if(timer == 1)
-			eating = false;
+			state = State.MOVE;
 	}
 
 	@Override

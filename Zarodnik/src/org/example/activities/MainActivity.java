@@ -46,6 +46,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public static String FILENAMEFREEMODE = "ZarodnikRecords1.data";
 	public static String FILENAMESTAGEMODE = "ZarodnikRecords2.data";
 	
+	private static float fontSize;
+	private static float scale;
+	
 	private TTS textToSpeech;
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
@@ -55,7 +58,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Typeface font; int fontSize; 
+		Typeface font; 
 		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -66,7 +69,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
-		fontSize = (int) (RuntimeConfig.FONT_SIZE);
+		scale = this.getResources().getDisplayMetrics().density;
+		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
 		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
@@ -125,10 +129,10 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		instructionsDialog.setTitle("hola");
 		
 		text = (TextView) instructionsDialog.findViewById(R.id.TextView01);
-		text.setTextSize(RuntimeConfig.FONT_SIZE);
+		text.setTextSize(fontSize);
 		text.setTypeface(font);
 		b = (Button) instructionsDialog.findViewById(R.id.Button01main);
-		b.setTextSize(RuntimeConfig.FONT_SIZE);
+		b.setTextSize(fontSize);
 		b.setTypeface(font);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
@@ -137,7 +141,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
-		b.setTextSize(RuntimeConfig.FONT_SIZE);
+		b.setTextSize(fontSize);
 		b.setTypeface(font);
 	}
 

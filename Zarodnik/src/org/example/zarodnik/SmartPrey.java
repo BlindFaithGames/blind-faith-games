@@ -63,9 +63,13 @@ public class SmartPrey extends Creature {
 	}
 
 	private boolean checkAround() {
-		boolean result = (Math.abs(this.game.getPlayer().getX() - this.x) < 50)
+		if(this.game != null){
+			boolean result = (Math.abs(this.game.getPlayer().getX() - this.x) < 50)
 				&& (Math.abs(this.game.getPlayer().getY() - this.y) < 50);
-		return result;
+			return result;
+		}
+		else 
+			return false;
 	}
 	
 	@Override

@@ -19,6 +19,7 @@ public class BitmapScaler {
 
 	private Bitmap scaled;
 
+
 	public BitmapScaler(Resources resources, int resId, int newWidth)
 			throws IOException {
 		Size size = getRoughSize(resources, resId, newWidth);

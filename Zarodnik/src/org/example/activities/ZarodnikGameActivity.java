@@ -14,6 +14,7 @@ import org.example.tinyEngineClasses.TTS;
 import org.example.zarodnik.ZarodnikGameOver;
 import org.example.zarodnik.ZarodnikGameplay;
 import org.example.zarodnik.ZarodnikIntro;
+import org.example.zarodnik.ZarodnikTutorial;
 import org.example.zarodnik.XML.KeyboardReader;
 import org.example.zarodnik.XML.XMLKeyboard;
 
@@ -34,8 +35,6 @@ public class ZarodnikGameActivity extends Activity {
 	private TTS textToSpeech;
 	private Game game;
 	
-	private boolean mIsScrolling = false;
-
 	// Cargamos la conf desde un .xml
 	private XMLKeyboard keyboard;
 	
@@ -61,7 +60,9 @@ public class ZarodnikGameActivity extends Activity {
     	order.add(0);
     	order.add(1);
     	order.add(2);
+    	order.add(3);
 		ArrayList<GameState> gameStates = new ArrayList<GameState>();
+		gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech,this));
 		gameStates.add(new ZarodnikIntro(zarodnikView,textToSpeech,this));
 		gameStates.add(new ZarodnikGameplay(zarodnikView,textToSpeech,this));
 		gameStates.add(new ZarodnikGameOver(zarodnikView,textToSpeech,this));
@@ -91,12 +92,21 @@ public class ZarodnikGameActivity extends Activity {
      ----------------------------------------------------------------------*/
     class MyGestureDetector extends SimpleOnGestureListener {
 
-            //@Override
-            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                    Log.d(TAG, "Scroll: " + e1.toString() + "\n" + e2.toString());
-                    mIsScrolling = true; 
-                    Input.getInput().addEvent("onScroll", e1, e2, distanceX, distanceY);
-                    return true;
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+            	Input.getInput().addEvent("onDoubleTap",  MotionEvent.obtain(e), null, -1, -1);
+            	return true;
+            }
+            
+            @Override
+            public boolean onDown(MotionEvent e) {
+            	Input.getInput().addEvent("onDown",  MotionEvent.obtain(e), null, -1, -1);
+            	return true;
+            }
+            
+            @Override
+            public void onLongPress(MotionEvent e) {
+            	 Input.getInput().addEvent("onLongPress", e, null, -1, -1);
             }
 }
     /*---------------------------------------------------------------------
@@ -139,29 +149,7 @@ public class ZarodnikGameActivity extends Activity {
         @Override
         public boolean onTouchEvent(MotionEvent event) {
         	onDrag(event);
-            if (mGestureDetector.onTouchEvent(event)){
-                return true;
-            }
-            else if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (mIsScrolling) {
-                    Log.d(TAG,"onUp: " + event.toString());
-                    mIsScrolling  = false;
-                    Input.getInput().addEvent("onUp", MotionEvent.obtain(event), null, -1, -1);
-                    return true;
-                }
-            }
-            else if (event.getAction() == MotionEvent.ACTION_MOVE){
-            	mIsScrolling = true;
-            	Log.d(TAG, "Move: " + event.toString());
-    			Input.getInput().addEvent("onMove", MotionEvent.obtain(event), null, -1, -1);
-    			return true;
-            }
-            else if (event.getAction() == MotionEvent.ACTION_DOWN){
-            	Log.d(TAG, "onDown: " + event.toString());
-            	Input.getInput().addEvent("onDown",  MotionEvent.obtain(event), null, -1, -1);
-    			return true;
-            }
-            return false;
+            return mGestureDetector.onTouchEvent(event);
         }
         
         private void onDrag(MotionEvent event) {

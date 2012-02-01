@@ -2,6 +2,7 @@ package org.example.activities;
 
 import org.example.R;
 import org.example.others.RuntimeConfig;
+import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.TTS;
 
 import android.app.Activity;
@@ -40,7 +41,7 @@ public class InstructionsActivity extends Activity{
 		}
 		
 		t.setTypeface(font);
-		t.setTextSize(RuntimeConfig.FONT_SIZE);
+		t.setTextSize(this.getResources().getDimensionPixelSize(R.dimen.font_size_menu)/GameState.scale);
 		
 		// This initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);

@@ -34,6 +34,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.AudioManager;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 public class ZarodnikGameplay extends GameState {
@@ -41,12 +42,12 @@ public class ZarodnikGameplay extends GameState {
 	private static final int intro_sound = R.raw.pacman_intro;
 	
 	private static final int maxPredatorNumber = 3;
-	private static final int prey_sound_die = R.raw.cat_angry;
+	private static final int prey_sound_die = R.raw.prey_dead;
 
-	private static String prey_sound = "cat";
-	private static String predator_sound = "snake";
+	private static String prey_sound = "prey";
+	private static String predator_sound = "predator";
 	
-	private int fontSize;
+	private float fontSize;
 	private Typeface font;
 	private Paint brush;
 	
@@ -73,7 +74,7 @@ public class ZarodnikGameplay extends GameState {
 		field = CustomBitmap.getResizedBitmap(field, SCREEN_HEIGHT, SCREEN_WIDTH);
 		setBackground(field);
 		
-		fontSize = (int) (RuntimeConfig.FONT_SIZE * GameState.scale);
+		fontSize = (this.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_gameplay)/GameState.scale);
 		
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		
@@ -388,7 +389,10 @@ public class ZarodnikGameplay extends GameState {
 	@Override
 	public void onInit() {
 		super.onInit();
+		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
+		this.getTextToSpeech().speak(" ");
 		Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
+		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
 		this.getTextToSpeech().speak(this.getContext().getString(R.string.game_play_initial_TTStext));
 		Input.getInput().clean();
 	}

@@ -35,9 +35,9 @@ public abstract class Creature extends Entity{
 	public Creature(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable, int speed) {
 		super(x, y, img, game, mask, animations, soundName, soundOffset, collidable);
 
-		
-		this.game = (ZarodnikGameplay) game;
-		
+		if(game instanceof ZarodnikGameplay)
+			this.game = (ZarodnikGameplay) game;
+
 		this.speed = speed;
 		
 		randomNumber = new Random();
@@ -110,29 +110,54 @@ public abstract class Creature extends Entity{
 		if(checkIfOutsideScreen(direction,speed)){
 			steps = 0;
 		}else{
-			if(this.game.getPlayer().isInMovement()){
+			if(this.game != null){
+				if(this.game.getPlayer().isInMovement()){
+					switch(direction){
+						case UP:
+							this.y -= speed;
+							this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
+							break;
+						case DOWN:
+							this.y += speed;
+							this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, true);
+							break;
+						case LEFT:
+							this.x -= speed;
+							this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, true);
+							break;
+						case RIGHT:
+							this.x += speed;
+							this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, true);
+							break;
+						default:
+							break;
+					}	
+					steps--;
+				}
+			}else{
 				switch(direction){
-					case UP:
-						this.y -= speed;
-						this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
-						break;
-					case DOWN:
-						this.y += speed;
-						this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, true);
-						break;
-					case LEFT:
-						this.x -= speed;
-						this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, true);
-						break;
-					case RIGHT:
-						this.x += speed;
-						this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, true);
-						break;
-					default:
-						break;
-				}	
-				steps--;
+				case UP:
+					this.y -= speed;
+					this.playAnim("up", RuntimeConfig.FRAMES_PER_STEP, true);
+					break;
+				case DOWN:
+					this.y += speed;
+					this.playAnim("down", RuntimeConfig.FRAMES_PER_STEP, true);
+					break;
+				case LEFT:
+					this.x -= speed;
+					this.playAnim("left", RuntimeConfig.FRAMES_PER_STEP, true);
+					break;
+				case RIGHT:
+					this.x += speed;
+					this.playAnim("right", RuntimeConfig.FRAMES_PER_STEP, true);
+					break;
+				default:
+					break;
+			}	
+			steps--;
 			}
+			
 		}
 		return steps;
 	}
@@ -180,9 +205,12 @@ public abstract class Creature extends Entity{
 	public void onRemove() {}
 	
 	private boolean checkAround() {
-		boolean result = (Math.abs(this.game.getPlayer().getX() - (2*this.x + this.getImgWidth())/2) < this.getImgWidth()*4)
-				&& (Math.abs(this.game.getPlayer().getY() - (2*this.y + this.getImgHeight())/2) < this.getImgHeight()*4);
-		return result;
+		if(this.game != null){
+			boolean result = (Math.abs(this.game.getPlayer().getX() - (2*this.x + this.getImgWidth())/2) < this.getImgWidth()*4)
+					&& (Math.abs(this.game.getPlayer().getY() - (2*this.y + this.getImgHeight())/2) < this.getImgHeight()*4);
+			return result;
+		}
+			return false;
 	}
 	
 

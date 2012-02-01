@@ -24,8 +24,10 @@ public class Game {
 		this.gameStates = gameStates;
 		this.order = order;
 		next = 0;
-		if(gameStates != null  && gameStates.size() > 0){
-			actualState = gameStates.get(next);
+		if(next < order.size()){
+			if(gameStates != null  && gameStates.size() > 0){
+				actualState = gameStates.get(order.get(next));
+			}
 		}
 		stateChangedLastStep = false;
 	}
