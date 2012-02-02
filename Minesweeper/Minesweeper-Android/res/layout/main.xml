@@ -18,6 +18,20 @@
 			android:contentDescription="@string/new_game_label"
 		/>
 		<Button
+			android:id="@+id/settings_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/settings_label"
+			android:contentDescription="@string/settings_label"
+		/>
+		<Button
+			android:id="@+id/keyConf_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/keyConf_label"
+			android:contentDescription="@string/keyConf_label"
+		/>
+		<Button
 			android:id="@+id/instructions_button"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"

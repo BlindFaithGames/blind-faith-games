@@ -70,7 +70,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		this.buttonsUpdate();
 
 		// Initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(GameActivity.KEY_TTS);
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
 				+ buttonZoom.getContentDescription() + " "
@@ -119,7 +119,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 
 	public void onClick(View view) {
 		Intent intent = new Intent(this, CheckKeyActivity.class);
-		intent.putExtra(GameActivity.KEY_TTS, textToSpeech);
+		intent.putExtra(MinesweeperActivity.KEY_TTS, textToSpeech);
 		switch (view.getId()) {
 		case R.id.buttonZoom:
 			action = "zoom";

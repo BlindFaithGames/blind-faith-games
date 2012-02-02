@@ -27,7 +27,7 @@ public class AboutActivity extends Activity{
 		setContentView(R.layout.about);	
 		
 		// Initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(GameActivity.KEY_TTS);
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.about_title) + " " + getString(R.string.about_text));
 	

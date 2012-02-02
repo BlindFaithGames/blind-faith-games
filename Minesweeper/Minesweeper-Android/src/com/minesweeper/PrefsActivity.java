@@ -47,7 +47,7 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 		contextCell.setOnPreferenceClickListener(this);
 		
 		// Initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(GameActivity.KEY_TTS);
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.settings_menu_initial_TTStext));
 	

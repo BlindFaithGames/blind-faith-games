@@ -16,16 +16,17 @@ import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.Log;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
 
-public class Minesweeper extends Activity implements OnFocusChangeListener {
+public class Minesweeper extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
 
 	private static final String TAG = "Minesweeper";
 
@@ -33,7 +34,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	public static final int DIFFICULTY_MEDIUM = 1;
 	public static final int DIFFICULTY_HARD = 2;
 
-	private AlertDialog loseDialog,winDialog ;
+	private Dialog loseDialog,winDialog ;
 
 	public static final int SPEECH_READ_CODE = 0;
 	public static final int VIEW_READ_CODE = 1;
@@ -47,6 +48,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	private TTS textToSpeech;
 	
 	private boolean flagMode;
+
+	private View focusedView;
 	
 	/* Game states */
 	public enum FINAL_STATE {
@@ -68,7 +71,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-		int difficulty = getIntent().getIntExtra(GameActivity.KEY_DIFFICULTY, DIFFICULTY_EASY);
+		int difficulty = getIntent().getIntExtra(MinesweeperActivity.KEY_DIFFICULTY, DIFFICULTY_EASY);
 		
 		// Start game
 		mineField = new Board(difficulty);
@@ -88,10 +91,11 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 			minesweeperView.requestFocus();
 			
 			buildWinDialog();
+			
 			buildEndingDialog();	
 		
 			// Initialize TTS engine
-			textToSpeech = (TTS) getIntent().getParcelableExtra(GameActivity.KEY_TTS);
+			textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 			textToSpeech.setContext(this);
 			textToSpeech.setInitialSpeech(this.getString(R.string.game_initial_TTStext));
 		} catch (FileNotFoundException e) {
@@ -108,6 +112,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	public void onFocusChange(View v, boolean hasFocus) {
 		if(hasFocus){
 			mTtsAction(VIEW_READ_CODE,v);	
+			focusedView = v;
 		}
 	}
 	
@@ -116,12 +121,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	 * */
 	public void showLoseDialog() {
 		loseDialog.show();
-		Button buttonPositive = loseDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-		buttonPositive.setContentDescription(getString(R.string.LosePositiveButtonLabel));
-		buttonPositive.setOnFocusChangeListener(this);
-		Button buttonNegative = loseDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-		buttonNegative.setContentDescription(getString(R.string.LoseNegativeButtonLabel));
-		buttonNegative.setOnFocusChangeListener(this);
 		mTtsAction(SPEECH_READ_CODE, "AlerDialog: A mine!! " 
 											+ getString(R.string.LoseDialogTitle) + " "
 											+ getString(R.string.LosePositiveButtonLabel) + " "
@@ -135,9 +134,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	 * */
 	public void showWinDialog() {
 		winDialog.show();
-		Button buttonPositive = winDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-		buttonPositive.setContentDescription(getString(R.string.WinPositiveButtonLabel));
-		buttonPositive.setOnFocusChangeListener(this);
 		mTtsAction(SPEECH_READ_CODE, "AlerDialog " 
 								+ getString(R.string.WinDialogTitle) 
 								+ getString(R.string.WinDialogMessage)  
@@ -170,41 +166,35 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	 * Builds the dialog shown at the end of the game, when the result is positive
 	 */
 	private void buildWinDialog() {
-		winDialog = new AlertDialog.Builder(this)
-				.setTitle(R.string.WinDialogTitle)
-				.setMessage(R.string.WinDialogMessage)
-				.setIcon(R.drawable.win)
-				.setPositiveButton(R.string.WinPositiveButtonLabel,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								setResult(GameActivity.EXIT_GAME_CODE);
-								Minesweeper.this.finish();
-							}
-						}).create();
+		Button b;
+		
+		winDialog = new Dialog(this);
+		winDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		winDialog.setContentView(R.layout.win_dialog);
+		
+		b = (Button) winDialog.findViewById(R.id.win_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
 	}
 
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is negative
 	 */
 	private void buildEndingDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(R.string.LoseDialogTitle)
-				.setCancelable(false)
-				.setPositiveButton(R.string.LosePositiveButtonLabel,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								setResult(GameActivity.RESET_CODE);
-								Minesweeper.this.finish();
-							}
-						})
-				.setNegativeButton(R.string.LoseNegativeButtonLabel,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								setResult(GameActivity.EXIT_GAME_CODE);
-								Minesweeper.this.finish();
-							}
-						});
-		loseDialog = builder.create();
+		Button b;
+		loseDialog = new Dialog(this);
+		loseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		loseDialog.setContentView(R.layout.lose_dialog);
+		
+		b = (Button) loseDialog.findViewById(R.id.reset_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b = (Button) loseDialog.findViewById(R.id.back_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
 	}
 	
 	private void expandCell(int row, int col) {
@@ -359,6 +349,37 @@ public class Minesweeper extends Activity implements OnFocusChangeListener {
 	protected void onDestroy() {
 		super.onDestroy();
         textToSpeech.stop();
+	}
+
+	@Override
+	public void onClick(View v) {
+		if(focusedView != null){
+			if(focusedView.getId() == v.getId())
+				menuAction(v);
+			else
+				textToSpeech.speak(v);
+		}
+		else
+			textToSpeech.speak(v);
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		menuAction(v);
+		return true;
+	}
+
+	private void menuAction(View v) {
+		switch (v.getId()) {
+			case R.id.win_button:
+			case R.id.back_button:
+				setResult(MinesweeperActivity.EXIT_GAME_CODE);
+				break;
+			case R.id.reset_button:
+				setResult(MinesweeperActivity.RESET_CODE);
+				break;					
+		}
+		Minesweeper.this.finish();
 	}
 	
 }

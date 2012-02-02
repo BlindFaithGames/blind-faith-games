@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp" android:gravity="center_horizontal">
+ 
+	<TextView android:id="@+id/TextView01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/game_dialog_select"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:contentDescription="@string/game_dialog_select"/>
+			
+	<Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/easy_button"
+			android:layout_below="@+id/TextView01"
+			android:text="@string/easy_label"
+			android:contentDescription="@string/easy_label" 
+			android:layout_alignRight="@+id/TextView01" android:layout_alignLeft="@+id/TextView01"/>
+	<Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/medium_button"
+			android:layout_below="@+id/easy_button"
+			android:text="@string/medium_label"
+			android:contentDescription="@string/medium_label" 
+			android:layout_alignLeft="@+id/easy_button" android:layout_alignRight="@+id/TextView01"/>
+	<Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/hard_button"
+			android:layout_below="@+id/medium_button"
+			android:text="@string/hard_label"
+			android:contentDescription="@string/hard_label" 
+			android:layout_alignLeft="@+id/medium_button" 
+			android:layout_alignRight="@+id/medium_button" />
+
+</RelativeLayout>

@@ -126,7 +126,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		instructionsDialog.setContentView(R.layout.custom_dialog);
-		instructionsDialog.setTitle("hola");
 		
 		text = (TextView) instructionsDialog.findViewById(R.id.TextView01);
 		text.setTextSize(fontSize);
@@ -184,7 +183,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		return true;
 	}
 	
-
 	private void menuAction(View v) {
 		Intent i;
 		switch (v.getId()) {

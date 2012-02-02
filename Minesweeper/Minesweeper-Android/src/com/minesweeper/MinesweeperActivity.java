@@ -16,12 +16,17 @@
 package com.minesweeper;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -34,30 +39,25 @@ import org.example.others.Entry;
 import org.example.others.Log;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.view.WindowManager;
+import android.widget.Button;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -68,11 +68,10 @@ import com.minesweeper.shared.EntryProxy;
 import com.minesweeper.shared.LogProxy;
 
 /**
- * Main activity - requests "Hello, World" messages from the server and provides
+ * Main activity - messages from the server and provides
  * a menu item to invoke the accounts activity.
  */
-public class MinesweeperActivity extends Activity implements OnClickListener,
-		OnFocusChangeListener {
+public class MinesweeperActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener {
 	/**
 	 * Tag for logging.
 	 */
@@ -82,12 +81,18 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 
 	public static final String KEY_TTS = "org.example.game.TTS";
 	public static final String KEY_DIFFICULTY = "org.example.game.difficulty";
+	private static final String FILE_NAME_ID = ".info";
 
 	private int difficult;
 	private TTS textToSpeech;
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
 
+	private Dialog dialog;
+	private Dialog instructionsDialog;
+	
+	private View focusedView;
+	
 	// To know if the user has started a game or not
 	private boolean gamed = false;
 
@@ -96,6 +101,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 	// Screen size
 	private int width;
 	private int height;
+	
+	// User id
+	private UUID id;
 
 	/**
 	 * The current context.
@@ -137,6 +145,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 		}
 	};
 
+	
+
 	/**
 	 * Begins the activity.
 	 */
@@ -144,6 +154,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		checkId();
+		
+		createGameDialog();
+		
+		createInstructionsDialog();
+		
 		// Register a receiver to provide register/unregister notifications
 		registerReceiver(mUpdateUIReceiver, new IntentFilter(
 				Util.UPDATE_UI_INTENT));
@@ -153,16 +169,58 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 		setScreenContent(R.layout.main);
 	}
 
+	private void checkId() {
+		id = null;
+		FileInputStream fis;
+		try { 
+			fis = this.openFileInput(MinesweeperActivity.FILE_NAME_ID);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Object f = ois.readObject();
+			id = (UUID) f;
+			fis.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		if(id == null){
+			id = UUID.randomUUID();
+			save(id);
+		}
+	}
+	
+	private void save(UUID id) {
+		FileOutputStream fos;
+		try { 
+			fos = this.openFileOutput(MinesweeperActivity.FILE_NAME_ID, Context.MODE_PRIVATE);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(id); 
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
 
-		SharedPreferences prefs = Util.getSharedPreferences(mContext);
-		String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
-				Util.DISCONNECTED);
-		if (Util.DISCONNECTED.equals(connectionStatus)) {
-			startActivity(new Intent(this, AccountsActivity.class));
-		}
+    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    	NetworkInfo nInfo = cm.getActiveNetworkInfo();
+    	if(nInfo != null){
+    		if(nInfo.isConnected()){
+    			SharedPreferences prefs = Util.getSharedPreferences(mContext);
+				String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
+						Util.DISCONNECTED);
+				if (Util.DISCONNECTED.equals(connectionStatus)) {
+					startActivity(new Intent(this, AccountsActivity.class));
+				}
+    		}
+    	}
 
 		Music.play(this, R.raw.main);
 
@@ -190,17 +248,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 		super.onPause();
 		Music.stop(this);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-
-		return true;
-	}
-
 	// Manage UI Screens
 
 	/**
@@ -224,24 +271,39 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 		View newButton = findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
+		newButton.setOnLongClickListener(this);
+		View settingsButton = findViewById(R.id.settings_button);
+		settingsButton.setOnClickListener(this);
+		settingsButton.setOnFocusChangeListener(this);
+		settingsButton.setOnLongClickListener(this);
+		View keyConfButton = findViewById(R.id.keyConf_button);
+		keyConfButton.setOnClickListener(this);
+		keyConfButton.setOnFocusChangeListener(this);
+		keyConfButton.setOnLongClickListener(this);
 		View aboutButton = findViewById(R.id.about_button);
 		aboutButton.setOnClickListener(this);
 		aboutButton.setOnFocusChangeListener(this);
+		aboutButton.setOnLongClickListener(this);
 		View instructionsButton = findViewById(R.id.instructions_button);
 		instructionsButton.setOnClickListener(this);
 		instructionsButton.setOnFocusChangeListener(this);
+		instructionsButton.setOnLongClickListener(this);
 		View formButton = findViewById(R.id.form_button);
 		formButton.setOnClickListener(this);
 		formButton.setOnFocusChangeListener(this);
+		formButton.setOnLongClickListener(this);
 		View exitButton = findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
+		exitButton.setOnLongClickListener(this);
 
 		checkFolderApp("minesweeper.xml");
 
 		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, "Main Menu minesweeper "
+		textToSpeech = new TTS(this,  getString(R.string.intro_main_menu)
 				+ newButton.getContentDescription() + " "
+				+ settingsButton.getContentDescription() + " "
+				+ keyConfButton.getContentDescription() +  " "
 				+ instructionsButton.getContentDescription() + " "
 				+ aboutButton.getContentDescription() + " "
 				+ formButton.getContentDescription() + " "
@@ -255,11 +317,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 		height = display.getHeight();
 
 		Log.getLog().setTag("Minesweeper");
-		// Log.getLog().addEntry(MinesweeperActivity.TAG,PrefsActivity.configurationToString(this),
-		// Log.DEVICE,Thread.currentThread().getStackTrace()[2].getMethodName(),
-		// Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
-		// + " " + Build.BRAND + " " + Build.HARDWARE + " " + width + " " +
-		// height);
+		// Device information
+		Log.getLog().addEntry(
+				MinesweeperActivity.TAG,
+				PrefsActivity.configurationToString(this),
+				Log.DEVICE,
+				Thread.currentThread().getStackTrace()[2].getMethodName(),
+				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
+						+ " " + Build.BRAND + " " + Build.HARDWARE + " "
+						+ width + " " + height + " " + id);
 	}
 
 	/**
@@ -290,12 +356,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 			}
 		}
 	}
+	
+	@Override
+	public boolean onLongClick(View v) {
+		menuAction(v);
+		return true;
+	}
 
-	/**
-	 * onClick manager
-	 */
-	public void onClick(View arg0) {
-		switch (arg0.getId()) {
+	private void menuAction(View v) {
+		switch (v.getId()) {
 		case R.id.about_button:
 			Intent i = new Intent(this, AboutActivity.class);
 			i.putExtra(KEY_TTS, textToSpeech);
@@ -311,22 +380,37 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 			openInstructionsDialog();
 			break;
 		case R.id.new_button:
-			// Device information
-			Log.getLog().addEntry(
-					MinesweeperActivity.TAG,
-					PrefsActivity.configurationToString(this),
-					Log.DEVICE,
-					Thread.currentThread().getStackTrace()[2].getMethodName(),
-					Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
-							+ " " + Build.BRAND + " " + Build.HARDWARE + " "
-							+ width + " " + height);
-			
 			openNewGameDialog();
 			break;
 		case R.id.form_button:
 			i = new Intent(this, FormActivity.class);
 			i.putExtra(KEY_TTS, textToSpeech);
 			startActivity(i);
+			break;
+		case R.id.settings_button:
+			i = new Intent(this, PrefsActivity.class);
+			i.putExtra(KEY_TTS, textToSpeech);
+			startActivity(i);
+			break;
+		case R.id.keyConf_button:
+			i = new Intent(this, KeyConfActivity.class);
+			i.putExtra(KEY_TTS, textToSpeech);
+			startActivity(i);
+			break;
+		case R.id.easy_button:
+			startGame(0);
+			break;
+		case R.id.medium_button:
+			startGame(1);
+			break;
+		case R.id.hard_button:
+			startGame(2);
+			break;
+		case R.id.controls_button: // controls
+			startInstructions(0);
+			break;
+		case R.id.instructions_general_button: // instructions
+			startInstructions(1);
 			break;
 		case R.id.exit_button:
 			// Si ya ha jugado una partida y sale, no aporta ninguna información
@@ -342,6 +426,59 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 			finish();
 			break;
 		}
+		dialog.dismiss();
+	}
+	
+	private void createGameDialog() {
+		Button b;
+		
+		dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.game_dialog);
+		
+		b = (Button) dialog.findViewById(R.id.easy_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b = (Button) dialog.findViewById(R.id.medium_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b = (Button) dialog.findViewById(R.id.hard_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+	}
+	
+	private void createInstructionsDialog() {
+		Button b;
+		
+		instructionsDialog = new Dialog(this);
+		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		instructionsDialog.setContentView(R.layout.instructions_dialog);
+		
+		b = (Button) instructionsDialog.findViewById(R.id.controls_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b = (Button) instructionsDialog.findViewById(R.id.instructions_general_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+	}
+
+	/**
+	 * onClick manager
+	 */
+	public void onClick(View v) {
+		if(focusedView != null){
+			if(focusedView.getId() == v.getId())
+				menuAction(v);
+			else
+				textToSpeech.speak(v);
+		}
+		else
+			textToSpeech.speak(v);
 	}
 
 	/**
@@ -350,36 +487,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 	public void onFocusChange(View v, boolean hasFocus) {
 		if (hasFocus) {
 			textToSpeech.speak(v);
+			focusedView = v;
 		}
 	}
 
 	/** Ask the user what difficulty level want */
 	private void openNewGameDialog() {
-		Builder newGameAlertDialogBuilder = new AlertDialog.Builder(this)
-				.setTitle(R.string.new_game_title).setItems(R.array.difficulty,
-						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialoginterface, int i) {
-								startGame(i);
-							}
-						});
-		AlertDialog newGameAlertDialog = newGameAlertDialogBuilder.create();
-		newGameAlertDialog.show();
-		ListView l = newGameAlertDialog.getListView();
-		l.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View view,
-					int position, long id) {
-				TextView option = (TextView) view;
-				textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-				textToSpeech.speak((String) option.getText());
-				textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-
-			}
-		});
-
+		dialog.show();
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_difficulty_TTStext)
 				+ " "
@@ -392,39 +506,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 
 	/** Ask the user what type of instructions */
 	private void openInstructionsDialog() {
-		Builder instructionsAlertDialogBuilder = new AlertDialog.Builder(this)
-				.setTitle(R.string.instructions_title).setItems(
-						R.array.instructions,
-						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialoginterface, int i) {
-								startInstructions(i);
-							}
-						});
-		AlertDialog instructionsAlertDialog = instructionsAlertDialogBuilder
-				.create();
-		instructionsAlertDialog.show();
-		ListView l = instructionsAlertDialog.getListView();
-
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_instructions_TTStext)
 				+ this.getString(R.string.instructions_general_label)
 				+ " "
 				+ this.getString(R.string.instructions_controls_label));
-
-		l.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View view,
-					int position, long id) {
-				TextView option = (TextView) view;
-				textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-				textToSpeech.speak((String) option.getText());
-				textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-
-			}
-		});
+		
+		instructionsDialog.show();
 	}
 
 	/** Start a new game with the given difficulty level */
@@ -455,13 +543,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		Intent nextIntent;
 		switch (resultCode) {
 		case (RESET_CODE):
-			Intent nextIntent = new Intent(getApplicationContext(),
-					Minesweeper.class);
+			sendLog();
+			nextIntent = new Intent(getApplicationContext(), Minesweeper.class);
 			nextIntent.putExtra(KEY_TTS, textToSpeech);
 			nextIntent.putExtra(KEY_DIFFICULTY, difficult);
-			sendLog();
 			startActivityForResult(nextIntent, RESET_CODE);
 			break;
 		case (EXIT_GAME_CODE):
@@ -474,10 +562,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 			break;
 		}
 	}
-
+	
 	private synchronized void sendLog() {
 		// Use an AsyncTask to avoid blocking the UI thread
-		task = new AsyncTask<Void, Void, String>() {
+		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
 			private String message;
 
 			@Override
@@ -519,6 +607,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
         }.execute();
         synchronized (Log.getLog()){
 			try {
+				textToSpeech.speak(this.getString(R.string.load_text));
 				Log.getLog().wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -527,8 +616,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 	}
 
 	private List<Long> sendEntries() {
-		MyRequestFactory factory = (MyRequestFactory) Util.getRequestFactory(
-				mContext, MyRequestFactory.class);
+		MyRequestFactory factory = (MyRequestFactory) Util.getRequestFactory(mContext, MyRequestFactory.class);
 		EntryRequest request;
 
 		Set<Integer> entries = Log.getLog().getEntryKeys();
@@ -557,42 +645,5 @@ public class MinesweeperActivity extends Activity implements OnClickListener,
 			result.add(n);
 		}
 		return result;
-	}
-
-	public boolean onMenuOpened(int featureId, Menu menu) {
-		textToSpeech.speak(this
-				.getString(R.string.accounts_menu_initial_TTStext));
-		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		textToSpeech.speak(this
-				.getString(R.string.settings_menu_initial_TTStext));
-		textToSpeech.speak(this
-				.getString(R.string.key_configuration_menu_initial_TTStext));
-		textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-		return true;
-	}
-
-	/**
-	 * Manages what to do depending on the selected item
-	 */
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent i;
-		switch (item.getItemId()) {
-		case R.id.settings:
-			i = new Intent(this, PrefsActivity.class);
-			i.putExtra(KEY_TTS, textToSpeech);
-			startActivity(i);
-			return true;
-		case R.id.keyConf:
-			i = new Intent(this, KeyConfActivity.class);
-			i.putExtra(KEY_TTS, textToSpeech);
-			startActivity(i);
-			return true;
-		case R.id.account:
-			i = new Intent(this, AccountsActivity.class);
-			i.putExtra(KEY_TTS, textToSpeech);
-			startActivity(i);
-			return true;
-		}
-		return false;
 	}
 }

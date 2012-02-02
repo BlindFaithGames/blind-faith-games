@@ -29,7 +29,7 @@ public class CheckKeyActivity extends Activity implements OnKeyListener{
 		editText = (EditText) findViewById(R.id.entry);
 		editText.setOnKeyListener(this);
 		// Initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(GameActivity.KEY_TTS);
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.keydialog) + " " + getString(R.string.keydialog_text));
 	}

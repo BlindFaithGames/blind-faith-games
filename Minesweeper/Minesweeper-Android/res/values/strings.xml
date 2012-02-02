@@ -40,12 +40,6 @@
     <!-- Footer text for "Disconnect" screen [CHAR LIMIT=NONE] -->
     <string name="do_you_want_to_disconnect">Do you want to disconnect?</string>
 
-    <!-- Initial "hello, world" informational message [CHAR LIMIT=NONE] -->
-    <string name="hello_world_info_text">Demo App Engine sobre Logs</string>
-
-    <!-- Initial "hello, world" response message [CHAR LIMIT=NONE] -->
-    <string name="hello_world_text"></string>
-
     <!-- Dialog message text [CHAR LIMIT=NONE] -->
     <string name="needs_account">To receive notifications from this app, you must first create an account.</string>
 
@@ -67,6 +61,8 @@
     <!-- Notification message [CHAR LIMIT=NONE] -->
     <string name="unregistration_succeeded">Unegistered %1$s for C2DM messaging.</string>
     <string name="find">Find</string>
+    <string name="intro_main_menu">Main Menu minesweeper, to interact you can do a touch on the screen to know a button,
+    							 and a long touch to select one of the next options</string>
     <string name="create">Create new log</string>
     <string name="introMessage">Welcome, select a difficulty</string>
     <string name="buttonMessage">Go!</string>
@@ -143,7 +139,7 @@
     <string name="LoseNegativeButtonLabel">Back to the main menu</string>
     <string name="WinPositiveButtonLabel">Ok</string>
     <string name="LoseDialogTitle">Game Over</string>
-    <string name="WinDialogTitle">CONGRATULATIONS</string>
+    <string name="WinDialogTitle">CONGRATULATIONS!!</string>
     <string name="WinDialogMessage">"This time you win!"</string>
     <string name="tts_title">Default TTS</string>
     <string name="tts_summary">Enables voice synthetizer</string>
@@ -207,5 +203,8 @@
     <string name="five_context">5</string>
     <string name="next_context">Next</string>
     <string name="finish_context">Finish</string>
+  	<string name="load_text">Sending information... Please wait</string>
+  	<string name="instructions_dialog_select">Select controls or general instructions</string>
+  	<string name="game_dialog_select">Select difficulty</string>
 
 </resources>

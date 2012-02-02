@@ -9,27 +9,23 @@
 	<TextView android:id="@+id/TextView01"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/dialog_select"/>
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/instructions_dialog_select"/>
 			
     <Button android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:id="@+id/Button01main"
+			android:id="@+id/controls_button"
 			android:layout_below="@+id/TextView01"
 			android:text="@string/instructions_controls_label"
-			android:contentDescription="@string/instructions_controls_label" android:layout_alignLeft="@+id/TextView01" 
-			android:layout_alignRight="@+id/TextView01"
-			android:textColor="@color/button"
-			android:background="@drawable/background_button" />
+			android:contentDescription="@string/instructions_controls_label" android:layout_alignLeft="@+id/TextView01" android:layout_alignRight="@+id/TextView01"/>
 			
 	<Button android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:id="@+id/Button02main"
-			android:layout_below="@+id/Button01main"
+			android:id="@+id/instructions_general_button"
+			android:layout_below="@+id/controls_button"
 			android:text="@string/instructions_general_label"
 			android:contentDescription="@string/instructions_general_label" 
-			android:layout_alignRight="@+id/Button01main" 
-			android:layout_alignLeft="@+id/Button01main"
-			android:textColor="@color/button"
-			android:background="@drawable/background_button"/>
+			android:layout_alignRight="@+id/controls_button" 
+			android:layout_alignLeft="@+id/controls_button"/>
 
 </RelativeLayout>

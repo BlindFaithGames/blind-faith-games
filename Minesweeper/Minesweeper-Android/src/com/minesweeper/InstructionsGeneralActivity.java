@@ -20,7 +20,7 @@ public class InstructionsGeneralActivity extends Activity{
 		setContentView(R.layout.instructions_general);
 		
 		// This initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(GameActivity.KEY_TTS);
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.instructions_general_title) + " " + getString(R.string.instructions_general_text));
 		
