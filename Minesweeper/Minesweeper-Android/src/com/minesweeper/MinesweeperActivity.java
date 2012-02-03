@@ -609,11 +609,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	}
 	
 	private synchronized void sendLog() {
-		SharedPreferences prefs = Util.getSharedPreferences(mContext);
-		String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
-				Util.CONNECTED);
-		if (Util.CONNECTED.equals(connectionStatus)) {
-				// Use an AsyncTask to avoid blocking the UI thread
+    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    	NetworkInfo nInfo = cm.getActiveNetworkInfo();
+    	if(nInfo != null){
+    		if(nInfo.isConnected()){
 				AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
 					private String message;
 	
@@ -662,8 +661,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 						e.printStackTrace();
 					}
 		        }
-		}
-	
+    		}
+    	}	
 	}
 
 	private List<Long> sendEntries() {

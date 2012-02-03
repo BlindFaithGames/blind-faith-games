@@ -366,6 +366,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	@Override
 	protected void onPause() {
 		super.onPause();
+		loseDialog.dismiss();
+		winDialog.dismiss();
 		Music.stop(this);
 	}
 

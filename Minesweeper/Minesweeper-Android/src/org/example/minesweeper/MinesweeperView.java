@@ -375,7 +375,7 @@ public class MinesweeperView extends View {
 	 * 
 	 * */
 	private void drawSelection(Canvas canvas) {
-		brush.setColor(getResources().getColor(R.color.orange1));
+		brush.setColor(getResources().getColor(R.color.transparent_orange1));
 		canvas.drawRect(selRect, brush);
 	}
 
