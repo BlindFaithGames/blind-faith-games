@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	    <!-- Colors text -->
-	<color name="text_button_color">#FF6633</color>
-	<color name="text_button_color_pressed">#FF3300</color>
-	<color name="text_button_color_focused">#FF3300</color>
+	<color name="text_button_color">#339933</color>
+	<color name="text_button_color_pressed">#339933</color>
+	<color name="text_button_color_focused">#33FF00</color>
 	
 	<!-- Colors Button -->
 	<color name="button_color">#ffff0000</color>
@@ -20,12 +20,5 @@
     <color name="green2">#339933</color>
     <color name="green3">#003300</color>
     
-    <color name="transparent_orange1">#64ff8000</color>
-    
-    <color name="orange1">#FF6633</color>
-    <color name="orange2">#FF3300</color>
-    <color name="orange3">#993300</color>
-    
-    <color name="grey1">#CCCCFF</color>
-   
+    <color name="orange1">#64ff8000</color>
 </resources>

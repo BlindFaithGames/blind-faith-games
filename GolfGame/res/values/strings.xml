@@ -90,4 +90,6 @@
 	<string name="alertOutsideShotArea">You are outside of the shot area</string>
 	<string name="ranking_title">Previous games ranking</string>
 	<string name="ranking_speech">time, date and record</string>
+	 <string name="instructions_dialog_select">Select controls or instructions</string>
+  	<string name="game_dialog_select">Select difficulty</string>
 </resources>

@@ -5,7 +5,6 @@ import java.util.List;
 import org.example.R;
 import org.example.activities.SettingsActivity;
 import org.example.others.RuntimeConfig;
-import org.example.tinyEngineClasses.CustomBitmap;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
@@ -17,7 +16,6 @@ import org.example.tinyEngineClasses.SoundConfig.Distance;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -40,7 +38,7 @@ public class Dot extends Entity{
 	private static final int alternative_doppler_sound = R.raw.storm;
 	private static final int originX = GolfGame.SCREEN_WIDTH/2;
 	private static final int originY = GolfGame.SCREEN_HEIGHT - GolfGame.SCREEN_HEIGHT/3;
-	private static final int MAX_SHOTS_FAILED = 4;
+	private static final int MAX_SHOTS_FAILED = 1;
 	private boolean launched;
 	
 	private float incr;
@@ -77,7 +75,7 @@ public class Dot extends Entity{
 	 * 
 	 * */
 	public Dot(int x, int y, int record, Bitmap img, Game game, List<Mask> mask, Point targetPos, Context context) {
-		super(x, y, img, game, mask, true, 5);
+		super(x, y, img, game, mask, false, 5);
 		soundConfig =  new SoundConfig(context, game);
 		launched = false;
 		param = 0;
@@ -96,9 +94,7 @@ public class Dot extends Entity{
 		
 		this.targetPos = targetPos;
 		
-		Bitmap scoreBoardImg = BitmapFactory.decodeResource(this.game.getView().getResources(), R.drawable.scoreboard);
-		scoreBoardImg = CustomBitmap.getResizedBitmap(scoreBoardImg, scoreBoardImg.getWidth()*2, scoreBoardImg.getHeight()*2);
-		scoreBoard = new ScoreBoard(0,500,record,scoreBoardImg, game, null, false, 0);
+		scoreBoard = new ScoreBoard(0,2*Game.SCREEN_HEIGHT/3,record,null, game, null, false, 0);
 		this.game.addEntity(scoreBoard);
 		
 		Music.getInstanceMusic().play(this.game.getContext(),previous_shot_feedback_sound,true);
@@ -217,7 +213,7 @@ public class Dot extends Entity{
 			Paint brush = new Paint();
 			brush.setColor(Color.BLACK);
 			brush.setStrokeWidth(3);
-			canvas.drawLine(dotCenterX, dotCenterY, targetPos.x, 0, brush);
+			canvas.drawLine(dotCenterX, dotCenterY, targetPos.x, targetPos.y, brush);
 			canvas.drawLine(scrollX, scrollY, dotCenterX, dotCenterY, brush);
 		}
 	}
@@ -241,7 +237,7 @@ public class Dot extends Entity{
 					this.playAnim();
 					shotEvent = e;
 					param = 0.5f;
-					incr = 0.05f;
+					incr = 0.03f;
 					initialX = this.x;
 					initialY = this.y;
 					Music.getInstanceMusic().play(this.game.getContext(), hit_feedback_sound,false);
@@ -287,7 +283,7 @@ public class Dot extends Entity{
 					this.playAnim();
 					shotEvent = eu;
 					param = 0.5f;
-					incr = 0.05f;
+					incr = 0.03f;
 					initialX = this.x;
 					initialY = this.y;
 					Music.getInstanceMusic().play(this.game.getContext(), hit_feedback_sound,false);
@@ -323,7 +319,7 @@ public class Dot extends Entity{
 				// if we win it creates a new Target
 				Target t = (Target) e;
 				targetPos = t.changePosition();
-				
+		
 				// increments scoreboard
 				if(game.isStageMode())
 					scoreBoard.incrementCounter(25);
@@ -350,7 +346,6 @@ public class Dot extends Entity{
 		if(!headPhonesMode){
 			Music.getInstanceMusic().play(this.game.getContext(),alternative_previous_shot_feedback_sound,true);
 			Music.getInstanceMusic().setVolume(0, 0, alternative_previous_shot_feedback_sound);
-			Music.getInstanceMusic().stop(this.game.getContext(), alternative_doppler_sound);
 			Music.getInstanceMusic().stop(this.game.getContext(), alternative_doppler_sound);
 		}
 

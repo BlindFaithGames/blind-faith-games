@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.example.R;
 import org.example.activities.MainActivity;
+import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
@@ -19,6 +20,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 
 public class ScoreBoard extends Entity {
 
@@ -27,24 +30,47 @@ public class ScoreBoard extends Entity {
 	private int counter;
 	private int record;
 	
+	private static float fontSize;
+	private static float scale;
+	private static Typeface font;
+	private Paint brush;
+	
 	public ScoreBoard(int x, int y, int record,Bitmap img, Game game, List<Mask> mask,
 			boolean animated, int frameCount) {
 		super(x, y, img, game, mask, animated, frameCount);
 		counter = 0;
 		this.game = (GolfGame) game;
 		this.record = record;
+		
+		font = Typeface.createFromAsset(this.game.getContext().getAssets(), RuntimeConfig.FONT_PATH);  
+		scale = this.game.getContext().getResources().getDisplayMetrics().density;
+		fontSize =  (this.game.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
+		
+		
+		brush = new Paint();
+		
+		brush.setTextSize(fontSize);
+		brush.setTypeface(font);
 	}
 
 	@Override
 	public void onDraw(Canvas canvas){
 		super.onDraw(canvas);
-		Paint brush = new Paint();
-		brush.setColor(Color.BLUE);
-		brush.setTextSize(30);
-		canvas.drawText(Integer.toString(counter), this.x + getImgWidth()/3, this.y + getImgHeight()/3 + 30,brush);
-		if(record >= 0){
-			brush.setColor(Color.RED);
-			canvas.drawText(Integer.toString(record), this.x + getImgWidth()/3, this.y + getImgHeight()/3,brush);
+		brush.setARGB(255, 51, 51, 51);
+		canvas.drawRect(new Rect(this.x ,(int) (this.y) , (int) (this.x + (int) 2 * fontSize), (int) (this.y + fontSize * 2.3)), brush);
+		
+		if(this.game.isStageMode()){
+			brush.setColor(Color.BLUE);
+			canvas.drawText(Integer.toString(counter), this.x, (float) (this.y + fontSize * 1.5), brush);
+		}
+		else{
+			brush.setColor(Color.BLUE);
+			canvas.drawText(Integer.toString(counter), this.x, this.y + fontSize * 2, brush);
+			
+			if(record >= 0){
+				brush.setColor(Color.RED);
+				canvas.drawText(Integer.toString(record), this.x, this.y + fontSize,brush);
+			}
 		}
 	}
 	

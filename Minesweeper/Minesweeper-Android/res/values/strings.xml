@@ -149,8 +149,8 @@
     <string name="back">Back</string>
     <string name="options">Options</string>
     <string name="search">Search</string>
-    <string name="alert_dialog_difficulty_TTStext">Alert Dialog difficulty</string>
-    <string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
+    <string name="alert_dialog_difficulty_TTStext">Dialog difficulty</string>
+    <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
     <string name="settings_menu_initial_TTStext">menu settings</string>
     <string name=" accounts_menu_initial_TTStext">accounts</string>
@@ -204,7 +204,7 @@
     <string name="next_context">Next</string>
     <string name="finish_context">Finish</string>
   	<string name="load_text">Sending information... Please wait</string>
-  	<string name="instructions_dialog_select">Select controls or general instructions</string>
+  	<string name="instructions_dialog_select">Select controls or instructions</string>
   	<string name="game_dialog_select">Select difficulty</string>
 
 </resources>

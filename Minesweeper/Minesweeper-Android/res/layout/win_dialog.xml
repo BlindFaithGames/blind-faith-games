@@ -6,20 +6,22 @@
               android:layout_height="fill_parent"
               android:padding="10dp" android:gravity="center_horizontal">
  
-	<TextView android:id="@+id/TextView01"
+	<TextView android:id="@+id/win_dialog_textView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/WinDialogTitle"
-			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:contentDescription="@string/WinDialogTitle"/>
 			
 	<Button android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:id="@+id/win_button"
-			android:layout_below="@+id/TextView01"
+			android:layout_below="@+id/win_dialog_textView"
 			android:text="@string/WinPositiveButtonLabel"
 			android:contentDescription="@string/WinPositiveButtonLabel" 
-			android:layout_alignRight="@+id/TextView01" android:layout_alignLeft="@+id/TextView01"/>
+			android:layout_alignRight="@+id/win_dialog_textView" 
+			android:layout_alignLeft="@+id/win_dialog_textView"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" />
 
 
 </RelativeLayout>

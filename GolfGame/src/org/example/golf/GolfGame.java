@@ -113,23 +113,22 @@ public class GolfGame extends Game {
 	private void createEntities(int record) {
 		// Game entities: ball and target
 		// Target
-		Bitmap targetBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.hoyo);
+		Bitmap targetBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.hole);
 		ArrayList<Mask> targetMasks = new ArrayList<Mask>();
 		targetMasks.add(new MaskBox(0,4*targetBitmap.getHeight()/5,4*targetBitmap.getWidth()/5	,targetBitmap.getHeight()/5));	
 		Random positions = new Random();
-		int ancho = SCREEN_WIDTH - targetBitmap.getWidth();
-		int targetX = positions.nextInt(ancho);
-		int targetY = SCREEN_HEIGHT * 5/100;
+		int width = SCREEN_WIDTH - targetBitmap.getWidth();
+		int targetX = positions.nextInt(width);
+		int targetY = SCREEN_HEIGHT/10;
 		this.addEntity(new Target(targetX, targetY, targetBitmap, this, targetMasks));
 		
 		// Ball
-		Bitmap ballBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.pelotagolf2);
+		Bitmap ballBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.golf_ball);
 		ArrayList<Mask> ballMasks = new ArrayList<Mask>();
-		ballMasks.add(new MaskCircle(ballBitmap.getWidth()/(5*2),ballBitmap.getWidth()/(5*2),ballBitmap.getWidth()/(5*2)));     
+		ballMasks.add(new MaskCircle(ballBitmap.getWidth()/2,ballBitmap.getWidth()/2,ballBitmap.getWidth()/2));     
 		this.addEntity(new Dot(SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT
-				/ 3, record, ballBitmap, this, ballMasks, new Point(targetX
-				+ targetBitmap.getWidth() / 2, targetY
-				+ targetBitmap.getHeight()),context));
+				/ 3, record, ballBitmap, this, ballMasks, new Point(targetX + 2*targetBitmap.getWidth()/5, 
+										targetY + 4*targetBitmap.getWidth()/5),context));
 	}
 
 	@Override

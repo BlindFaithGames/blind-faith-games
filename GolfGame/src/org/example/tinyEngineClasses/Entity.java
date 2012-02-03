@@ -22,11 +22,8 @@ public abstract class Entity {
 	private boolean enabled; // habilitada
 	private boolean collidable; // colisiona con otras entidades?
 	private boolean visible; // ¿visible? esto determina si se dibuja o no 
-	private boolean frozen; 
 	private boolean animated;
-	
-    private int[] timers;
-	
+
     private List<Mask> mask; // Mascara para colisiones posiblemente un Rect
     
 	protected Game game;
@@ -41,7 +38,6 @@ public abstract class Entity {
 		enabled = true;
 		collidable = true;
 		visible = true;
-		frozen = false;
 		if(animated){
 			anim = new AnimatedSprite();
 			anim.Initialize(img, img.getHeight(), img.getWidth()/frameCount, frameCount);
@@ -56,8 +52,11 @@ public abstract class Entity {
 	protected  void onDraw(Canvas canvas){
 		if(animated)
 			anim.onDraw((int)x, (int)y,canvas);
-		else
-			canvas.drawBitmap(img, x, y, null);
+		else{
+			if(img != null)
+				canvas.drawBitmap(img, x, y, null);
+		}
+			
 		
 		if(RuntimeConfig.IS_DEBUG_MODE){
 			if(mask != null){

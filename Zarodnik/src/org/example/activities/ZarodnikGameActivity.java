@@ -62,8 +62,8 @@ public class ZarodnikGameActivity extends Activity {
     	order.add(2);
     	order.add(3);
 		ArrayList<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech,this));
 		gameStates.add(new ZarodnikIntro(zarodnikView,textToSpeech,this));
+		gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech,this));
 		gameStates.add(new ZarodnikGameplay(zarodnikView,textToSpeech,this));
 		gameStates.add(new ZarodnikGameOver(zarodnikView,textToSpeech,this));
 		

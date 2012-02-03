@@ -1,6 +1,8 @@
 package org.example.tinyEngineClasses;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -52,5 +54,23 @@ public class Music {
 				sounds.remove(resource);
 		}
 		
+	}
+
+	public void stopAll() {
+		if(sounds != null){
+			Integer n;
+			Set<Integer> keys = sounds.keySet();
+			Iterator<Integer> it = keys.iterator();
+			while(it.hasNext()){
+				n = it.next();
+				MediaPlayer mp = sounds.get(n);
+				if (mp != null) {
+						mp.stop();
+						mp.release();
+						mp = null;
+						sounds.remove(n);
+				}
+			}
+		}
 	}
 }

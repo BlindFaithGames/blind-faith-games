@@ -14,33 +14,23 @@
 			
 	<Button android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:id="@+id/easy_button"
+			android:id="@+id/stage_mode_button"
 			android:layout_below="@+id/game_textView"
-			android:text="@string/easy_label"
-			android:contentDescription="@string/easy_label" 
+			android:text="@string/StageMode"
+			android:contentDescription="@string/StageMode" 
 			android:layout_alignRight="@+id/game_textView" android:layout_alignLeft="@+id/game_textView"
 			android:textColor="@color/button"
 			android:background="@drawable/background_button" />
 			
 	<Button android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:id="@+id/medium_button"
-			android:layout_below="@+id/easy_button"
-			android:text="@string/medium_label"
-			android:contentDescription="@string/medium_label" 
-			android:layout_alignLeft="@+id/easy_button" android:layout_alignRight="@+id/game_textView"
+			android:id="@+id/free_mode_button"
+			android:layout_below="@+id/stage_mode_button"
+			android:text="@string/FreeMode"
+			android:contentDescription="@string/FreeMode" 
+			android:layout_alignLeft="@+id/stage_mode_button" android:layout_alignRight="@+id/game_textView"
 			android:textColor="@color/button"
 			android:background="@drawable/background_button" />
 			
-	<Button android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/hard_button"
-			android:layout_below="@+id/medium_button"
-			android:text="@string/hard_label"
-			android:contentDescription="@string/hard_label" 
-			android:layout_alignLeft="@+id/medium_button" 
-			android:layout_alignRight="@+id/medium_button" 
-			android:textColor="@color/button"
-			android:background="@drawable/background_button" />
 
 </RelativeLayout>

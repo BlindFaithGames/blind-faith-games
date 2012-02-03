@@ -37,6 +37,7 @@ import org.example.minesweeper.XML.KeyboardWriter;
 import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.Entry;
 import org.example.others.Log;
+import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -45,6 +46,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -58,6 +60,7 @@ import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -88,10 +91,14 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
 
-	private Dialog dialog;
+	private Dialog gameDialog;
 	private Dialog instructionsDialog;
 	
 	private View focusedView;
+	
+	private static float fontSize;
+	private static float scale;
+	private static Typeface font;
 	
 	// To know if the user has started a game or not
 	private boolean gamed = false;
@@ -152,13 +159,14 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
+		super.onCreate(savedInstanceState); 
+		
 		checkId();
 		
-		createGameDialog();
+		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
-		createInstructionsDialog();
+		scale = this.getResources().getDisplayMetrics().density;
+		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
 		// Register a receiver to provide register/unregister notifications
 		registerReceiver(mUpdateUIReceiver, new IntentFilter(
@@ -167,6 +175,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setScreenContent(R.layout.main);
+		
+		createGameDialog();
+		
+		createInstructionsDialog();
 	}
 
 	private void checkId() {
@@ -268,34 +280,48 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		keyboard = Input.getInstance();
 		this.fillXMLKeyboard();
 
-		View newButton = findViewById(R.id.new_button);
+		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
 		newButton.setOnLongClickListener(this);
-		View settingsButton = findViewById(R.id.settings_button);
+		newButton.setTextSize(fontSize);
+		newButton.setTypeface(font);	
+		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		settingsButton.setOnClickListener(this);
 		settingsButton.setOnFocusChangeListener(this);
 		settingsButton.setOnLongClickListener(this);
-		View keyConfButton = findViewById(R.id.keyConf_button);
+		settingsButton.setTextSize(fontSize);
+		settingsButton.setTypeface(font);	
+		Button keyConfButton = (Button) findViewById(R.id.keyConf_button);
 		keyConfButton.setOnClickListener(this);
 		keyConfButton.setOnFocusChangeListener(this);
 		keyConfButton.setOnLongClickListener(this);
-		View aboutButton = findViewById(R.id.about_button);
+		keyConfButton.setTextSize(fontSize);
+		keyConfButton.setTypeface(font);	
+		Button aboutButton = (Button) findViewById(R.id.about_button);
 		aboutButton.setOnClickListener(this);
 		aboutButton.setOnFocusChangeListener(this);
 		aboutButton.setOnLongClickListener(this);
-		View instructionsButton = findViewById(R.id.instructions_button);
+		aboutButton.setTextSize(fontSize);
+		aboutButton.setTypeface(font);	
+		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
 		instructionsButton.setOnClickListener(this);
 		instructionsButton.setOnFocusChangeListener(this);
 		instructionsButton.setOnLongClickListener(this);
-		View formButton = findViewById(R.id.form_button);
+		instructionsButton.setTextSize(fontSize);
+		instructionsButton.setTypeface(font);	
+		Button formButton = (Button) findViewById(R.id.form_button);
 		formButton.setOnClickListener(this);
 		formButton.setOnFocusChangeListener(this);
 		formButton.setOnLongClickListener(this);
-		View exitButton = findViewById(R.id.exit_button);
+		formButton.setTextSize(fontSize);
+		formButton.setTypeface(font);	
+		Button exitButton = (Button) findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
 		exitButton.setOnLongClickListener(this);
+		exitButton.setTextSize(fontSize);
+		exitButton.setTypeface(font);	
 
 		checkFolderApp("minesweeper.xml");
 
@@ -399,12 +425,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			break;
 		case R.id.easy_button:
 			startGame(0);
+			gameDialog.dismiss();
 			break;
 		case R.id.medium_button:
 			startGame(1);
+			gameDialog.dismiss();
 			break;
 		case R.id.hard_button:
 			startGame(2);
+			gameDialog.dismiss();
 			break;
 		case R.id.controls_button: // controls
 			startInstructions(0);
@@ -426,45 +455,60 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			finish();
 			break;
 		}
-		dialog.dismiss();
 	}
 	
 	private void createGameDialog() {
-		Button b;
+		Button b; TextView t;
 		
-		dialog = new Dialog(this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.game_dialog);
+		gameDialog = new Dialog(this);
+		gameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		gameDialog.setContentView(R.layout.game_dialog);
 		
-		b = (Button) dialog.findViewById(R.id.easy_button);
+		t = (TextView) gameDialog.findViewById(R.id.game_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);	
+		b = (Button) gameDialog.findViewById(R.id.easy_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
-		b = (Button) dialog.findViewById(R.id.medium_button);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+		b = (Button) gameDialog.findViewById(R.id.medium_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
-		b = (Button) dialog.findViewById(R.id.hard_button);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+		b = (Button) gameDialog.findViewById(R.id.hard_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
 	}
 	
 	private void createInstructionsDialog() {
-		Button b;
+		Button b; TextView t;
 		
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		instructionsDialog.setContentView(R.layout.instructions_dialog);
 		
+		t = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);
 		b = (Button) instructionsDialog.findViewById(R.id.controls_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
 		b = (Button) instructionsDialog.findViewById(R.id.instructions_general_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
 	}
 
 	/**
@@ -493,7 +537,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 	/** Ask the user what difficulty level want */
 	private void openNewGameDialog() {
-		dialog.show();
+		gameDialog.show();
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_difficulty_TTStext)
 				+ " "
@@ -546,6 +590,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Intent nextIntent;
 		switch (resultCode) {
 		case (RESET_CODE):
+	
 			sendLog();
 			nextIntent = new Intent(getApplicationContext(), Minesweeper.class);
 			nextIntent.putExtra(KEY_TTS, textToSpeech);
@@ -564,55 +609,61 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	}
 	
 	private synchronized void sendLog() {
-		// Use an AsyncTask to avoid blocking the UI thread
-		AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-			private String message;
-
-			@Override
-			protected String doInBackground(Void... arg0) {
-				MyRequestFactory factory = (MyRequestFactory) Util
-						.getRequestFactory(mContext, MyRequestFactory.class);
-				LogRequest request = factory.logRequest();
-
-				LogProxy log = request.create(LogProxy.class);
-
-				log.setTag(Log.getLog().getTag());
-				log.setLogEntries(sendEntries());
-				log.setFormAnswers(Log.getLog().getFormAnswers());
-				log.setComment(Log.getLog().getComment());
-
-				request.createLog(log).fire(new Receiver<LogProxy>() {
-                    @Override
-                    public void onFailure(ServerFailure error) {
-                        message = "Failure: " + error.getMessage();
-                        synchronized (Log.getLog()){
-                        	Log.getLog().notify();
-                        }
-                    }
-                    @Override
-                    public void onSuccess(LogProxy l) {
-                        message = "We have received your log succesfully";
-                        synchronized (Log.getLog()){
-                        	Log.getLog().notify();
-                        }
-                    }
-                });
-				return message;
-			}
-
-			@Override
-            protected void onPostExecute(String result) {
-				 Log.getLog().getLogEntries().clear();
-            }
-        }.execute();
-        synchronized (Log.getLog()){
-			try {
-				textToSpeech.speak(this.getString(R.string.load_text));
-				Log.getLog().wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-        }
+		SharedPreferences prefs = Util.getSharedPreferences(mContext);
+		String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
+				Util.CONNECTED);
+		if (Util.CONNECTED.equals(connectionStatus)) {
+				// Use an AsyncTask to avoid blocking the UI thread
+				AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+					private String message;
+	
+					@Override
+					protected String doInBackground(Void... arg0) {
+						MyRequestFactory factory = (MyRequestFactory) Util
+								.getRequestFactory(mContext, MyRequestFactory.class);
+						LogRequest request = factory.logRequest();
+	
+						LogProxy log = request.create(LogProxy.class);
+	
+						log.setTag(Log.getLog().getTag());
+						log.setLogEntries(sendEntries());
+						log.setFormAnswers(Log.getLog().getFormAnswers());
+						log.setComment(Log.getLog().getComment());
+	
+						request.createLog(log).fire(new Receiver<LogProxy>() {
+		                    @Override
+		                    public void onFailure(ServerFailure error) {
+		                        message = "Failure: " + error.getMessage();
+		                        synchronized (Log.getLog()){
+		                        	Log.getLog().notify();
+		                        }
+		                    }
+		                    @Override
+		                    public void onSuccess(LogProxy l) {
+		                        message = "We have received your log succesfully";
+		                        synchronized (Log.getLog()){
+		                        	Log.getLog().notify();
+		                        }
+		                    }
+		                });
+						return message;
+					}
+	
+					@Override
+		            protected void onPostExecute(String result) {
+						 Log.getLog().getLogEntries().clear();
+		            }
+		        }.execute();
+		        synchronized (Log.getLog()){
+					try {
+						textToSpeech.speak(this.getString(R.string.load_text));
+						Log.getLog().wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+		        }
+		}
+	
 	}
 
 	private List<Long> sendEntries() {

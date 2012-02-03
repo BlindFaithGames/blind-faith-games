@@ -14,10 +14,12 @@ import org.example.minesweeper.TTS;
 import org.example.minesweeper.XML.KeyboardReader;
 import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.Log;
+import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +27,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Minesweeper extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
 
@@ -51,6 +54,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 
 	private View focusedView;
 	
+	private static float fontSize;
+	private static float scale;
+	private static Typeface font;
+	
 	/* Game states */
 	public enum FINAL_STATE {
 		WIN, LOSE
@@ -72,6 +79,12 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         
 		int difficulty = getIntent().getIntExtra(MinesweeperActivity.KEY_DIFFICULTY, DIFFICULTY_EASY);
+		
+		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
+		
+		scale = this.getResources().getDisplayMetrics().density;
+		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
+		
 		
 		// Start game
 		mineField = new Board(difficulty);
@@ -121,7 +134,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	 * */
 	public void showLoseDialog() {
 		loseDialog.show();
-		mTtsAction(SPEECH_READ_CODE, "AlerDialog: A mine!! " 
+		mTtsAction(SPEECH_READ_CODE, "Dialog: A mine!! " 
 											+ getString(R.string.LoseDialogTitle) + " "
 											+ getString(R.string.LosePositiveButtonLabel) + " "
 											+ getString(R.string.LoseNegativeButtonLabel));
@@ -134,7 +147,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	 * */
 	public void showWinDialog() {
 		winDialog.show();
-		mTtsAction(SPEECH_READ_CODE, "AlerDialog " 
+		mTtsAction(SPEECH_READ_CODE, "Dialog " 
 								+ getString(R.string.WinDialogTitle) 
 								+ getString(R.string.WinDialogMessage)  
 								+ getString(R.string.WinPositiveButtonLabel));
@@ -166,35 +179,49 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	 * Builds the dialog shown at the end of the game, when the result is positive
 	 */
 	private void buildWinDialog() {
-		Button b;
+		Button b; TextView t;
 		
 		winDialog = new Dialog(this);
 		winDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		winDialog.setContentView(R.layout.win_dialog);
 		
+		t = (TextView) winDialog.findViewById(R.id.win_dialog_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);
 		b = (Button) winDialog.findViewById(R.id.win_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);
 	}
 
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is negative
 	 */
 	private void buildEndingDialog() {
-		Button b;
+		Button b; TextView t;
+		
 		loseDialog = new Dialog(this);
 		loseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		loseDialog.setContentView(R.layout.lose_dialog);
 		
+		
+		t = (TextView) loseDialog.findViewById(R.id.lose_dialog_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);
 		b = (Button) loseDialog.findViewById(R.id.reset_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);
 		b = (Button) loseDialog.findViewById(R.id.back_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);
 	}
 	
 	private void expandCell(int row, int col) {

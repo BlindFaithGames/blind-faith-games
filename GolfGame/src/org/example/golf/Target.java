@@ -26,8 +26,8 @@ public class Target extends Entity{
 	public Point changePosition(){
 		Random positions = new Random();
 		int ancho = this.game.getView().getWidth() - this.getImgWidth();
-		this.x = positions.nextInt(ancho);
-		return new Point(this.x + getImgWidth()/2,this.y);
+		this.x = positions.nextInt(ancho);	
+		return new Point(this.x + 2*this.getImgWidth()/5,this.y+ 4*this.getImgWidth()/5);
 	}
 	
 	@Override
