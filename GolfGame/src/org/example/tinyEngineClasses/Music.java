@@ -41,7 +41,9 @@ public class Music {
 	}
 
 	public void setVolume(float leftVolume, float rightVolume, int resource){
-		sounds.get(resource).setVolume(leftVolume, rightVolume);
+		MediaPlayer mp = sounds.get(resource);
+		if(mp != null)
+			mp.setVolume(leftVolume, rightVolume);
 	}
 	
 	/** Stop the music */

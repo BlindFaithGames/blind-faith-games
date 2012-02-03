@@ -68,7 +68,7 @@ public class Dot extends Entity{
 	private SoundConfig soundConfig;
 	private boolean headPhonesMode;
 	
-	private EventType shotEvent; // Event that generate a shot
+	private MotionEvent shotEvent; // Event that generate a shot
 
 	/**
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
@@ -133,6 +133,7 @@ public class Dot extends Entity{
 			if (this.x <= -this.getImgWidth() || this.x > game.getView().getWidth() || this.y <= Game.SCREEN_HEIGHT/6 -this.getImgHeight()){
 				// move	s ball to origin position
 				Distance dist = soundConfig.playSound(targetPos.x, this.x);
+				dist = soundConfig.playSound(targetPos.x, this.x);
 				this.resetBall();
 				if(this.game.isStageMode()){
 					manageScoreBoard(dist);
@@ -235,7 +236,7 @@ public class Dot extends Entity{
 					launched = true;
 					outOfShotAreaCounter = 0;
 					this.playAnim();
-					shotEvent = e;
+					shotEvent = MotionEvent.obtain(e.getMotionEventE2());
 					param = 0.5f;
 					incr = 0.03f;
 					initialX = this.x;
@@ -281,7 +282,7 @@ public class Dot extends Entity{
 					Input.getInput().remove("onDown");
 					launched = true;
 					this.playAnim();
-					shotEvent = eu;
+					shotEvent = MotionEvent.obtain(eu.getMotionEventE1());
 					param = 0.5f;
 					incr = 0.03f;
 					initialX = this.x;
@@ -349,6 +350,9 @@ public class Dot extends Entity{
 			Music.getInstanceMusic().stop(this.game.getContext(), alternative_doppler_sound);
 		}
 
+		// Removes all events
+		Input.getInput().clean();
+		
 		this.setX(originX);
 		this.setY(originY);
 		launched = false;
@@ -408,12 +412,12 @@ public class Dot extends Entity{
 				double angRadiansTarget = Math.atan2(dotCenterY, targetPos.x - dotCenterX);
 				double angRadiansMovement;
 				if(SettingsActivity.getOnUp(this.game.getContext())){
-					angRadiansMovement = Math.atan2(dotCenterY - shotEvent.getMotionEventE1().getY(), 
-															dotCenterX - shotEvent.getMotionEventE1().getX());
+					angRadiansMovement = Math.atan2(dotCenterY - shotEvent.getY(), 
+															dotCenterX - shotEvent.getX());
 				}
 				else{
-					angRadiansMovement = Math.atan2(dotCenterY - shotEvent.getMotionEventE2().getY(), 
-							dotCenterX - shotEvent.getMotionEventE2().getX());
+					angRadiansMovement = Math.atan2(dotCenterY - shotEvent.getY(), 
+							dotCenterX - shotEvent.getX());
 				}
 				double angTarget = Math.toDegrees(angRadiansTarget);
 				double angMovement = Math.abs(Math.toDegrees(angRadiansMovement));
