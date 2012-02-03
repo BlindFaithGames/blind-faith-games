@@ -1,24 +1,20 @@
 package org.example.activities;
 
 import org.example.R;
-import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.TTS;
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.TextView;
 
-public class InstructionsActivity extends Activity implements OnClickListener{
+public class InstructionsActivity extends Activity implements OnLongClickListener{
 	private TTS textToSpeech;
 	
 	protected void onCreate(Bundle savedInstanceState) {
-		float scale = this.getResources().getDisplayMetrics().density;
-		float fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		
+
 		super.onCreate(savedInstanceState);
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -28,14 +24,10 @@ public class InstructionsActivity extends Activity implements OnClickListener{
 		
 //		scrollView.setOnLongClickListener(this);
 		
-		Typeface font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
-		
 		TextView t = (TextView) findViewById(R.id.instructions_general_content);
-		String speech = getString(R.string.instructions_general_label) + " " + t.getContentDescription() + "Click to continue";
+		String speech = getString(R.string.instructions_general_label) + " " + t.getContentDescription() + " Long touch to continue";
 		
-		t.setTextSize(fontSize);
-		t.setTypeface(font);
-		t.setOnClickListener(this);
+		t.setOnLongClickListener(this);
 		
 		// This initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
@@ -53,9 +45,10 @@ public class InstructionsActivity extends Activity implements OnClickListener{
 	}
 
 	@Override
-	public void onClick(View v) {
+	public boolean onLongClick(View v) {
 		textToSpeech.stop();
 		this.finish();
+		return true;
 	}
 
 	

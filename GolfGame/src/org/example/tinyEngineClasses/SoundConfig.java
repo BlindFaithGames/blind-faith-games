@@ -50,7 +50,7 @@ public class SoundConfig {
 		switch (side){
 			case RIGHT: playResult(0);break;
 			case LEFT:  playResult(1);break;
-			//case TARGET: SM.play(1);break; ya está en Dot.java
+			case TARGET: SM.play(1);break; 
 	}
 		return dist;
 	}

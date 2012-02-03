@@ -70,10 +70,11 @@ public class GolfGameActivity extends Activity {
     
 	protected void onDestroy(){
     	super.onDestroy();
+    	Music.getInstanceMusic().stop(this, R.raw.storm);
+    	Music.getInstanceMusic().stop(this, R.raw.sound_shot);
     	Music.getInstanceMusic().stop(this,R.raw.previous_shoot_feedback_sound);
     	Music.getInstanceMusic().stop(this,R.raw.water_bubbles);
     	Music.getInstanceMusic().stop(this,R.raw.clue_feed_back_sound);
-    	Music.getInstanceMusic().stop(this,R.raw.storm);
     	Music.getInstanceMusic().stop(this,R.raw.win_sound);
     }
     
