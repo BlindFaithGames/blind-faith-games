@@ -59,7 +59,7 @@ public class Music {
 	}
 
 	public void stopAll() {
-		if(sounds != null){
+		/*if(sounds != null){
 			Integer n;
 			Set<Integer> keys = sounds.keySet();
 			Iterator<Integer> it = keys.iterator();
@@ -73,6 +73,6 @@ public class Music {
 						sounds.remove(n);
 				}
 			}
-		}
+		}*/
 	}
 }

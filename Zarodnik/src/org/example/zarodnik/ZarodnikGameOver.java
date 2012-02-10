@@ -5,10 +5,10 @@ import java.io.IOException;
 import org.example.R;
 import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.BitmapScaler;
+import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
-import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.TTS;
 import org.example.tinyEngineClasses.VolumeManager;
 
@@ -29,8 +29,8 @@ public class ZarodnikGameOver extends GameState {
 	private int stepsPerWord = RuntimeConfig.TEXT_SPEED;
 
 	
-	public ZarodnikGameOver(View v, TTS textToSpeech, Context c) {
-		super(v,c,textToSpeech);
+	public ZarodnikGameOver(View v, TTS textToSpeech, Context c, Game game) {
+		super(v,c,textToSpeech, game);
 		
 		int textoffSetX;
 		int textoffSetY;

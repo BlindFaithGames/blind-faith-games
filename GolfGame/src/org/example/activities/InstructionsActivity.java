@@ -24,11 +24,13 @@ public class InstructionsActivity extends Activity{
 		
 		String speech;
 		
-		if(type == 0)
+		if(type == 0){
+			setContentView(R.layout.instructions_controls);
 			speech = getString(R.string.instructions_controls_label) + " " + i.getStringExtra(MainActivity.KEY_INSTRUCTIONS_CONTROLS);
-		else
+		}else{
+			setContentView(R.layout.instructions_general);
 			speech = getString(R.string.instructions_general_label) + " " + i.getStringExtra(MainActivity.KEY_INSTRUCTIONS_GENERAL);
-		
+		}
 		// This initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);

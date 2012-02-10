@@ -194,6 +194,13 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
+		
+		winDialog.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				Minesweeper.this.finish();
+			}
+		});
 	}
 
 	/**
@@ -222,6 +229,13 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
+		
+		loseDialog.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				Minesweeper.this.finish();
+			}
+		});
 	}
 	
 	private void expandCell(int row, int col) {

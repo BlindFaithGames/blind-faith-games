@@ -57,7 +57,7 @@ public class ScoreBoard extends Entity {
 		super.onDraw(canvas);
 		
 		brush.setARGB(255, 51, 51, 51);
-		canvas.drawRect(new Rect(0,0,GameState.SCREEN_WIDTH,fontSize + 10), brush);
+		canvas.drawRect(new Rect(this.x - (ZarodnikGameplay.SCREEN_WIDTH - 200),this.y - 30 ,GameState.SCREEN_WIDTH,fontSize + 10), brush);
 		
 		if(record >= 0){
 			brush.setARGB(255, 51, 153, 255);

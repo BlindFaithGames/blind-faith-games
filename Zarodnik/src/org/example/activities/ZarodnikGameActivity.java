@@ -9,12 +9,14 @@ import org.example.tinyEngineClasses.DrawablePanel;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
+import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SoundManager;
 import org.example.tinyEngineClasses.TTS;
 import org.example.zarodnik.ZarodnikGameOver;
 import org.example.zarodnik.ZarodnikGameplay;
 import org.example.zarodnik.ZarodnikIntro;
 import org.example.zarodnik.ZarodnikTutorial;
+import org.example.zarodnik.ZarodnikTutorial.TutorialID;
 import org.example.zarodnik.XML.KeyboardReader;
 import org.example.zarodnik.XML.XMLKeyboard;
 
@@ -22,7 +24,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
@@ -37,6 +38,15 @@ public class ZarodnikGameActivity extends Activity {
 	
 	// Cargamos la conf desde un .xml
 	private XMLKeyboard keyboard;
+	
+	public static final int INTRO_ID = 0;
+	public static final int TUTORIAL0_ID = 1;
+	public static final int TUTORIAL1_ID = 2;
+	public static final int TUTORIAL2_ID = 3;
+	public static final int TUTORIAL3_ID = 4;
+	public static final int GAMEPLAY_ID = 5;
+	public static final int GAME_OVER_ID = 6;
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,22 +67,29 @@ public class ZarodnikGameActivity extends Activity {
     
     private void createGame(DrawablePanel zarodnikView) {
     	ArrayList<Integer> order = new ArrayList<Integer>();
-    	order.add(0);
-    	order.add(1);
-    	order.add(2);
-    	order.add(3);
-		ArrayList<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(new ZarodnikIntro(zarodnikView,textToSpeech,this));
-		gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech,this));
-		gameStates.add(new ZarodnikGameplay(zarodnikView,textToSpeech,this));
-		gameStates.add(new ZarodnikGameOver(zarodnikView,textToSpeech,this));
+    	order.add(INTRO_ID);
+    	order.add(TUTORIAL0_ID);
+    	order.add(GAMEPLAY_ID);
+    	order.add(GAME_OVER_ID);
+
+    	game = new Game();
 		
-		game = new Game(gameStates,order);
+    	ArrayList<GameState> gameStates = new ArrayList<GameState>();
+		gameStates.add(INTRO_ID, new ZarodnikIntro(zarodnikView,textToSpeech,this,game));
+		gameStates.add(TUTORIAL0_ID, new ZarodnikTutorial(zarodnikView,textToSpeech,this,TutorialID.TUTORIAL0,game));
+		gameStates.add(TUTORIAL1_ID, new ZarodnikTutorial(zarodnikView,textToSpeech,this,TutorialID.TUTORIAL1,game));
+		gameStates.add(TUTORIAL2_ID, new ZarodnikTutorial(zarodnikView,textToSpeech,this,TutorialID.TUTORIAL2,game));
+		gameStates.add(TUTORIAL3_ID, new ZarodnikTutorial(zarodnikView,textToSpeech,this,TutorialID.TUTORIAL3,game));
+		gameStates.add(GAMEPLAY_ID, new ZarodnikGameplay(zarodnikView,textToSpeech,this, game));
+ 		gameStates.add(GAME_OVER_ID, new ZarodnikGameOver(zarodnikView,textToSpeech,this, game));
+		
+		game.initialize(gameStates, order);
 	}
 
 	@Override
     protected void onDestroy() {
     	SoundManager.getSoundManager(this).stopAllSources();
+    	//Music.getInstanceMusic().stopAllResources();
     	super.onDestroy();
     }
     

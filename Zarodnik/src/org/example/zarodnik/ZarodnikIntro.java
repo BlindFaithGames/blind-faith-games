@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.example.R;
 import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.BitmapScaler;
+import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
@@ -33,8 +34,8 @@ public class ZarodnikIntro extends GameState {
 	private int stepsPerWord = RuntimeConfig.TEXT_SPEED;
 
 	
-	public ZarodnikIntro(View v, TTS textToSpeech, Context c) {
-		super(v,c,textToSpeech);
+	public ZarodnikIntro(View v, TTS textToSpeech, Context c, Game game) {
+		super(v,c,textToSpeech, game);
 
 		float fontSize;
 		Typeface font;
@@ -63,7 +64,7 @@ public class ZarodnikIntro extends GameState {
 	@Override
 	public void onInit() {
 		super.onInit();
-		Music.getInstanceMusic().play(this.getContext(), R.raw.prelude, true);
+		Music.getInstanceMusic().play(this.getContext(), R.raw.frost_walz, true);
 		
 		getTextToSpeech().speak(this.context.getString(R.string.intro_game_tts));
 	}
@@ -89,7 +90,7 @@ public class ZarodnikIntro extends GameState {
 		
 		e = Input.getInput().removeEvent("onLongPress");
 		if(e != null && text.isFinished()){
-			Music.getInstanceMusic().stop(this.getContext(), R.raw.prelude);
+			Music.getInstanceMusic().stop(this.getContext(), R.raw.frost_walz);
 			this.stop();
 		}
 		else{

@@ -16,6 +16,7 @@ import org.example.tinyEngineClasses.MaskCircle;
 import org.example.tinyEngineClasses.Music;
 import org.example.tinyEngineClasses.SoundManager;
 import org.example.tinyEngineClasses.SpriteMap;
+import org.example.zarodnik.ZarodnikGameplay.Sense;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -29,10 +30,14 @@ import android.graphics.Point;
 
 public class Player extends Entity{
 	
-	private enum State { EAT, MOVE, DIE };
-	private State state;
+	public static int PIXEL_PLAYER_RESIZE = 20;
 	
-	private static final int die_sound = R.raw.pacman_dies;
+	
+	private enum State { EAT, MOVE, DIE, INVULNERABLE };
+	private boolean inMovement;
+	private State state;
+
+	private static final int die_sound = R.raw.die;
 	private static final int move_sound = R.raw.bubble;
 	
 	private static final float EPSILON = 8;
@@ -47,10 +52,9 @@ public class Player extends Entity{
 	
 	private ScoreBoard scoreBoard;
 	
-	private boolean inMovement;
 	private float incr;
-	private enum Sense { UP, DOWN, LEFT, RIGHT };
 	private Sense direction;
+	private int incNo;
 	
 	// The player size express in dps
 	private static float SIZE_DP;
@@ -75,8 +79,23 @@ public class Player extends Entity{
 		
 		SIZE_DP = 200;
 		
+		incNo = 1;
+		
 		scoreBoard = new ScoreBoard(ZarodnikGameplay.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
 		this.gameState.addEntity(scoreBoard);
+	}
+	
+	public int getIncNo(){
+		return incNo;
+	}
+	
+	public void setInvulnerable(boolean invulnerable){
+		if(invulnerable){
+			this.state = State.INVULNERABLE;
+		}
+		else{
+			this.state = State.MOVE;
+		}
 	}
 	
 	public void initMovementParameters(){
@@ -106,9 +125,7 @@ public class Player extends Entity{
 		onMoveManagement();
 		
 		onEat();
-
 		
-
 		SoundManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
 		
 		super.onUpdate();
@@ -158,7 +175,7 @@ public class Player extends Entity{
      		
      		speed += incr;
      		
-			if (inStage(auxX,auxY) && !inDestination(dotCenterX,dotCenterY)){
+			if (!inDestination(dotCenterX,dotCenterY)){
 				this.x = (int) auxX;
 				this.y = (int) auxY;
 				dotCenterX = this.x + this.getImgWidth()/2;
@@ -213,7 +230,7 @@ public class Player extends Entity{
 	 * @param canvas surface which will be drawn
 	 * 
 	 * */
-	protected void onDraw(Canvas canvas){
+	public void onDraw(Canvas canvas){
 		super.onDraw(canvas);
 		if(RuntimeConfig.IS_DEBUG_MODE){
 			canvas.drawRect(destX-EPSILON, destY-EPSILON, destX+EPSILON, destY+EPSILON, new Paint());
@@ -224,7 +241,7 @@ public class Player extends Entity{
 	@Override
 	public void onCollision(Entity e) {
 		// Predator and prey collides
-		if (e instanceof Predator){
+		if (e instanceof Predator && this.state != State.INVULNERABLE){
 			inMovement = false;
 			destX = x;
 			destY = y;
@@ -239,33 +256,50 @@ public class Player extends Entity{
 			inMovement = false;
 			destX = x;
 			destY = y;
-			this.resize();
+			this.resize(PIXEL_PLAYER_RESIZE);
 			
 			state = State.EAT;
+			Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.apple_bite, false);
 			onEat();
 			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP);
 		
+			((ZarodnikGameplay)(this.gameState)).decrementPrey();
+			 
 			((Creature) e).onDie();
 	
 			scoreBoard.incrementCounter();
+		}else if (e instanceof Capsule || e instanceof Seaweed || e instanceof Radio){
+			inMovement = false;
+			destX = x;
+			destY = y;
+			
+			e.setCollidable(false);
+			
+			state = State.EAT;
+			Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), R.raw.apple_bite, false);
+			onEat();
+			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP);
 		}
 	}
 	
 
-	private void resize() {
+	public void resize(int sizeInc) {
 		Bitmap img;
 		List<Mask> maskList;
 		int imgW, imgH, frameW, frameH;
 		ArrayList<Integer> aux;
 		
+		Music.getInstanceMusic().play(this.gameState.getContext(),R.raw.appear, false);
+		
 		img = this.getImg();
-		imgW = img.getWidth();
-		imgH = img.getHeight();
+		img.recycle();
 	
 		BitmapScaler scaler;
 		
 		// We increments 50 pixels
-		SIZE_DP += 50;
+		SIZE_DP += sizeInc;
+		
+		incNo++;
 		
 		// Convert the dps to pixels, based on density scale
 		int size = (int) (SIZE_DP * GameState.scale);
@@ -275,8 +309,7 @@ public class Player extends Entity{
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-		//img = BitmapFactory.decodeResource(this.gameState.getContext().getResources(), R.drawable.playersheetm);
-		
+
 		this.setImg(img);
 		
 		/*-------- Animations --------------------------------------*/
@@ -382,5 +415,5 @@ public class Player extends Entity{
 		Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), die_sound, false);
 		Music.getInstanceMusic().stop(this.gameState.getContext(), move_sound);
 		this.gameState.stop();
-	}	
+	}
 }

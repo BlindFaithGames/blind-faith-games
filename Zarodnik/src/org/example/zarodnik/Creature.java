@@ -8,17 +8,16 @@ import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Mask;
 import org.example.tinyEngineClasses.SpriteMap;
+import org.example.zarodnik.ZarodnikGameplay.Sense;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Paint.Style;
+import android.graphics.Point;
 
 public abstract class Creature extends Entity{
-	
-	private enum Sense { UP, DOWN, LEFT, RIGHT };
 	
 	protected ZarodnikGameplay game;
 	
@@ -92,7 +91,7 @@ public abstract class Creature extends Entity{
 	public abstract void onDie();
 
 	@Override
-	protected void onDraw(Canvas canvas) {
+	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		
 		if(RuntimeConfig.IS_DEBUG_MODE){

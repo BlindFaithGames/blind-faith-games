@@ -17,8 +17,10 @@
 	<string name="about_label">About</string>
 	<string name="exit_label">Exit</string>
 	<string name="about_title">Zarodnik About </string>
-	<string name="about_text">hey
-		
+	<string name="about_text">
+           Music by www.SoundJay.com \n
+           and www.freesound.org \n
+           Insertar nombre grupo UCM, 2011-2012.
 	</string>
 	<string name="settings_label">Settings</string>
 	<string name="settings_title">Zarodnik settings</string>
@@ -85,18 +87,23 @@
 	<string name="ending_lose_message">Game Over</string>
 	<string name="ending_win_message">You find your prey</string>
 	
-	<string name="intro_game_text">The world is veiled in darknessThe wind stops, the sea is wild, and the earth begins to rot.\nThe people wait, their only 	
-	hope, a prophecy... \n\'When the world is in darkness four warriors will come...\'\nafter a long journey, four young warriors arrive each holding an ORB.</string>
+	<string name="intro_game_text">Once upon a time, a little monster who traveled immersed in the depths. Throughout his trip, he was found with different 
+	creatures and he was learning things about survival. Therefore, now our hero is in the midst of a battle between prey and predators. What will bring in our adventure?</string>
 	
-	<string name="intro_game_tts">The world is veiled in darknessThe wind stops, the sea is wild, and the earth begins to rot.\nThe people wait, their only 	
-	hope, a prophecy... \n\'When the world is in darkness four warriors will come...\'\nafter a long journey, four young warriors arrive each holding an ORB. Long touch on the screen to begin </string>
+	<string name="intro_game_tts">Once upon a time, a little monster who traveled immersed in the depths. Throughout his trip, he was found with different 
+	creatures and he was learning things about survival. Therefore, now our hero is in the midst of a battle between prey and predators. What will bring in our adventure? Do an a long touch on the screen</string>
 	
 	<string name="game_over_text">The game concludes here </string>
 	<string name="game_over_tts">The game concludes here. Long touch on the screen to end</string>
 	
-	<string name="tutorial01_predator">That sounds represents the predator that you have to avoid.</string>
-	<string name="tutorial01_prey">That sounds represents the prey that you have to find in the screen.</string>
-	<string name="tutorial01_warning">If you want to leave this info page do an a long touch on the screen.</string>
-	<string name="tutorial01_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 
+	<string name="screen_change">there is a screen change</string>
+
+	<string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
+	<string name="tutorial_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 
 	When you want to leave this info page do an a long touch on the screen.</string>
+	<string name="tutorial00_predator">That sounds represents the predator that you have to avoid.</string>
+	<string name="tutorial00_prey">That sounds represents the prey that you have to find in the screen.</string>
+	<string name="tutorial01_radio">That sounds represents the radio that you can find in the screen. It helps you to find the prey.</string>
+	<string name="tutorial02_seaweed">That sounds represents the seaweed that you can find in the screen. If you eat it you become invulnerable.</string>
+	<string name="tutorial03_capsule">That sounds represents the capsule that you can find in the screen. Randomly increments/decrements your size.</string>
 </resources>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.example.R;
 import org.example.others.RuntimeConfig;
+import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.GameState;
 import org.example.tinyEngineClasses.Input;
 import org.example.tinyEngineClasses.Input.EventType;
@@ -20,12 +21,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 public class ZarodnikTutorial extends  GameState{
+	
+	public enum TutorialID { TUTORIAL0, TUTORIAL1, TUTORIAL2, TUTORIAL3};
+	
+	private TutorialID tutorialN;
 
 	private SpriteMap predatorAnimation;
 	
@@ -33,26 +39,48 @@ public class ZarodnikTutorial extends  GameState{
 	
 	private int nTouches;
 	
-	public ZarodnikTutorial(View v, TTS textToSpeech, Context context) {
-		super(v, context, textToSpeech);
+	public ZarodnikTutorial(View v, TTS textToSpeech, Context context, TutorialID tutorialN, Game game) {
+		super(v, context, textToSpeech, game);
 	
 		nTouches = 0;
 		
-		initializeStage();
+		this.tutorialN = tutorialN;
+		initializeStage(tutorialN);
 	}
 
+	public void setTutorialN(TutorialID tutorialN) {
+		this.tutorialN = tutorialN;
+		initializeStage(tutorialN);
+	}
+	
 	@Override
 	public void onInit() {
 		super.onInit();
 		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial01_intro));
+		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial_intro));
 	}
 	
-	private void initializeStage() {
-		createPredator();
-		createPrey();
+	private void initializeStage(TutorialID tutorialN) {
+		switch(tutorialN){
+			case TUTORIAL0:
+				createPredator();
+				createPrey();
+				createText(tutorialN);
+				break;
+			case TUTORIAL1:
+				createItem(Item.RADIO);
+				createText(tutorialN);
+				break;
+			case TUTORIAL2:
+				createItem(Item.SEAWEED);
+				createText(tutorialN);
+				break;
+			case TUTORIAL3:
+				createItem(Item.CAPSULE);
+				createText(tutorialN);
+				break;
+		}
 		createPlayer();
-		createText();
 	}
 
 	private void createPlayer() {
@@ -112,13 +140,13 @@ public class ZarodnikTutorial extends  GameState{
 		this.addEntity(player);
 	}
 
-	private void createText() {
+	private void createText(TutorialID tutorialN) {
 		float fontSize;
 		Typeface font;
 		Paint brush;
-		Text preyText, predatorText;
+		Text preyText, predatorText, radioText, seaweedText, capsuleText;
 		int stepsPerWord;
-		String preySpeech, predatorSpeech;
+		String preySpeech, predatorSpeech, seaweedSpeech, radioSpeech, capsuleSpeech;
 		fontSize =  (this.getContext().getResources().getDimension(R.dimen.font_size_intro)/GameState.scale);
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		brush = new Paint();
@@ -128,15 +156,37 @@ public class ZarodnikTutorial extends  GameState{
 			brush.setTypeface(font);
 		stepsPerWord = RuntimeConfig.TEXT_SPEED;
 		
-		preySpeech = this.getContext().getString(R.string.tutorial01_prey);
-		preyText = new Text(SCREEN_WIDTH/3, 0, null, this,null, null, null,
-				null, false, brush, stepsPerWord, preySpeech);
-		this.addEntity(preyText);
-		
-		predatorSpeech = this.getContext().getString(R.string.tutorial01_predator);
-		predatorText = new Text(SCREEN_WIDTH/3, SCREEN_HEIGHT/2, null, this,null, null, null,
-				null, false, brush, stepsPerWord, predatorSpeech);
-		this.addEntity(predatorText);
+		switch(tutorialN){
+			case TUTORIAL0:
+				preySpeech = this.getContext().getString(R.string.tutorial00_prey);
+				preyText = new Text(SCREEN_WIDTH/3, 0, null, this,null, null, null,
+						null, false, brush, stepsPerWord, preySpeech);
+				this.addEntity(preyText);
+				
+				predatorSpeech = this.getContext().getString(R.string.tutorial00_predator);
+				predatorText = new Text(SCREEN_WIDTH/3, SCREEN_HEIGHT/2, null, this,null, null, null,
+						null, false, brush, stepsPerWord, predatorSpeech);
+				this.addEntity(predatorText);
+				break;
+			case TUTORIAL1:
+				radioSpeech = this.getContext().getString(R.string.tutorial01_radio);
+				radioText = new Text(0, SCREEN_HEIGHT/3, null, this,null, null, null,
+						null, false, brush, stepsPerWord, radioSpeech);
+				this.addEntity(radioText);
+				break;
+			case TUTORIAL2:
+				seaweedSpeech = this.getContext().getString(R.string.tutorial02_seaweed);
+				seaweedText = new Text(0, SCREEN_HEIGHT/3, null, this,null, null, null,
+						null, false, brush, stepsPerWord, seaweedSpeech);
+				this.addEntity(seaweedText);
+				break;
+			case TUTORIAL3:
+				capsuleSpeech = this.getContext().getString(R.string.tutorial03_capsule);
+				capsuleText = new Text(0, SCREEN_HEIGHT/3, null, this,null, null, null,
+						null, false, brush, stepsPerWord, capsuleSpeech);
+				this.addEntity(capsuleText);
+				break;
+		}
 	}
 
 	private void createPredator() {
@@ -201,24 +251,76 @@ public class ZarodnikTutorial extends  GameState{
 	}
 	
 	
+	private void createItem(int type) {
+		Item i = null; 
+		int  x, y;
+		int frameW;
+		Bitmap itemBitmap = null;
+
+		switch(type){
+			case(Item.RADIO):
+				itemBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.radio);
+				break;
+			case(Item.SEAWEED):
+				itemBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.seaweed);
+				break;
+			case(Item.CAPSULE):
+				itemBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.capsule);
+				break;
+			default:
+				break;
+		}
+		
+		frameW = itemBitmap.getWidth();
+		
+		x = SCREEN_WIDTH/2;
+		y = SCREEN_HEIGHT/5;
+		
+		switch(type){
+			case(Item.RADIO):
+				i = new Radio(x, y, itemBitmap, this, null, null, null, new Point(frameW/2,frameW/2), true, null);
+				break;
+			case(Item.SEAWEED):
+				i = new Seaweed(x, y, itemBitmap, this, null, null, null, new Point(frameW/2,frameW/2), true);
+				break;
+			case(Item.CAPSULE):
+				i = new Capsule(x, y, itemBitmap, this, null, null, null, new Point(frameW/2,frameW/2), true);
+				break;
+			default:
+				break;
+		}
+
+		this.addEntity(i);
+	}
+	
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		int  preyX, preyY;		
 		int predatorX, predatorY;
 		
 		canvas.drawColor(Color.BLACK);
-		
-		Paint p = new Paint();
-		p.setStrokeWidth(10*GameState.scale);
-		p.setColor(Color.WHITE);
-		canvas.drawLine(0, SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT/2, p);
-		
-		preyX = 0;
-		preyY = 0;
-		preyAnimation.onDraw(preyX, preyY, canvas);
-		predatorX = 0;
-		predatorY = SCREEN_HEIGHT/2;
-		predatorAnimation.onDraw(predatorX, predatorY, canvas);
+		switch(tutorialN){
+			case TUTORIAL0:
+				Paint p = new Paint();
+				p.setStrokeWidth(10*GameState.scale);
+				p.setColor(Color.WHITE);
+				canvas.drawLine(0, SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT/2, p);
+				
+				preyX = 0;
+				preyY = 0;
+				preyAnimation.onDraw(preyX, preyY, canvas);
+				predatorX = 0;
+				predatorY = SCREEN_HEIGHT/2;
+				predatorAnimation.onDraw(predatorX, predatorY, canvas);
+				break;
+			case TUTORIAL1:
+				break;
+			case TUTORIAL2:
+				break;
+			case TUTORIAL3:
+				break;
+		}
 
 		super.onDraw(canvas);
 	}
@@ -235,19 +337,9 @@ public class ZarodnikTutorial extends  GameState{
 				VolumeManager.adjustStreamVolume(this.context, AudioManager.ADJUST_LOWER);
 		}
 		
-		e = Input.getInput().removeEvent("onDoubleTap");
-		if(e != null){
-			nTouches++;
-			e.getMotionEventE1();
-			if(e.getMotionEventE1().getY() < SCREEN_HEIGHT/2){
-				explainPrey();
-			}else
-				explainPredator();
-		}
-		
 		if(nTouches > 10){
 			nTouches = 0;
-			this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial01_warning));
+			this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial_warning));
 		}
 		
 		e = Input.getInput().removeEvent("onLongPress");
@@ -255,19 +347,68 @@ public class ZarodnikTutorial extends  GameState{
 			this.stop();
 		}
 
-		preyAnimation.onUpdate();
+		switch(tutorialN){
+			case TUTORIAL0:
+				e = Input.getInput().removeEvent("onDoubleTap");
+				if(e != null){
+					nTouches++;
+					e.getMotionEventE1();
+					if(e.getMotionEventE1().getY() < SCREEN_HEIGHT/2){
+						explainPrey();
+					}else
+						explainPredator();
+				}
+				preyAnimation.onUpdate();
+				predatorAnimation.onUpdate();
+			break;	
+			case TUTORIAL1:
+				e = Input.getInput().removeEvent("onDoubleTap");
+				if(e != null){
+					nTouches++;
+					explainRadio();
+				}
+				break;
+			case TUTORIAL2:
+				e = Input.getInput().removeEvent("onDoubleTap");
+				if(e != null){
+					nTouches++;
+					explainSeaweed();
+				}
+				break;
+			case TUTORIAL3:
+				e = Input.getInput().removeEvent("onDoubleTap");
+				if(e != null){
+					nTouches++;
+					explainCapsule();
+				}
+				break;
+		}
+
+	}
 	
-		predatorAnimation.onUpdate();
+	private void explainSeaweed() {
+		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
+		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial02_seaweed));
+	}
+	
+	private void explainCapsule() {
+		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
+		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial03_capsule));
+	}
+	
+	private void explainRadio() {
+		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
+		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial01_radio));
 	}
 
 	private void explainPredator() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.predator, false);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial01_predator));
+		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial00_predator));
 	}
 
 	private void explainPrey() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.prey, false);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial01_prey));
+		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial00_prey));
 	}
 	
 }

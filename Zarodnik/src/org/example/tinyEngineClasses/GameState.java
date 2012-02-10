@@ -41,9 +41,12 @@ public abstract class GameState {
 
 	private Paint brush;
 	
+	protected Game game;
+	private boolean onInitialized;
 	
-	public GameState(View v, Context context, TTS textToSpeech){
+	public GameState(View v, Context context, TTS textToSpeech, Game game){
 		game_is_running = true;
+		this.game = game;
 		this.context = (Activity) context;
 		this.v = v;
 		this.setTextToSpeech(textToSpeech);
@@ -58,6 +61,8 @@ public abstract class GameState {
 		SCREEN_HEIGHT = display.getHeight();
 		// Get the screen's density scale
 		scale = context.getResources().getDisplayMetrics().density;
+		
+		onInitialized = false;
 	}
 	
 	public void onInit() {
@@ -67,6 +72,7 @@ public abstract class GameState {
 			e = it.next();
 			e.onInit();
 		}
+		onInitialized = true;
 	}
 	
 	protected void onDraw(Canvas canvas) {
@@ -159,6 +165,19 @@ public abstract class GameState {
 		return context;
 	}
 	
+	public Bitmap getBackground(){
+		return background;
+	}
+	
+	public List<Entity> getEntities(){
+		return entities;
+	}
+	
+	public List<Entity> getRenderables(){
+		return renderables;
+	}
+	
+	
 	/**
 	 * if the previous background is not freed this method recycled it.
 	 * 
@@ -233,4 +252,7 @@ public abstract class GameState {
 		return !ok;
 	}
 
+	public boolean isOnInitialized() {
+		return onInitialized;
+	}
 }

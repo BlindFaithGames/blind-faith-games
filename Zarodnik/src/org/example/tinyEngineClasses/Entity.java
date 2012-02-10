@@ -70,7 +70,7 @@ public abstract class Entity {
 	 * By default draws the graphic of the entity
 	 * 
 	 * */
-	protected  void onDraw(Canvas canvas){
+	public  void onDraw(Canvas canvas){
 		if(animations != null)
 			animations.onDraw((int)x, (int)y,canvas);
 		else
@@ -87,6 +87,29 @@ public abstract class Entity {
 			}
 		}
 	}
+	
+	/**
+	 * By default draws the graphic of the entity
+	 * 
+	 * */
+	public  void onDraw(int x, int y, Canvas canvas){
+		if(animations != null)
+			animations.onDraw((int)x, (int)y,canvas);
+		else
+			if(img != null)
+				canvas.drawBitmap(img, x, y, null);
+		
+		if(RuntimeConfig.IS_DEBUG_MODE){
+			if(mask != null){
+				Iterator<Mask> it = mask.iterator();
+				while(it.hasNext()){
+					Mask m = it.next();
+					m.onDraw(canvas);
+				}
+			}
+		}
+	}
+	
 	
     /** Updates the animation entity and its mask set.*/
 	protected void onUpdate(){
@@ -194,6 +217,10 @@ public abstract class Entity {
 
 	public void setSpriteMap(SpriteMap animations) {
 		this.animations= animations;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 	
 	/**

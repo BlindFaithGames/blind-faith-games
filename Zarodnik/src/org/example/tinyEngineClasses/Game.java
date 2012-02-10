@@ -20,6 +20,9 @@ public class Game {
 	
 	int clearCanvas = 0; // two gameSteeps needed to clear the canvas content.
 	
+	public Game() {
+	}
+	
 	public Game(List<GameState> gameStates, ArrayList<Integer> order){
 		this.gameStates = gameStates;
 		this.order = order;
@@ -30,6 +33,14 @@ public class Game {
 			}
 		}
 		stateChangedLastStep = false;
+	}
+	
+	public int getNext() {
+		return next;
+	}
+	
+	public List<Integer> getOrder(){
+		return order;
 	}
 	
 	public void onInit() {
@@ -45,7 +56,8 @@ public class Game {
 
 	public void onUpdate() {
 		if(stateChangedLastStep){
-			actualState.onInit();
+			if(!actualState.isOnInitialized())
+				actualState.onInit();
 		}
 		
 		actualState.onUpdate();
@@ -57,6 +69,7 @@ public class Game {
 			next++;
 			if(next < order.size()){
 				actualState = gameStates.get(order.get(next));
+				actualState.run();
 				stateChangedLastStep = true;
 			}
 			else
@@ -81,6 +94,17 @@ public class Game {
 		canvas.drawColor(Color.BLACK, PorterDuff.Mode.CLEAR);
 	}
 
+	public void initialize(ArrayList<GameState> gameStates,ArrayList<Integer> order) {
+		this.gameStates = gameStates;
+		this.order = order;
+		next = 0;
+		if(next < order.size()){
+			if(gameStates != null  && gameStates.size() > 0){
+				actualState = gameStates.get(order.get(next));
+			}
+		}
+		stateChangedLastStep = false;
+	}
 }
 
 	

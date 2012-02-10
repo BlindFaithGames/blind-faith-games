@@ -64,7 +64,7 @@ public class Text extends Entity {
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas) {
+	public void onDraw(Canvas canvas) {
 		introTextEffect(canvas);
 		super.onDraw(canvas);
 	}

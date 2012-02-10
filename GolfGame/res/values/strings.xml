@@ -47,11 +47,15 @@
 	<string name="instructions_title">Instructions GolfGame</string>
 	<string name="instructions_general_label">Instructions</string>
 	<string name="instructions_controls_label">Controls</string>
-	<string name="instructions_general_text">\
-		
+	<string name="instructions_general_text">
+		Only you have to point and shoot!
 	</string>
-	<string name="instructions_controls_text">\
-		
+	<string name="instructions_controls_text">
+		Within settings you can choose between the next options:\\n
+		1 - UpMode defines the way of shoot\\n
+		2 - Info target allows to find the hole through touch on the screen\\n
+		3 - Doppler Effect enables to play a sound with this effect during a shot\\n
+		4 - Vibration and Sound feedback - before you shot a vibration/sound told you about where is the hole\\n
 	</string>
 	<string name="synthetizer_title">Synthetizer</string>
 

@@ -96,6 +96,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		instructionsButton.setOnLongClickListener(this);
 		instructionsButton.setTextSize(fontSize);
 		instructionsButton.setTypeface(font);
+		Button aboutButton = (Button) findViewById(R.id.about_button);
+		aboutButton.setOnClickListener(this);
+		aboutButton.setOnLongClickListener(this);
+		aboutButton.setOnFocusChangeListener(this);
+		aboutButton.setTextSize(fontSize);
+		aboutButton.setTypeface(font);
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnLongClickListener(this);
@@ -113,6 +119,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				+ settingsButton.getContentDescription() + " "
 				+ keyConfButton.getContentDescription() + " "
 				+ instructionsButton.getContentDescription() + " "
+				+ aboutButton.getContentDescription() + " "
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
@@ -201,6 +208,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				break;
 			case R.id.new_button:
 				startGame();
+				break;
+			case R.id.about_button:
+				i = new Intent(this, AboutActivity.class);
+				i.putExtra(KEY_TTS, textToSpeech);
+				startActivity(i);
 				break;
 			case R.id.Button01main: // controls
 				startInstructions(0);
@@ -297,7 +309,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	protected void onResume() {
 		super.onResume();
 		if(SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.main, true);
+		Music.getInstanceMusic().play(this, R.raw.the_path_of_the_goblin_king, true);
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
@@ -310,7 +322,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.getInstanceMusic().stop(this,R.raw.main);
+		Music.getInstanceMusic().stop(this,R.raw.the_path_of_the_goblin_king);
 	}
 
 	/**
