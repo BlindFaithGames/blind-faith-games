@@ -221,7 +221,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	public void onResume() {
 		super.onResume();
 
-    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    	/*ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     	NetworkInfo nInfo = cm.getActiveNetworkInfo();
     	if(nInfo != null){
     		if(nInfo.isConnected()){
@@ -232,7 +232,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 					startActivity(new Intent(this, AccountsActivity.class));
 				}
     		}
-    	}
+    	}*/
 
 		Music.play(this, R.raw.main);
 

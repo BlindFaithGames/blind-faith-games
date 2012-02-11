@@ -18,6 +18,8 @@ import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;

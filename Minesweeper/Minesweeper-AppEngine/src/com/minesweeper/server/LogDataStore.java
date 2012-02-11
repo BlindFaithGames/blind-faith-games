@@ -84,8 +84,8 @@ public List<Log> findAll() {
    */
   public Log update(Log item) {
     //set the user id 
-    item.setUserId(getUserId());
-    item.setEmailAddress(getUserEmail());
+    item.setUserId("1");
+    item.setEmailAddress("hola@dummy.com");
     
     if (item.getDueDate() == null) {
         Calendar c = Calendar.getInstance();

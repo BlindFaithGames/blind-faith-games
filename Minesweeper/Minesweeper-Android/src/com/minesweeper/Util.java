@@ -160,9 +160,6 @@ public class Util {
             Class<T> factoryClass) {
         T requestFactory = RequestFactorySource.create(factoryClass);
 
-        SharedPreferences prefs = getSharedPreferences(context);
-        String authCookie = prefs.getString(Util.AUTH_COOKIE, null);
-
         String uriString = Util.getBaseUrl(context) + RF_METHOD;
         URI uri;
         try {
@@ -172,7 +169,7 @@ public class Util {
             return null;
         }
         requestFactory.initialize(new SimpleEventBus(),
-                new AndroidRequestTransport(uri, authCookie));
+                new AndroidRequestTransport(uri, ""));
 
         return requestFactory;
     }
