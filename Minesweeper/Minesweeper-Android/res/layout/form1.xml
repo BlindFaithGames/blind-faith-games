@@ -86,60 +86,68 @@
                 android:contentDescription="@string/no_context">
             </RadioButton>
         </RadioGroup>
-
+        
         <TextView
-            android:id="@+id/q3"
+            android:id="@+id/q4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Do you think that the voice synthesizer is annoying? Choice (1-5) 1-Totally Disagree 5-Totally agree"
-            android:contentDescription="@string/q3_context" >
+            android:text="Is it comfortable use physical keys?" 
+            android:contentDescription="@string/q4_context">
         </TextView>
 
         <RadioGroup
-            android:id="@+id/ans3"
+            android:id="@+id/ans4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            
+            <RadioButton
+                android:id="@+id/radio11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Yes" 
+                 android:contentDescription="@string/yes_context">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:contentDescription="@string/no_context" >
+            </RadioButton>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/q5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Have you changed the key configuration?" 
+             android:contentDescription="@string/q5_context">
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/ans5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/radio6"
+                android:id="@+id/radio16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="1" 
-                android:contentDescription="@string/one_context">
+                android:text="Yes" 
+                 android:contentDescription="@string/yes_context">
             </RadioButton>
 
             <RadioButton
-                android:id="@+id/radio7"
+                android:id="@+id/radio17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
-                android:contentDescription="@string/two_context" >
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/radio8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3" 
-                android:contentDescription="@string/three_context">
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/radio9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4" 
-                android:contentDescription="@string/four_context">
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/radio10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5" 
-                android:contentDescription="@string/five_context">
+                android:text="No"
+                 android:contentDescription="@string/no_context" >
             </RadioButton>
         </RadioGroup>
 
