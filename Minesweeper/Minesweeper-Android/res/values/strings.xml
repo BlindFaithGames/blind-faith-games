@@ -169,20 +169,21 @@
     <string name="keydialog">Action configuration</string>
     <string name="keydialog_text">Press any key</string>
     <string name="form_label">Form</string>
+    <string name="on_back_pressed">You have to complete the form</string>
 
     <!-- Forms -->
     <string name="q1_context">Have you had any special keyboard in your Android device?</string>
     <string name="q2_context">Do you miss some form of interaction?</string>
-    <string name="q3_context">Do you think that the voice synthesizer is annoying? Choice (1-5) 1-Totally Disagree 5-Totally agree</string>
-    <string name="q4_context">It\'s uncomfortable to use physical keys</string>
+<!--     <string name="q3_context">Do you think that the voice synthesizer is annoying? Choice (1-5) 1-Totally Disagree 5-Totally agree</string> -->
+    <string name="q4_context">Is it comfortable use physical keys?</string>
     <string name="q5_context">Have you changed the key configuration?</string>
-    <string name="q6_context">Your Android device doesn\'t have a high number of physical keys</string>
-    <string name="q7_context">The game have too much information</string>
-    <string name="q8_context">The game have enough information to play it</string>
-    <string name="q10_context">About the boards in the minesweeper, the buttons on the screen are too small</string>
-    <string name="q11_context">About the boards, It\'s uncomfortable that the board dimensions are larger than the screen size in level hard and medium</string>
+    <string name="q6_context">Has your Android device enough physical keys?</string>
+<!--     <string name="q7_context">The game have too much information</string> -->
+    <string name="q8_context">Has the game, enough information to play it?</string>
+    <string name="q10_context">About the boards in the minesweeper, are the buttons on the screen too small?</string>
+<!--     <string name="q11_context">About the boards, It\'s uncomfortable that the board dimensions are larger than the screen size in level hard and medium</string> -->
     <string name="q12_context">Do you think that it\'s hard to change the game configuration?</string>
-    <string name="q13_context">Are there few configuration options in the menu?</string>
+<!--     <string name="q13_context">Are there few configuration options in the menu?</string> -->
     <string name="q14_context">Commentaries</string>
     <string name="radio10_context">TalkBack</string>
     <string name="no_context">No</string>
@@ -196,11 +197,11 @@
     <string name="radio41_context">There are enough</string>
     <string name="radio32_context">I think that the game experience would be better</string>
     <string name="radio42_context">Too many</string>
-    <string name="one_context">1</string>
-    <string name="two_context">2</string>
-    <string name="three_context">3</string>
-    <string name="four_context">4</string>
-    <string name="five_context">5</string>
+<!--     <string name="one_context">1</string> -->
+<!--     <string name="two_context">2</string> -->
+<!--     <string name="three_context">3</string> -->
+<!--     <string name="four_context">4</string> -->
+<!--     <string name="five_context">5</string> -->
     <string name="next_context">Next</string>
     <string name="finish_context">Finish</string>
   	<string name="load_text">Sending information... Please wait</string>
