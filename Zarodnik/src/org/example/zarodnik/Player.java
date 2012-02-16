@@ -242,15 +242,7 @@ public class Player extends Entity{
 	public void onCollision(Entity e) {
 		// Predator and prey collides
 		if (e instanceof Predator && this.state != State.INVULNERABLE){
-			inMovement = false;
-			destX = x;
-			destY = y;
-			
-			this.playAnim("die", RuntimeConfig.FRAMES_PER_STEP, false);
-			state = State.DIE;
-			//TODO: Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.die_sound, false); sonido de muerte del bicho
-			this.setTimer(0,RuntimeConfig.FRAMES_PER_STEP*4);
-			this.setCollidable(false);
+			onDie();
 		}
 		else if (e instanceof SmartPrey || e instanceof SillyPrey){
 			inMovement = false;
@@ -282,6 +274,18 @@ public class Player extends Entity{
 		}
 	}
 	
+
+	public void onDie() {
+		inMovement = false;
+		destX = x;
+		destY = y;
+		
+		this.playAnim("die", RuntimeConfig.FRAMES_PER_STEP, false);
+		state = State.DIE;
+		//TODO: Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.die_sound, false); sonido de muerte del bicho
+		this.setTimer(0,RuntimeConfig.FRAMES_PER_STEP*4);
+		this.setCollidable(false);
+	}
 
 	public void resize(int sizeInc) {
 		Bitmap img;
