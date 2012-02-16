@@ -35,17 +35,21 @@ import org.example.minesweeper.Music;
 import org.example.minesweeper.TTS;
 import org.example.minesweeper.XML.KeyboardWriter;
 import org.example.minesweeper.XML.XMLKeyboard;
+import org.example.others.AnalyticsManager;
 import org.example.others.Entry;
 import org.example.others.Log;
+import org.example.others.MinesweeperAnalytics;
 import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -62,6 +66,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import com.minesweeper.client.MyRequestFactory;
@@ -93,6 +98,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 	private Dialog gameDialog;
 	private Dialog instructionsDialog;
+	private Dialog loadingDialog;
 	
 	private View focusedView;
 	
@@ -152,7 +158,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		}
 	};
 
-	
+	 private static GoogleAnalyticsTracker tracker;
 
 	/**
 	 * Begins the activity.
@@ -179,7 +185,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		createGameDialog();
 		
 		createInstructionsDialog();
-	}
+
+		createLoadingDialog();
+		
+}
 
 	private void checkId() {
 		id = null;
@@ -352,6 +361,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
 						+ " " + Build.BRAND + " " + Build.HARDWARE + " "
 						+ width + " " + height + " " + id);
+		
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.MAIN_ACTIVITY);
+		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.DEVICE_DATA, 
+				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
+				+ " " + Build.BRAND + " " + Build.HARDWARE + " "
+				+ width + " " + height + " " + id, 3);
 	}
 
 	/**
@@ -403,6 +418,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 					Log.INSTRUCTIONS,
 					Thread.currentThread().getStackTrace()[2].getMethodName(),
 					"Instructions");
+			AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, 
+					MinesweeperAnalytics.OPEN_INSTRUCTIONS, "Yes", 3);
 			openInstructionsDialog();
 			break;
 		case R.id.new_button:
@@ -450,13 +467,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 						Log.EXIT,
 						Thread.currentThread().getStackTrace()[2]
 								.getMethodName(), "Exit");
+				AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, 
+						MinesweeperAnalytics.LEAVES_GAME, "Yes", 3);
 				sendLog();
 			}
 			finish();
 			break;
 		}
 	}
-	
+
 	private void createGameDialog() {
 		Button b; TextView t;
 		
@@ -485,6 +504,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);	
+	}
+	
+	/**
+	 * Builds the dialog shown  while the log is sent
+	 */
+	private void createLoadingDialog() {
+		loadingDialog = new Dialog(this);
+		loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		loadingDialog.setContentView(R.layout.loading);
 	}
 	
 	private void createInstructionsDialog() {
@@ -590,7 +618,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Intent nextIntent;
 		switch (resultCode) {
 		case (RESET_CODE):
-	
+			
 			sendLog();
 			nextIntent = new Intent(getApplicationContext(), Minesweeper.class);
 			nextIntent.putExtra(KEY_TTS, textToSpeech);

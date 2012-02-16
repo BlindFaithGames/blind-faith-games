@@ -1,6 +1,7 @@
 package com.minesweeper;
 
 import org.example.minesweeper.TTS;
+import org.example.others.AnalyticsManager;
 import org.example.others.Log;
 
 import android.app.Activity;
@@ -50,6 +51,8 @@ public class FormActivity extends Activity implements OnClickListener,
 				MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.form_label));
+		
+		AnalyticsManager.getAnalyticsManager(this).registerPage("formActivity");
 	}
 
 	@Override

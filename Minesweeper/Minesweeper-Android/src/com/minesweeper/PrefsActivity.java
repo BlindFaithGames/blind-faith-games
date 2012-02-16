@@ -1,7 +1,9 @@
 package com.minesweeper;
 
 import org.example.minesweeper.TTS;
+import org.example.others.AnalyticsManager;
 import org.example.others.Log;
+import org.example.others.MinesweeperAnalytics;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -56,8 +58,17 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				Log.NONE,
 				Thread.currentThread().getStackTrace()[2].getMethodName(),
 				"Changing actual configuration");
+		
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.PREFS_ACTIVITY);
 	}
-
+	
+	protected void onPause() {
+		super.onPause();
+		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.CONFIGURATION_CHANGED,
+				MinesweeperAnalytics.GENERAL_CONFIGURATION_CHANGED, configurationToString(this), 12);
+	}
+	
+	
 	/**
 	 *  Turns off TTS engine
 	 */

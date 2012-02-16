@@ -2,7 +2,9 @@ package org.example.minesweeper;
 
 
 import org.example.minesweeper.XML.XMLKeyboard;
+import org.example.others.AnalyticsManager;
 import org.example.others.Log;
+import org.example.others.MinesweeperAnalytics;
 
 import com.minesweeper.Minesweeper;
 import com.minesweeper.PrefsActivity;
@@ -70,6 +72,9 @@ public class MinesweeperView extends View {
 				Log.getLog().addEntry(MinesweeperView.TAG,
 						PrefsActivity.configurationToString(game),
 						Log.TRIPLE_TAP_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),"Zoom mode " + zoomMode + " " + eventTaps[2].getX() + " " + eventTaps[2].getY());
+				
+				AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.TRIPLE_TAP, 
+						"Zoom mode " + zoomMode + " " + eventTaps[2].getX() + " " + eventTaps[2].getY(), 0);
 				}
 			}else// double tap
 				if(timeTaps[1] != 0  && timeTaps[0] != 0){
@@ -77,6 +82,9 @@ public class MinesweeperView extends View {
 					Log.getLog().addEntry(MinesweeperView.TAG,
 							PrefsActivity.configurationToString(game),
 							Log.DOUBLE_TAP_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),"Zoom mode " + zoomMode + " " + eventTaps[1].getX() + " " + eventTaps[1].getY());
+					
+					AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.DOUBLE_TAP, 
+							"Zoom mode " + zoomMode + " " + eventTaps[1].getX() + " " + eventTaps[1].getY(), 0);
 				}
 				else // one tap
 					if(timeTaps[0] != 0){
@@ -84,6 +92,10 @@ public class MinesweeperView extends View {
 						Log.getLog().addEntry(MinesweeperView.TAG,
 								PrefsActivity.configurationToString(game),
 								Log.TAP_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),"Zoom mode " + zoomMode + " " + eventTaps[0].getX() + " " + eventTaps[0].getY());
+						
+						AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.SIMPLE_TAP, 
+								"Zoom mode " + zoomMode + " " + eventTaps[0].getX() + " " + eventTaps[0].getY(), 3);
+					
 					}
 			// Consumed the event reset all
 			for(int i = 0; i < 3; i++){
@@ -122,6 +134,9 @@ public class MinesweeperView extends View {
 					PrefsActivity.configurationToString(game),
 					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
 					width + " " + height + " " + cellSeparation + " " + CELL_SIZE + " " + ARROW_SIZE);
+		
+		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.GAME_DATA, 
+				width + " " + height + " " + cellSeparation + " " + CELL_SIZE + " " + ARROW_SIZE, 3);
 		
 	}
 
@@ -661,6 +676,9 @@ public class MinesweeperView extends View {
 				PrefsActivity.configurationToString(game),
 				Log.KEY_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),
 				keyboard.toString(keyCode) + " " +keyboard.getAction(keyCode));
+		
+		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.KEY_PUSHED, 
+				keyboard.toString(keyCode) + " " + keyboard.getAction(keyCode), 0);
 		return true;
 	}
 }

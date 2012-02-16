@@ -9,7 +9,9 @@ import org.example.minesweeper.Input;
 import org.example.minesweeper.TTS;
 import org.example.minesweeper.XML.KeyboardWriter;
 import org.example.minesweeper.XML.XMLKeyboard;
+import org.example.others.AnalyticsManager;
 import org.example.others.Log;
+import org.example.others.MinesweeperAnalytics;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -81,6 +83,8 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		
 		Log.getLog().addEntry(KeyConfActivity.TAG,PrefsActivity.configurationToString(this),
 				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"Setting up keys");
+		
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.KEY_CONF_ACTIVITY);
 	}
 	
 	/**
@@ -170,6 +174,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 			Log.getLog().addEntry(KeyConfActivity.TAG,PrefsActivity.configurationToString(this),
 					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
 					"New configuration: " + keyConfigurationtoString());
+			
+			AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.CONFIGURATION_CHANGED,
+						MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED,  MinesweeperAnalytics.keyConfigurationSuccess + keyConfigurationtoString(), 3);
 		}
 		else{
 			Toast toast = Toast.makeText(this, "Not a valid key", Toast.LENGTH_SHORT);
@@ -177,6 +184,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 			Log.getLog().addEntry(KeyConfActivity.TAG,PrefsActivity.configurationToString(this),
 					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
 					"invalid new configuration");
+			
+			AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.CONFIGURATION_CHANGED, 
+					MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED, MinesweeperAnalytics.keyConfigurationFails, 3);
 		}
 		
 
