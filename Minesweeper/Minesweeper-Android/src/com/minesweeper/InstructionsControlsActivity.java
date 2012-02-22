@@ -1,7 +1,9 @@
 package com.minesweeper;
 
 import org.example.minesweeper.TTS;
+import org.example.others.AnalyticsManager;
 import org.example.others.Log;
+import org.example.others.MinesweeperAnalytics;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ public class InstructionsControlsActivity extends Activity{
 	
 		Log.getLog().addEntry(InstructionsControlsActivity.TAG,PrefsActivity.configurationToString(this),
 				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"");
+		
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.INSTRUCTIONS_CONTROLS_ACTIVITY);
 	}
 	
 	/**

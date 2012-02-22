@@ -13,7 +13,9 @@ import org.example.minesweeper.Music;
 import org.example.minesweeper.TTS;
 import org.example.minesweeper.XML.KeyboardReader;
 import org.example.minesweeper.XML.XMLKeyboard;
+import org.example.others.AnalyticsManager;
 import org.example.others.Log;
+import org.example.others.MinesweeperAnalytics;
 import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
@@ -39,7 +41,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	public static final int DIFFICULTY_MEDIUM = 1;
 	public static final int DIFFICULTY_HARD = 2;
 
-	private Dialog loseDialog,winDialog ;
+	private Dialog loseDialog,winDialog;
 
 	public static final int SPEECH_READ_CODE = 0;
 	public static final int VIEW_READ_CODE = 1;
@@ -106,7 +108,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 			minesweeperView.requestFocus();
 			
 			buildWinDialog();
-			
+
 			buildEndingDialog();	
 		
 			// Initialize TTS engine
@@ -119,8 +121,14 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		
 		Log.getLog().addEntry(Minesweeper.TAG,PrefsActivity.configurationToString(this),
 				Log.ONCREATE,Thread.currentThread().getStackTrace()[2].getMethodName(), mineField.getMines());
+		
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.GAME_ACTIVITY);
+		
+		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.BOARD, 
+					mineField.getMines(), 3);
 	}
-	
+
+
 	/**
 	 * onFocusChange Interface
 	 */
@@ -141,7 +149,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 											+ getString(R.string.LosePositiveButtonLabel) + " "
 											+ getString(R.string.LoseNegativeButtonLabel));
 		Log.getLog().addEntry(Minesweeper.TAG,PrefsActivity.configurationToString(this),
-				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User win " + mineField.getDifficulty());
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User lose " + mineField.getDifficulty());
+		
+		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.GAME_EVENTS, 
+				MinesweeperAnalytics.GAME_RESULT, MinesweeperAnalytics.GAME_RESULT_LOSE, 31);
 	}
 
 	/**
@@ -154,7 +165,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 								+ getString(R.string.WinDialogMessage)  
 								+ getString(R.string.WinPositiveButtonLabel));
 		Log.getLog().addEntry(Minesweeper.TAG,PrefsActivity.configurationToString(this),
-				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User lose " + mineField.getDifficulty());
+				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User win " + mineField.getDifficulty());
+		
+		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.GAME_EVENTS, 
+				MinesweeperAnalytics.GAME_RESULT, MinesweeperAnalytics.GAME_RESULT_WIN, 21);
 	}
 	
 	/**
@@ -205,6 +219,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		});
 	}
 
+	
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is negative
 	 */
@@ -214,7 +229,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		loseDialog = new Dialog(this);
 		loseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		loseDialog.setContentView(R.layout.lose_dialog);
-		
 		
 		t = (TextView) loseDialog.findViewById(R.id.lose_dialog_textView);
 		t.setTextSize(fontSize);
