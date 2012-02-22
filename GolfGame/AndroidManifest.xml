@@ -21,6 +21,10 @@
                   android:label="@string/settings_title"
                   android:screenOrientation="portrait">
         </activity>
+        		<activity android:name=".activities.TutorialActivity"
+                  android:label="@string/game_title"
+                  android:screenOrientation="portrait">
+        </activity>
        	<activity android:name=".activities.InstructionsActivity"
                   android:label="@string/instructions_title"
                   android:screenOrientation="portrait">

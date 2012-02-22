@@ -88,31 +88,43 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		newButton.setOnFocusChangeListener(this);
 		newButton.setOnLongClickListener(this);
 		newButton.setTextSize(fontSize);
-		newButton.setTypeface(font);	
+		newButton.setTypeface(font);
+		
+		Button tutorialButton = (Button) findViewById(R.id.tutorial_button);
+		tutorialButton.setOnClickListener(this);
+		tutorialButton.setOnFocusChangeListener(this);
+		tutorialButton.setOnLongClickListener(this);
+		tutorialButton.setTextSize(fontSize);
+		tutorialButton.setTypeface(font);
+		
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		settingsButton.setOnClickListener(this);
 		settingsButton.setOnFocusChangeListener(this);
 		settingsButton.setOnLongClickListener(this);
 		settingsButton.setTextSize(fontSize);
 		settingsButton.setTypeface(font);
+		
 		Button keyConfButton = (Button) findViewById(R.id.keyConf_button);
 		keyConfButton.setOnClickListener(this);
 		keyConfButton.setOnFocusChangeListener(this);
 		keyConfButton.setOnLongClickListener(this);
 		keyConfButton.setTextSize(fontSize);
 		keyConfButton.setTypeface(font);
+		
 		Button aboutButton = (Button) findViewById(R.id.about_button);
 		aboutButton.setOnClickListener(this);
 		aboutButton.setOnFocusChangeListener(this);
 		aboutButton.setOnLongClickListener(this);
 		aboutButton.setTextSize(fontSize);
 		aboutButton.setTypeface(font);
+		
 		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
 		instructionsButton.setOnClickListener(this);
 		instructionsButton.setOnFocusChangeListener(this);
 		instructionsButton.setOnLongClickListener(this);
 		instructionsButton.setTextSize(fontSize);
 		instructionsButton.setTypeface(font);
+		
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
@@ -212,6 +224,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			break;
 		case R.id.new_button:
 			openNewGameDialog();
+			break;
+		case R.id.tutorial_button:
+			i = new Intent(this, TutorialActivity.class);
+			i.putExtra(KEY_TTS, textToSpeech);
+			startActivity(i);
 			break;
 		case R.id.keyConf_button:
 			i = new Intent(this, KeyConfActivity.class);
@@ -322,6 +339,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		intent.putExtra(KEY_MODE, mode);
 		startActivityForResult(intent, RESET_CODE);
 	}
+
 
 	/** Start an Instructions screen, with the option given: controls or general **/
 	private void startInstructions(int i) {

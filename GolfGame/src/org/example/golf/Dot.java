@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.example.R;
 import org.example.activities.SettingsActivity;
+import org.example.golf.GolfGame.steps;
 import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
@@ -357,6 +358,13 @@ public class Dot extends Entity{
 		this.setY(originY);
 		launched = false;
 		this.stopAnim();
+		
+		
+		if (this.game.isTutorialMode()){
+			if (this.game.getStep() == steps.STEP1 || this.game.getStep() == steps.STEP3 || this.game.getStep() == steps.STEP6
+					|| this.game.getStep() == steps.STEP7 || this.game.getStep() == steps.STEP8)
+				this.game.nextState();
+		}
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.example.R;
 import org.example.activities.SettingsActivity;
+import org.example.golf.GolfGame.steps;
 import org.example.tinyEngineClasses.Entity;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
@@ -32,7 +33,7 @@ public class Target extends Entity{
 	
 	@Override
 	public void onUpdate(){
-		if(SettingsActivity.getNotifyTarget(this.game.getContext())){
+		if (SettingsActivity.getNotifyTarget(this.game.getContext())){
 			EventType e = Input.getInput().removeEvent("onDownTarget");
 			
 			if(e != null){
@@ -40,6 +41,11 @@ public class Target extends Entity{
 				float y = e.getMotionEventE1().getY(); 
 				if((x >= this.x && x < this.x + this.getImgWidth()) && (y >= this.y && y < this.y + this.getImgHeight())){
 					Music.getInstanceMusic().play(this.game.getContext(), clue_feedback_sound, false);
+					if (((GolfGame)this.game).isTutorialMode()){
+						if (((GolfGame)this.game).getStep() == steps.STEP4){
+							((GolfGame)this.game).nextState();
+						}
+					}
 				} 
 			}
 		}

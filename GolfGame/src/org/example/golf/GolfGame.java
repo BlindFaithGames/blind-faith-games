@@ -9,6 +9,7 @@ import java.util.Random;
 
 import org.example.R;
 import org.example.activities.MainActivity;
+import org.example.activities.SettingsActivity;
 import org.example.tinyEngineClasses.CustomBitmap;
 import org.example.tinyEngineClasses.Game;
 import org.example.tinyEngineClasses.Input;
@@ -19,67 +20,151 @@ import org.example.tinyEngineClasses.MaskCircle;
 import org.example.tinyEngineClasses.TTS;
 import org.example.tinyEngineClasses.VolumeManager;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.AudioManager;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.Window;
 
-public class GolfGame extends Game {
+public class GolfGame extends Game implements OnCancelListener {
+	public enum steps {
+		STEP1, STEP2, STEP3, STEP4, STEP5, STEP6, STEP7, STEP8, STEP9
+	};
+
+	public static steps state;
 
 	private static final int MAX_STAGES = 19;
 	private boolean stageMode; // is in stage mode?
+	private boolean tutorial; // is game tutorial?
 	private int stage; // stage number
-	
+
 	private Random numberGenerator;
 	
+	private Dialog step[] = new Dialog[9];
+
+	private TTS textToSpeech;
+	private Resources res;
+	private static Handler handler;
+	private SharedPreferences settings;
+	private SharedPreferences.Editor editor;
+
 	public GolfGame(int mode, View v, TTS textToSpeech, Context c) {
-		super(v,c,textToSpeech);
-		
+		super(v, c, textToSpeech);
+
 		int record;
-		
-		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		
+
+		this.textToSpeech = textToSpeech;
+		this.textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+
 		stage = 1;
 		stageMode = (mode == 0);
-		
-		if(!stageMode){
-			textToSpeech.setInitialSpeech(this.context.getString(R.string.game_initial_TTStext));
-			record = loadRecord();
+
+		tutorial = (mode == 2);
+		if (tutorial) {
+			stageMode = false;
+			res = this.getContext().getResources();
+			settings = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+			editor = settings.edit();
 		}
-		else{
-			textToSpeech.setInitialSpeech(this.context.getString(R.string.game_initial_stage_TTStext));
+
+		if (!stageMode) {
+			textToSpeech.setInitialSpeech(this.context
+					.getString(R.string.game_initial_TTStext));
+			record = loadRecord();
+		} else {
+			textToSpeech.setInitialSpeech(this.context
+					.getString(R.string.game_initial_stage_TTStext));
 			record = -1;
 		}
-		
+
 		createEntities(record);
-		
+
 		// Set background image
 		numberGenerator = new Random();
 		Bitmap field;
 		int img = 0;
-		switch (numberGenerator.nextInt(4)){
-		case 0:	 img = R.drawable.campogolf;
+		switch (numberGenerator.nextInt(4)) {
+		case 0:
+			img = R.drawable.campogolf;
 			break;
-		case 1: img = R.drawable.campogolfluna;
+		case 1:
+			img = R.drawable.campogolfluna;
 			break;
-		case 2: img = R.drawable.campogolfsubmarino;
+		case 2:
+			img = R.drawable.campogolfsubmarino;
 			break;
-		case 3: img =  R.drawable.campogolfnoche;
+		case 3:
+			img = R.drawable.campogolfnoche;
 			break;
 		}
 		field = BitmapFactory.decodeResource(v.getResources(), img);
-		field = CustomBitmap.getResizedBitmap(field, SCREEN_HEIGHT, SCREEN_WIDTH);
+		field = CustomBitmap.getResizedBitmap(field, SCREEN_HEIGHT,
+				SCREEN_WIDTH);
 		Paint brush = new Paint();
 		brush.setAlpha(175);
 		editBackground(brush);
 		setBackground(field);
+
+		// Comenzamos por el paso 1
+		state = steps.STEP1;
+		handler = new Handler();
+		if (tutorial) {
+			createDialogs(c);
+			step[0].show();
+			this.textToSpeech.speak(res
+					.getString(R.string.tutorial_step1_dialog_select));
+		}
+	}
+
+	public boolean isTutorialMode() {
+		return tutorial;
 	}
 	
+	public steps getStep(){
+		return state;
+	}
+
+	private void createDialogs(Context c) {
+		for (int i = 0; i < step.length; i++){
+			step[i] = new Dialog(c);
+			step[i].requestWindowFeature(Window.FEATURE_NO_TITLE);
+			switch (i){
+			case 0: step[i].setContentView(R.layout.tutorial_step1);
+				break;
+			case 1: step[i].setContentView(R.layout.tutorial_step2);
+				break;
+			case 2: step[i].setContentView(R.layout.tutorial_step3);
+				break;
+			case 3:  step[i].setContentView(R.layout.tutorial_step4);
+				break;
+			case 4: step[i].setContentView(R.layout.tutorial_step5);
+				break;
+			case 5: step[i].setContentView(R.layout.tutorial_step6);
+				break;
+			case 6: step[i].setContentView(R.layout.tutorial_step7);
+				break;
+			case 7: step[i].setContentView(R.layout.tutorial_step8);
+				break;
+			case 8: step[i].setContentView(R.layout.tutorial_step9);
+				break;
+			}
+			step[i].setCanceledOnTouchOutside(true);
+			step[i].setOnCancelListener(this);
+		}
+	}
+
 	/**
 	 * Loads from internal file system the previous record in Free Mode.
 	 * 
@@ -87,8 +172,9 @@ public class GolfGame extends Game {
 	private int loadRecord() {
 		FileInputStream fis;
 		int record = -1;
-		try { 
-			fis = this.getContext().openFileInput(MainActivity.FILENAMEFREEMODE);
+		try {
+			fis = this.getContext()
+					.openFileInput(MainActivity.FILENAMEFREEMODE);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Object f = ois.readObject();
 			record = (Integer) f;
@@ -113,31 +199,39 @@ public class GolfGame extends Game {
 	private void createEntities(int record) {
 		// Game entities: ball and target
 		// Target
-		Bitmap targetBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.hole);
+		Bitmap targetBitmap = BitmapFactory.decodeResource(v.getResources(),
+				R.drawable.hole);
 		ArrayList<Mask> targetMasks = new ArrayList<Mask>();
-		targetMasks.add(new MaskBox(0,4*targetBitmap.getHeight()/5,4*targetBitmap.getWidth()/5	,targetBitmap.getHeight()/5));	
+		targetMasks.add(new MaskBox(0, 4 * targetBitmap.getHeight() / 5,
+				4 * targetBitmap.getWidth() / 5, targetBitmap.getHeight() / 5));
 		Random positions = new Random();
 		int width = SCREEN_WIDTH - targetBitmap.getWidth();
 		int targetX = positions.nextInt(width);
-		int targetY = SCREEN_HEIGHT/10;
-		this.addEntity(new Target(targetX, targetY, targetBitmap, this, targetMasks));
-		
+		int targetY = SCREEN_HEIGHT / 10;
+		this.addEntity(new Target(targetX, targetY, targetBitmap, this,
+				targetMasks));
+
 		// Ball
-		Bitmap ballBitmap = BitmapFactory.decodeResource(v.getResources(), R.drawable.golf_ball);
+		Bitmap ballBitmap = BitmapFactory.decodeResource(v.getResources(),
+				R.drawable.golf_ball);
 		ArrayList<Mask> ballMasks = new ArrayList<Mask>();
-		ballMasks.add(new MaskCircle(ballBitmap.getWidth()/2,ballBitmap.getWidth()/2,ballBitmap.getWidth()/2));     
+		ballMasks.add(new MaskCircle(ballBitmap.getWidth() / 2, ballBitmap
+				.getWidth() / 2, ballBitmap.getWidth() / 2));
 		this.addEntity(new Dot(SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT
-				/ 3, record, ballBitmap, this, ballMasks, new Point(targetX + 2*targetBitmap.getWidth()/5, 
-										targetY + 4*targetBitmap.getWidth()/5),context));
+				/ 3, record, ballBitmap, this, ballMasks, new Point(targetX + 2
+				* targetBitmap.getWidth() / 5, targetY + 4
+				* targetBitmap.getWidth() / 5), context));
 	}
 
 	@Override
 	public void onDraw(Canvas canvas) {
+		Paint brush = new Paint();
 		super.onDraw(canvas);
-		if(stageMode){
-			Paint brush = new Paint();
+		if (stageMode) {
+			brush = new Paint();
 			brush.setTextSize(30);
-			canvas.drawText(Integer.toString(stage), SCREEN_WIDTH/2, 30, brush);
+			canvas.drawText(Integer.toString(stage), SCREEN_WIDTH / 2, 30,
+					brush);
 		}
 	}
 
@@ -145,43 +239,54 @@ public class GolfGame extends Game {
 	public void onUpdate() {
 		super.onUpdate();
 		EventType e = Input.getInput().removeEvent("onVolUp");
-		if (e != null){
-			VolumeManager.adjustStreamVolume(this.context, AudioManager.ADJUST_RAISE);
-		}else{
+		if (e != null) {
+			VolumeManager.adjustStreamVolume(this.context,
+					AudioManager.ADJUST_RAISE);
+		} else {
 			e = Input.getInput().removeEvent("onVolDown");
 			if (e != null)
-				VolumeManager.adjustStreamVolume(this.context, AudioManager.ADJUST_LOWER);
+				VolumeManager.adjustStreamVolume(this.context,
+						AudioManager.ADJUST_LOWER);
 		}
-		
+		e = Input.getInput().removeEvent("onDown");
+		if (e != null && state == steps.STEP2) {
+			this.nextState();
+		}
+
 	}
-	
-	public void nextStage(int actualRecord){
-		if(stageMode){
+
+	public void nextStage(int actualRecord) {
+		if (stageMode) {
 			stage++;
-			if(stage == MAX_STAGES){
+			if (stage == MAX_STAGES) {
 				Intent i = new Intent();
-				i.putExtra(MainActivity.KEY_RESULTS, String.valueOf(actualRecord));
+				i.putExtra(MainActivity.KEY_RESULTS,
+						String.valueOf(actualRecord));
 				this.context.setResult(MainActivity.EXIT_GAME_CODE, i);
 				this.context.finish();
-			}
-			else{
+			} else {
 				this.getTTS().speak("Stage number" + stage);
 				// Change background image
 				// Set background image
 				Bitmap field;
 				int img = 0;
-				switch (numberGenerator.nextInt(4)){
-				case 0:	 img = R.drawable.campogolf;
+				switch (numberGenerator.nextInt(4)) {
+				case 0:
+					img = R.drawable.campogolf;
 					break;
-				case 1: img = R.drawable.campogolfluna;
+				case 1:
+					img = R.drawable.campogolfluna;
 					break;
-				case 2: img = R.drawable.campogolfsubmarino;
+				case 2:
+					img = R.drawable.campogolfsubmarino;
 					break;
-				case 3: img =  R.drawable.campogolfnoche;
+				case 3:
+					img = R.drawable.campogolfnoche;
 					break;
 				}
 				field = BitmapFactory.decodeResource(v.getResources(), img);
-				field = CustomBitmap.getResizedBitmap(field, SCREEN_HEIGHT, SCREEN_WIDTH);
+				field = CustomBitmap.getResizedBitmap(field, SCREEN_HEIGHT,
+						SCREEN_WIDTH);
 				Paint brush = new Paint();
 				brush.setAlpha(175);
 				editBackground(brush);
@@ -189,12 +294,127 @@ public class GolfGame extends Game {
 			}
 		}
 	}
-	
-	public boolean isStageMode(){
+
+	public boolean isStageMode() {
 		return stageMode;
 	}
-	
-	public int getStage(){
-		return stage;
+
+	public void nextState() {
+		switch (state) {
+		case STEP1:
+			state = steps.STEP2;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[0].dismiss();
+					step[1].show();
+					textToSpeech.speak(res.getString(R.string.tutorial_step2_dialog_select));
+				}
+			});
+			break;
+		case STEP2:
+			state = steps.STEP3;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[1].dismiss();
+					step[2].show();
+					editor.putBoolean(SettingsActivity.OPT_UP, true);
+					editor.commit();
+					textToSpeech.speak(res.getString(R.string.tutorial_step3_dialog_select));
+				}
+			});
+			break;
+		case STEP3:
+			state = steps.STEP4;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[2].dismiss();
+					step[3].show();
+					editor.putBoolean(SettingsActivity.OPT_INFO_TARGET, true);
+					editor.commit();
+					textToSpeech.speak(res.getString(R.string.tutorial_step4_dialog_select));
+				}
+			});
+			break;
+		case STEP4:
+			state = steps.STEP5;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[3].dismiss();
+					step[4].show();
+					textToSpeech.speak(res
+							.getString(R.string.tutorial_step5_dialog_select));
+				}
+			});
+			break;
+		case STEP5:
+			state = steps.STEP6;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[4].dismiss();
+					step[5].show();
+					editor.putBoolean(SettingsActivity.OPT_VIBRATION_FEEDBACK, true);
+					editor.commit();
+					textToSpeech.speak(res
+							.getString(R.string.tutorial_step6_dialog_select));
+				}
+			});
+			break;
+		case STEP6:
+			state = steps.STEP7;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[5].dismiss();
+					step[6].show();
+					editor.putBoolean(SettingsActivity.OPT_SOUND_FEEDBACK, true);
+					editor.commit();
+					textToSpeech.speak(res
+							.getString(R.string.tutorial_step7_dialog_select));
+				}
+			});
+			break;
+		case STEP7:
+			state = steps.STEP8;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[6].dismiss();
+					step[7].show();
+					editor.putBoolean(SettingsActivity.OPT_SOUND_DOPPLER_EFFECT, true);
+					editor.commit();
+					textToSpeech.speak(res
+							.getString(R.string.tutorial_step8_dialog_select));
+				}
+			});
+			break;
+		case STEP8:
+			state = steps.STEP9;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[7].dismiss();
+					step[8].show();
+					textToSpeech.speak(res
+							.getString(R.string.tutorial_step9_dialog_select));
+				}
+			});
+			break;
+		}
 	}
+
+	@Override
+	public void onCancel(DialogInterface dialog) {
+		if (dialog.equals(step[1]) || dialog.equals(step[4])){
+			this.nextState();
+		}
+		else if (dialog.equals(step[8])){
+			this.context.finish();
+		}
+	}
+
 }
