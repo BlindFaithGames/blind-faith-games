@@ -13,7 +13,7 @@
             android:id="@+id/q1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Have you had any special keyboard in your Android device?"
+            android:text="@string/q1_context"
             android:contentDescription="@string/q1_context" >
         </TextView>
 
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="TalkBack"
+                android:text="@string/radio10_context"
                 android:contentDescription="@string/radio10_context" >
             </RadioButton>
 
@@ -35,7 +35,7 @@
                 android:id="@+id/radio1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
+                android:text="@string/no_context"
                 android:contentDescription="@string/no_context" >
             </RadioButton>
 
@@ -43,7 +43,7 @@
                 android:id="@+id/radio2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Physical keyboard" 
+                android:text="@string/radio12_context" 
                 android:contentDescription="@string/radio12_context">
             </RadioButton>
         </RadioGroup>
@@ -52,7 +52,7 @@
             android:id="@+id/q2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Do you miss some form of interaction?"
+            android:text="@string/q2_context"
             android:contentDescription="@string/q2_context" >
         </TextView>
 
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="More gestures"
+                android:text="@string/radio20_context"
                 android:contentDescription="@string/radio20_context" >
             </RadioButton>
 
@@ -74,7 +74,7 @@
                 android:id="@+id/radio4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zones for concrete actions on the screen" 
+                android:text="@string/radio21_context" 
                 android:contentDescription="@string/radio21_context">
             </RadioButton>
 
@@ -82,7 +82,7 @@
                 android:id="@+id/radio5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No" 
+                android:text="@string/no_context" 
                 android:contentDescription="@string/no_context">
             </RadioButton>
         </RadioGroup>
@@ -91,7 +91,7 @@
             android:id="@+id/q4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Is it comfortable use physical keys?" 
+            android:text="@string/q4_context" 
             android:contentDescription="@string/q4_context">
         </TextView>
 
@@ -106,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Yes" 
+                android:text="@string/yes_context" 
                  android:contentDescription="@string/yes_context">
             </RadioButton>
 
@@ -114,7 +114,7 @@
                 android:id="@+id/radio12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
+                android:text="@string/no_context"
                 android:contentDescription="@string/no_context" >
             </RadioButton>
         </RadioGroup>
@@ -123,7 +123,7 @@
             android:id="@+id/q5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Have you changed the key configuration?" 
+            android:text="@string/q5_context" 
              android:contentDescription="@string/q5_context">
         </TextView>
 
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Yes" 
+                android:text="@string/yes_context" 
                  android:contentDescription="@string/yes_context">
             </RadioButton>
 
@@ -146,7 +146,7 @@
                 android:id="@+id/radio17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
+                android:text="@string/no_context"
                  android:contentDescription="@string/no_context" >
             </RadioButton>
         </RadioGroup>
@@ -156,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Next"
+            android:text="@string/next_context"
             android:contentDescription="@string/next_context" >
         </Button>
     </LinearLayout>

@@ -28,12 +28,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.example.minesweeper.Input;
 import org.example.minesweeper.Music;
 import org.example.minesweeper.TTS;
-import org.example.minesweeper.XML.KeyboardWriter;
+import org.example.minesweeper.XML.KeyboardReader;
 import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.AnalyticsManager;
 import org.example.others.Entry;
@@ -45,11 +43,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -66,7 +62,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import com.minesweeper.client.MyRequestFactory;
@@ -93,7 +88,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 	private int difficult;
 	private TTS textToSpeech;
-	private KeyboardWriter writer;
+	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
 
 	private Dialog gameDialog;
@@ -157,9 +152,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 					String.format(message, accountName));
 		}
 	};
-
-	 private static GoogleAnalyticsTracker tracker;
-
 	/**
 	 * Begins the activity.
 	 */
@@ -187,7 +179,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		createInstructionsDialog();
 
 		createLoadingDialog();
-		
 }
 
 	private void checkId() {
@@ -259,9 +250,11 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 */
 	@Override
 	public void onDestroy() {
-		unregisterReceiver(mUpdateUIReceiver);
+		//unregisterReceiver(mUpdateUIReceiver);
 		textToSpeech.stop();
+    	AnalyticsManager.dispatch();
 		super.onDestroy();
+		AnalyticsManager.stopTracker();
 	}
 
 	@Override
@@ -286,15 +279,18 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private void setMainScreenContent() {
 		setContentView(R.layout.main);
 
-		keyboard = Input.getInstance();
-		this.fillXMLKeyboard();
-
 		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
 		newButton.setOnLongClickListener(this);
 		newButton.setTextSize(fontSize);
 		newButton.setTypeface(font);	
+        Button tutorialButton = (Button) findViewById(R.id.tutorial_button);
+        tutorialButton.setOnClickListener(this);
+        tutorialButton.setOnFocusChangeListener(this);
+        tutorialButton.setOnLongClickListener(this);
+        tutorialButton.setTextSize(fontSize);
+        tutorialButton.setTypeface(font);        
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		settingsButton.setOnClickListener(this);
 		settingsButton.setOnFocusChangeListener(this);
@@ -384,16 +380,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private void checkFolderApp(String file) {
 		File f = new File(file);
 		if (f == null || (!f.exists() && !f.mkdir())) {
-			if (writer == null)
-				writer = new KeyboardWriter();
+			if (reader == null)
+				reader = new KeyboardReader();
 			try {
-				FileOutputStream fos = openFileOutput(file, 3);
-				writer.saveEditedKeyboard(keyboard.getNum(),
-						keyboard.getKeyList(), fos);
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
+				FileInputStream fis = openFileInput(file);
+				keyboard = reader.loadEditedKeyboard(fis);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
+				keyboard = Input.getInstance();
+				this.fillXMLKeyboard();
 			}
 		}
 	}
@@ -424,6 +419,11 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			break;
 		case R.id.new_button:
 			openNewGameDialog();
+			break;
+		case R.id.tutorial_button:
+			i = new Intent(this, MinesweeperTutorialActivity.class);
+			i.putExtra(KEY_TTS, textToSpeech);
+			startActivity(i);
 			break;
 		case R.id.form_button:
 			i = new Intent(this, FormActivity.class);

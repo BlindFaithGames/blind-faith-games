@@ -1,5 +1,6 @@
 package org.example.golf.XML;
 
+import org.example.tinyEngineClasses.Input;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -31,7 +32,7 @@ public class SAXHandler extends DefaultHandler {
 	
 	public void startElement(String uri, String localName, String qName, Attributes att){
 		if (qName.equals("keyboard")){			
-			k = new XMLKeyboard();
+			k = Input.getKeyboard();
 			k.setNum(Integer.parseInt(att.getValue("num")));
 		}
 		else if (qName.equals("rowmap")){

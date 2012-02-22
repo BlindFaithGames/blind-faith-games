@@ -242,7 +242,6 @@ public class FormActivity extends Activity implements OnClickListener,
 				textToSpeech.speak(getString(R.string.q12_context));
 
 			textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-
 		}
 	}
 

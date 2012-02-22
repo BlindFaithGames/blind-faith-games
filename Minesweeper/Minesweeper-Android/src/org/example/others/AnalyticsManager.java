@@ -54,7 +54,12 @@ public class AnalyticsManager {
 	 }
 	 
 	 public static void stopTracker(){
-	  if(getTracker() != null)
-	   getTracker().stopSession();
+		 if(getTracker() != null)
+			 getTracker().stopSession();
 	 }
+
+	public static void dispatch() {
+		if(getTracker() != null)
+			  getTracker().dispatch();
+	}
 }

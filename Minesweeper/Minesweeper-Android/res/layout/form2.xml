@@ -13,7 +13,7 @@
             android:id="@+id/q6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Has your Android device enough physical keys?" 
+            android:text="@string/q6_context" 
              android:contentDescription="@string/q6_context">
         </TextView>
 
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Yes" 
+                android:text="@string/yes_context" 
                  android:contentDescription="@string/yes_context">
             </RadioButton>
 
@@ -35,7 +35,7 @@
                 android:id="@+id/radio19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
+                android:text="@string/no_context"
                  android:contentDescription="@string/no_context" >
             </RadioButton>
         </RadioGroup>
@@ -44,7 +44,7 @@
             android:id="@+id/q8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Has the game, enough information to play it?" 
+            android:text="@string/q8_context" 
              android:contentDescription="@string/q8_context">
         </TextView>
 
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Yes" 
+                android:text="@string/yes_context" 
                  android:contentDescription="@string/yes_context">
             </RadioButton>
 
@@ -67,7 +67,7 @@
                 android:id="@+id/radio27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
+                android:text="@string/no_context"
                  android:contentDescription="@string/no_context" >
             </RadioButton>
         </RadioGroup>
@@ -76,7 +76,7 @@
             android:id="@+id/q10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="About the boards in the minesweeper, are the buttons on the screen too small?" 
+            android:text="@string/q10_context" 
             android:contentDescription="@string/q10_context">
         </TextView>
 
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Yes" 
+                android:text="@string/yes_context" 
                  android:contentDescription="@string/yes_context">
             </RadioButton>
 
@@ -99,7 +99,7 @@
                 android:id="@+id/radio35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
+                android:text="@string/no_context"
                  android:contentDescription="@string/no_context" >
             </RadioButton>
         </RadioGroup>
@@ -108,7 +108,7 @@
             android:id="@+id/q12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Do you think that it&apos;s hard to change the game configuration?" 
+            android:text="@string/q12_context" 
             android:contentDescription="@string/q12_context">
         </TextView>
 
@@ -123,7 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Yes" 
+                android:text="@string/yes_context" 
                  android:contentDescription="@string/yes_context">
             </RadioButton>
 
@@ -131,7 +131,7 @@
                 android:id="@+id/radio45"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
+                android:text="@string/no_context"
                  android:contentDescription="@string/no_context" >
             </RadioButton>
         </RadioGroup>
@@ -140,7 +140,7 @@
             android:id="@+id/q14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Adicional commentaries:" 
+            android:text="@string/q14_context" 
             android:contentDescription="@string/q14_context">
         </TextView>
 
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Finish" 
+            android:text="@string/finish_context" 
             android:contentDescription="@string/finish_context">
         </Button>
     </LinearLayout>

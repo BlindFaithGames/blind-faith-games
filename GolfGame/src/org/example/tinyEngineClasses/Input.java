@@ -112,7 +112,7 @@ public class Input {
 	public void clean() {
 		events.clear();
 	}
-	
+
 }
 
 

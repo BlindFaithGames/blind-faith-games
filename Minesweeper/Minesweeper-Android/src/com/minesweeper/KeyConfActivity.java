@@ -194,10 +194,10 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 
 	private String keyConfigurationtoString() {
 		String aux;
-		aux = "Exploration: " + keyboard.getKeyByAction("exploration");
-		aux = "Zoom: " + aux.concat(keyboard.getKeyByAction("zoom") + keyboard.searchButtonByAction("zoom"));
-		aux = "Coordinates: " + aux.concat(keyboard.getKeyByAction("coordinates") + keyboard.searchButtonByAction("coordinates"));
-		aux = "Context: " + aux.concat(keyboard.getKeyByAction("context") + keyboard.searchButtonByAction("context"));
+		aux = this.getString(R.string.action_exploration) + keyboard.getKeyByAction("exploration");
+		aux = this.getString(R.string.action_zoom) + aux.concat(keyboard.getKeyByAction("zoom") + keyboard.searchButtonByAction("zoom"));
+		aux = this.getString(R.string.action_coordinates) + aux.concat(keyboard.getKeyByAction("coordinates") + keyboard.searchButtonByAction("coordinates"));
+		aux = this.getString(R.string.action_context) + aux.concat(keyboard.getKeyByAction("context") + keyboard.searchButtonByAction("context"));
 		return aux;
 	}
 

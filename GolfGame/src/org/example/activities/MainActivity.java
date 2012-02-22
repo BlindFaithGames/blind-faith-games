@@ -1,13 +1,11 @@
 package org.example.activities;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.example.R;
-import org.example.golf.XML.KeyboardWriter;
+import org.example.golf.XML.KeyboardReader;
 import org.example.golf.XML.XMLKeyboard;
 import org.example.others.RuntimeConfig;
 import org.example.tinyEngineClasses.Input;
@@ -48,13 +46,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public static String FILENAMESTAGEMODE = "GolfRecords2.data";
 	
 	private TTS textToSpeech;
-	private KeyboardWriter writer;
+	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
 	
 	private Dialog gameDialog;
 	private Dialog instructionsDialog;
 	
 	private View focusedView;
+	
 	
 	private static float fontSize;
 	private static float scale;
@@ -161,17 +160,19 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void checkFolderApp(String file) {
 		File f = new File(file);
 		if (f == null || (!f.exists() && !f.mkdir())) {
-			if (writer == null) writer = new KeyboardWriter();
+			if (reader == null)
+				reader = new KeyboardReader();
 			try {
-				FileOutputStream fos = openFileOutput(file, 3);
-				writer.saveEditedKeyboard(keyboard.getNum(), keyboard.getKeyList(), fos);
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
+				FileInputStream fis = openFileInput(file);
+				keyboard = reader.loadEditedKeyboard(fis);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
+				keyboard = Input.getKeyboard();
+				this.fillXMLKeyboard();
 			}
 		}
 	}
+	
 
 	/**
 	 * onClick manager

@@ -87,8 +87,7 @@
                   android:label="@string/form_label"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".SendLogActivity"
-                  android:label="@string/form_label"                  
+        <activity android:name=".MinesweeperTutorialActivity"       
                   android:screenOrientation="portrait">
         </activity>
 

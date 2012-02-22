@@ -101,5 +101,12 @@
     <string name="tutorial_step7_dialog_select">Sound effect también es una ayuda para localizar el objetivo en el lanzamiento</string>
     <string name="tutorial_step8_dialog_select">Sound variation te da una pista de cuánto de cerca o lejos ha quedado tu lanzamiento</string>
     <string name="tutorial_step9_dialog_select">Fin</string>
+    
+    	<!-- Game Actions -->
+	<string name="action_exploration">Exploration: </string>
+	<string name="action_coordinates">Coordinates: </string>
+	<string name="action_zoom">Zoom: </string>
+	<string name="action_context">Context: </string>
+    
 
 </resources>
