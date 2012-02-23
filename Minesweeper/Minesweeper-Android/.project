@@ -33,9 +33,19 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>shared</name>
+			<name>SHARED</name>
 			<type>2</type>
-			<location>C:/Users/Javieku/si-project/Minesweeper-AppEngine/shared</location>
+			<locationURI>SHARED</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>LIB</name>
+			<value>$%7BPROJECT_LOC%7D/lib</value>
+		</variable>
+		<variable>
+			<name>SHARED</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D/Minesweeper-AppEngine/shared</value>
+		</variable>
+	</variableList>
 </projectDescription>
