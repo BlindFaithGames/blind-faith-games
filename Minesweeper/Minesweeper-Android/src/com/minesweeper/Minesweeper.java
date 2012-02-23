@@ -1,7 +1,5 @@
 package com.minesweeper;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +9,6 @@ import org.example.minesweeper.Cell.CellStates;
 import org.example.minesweeper.MinesweeperView;
 import org.example.minesweeper.Music;
 import org.example.minesweeper.TTS;
-import org.example.minesweeper.XML.KeyboardReader;
-import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.AnalyticsManager;
 import org.example.others.Log;
 import org.example.others.MinesweeperAnalytics;
@@ -96,28 +92,18 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		rowN = mineField.getNRow();
 		colN = mineField.getNCol();
 		
-		// Cargamos el teclado del XML
-		KeyboardReader reader = new KeyboardReader();
+		minesweeperView = new MinesweeperView(this, rowN, colN);
+		setContentView(minesweeperView);
+		minesweeperView.requestFocus();
 		
-		try {
-			FileInputStream fis = openFileInput("minesweeper.xml");
-			XMLKeyboard keyboard = reader.loadEditedKeyboard(fis);
+		buildWinDialog();
 
-			minesweeperView = new MinesweeperView(this, rowN, colN, keyboard);
-			setContentView(minesweeperView);
-			minesweeperView.requestFocus();
-			
-			buildWinDialog();
-
-			buildEndingDialog();	
-		
-			// Initialize TTS engine
-			textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
-			textToSpeech.setContext(this);
-			textToSpeech.setInitialSpeech(this.getString(R.string.game_initial_TTStext));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		buildEndingDialog();	
+	
+		// Initialize TTS engine
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(this.getString(R.string.game_initial_TTStext));
 		
 		Log.getLog().addEntry(Minesweeper.TAG,PrefsActivity.configurationToString(this),
 				Log.ONCREATE,Thread.currentThread().getStackTrace()[2].getMethodName(), mineField.getMines());

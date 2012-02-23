@@ -106,7 +106,7 @@ public class MinesweeperView extends View {
 		}
 	};
 
-	public MinesweeperView(Context context, int rowN, int colN, XMLKeyboard keyboard) {
+	public MinesweeperView(Context context, int rowN, int colN) {
 		super(context);
 		
 		this.rowN = rowN;
@@ -128,7 +128,7 @@ public class MinesweeperView extends View {
 		
 		zoomMode = false;
 		
-		this.keyboard = keyboard;
+		this.keyboard = Input.getInstance();
 		
 		Log.getLog().addEntry(MinesweeperView.TAG,
 					PrefsActivity.configurationToString(game),
