@@ -85,32 +85,22 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 		System.out.print(mineField);
 		rowN = mineField.getNRow();
 		colN = mineField.getNCol();
-		
-		// Cargamos el teclado del XML
-		KeyboardReader reader = new KeyboardReader();
-		
-		try {
-			FileInputStream fis = openFileInput("minesweeper.xml");
-			XMLKeyboard keyboard = reader.loadEditedKeyboard(fis);
 
-			minesweeperTutorialView = new MinesweeperTutorialView(this, rowN, colN, keyboard);
-			setContentView(minesweeperTutorialView);
-			minesweeperTutorialView.requestFocus();
-			
-			buildWinDialog();
-
-			buildEndingDialog();	
+		minesweeperTutorialView = new MinesweeperTutorialView(this, rowN, colN);
+		setContentView(minesweeperTutorialView);
+		minesweeperTutorialView.requestFocus();
 		
-			// Initialize TTS engine
-			textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
-			textToSpeech.setContext(this);
-			textToSpeech.setInitialSpeech(this.getString(R.string.tut_intro_text) + ". "  + 
-										  this.getString(R.string.tut_drag_text) + ". "  +  
-										  this.getString(R.string.tut_step));
-			this.textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		buildWinDialog();
+
+		buildEndingDialog();	
+	
+		// Initialize TTS engine
+		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
+		textToSpeech.setContext(this);
+		textToSpeech.setInitialSpeech(this.getString(R.string.tut_intro_text) + ". "  + 
+									  this.getString(R.string.tut_drag_text) + ". "  +  
+									  this.getString(R.string.tut_step));
+		this.textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
 		Log.getLog().addEntry(MinesweeperTutorialActivity.TAG,PrefsActivity.configurationToString(this),
 				Log.ONCREATE,Thread.currentThread().getStackTrace()[2].getMethodName(), mineField.getMines());

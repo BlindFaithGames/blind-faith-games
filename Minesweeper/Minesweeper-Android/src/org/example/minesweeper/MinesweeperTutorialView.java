@@ -121,7 +121,7 @@ public class MinesweeperTutorialView extends View {
 		}
 	};
 
-	public MinesweeperTutorialView(Context context, int rowN, int colN, XMLKeyboard keyboard) {
+	public MinesweeperTutorialView(Context context, int rowN, int colN) {
 		super(context);
 		
 		state = TutorialState.TUT_DRAG;
@@ -152,7 +152,7 @@ public class MinesweeperTutorialView extends View {
 		
 		zoomMode = false;
 		
-		this.keyboard = keyboard;
+		this.keyboard = Input.getInstance();
 		
 		Log.getLog().addEntry(MinesweeperTutorialView.TAG,
 					PrefsActivity.configurationToString(game),

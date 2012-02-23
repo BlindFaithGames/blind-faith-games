@@ -386,7 +386,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				FileInputStream fis = openFileInput(file);
 				keyboard = reader.loadEditedKeyboard(fis);
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 				keyboard = Input.getInstance();
 				this.fillXMLKeyboard();
 			}
