@@ -4,7 +4,7 @@
 	<classpathentry kind="lib" path="lib/c2dm.jar"/>
 	<classpathentry kind="lib" path="lib/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="shared"/>
+	<classpathentry kind="src" path="SHARED"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path=".apt_generated">
 		<attributes>
@@ -12,6 +12,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="C:/Users/Javieku/workspace/Minesweeper-Android/lib/libGoogleAnalytics.jar"/>
+	<classpathentry kind="lib" path="lib/libGoogleAnalytics.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
