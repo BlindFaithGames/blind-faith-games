@@ -3,6 +3,7 @@ package com.minesweeper;
 import org.example.minesweeper.TTS;
 import org.example.others.AnalyticsManager;
 import org.example.others.Log;
+import org.example.others.MinesweeperAnalytics;
 
 import android.app.Activity;
 import android.content.Context;
@@ -53,12 +54,13 @@ public class FormActivity extends Activity implements OnClickListener,
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.form_label));
 		
-		AnalyticsManager.getAnalyticsManager(this).registerPage("formActivity");
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.FORM_ACTIVITY);
 	}
 
 	@Override
 	public void onClick(View v) {
 		boolean done = false;
+
 		switch (v.getId()) {
 		case (R.id.buttonNext1):
 			saveResults(R.layout.form1);
@@ -70,11 +72,14 @@ public class FormActivity extends Activity implements OnClickListener,
 			buttonFinish.setOnClickListener(this);
 			buttonFinish.setOnFocusChangeListener(this);
 			done = true;
-			done = true;
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.FORM_EVENTS, MinesweeperAnalytics.CLICK, 
+					"Next Button", 0);
 			break;
 		case (R.id.button_finish):
 			saveResults(R.layout.form2);
 			done = true;
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.FORM_EVENTS, MinesweeperAnalytics.CLICK, 
+					"Finish button", 0);
 			break;
 		}
 		if (!done) {
@@ -219,29 +224,42 @@ public class FormActivity extends Activity implements OnClickListener,
 	 * OnFocusChangeListener Interface
 	 * */
 	public void onFocusChange(View v, boolean hasFocus) {
+		int ans = -1;
 		if (hasFocus) {
 			textToSpeech.speak(v);
 			textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-			if (groupContainId(ans1, v.getId()))
+			if (groupContainId(ans1, v.getId())){
 				textToSpeech.speak(getString(R.string.q1_context));
-			else if (groupContainId(ans2, v.getId()))
+				ans = 1; 
+			}else if (groupContainId(ans2, v.getId())){
 				textToSpeech.speak(getString(R.string.q2_context));
-			else if (ans4 != null && groupContainId(ans4, v.getId()))
+				ans = 2; 
+			}else if (ans4 != null && groupContainId(ans4, v.getId())){
 				textToSpeech.speak(getString(R.string.q4_context));
-			else if (ans5 != null && groupContainId(ans5, v.getId()))
+				ans = 3;
+			}else if (ans5 != null && groupContainId(ans5, v.getId())){
 				textToSpeech.speak(getString(R.string.q5_context));
-			else if (ans6 != null && groupContainId(ans6, v.getId()))
+				ans = 4;
+			}else if (ans6 != null && groupContainId(ans6, v.getId())){
 				textToSpeech.speak(getString(R.string.q6_context));
-			else if (ans8 != null && groupContainId(ans8, v.getId()))
+				ans = 5;
+			}else if (ans8 != null && groupContainId(ans8, v.getId())){
 				textToSpeech.speak(getString(R.string.q8_context));
-			else if (ans9 != null && groupContainId(ans9, v.getId()))
+				ans = 6;
+			}else if (ans9 != null && groupContainId(ans9, v.getId())){
 				textToSpeech.speak(getString(R.string.instructions_label));
-			else if (ans10 != null && groupContainId(ans10, v.getId()))
+				ans = 7;
+			}else if (ans10 != null && groupContainId(ans10, v.getId())){
 				textToSpeech.speak(getString(R.string.q10_context));
-			else if (ans12 != null && groupContainId(ans12, v.getId()))
+				ans = 8;
+			}else if (ans12 != null && groupContainId(ans12, v.getId())){
 				textToSpeech.speak(getString(R.string.q12_context));
-
+				ans = 9;
+			}
 			textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
+			
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.FORM_EVENTS, MinesweeperAnalytics.CLICK, 
+					"Ans " + ans, 0);
 		}
 	}
 
@@ -258,7 +276,7 @@ public class FormActivity extends Activity implements OnClickListener,
 	public void onBackPressed (){
 		Toast toast = Toast.makeText(this, R.string.on_back_pressed, Toast.LENGTH_SHORT);
 		toast.show();
-		textToSpeech.speak("You have to complete the form");
+		textToSpeech.speak(this.getString(R.string.on_back_pressed));
 	}
 
 }

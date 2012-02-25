@@ -141,6 +141,8 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 			action = "context";
 			break;
 		}
+		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.CONFIGURATION_CHANGED,
+				MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED, "Action-Key Changed: " + action, 0);
 		startActivityForResult(intent, KEY_PRESSED);
 
 	}
@@ -176,7 +178,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 					"New configuration: " + keyConfigurationtoString());
 			
 			AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.CONFIGURATION_CHANGED,
-						MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED,  MinesweeperAnalytics.keyConfigurationSuccess + keyConfigurationtoString(), 3);
+						MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED,  MinesweeperAnalytics.KEY_CONFIGURATION_SUCCESS + keyConfigurationtoString(), 0);
 		}
 		else{
 			Toast toast = Toast.makeText(this, "Not a valid key", Toast.LENGTH_SHORT);
@@ -186,7 +188,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 					"invalid new configuration");
 			
 			AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.CONFIGURATION_CHANGED, 
-					MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED, MinesweeperAnalytics.keyConfigurationFails, 3);
+					MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED, MinesweeperAnalytics.KEY_CONFIGURATION_FAILS, 0);
 		}
 		
 

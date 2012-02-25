@@ -406,24 +406,41 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		}
 		else
 			textToSpeech.speak(v);
+		if(v != null)
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.CLICK, 
+				"Button Reading", 3);
+		else
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.CLICK, 
+						"Button Reading fail", 3);
 	}
 
 	@Override
 	public boolean onLongClick(View v) {
 		menuAction(v);
+		if(v == null)
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+					"Fail", 3);
 		return true;
 	}
 
 	private void menuAction(View v) {
 		switch (v.getId()) {
-			case R.id.win_button:
-			case R.id.back_button:
-				setResult(MinesweeperActivity.EXIT_GAME_CODE);
-				break;
-			case R.id.reset_button:
-				setResult(MinesweeperActivity.RESET_CODE);
-				break;					
-		}
+		case R.id.win_button:
+			setResult(MinesweeperActivity.EXIT_GAME_CODE);
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+					"Win game button", 3);
+			break;
+		case R.id.back_button:
+			setResult(MinesweeperActivity.EXIT_GAME_CODE);
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+					"Back button", 3);
+			break;
+		case R.id.reset_button:
+			setResult(MinesweeperActivity.RESET_CODE);
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+					"Lose game button", 3);
+			break;					
+	}
 		Minesweeper.this.finish();
 	}
 	

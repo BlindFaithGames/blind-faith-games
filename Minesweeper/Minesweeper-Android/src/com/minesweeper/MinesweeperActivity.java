@@ -1,18 +1,3 @@
-/*
- * Copyright 2010 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 package com.minesweeper;
 
 import java.io.File;
@@ -395,6 +380,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	@Override
 	public boolean onLongClick(View v) {
 		menuAction(v);
+		if(v != null)
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS,
+					MinesweeperAnalytics.LONG_CLICK, "Success", 0);
+		else
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+					"Fail", 0);
 		return true;
 	}
 
@@ -413,7 +404,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 					Thread.currentThread().getStackTrace()[2].getMethodName(),
 					"Instructions");
 			AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, 
-					MinesweeperAnalytics.OPEN_INSTRUCTIONS, "Yes", 3);
+					MinesweeperAnalytics.OPEN_INSTRUCTIONS, "Yes", 0);
 			openInstructionsDialog();
 			break;
 		case R.id.new_button:
@@ -550,6 +541,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		}
 		else
 			textToSpeech.speak(v);
+		if(v != null)
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.CLICK, 
+				"Button Reading", 0);
+		else
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.CLICK, 
+					"Button Reading fail", 0);
 	}
 
 	/**

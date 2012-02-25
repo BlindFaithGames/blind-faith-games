@@ -15,6 +15,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,7 +48,8 @@ public class MinesweeperTutorialView extends View {
 	
 	private final static int cellSeparation = 5; // Separation between cells
 	private final static int iniPosY = 100; // minefield offset with Y 
-	private static final float TRANSITION_LIMIT = 50;
+	private static final float TRANSITION_LIMIT = 100;
+	private int toast_long;
 	private int rowN, colN; // row and column of the focused cell
 	
 	private final MinesweeperTutorialActivity game;
@@ -81,7 +83,7 @@ public class MinesweeperTutorialView extends View {
 						PrefsActivity.configurationToString(game),
 						Log.TRIPLE_TAP_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),"Zoom mode " + zoomMode + " " + eventTaps[2].getX() + " " + eventTaps[2].getY());
 				
-				AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.TRIPLE_TAP, 
+				AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.TRIPLE_TAP, 
 						"Zoom mode " + zoomMode + " " + eventTaps[2].getX() + " " + eventTaps[2].getY(), 0);
 				}
 			}else// double tap
@@ -91,7 +93,7 @@ public class MinesweeperTutorialView extends View {
 							PrefsActivity.configurationToString(game),
 							Log.DOUBLE_TAP_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),"Zoom mode " + zoomMode + " " + eventTaps[1].getX() + " " + eventTaps[1].getY());
 					
-					AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.DOUBLE_TAP, 
+					AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.DOUBLE_TAP, 
 							"Zoom mode " + zoomMode + " " + eventTaps[1].getX() + " " + eventTaps[1].getY(), 0);
 				}
 				else{ // one tap
@@ -106,7 +108,7 @@ public class MinesweeperTutorialView extends View {
 									PrefsActivity.configurationToString(game),
 									Log.TAP_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),"Zoom mode " + zoomMode + " " + eventTaps[0].getX() + " " + eventTaps[0].getY());
 							
-								AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.SIMPLE_TAP, 
+								AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.SIMPLE_TAP, 
 									"Zoom mode " + zoomMode + " " + eventTaps[0].getX() + " " + eventTaps[0].getY(), 3);
 							}
 						}
@@ -129,6 +131,7 @@ public class MinesweeperTutorialView extends View {
 					 this.getContext().getString(R.string.tut_drag_text) + " " + 
 					 this.getContext().getString(R.string.tut_step);
 		toast = Toast.makeText(this.getContext(), msg, Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
 		displayMyToast(msg, true);
 		
 		setLongClickable(true);
@@ -158,10 +161,6 @@ public class MinesweeperTutorialView extends View {
 					PrefsActivity.configurationToString(game),
 					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
 					width + " " + height + " " + cellSeparation + " " + CELL_SIZE + " " + ARROW_SIZE);
-		
-		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.GAME_DATA, 
-				width + " " + height + " " + cellSeparation + " " + CELL_SIZE + " " + ARROW_SIZE, 3);
-		
 	}
 
 	@Override
@@ -701,7 +700,7 @@ public class MinesweeperTutorialView extends View {
 				Log.KEY_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),
 				keyboard.toString(keyCode) + " " +keyboard.getAction(keyCode));
 		
-		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.KEY_PUSHED, 
+		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.KEY_PUSHED, 
 				keyboard.toString(keyCode) + " " + keyboard.getAction(keyCode), 0);
 		return true;
 	}
@@ -718,6 +717,7 @@ public class MinesweeperTutorialView extends View {
 			msg = this.getContext().getString(R.string.tut_tap_text) + " "  +  
 					this.getContext().getString(R.string.tut_step);
 			toast = Toast.makeText(this.getContext(), msg, msg.length());
+			toast.setGravity(Gravity.BOTTOM, 0, 0);
 			displayMyToast(msg, true);
 			this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, msg);
 			break;
@@ -726,6 +726,7 @@ public class MinesweeperTutorialView extends View {
 			msg = this.getContext().getString(R.string.tut_dtap_text) + " "  +   
 					  this.getContext().getString(R.string.tut_step);
 			toast = Toast.makeText(this.getContext(), msg, msg.length());
+			toast.setGravity(Gravity.BOTTOM, 0, 0);
 			displayMyToast(msg, true);
 			this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, msg);
 			break;
@@ -734,6 +735,7 @@ public class MinesweeperTutorialView extends View {
 			msg = this.getContext().getString(R.string.tut_trtap_text) + " "  +  
 				      this.getContext().getString(R.string.tut_step);
 			toast = Toast.makeText(this.getContext(), msg, msg.length());
+			toast.setGravity(Gravity.BOTTOM, 0, 0);
 			displayMyToast(msg, true);
 			this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, msg);
 			break;
@@ -750,6 +752,7 @@ public class MinesweeperTutorialView extends View {
 			msg = this.getContext().getString(R.string.tut_zoom_mode_text) + " "  +  
                     this.getContext().getString(R.string.tut_step);
 			toast = Toast.makeText(this.getContext(), msg, msg.length());
+			toast.setGravity(Gravity.BOTTOM, 0, 0);
 			displayMyToast(msg, true);
 			this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, msg);
 			break;
@@ -758,6 +761,7 @@ public class MinesweeperTutorialView extends View {
 			msg = this.getContext().getString(R.string.tut_exploration_mode_text) + " "  +  
                     this.getContext().getString(R.string.tut_step);
 			toast = Toast.makeText(this.getContext(), msg, msg.length());
+			toast.setGravity(Gravity.BOTTOM, 0, 0);
 			displayMyToast(msg, true);
 			this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, msg);
 			break;
@@ -766,6 +770,7 @@ public class MinesweeperTutorialView extends View {
 			msg = this.getContext().getString(R.string.tut_read_context_text) + " "  +  
 					  this.getContext().getString(R.string.tut_finish);
 			toast = Toast.makeText(this.getContext(), msg, msg.length());
+			toast.setGravity(Gravity.BOTTOM, 0, 0);
 			displayMyToast(msg, true);
 			this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, msg);
 			break;
@@ -780,11 +785,12 @@ public class MinesweeperTutorialView extends View {
 	}
 	
 	private Runnable extendStatusMessageLengthRunnable = new Runnable() {
-	  @Override
+		@Override
 	    public void run() {
 	    //Show the toast for another interval.
 	    toast.show();
-	    if(state != TutorialState.TUT_END)
+	    toast_long++;
+	    if(state != TutorialState.TUT_END && toast_long <= 4)
 	    	postDelayed(extendStatusMessageLengthRunnable, 2000L);
 	   }
 	}; 
@@ -792,6 +798,8 @@ public class MinesweeperTutorialView extends View {
 	public void displayMyToast(final String statusMessage, boolean extraLongDuration) {
 	  removeCallbacks(extendStatusMessageLengthRunnable);
 
+	  toast_long = 0;
+	  
 	  toast.setText(statusMessage);
 	  toast.show();
 

@@ -1,7 +1,5 @@
 package com.minesweeper;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,27 +9,18 @@ import org.example.minesweeper.Cell.CellStates;
 import org.example.minesweeper.MinesweeperTutorialView;
 import org.example.minesweeper.Music;
 import org.example.minesweeper.TTS;
-import org.example.minesweeper.XML.KeyboardReader;
-import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.AnalyticsManager;
 import org.example.others.Log;
 import org.example.others.MinesweeperAnalytics;
-import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class MinesweeperTutorialActivity extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
 
@@ -40,8 +29,6 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 	public static final int DIFFICULTY_EASY = 0;
 	public static final int DIFFICULTY_MEDIUM = 1;
 	public static final int DIFFICULTY_HARD = 2;
-
-	private Dialog loseDialog,winDialog;
 
 	public static final int SPEECH_READ_CODE = 0;
 	public static final int VIEW_READ_CODE = 1;
@@ -58,10 +45,7 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 
 	private View focusedView;
 	
-	private static float fontSize;
-	private static float scale;
-	private static Typeface font;
-	
+
 	/* Game states */
 	public enum FINAL_STATE {
 		WIN, LOSE
@@ -73,13 +57,7 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         
 		int difficulty = getIntent().getIntExtra(MinesweeperActivity.KEY_DIFFICULTY, DIFFICULTY_EASY);
-		
-		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
-		
-		scale = this.getResources().getDisplayMetrics().density;
-		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		
-		
+
 		// Start game
 		mineField = new Board(difficulty);
 		System.out.print(mineField);
@@ -89,10 +67,6 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 		minesweeperTutorialView = new MinesweeperTutorialView(this, rowN, colN);
 		setContentView(minesweeperTutorialView);
 		minesweeperTutorialView.requestFocus();
-		
-		buildWinDialog();
-
-		buildEndingDialog();	
 	
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
@@ -105,7 +79,7 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 		Log.getLog().addEntry(MinesweeperTutorialActivity.TAG,PrefsActivity.configurationToString(this),
 				Log.ONCREATE,Thread.currentThread().getStackTrace()[2].getMethodName(), mineField.getMines());
 		
-		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.GAME_ACTIVITY);
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.TUTORIAL_ACTIVITY);
 		
 		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.BOARD, 
 					mineField.getMines(), 3);
@@ -120,38 +94,6 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 			mTtsAction(VIEW_READ_CODE,v);	
 			focusedView = v;
 		}
-	}
-	
-	/**
-	 * Show the dialog in the end of game. Dialog buttons are set to can use tts.
-	 * */
-	public void showLoseDialog() {
-		loseDialog.show();
-		mTtsAction(SPEECH_READ_CODE, "Dialog: A mine!! " 
-											+ getString(R.string.LoseDialogTitle) + " "
-											+ getString(R.string.LosePositiveButtonLabel) + " "
-											+ getString(R.string.LoseNegativeButtonLabel));
-		Log.getLog().addEntry(MinesweeperTutorialActivity.TAG,PrefsActivity.configurationToString(this),
-				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User lose " + mineField.getDifficulty());
-		
-		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.GAME_EVENTS, 
-				MinesweeperAnalytics.GAME_RESULT, MinesweeperAnalytics.GAME_RESULT_LOSE, 31);
-	}
-
-	/**
-	 * Show the dialog in the end of game. Dialog buttons are set to can use tts.
-	 * */
-	public void showWinDialog() {
-		winDialog.show();
-		mTtsAction(SPEECH_READ_CODE, "Dialog " 
-								+ getString(R.string.WinDialogTitle) 
-								+ getString(R.string.WinDialogMessage)  
-								+ getString(R.string.WinPositiveButtonLabel));
-		Log.getLog().addEntry(MinesweeperTutorialActivity.TAG,PrefsActivity.configurationToString(this),
-				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User win " + mineField.getDifficulty());
-		
-		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.GAME_EVENTS, 
-				MinesweeperAnalytics.GAME_RESULT, MinesweeperAnalytics.GAME_RESULT_WIN, 21);
 	}
 	
 	/**
@@ -174,69 +116,7 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 	public void mTtsActionControls(){
 		textToSpeech.speak(getString(R.string.instructions_controls_text));
 	}
-	/**
-	 * Builds the dialog shown at the end of the game, when the result is positive
-	 */
-	private void buildWinDialog() {
-		Button b; TextView t;
-		
-		winDialog = new Dialog(this);
-		winDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		winDialog.setContentView(R.layout.win_dialog);
-		
-		t = (TextView) winDialog.findViewById(R.id.win_dialog_textView);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);
-		b = (Button) winDialog.findViewById(R.id.win_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);
-		
-		winDialog.setOnDismissListener(new OnDismissListener() {
-			@Override
-			public void onDismiss(DialogInterface dialog) {
-				MinesweeperTutorialActivity.this.finish();
-			}
-		});
-	}
 
-	
-	/**
-	 * Builds the dialog shown at the end of the game, when the result is negative
-	 */
-	private void buildEndingDialog() {
-		Button b; TextView t;
-		
-		loseDialog = new Dialog(this);
-		loseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		loseDialog.setContentView(R.layout.lose_dialog);
-		
-		t = (TextView) loseDialog.findViewById(R.id.lose_dialog_textView);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);
-		b = (Button) loseDialog.findViewById(R.id.reset_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);
-		b = (Button) loseDialog.findViewById(R.id.back_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);
-		
-		loseDialog.setOnDismissListener(new OnDismissListener() {
-			@Override
-			public void onDismiss(DialogInterface dialog) {
-				MinesweeperTutorialActivity.this.finish();
-			}
-		});
-	}
-	
 	private void expandCell(int row, int col) {
 		if (mineField.getCellValue(row, col) != 0) {
 			mineField.setCellVisibility(row, col);
@@ -375,8 +255,6 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 	@Override
 	protected void onPause() {
 		super.onPause();
-		loseDialog.dismiss();
-		winDialog.dismiss();
 		Music.stop(this);
 	}
 
@@ -399,22 +277,39 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 		}
 		else
 			textToSpeech.speak(v);
+		if(v != null)
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.CLICK, 
+				"Button reading", 3);
+		else
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.CLICK, 
+					"Button Reading fail", 3);
 	}
 
 	@Override
 	public boolean onLongClick(View v) {
 		menuAction(v);
+		if(v == null)
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+					"Fail", 3);
 		return true;
 	}
 
 	private void menuAction(View v) {
 		switch (v.getId()) {
 			case R.id.win_button:
+				setResult(MinesweeperActivity.EXIT_GAME_CODE);
+				AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+						"Win game button", 3);
+				break;
 			case R.id.back_button:
 				setResult(MinesweeperActivity.EXIT_GAME_CODE);
+				AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+						"Back button", 3);
 				break;
 			case R.id.reset_button:
 				setResult(MinesweeperActivity.RESET_CODE);
+				AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.TUTORIAL_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
+						"Lose game button", 3);
 				break;					
 		}
 		MinesweeperTutorialActivity.this.finish();
