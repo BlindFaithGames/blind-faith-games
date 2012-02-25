@@ -39,7 +39,7 @@ public class Dot extends Entity{
 	private static final int alternative_doppler_sound = R.raw.storm;
 	private static final int originX = GolfGame.SCREEN_WIDTH/2;
 	private static final int originY = GolfGame.SCREEN_HEIGHT - GolfGame.SCREEN_HEIGHT/3;
-	private static final int MAX_SHOTS_FAILED = 1;
+	private static final int MAX_SHOTS_FAILED = 10;
 	private boolean launched;
 	
 	private float incr;
@@ -192,7 +192,9 @@ public class Dot extends Entity{
 				}
 				outOfShotAreaCounter++;
 				if(outOfShotAreaCounter == MAX_SHOTS_FAILED){
+					this.game.getTTS().setQueueMode(this.game.getTTS().QUEUE_FLUSH);
 					this.game.getTTS().speak(this.game.getContext().getString(R.string.alertOutsideShotArea));
+					this.game.getTTS().setQueueMode(this.game.getTTS().QUEUE_ADD);
 					outOfShotAreaCounter = 0;
 				}
 			}
@@ -250,12 +252,17 @@ public class Dot extends Entity{
 						Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
 					}
 				}
+				else{
+					// Si está fuera de la zona de lanzamiento está buscando el target
+					if (SettingsActivity.getNotifyTarget(this.game.getContext())){
+						// If onDown event occurs it create a onDownTarget event
+						EventType onDown  = Input.getInput().removeEvent("onDown");
+						if(onDown != null)
+							Input.getInput().addEvent("onDownTarget", onDown.getMotionEventE1(), null, -1, -1);
+					}
+				}
 			}
 		}
-		// If onDown event occurs it create a onDownTarget event
-		EventType onDown  = Input.getInput().removeEvent("onDown");
-		if(onDown != null)
-			Input.getInput().addEvent("onDownTarget", onDown.getMotionEventE1(), null, -1, -1);
 	}
 
 	/**
@@ -299,12 +306,20 @@ public class Dot extends Entity{
 				}
 			}	
 		}
-		if(eu == null && ed != null){
-			// If onDown event occurs it create a onDownTarget event
-			MotionEvent e = ed.getMotionEventE1();
-			if(!inShotArea(e.getY())){
-				EventType onDown  = Input.getInput().removeEvent("onDown");
-				Input.getInput().addEvent("onDownTarget", onDown.getMotionEventE1(), null, -1, -1);
+		if (SettingsActivity.getNotifyTarget(this.game.getContext())){
+			if(eu == null && ed != null){
+				// If onDown event occurs it create a onDownTarget event
+				MotionEvent e = ed.getMotionEventE1();
+				if(!inShotArea(e.getY())){
+					EventType onDown  = Input.getInput().removeEvent("onDown");
+					Input.getInput().addEvent("onDownTarget", onDown.getMotionEventE1(), null, -1, -1);
+				}
+			}
+			else if (eu != null && ed == null){
+				MotionEvent e = eu.getMotionEventE1();
+				if (!inShotArea(e.getY())){
+					Input.getInput().remove("onUp");
+				}
 			}
 		}
 		 

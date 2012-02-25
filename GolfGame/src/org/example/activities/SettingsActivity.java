@@ -4,6 +4,7 @@ import org.example.R;
 import org.example.tinyEngineClasses.TTS;
 
 import android.content.Context;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -35,6 +36,8 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final String OPT_PROFILEA = "profile A";
 	private static final String OPT_PROFILEB = "profile B";
 	private TTS textToSpeech;
+
+	private static Editor editor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech("Click any option");
+		textToSpeech.setInitialSpeech(this.getString(R.string.initial_settings));
 	}
 
 	/**
@@ -189,5 +192,39 @@ public class SettingsActivity extends PreferenceActivity implements
 	private void manageCustomProfile() {
 		profileA.setChecked(false);
 		profileB.setChecked(false);
+	}
+
+	public static void setOnUp(boolean b) {
+		editor.putBoolean(SettingsActivity.OPT_UP, b);
+		editor.commit();
+	}
+	
+	public static void setVibration(boolean b) {
+		editor.putBoolean(SettingsActivity.OPT_VIBRATION_FEEDBACK, b);
+		editor.commit();
+	}
+	
+	public static void setSoundFeedback(boolean b) {
+		editor.putBoolean(SettingsActivity.OPT_SOUND_FEEDBACK, b);
+		editor.commit();
+	}
+	
+	public static void setInfoTarget(boolean b) {
+		editor.putBoolean(SettingsActivity.OPT_INFO_TARGET, b);
+		editor.commit();
+	}
+	
+	public static void setDoppler(boolean b) {
+		editor.putBoolean(SettingsActivity.OPT_SOUND_DOPPLER_EFFECT, b);
+		editor.commit();
+	}
+	
+	public static void setDefaultTutorialConfig(Editor ed){
+		editor = ed;
+		setDoppler(false);
+		setInfoTarget(false);
+		setOnUp(false);
+		setSoundFeedback(false);
+		setVibration(false);
 	}
 }

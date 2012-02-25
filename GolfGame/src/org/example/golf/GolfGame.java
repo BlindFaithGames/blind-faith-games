@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +33,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 
@@ -57,8 +55,6 @@ public class GolfGame extends Game implements OnCancelListener {
 	private TTS textToSpeech;
 	private Resources res;
 	private static Handler handler;
-	private SharedPreferences settings;
-	private SharedPreferences.Editor editor;
 
 	public GolfGame(int mode, View v, TTS textToSpeech, Context c) {
 		super(v, c, textToSpeech);
@@ -72,20 +68,28 @@ public class GolfGame extends Game implements OnCancelListener {
 		stageMode = (mode == 0);
 
 		tutorial = (mode == 2);
-		if (tutorial) {
-			stageMode = false;
-			res = this.getContext().getResources();
-			settings = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-			editor = settings.edit();
-		}
 
 		if (!stageMode) {
 			textToSpeech.setInitialSpeech(this.context
 					.getString(R.string.game_initial_TTStext));
 			record = loadRecord();
-		} else {
+		} 
+		else {
 			textToSpeech.setInitialSpeech(this.context
 					.getString(R.string.game_initial_stage_TTStext));
+			record = -1;
+		}
+		if (tutorial){
+			stageMode = false;
+			res = this.getContext().getResources();
+			
+			// Comenzamos por el paso 1
+			state = steps.STEP1;
+			handler = new Handler();
+			createDialogs(c);
+			step[0].show();
+			this.textToSpeech.setInitialSpeech(res.getString(R.string.tutorial_step1_dialog_select));
+			
 			record = -1;
 		}
 
@@ -116,16 +120,6 @@ public class GolfGame extends Game implements OnCancelListener {
 		brush.setAlpha(175);
 		editBackground(brush);
 		setBackground(field);
-
-		// Comenzamos por el paso 1
-		state = steps.STEP1;
-		handler = new Handler();
-		if (tutorial) {
-			createDialogs(c);
-			step[0].show();
-			this.textToSpeech.speak(res
-					.getString(R.string.tutorial_step1_dialog_select));
-		}
 	}
 
 	public boolean isTutorialMode() {
@@ -248,9 +242,12 @@ public class GolfGame extends Game implements OnCancelListener {
 				VolumeManager.adjustStreamVolume(this.context,
 						AudioManager.ADJUST_LOWER);
 		}
-		e = Input.getInput().removeEvent("onDown");
-		if (e != null && state == steps.STEP2) {
-			this.nextState();
+		if (tutorial){
+			e = Input.getInput().getEvent("onDown");
+			if (e != null && state == steps.STEP2) {
+				Input.getInput().remove("onDown");
+				this.nextState();
+			}
 		}
 
 	}
@@ -319,8 +316,7 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[1].dismiss();
 					step[2].show();
-					editor.putBoolean(SettingsActivity.OPT_UP, true);
-					editor.commit();
+					SettingsActivity.setOnUp(true);
 					textToSpeech.speak(res.getString(R.string.tutorial_step3_dialog_select));
 				}
 			});
@@ -332,8 +328,7 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[2].dismiss();
 					step[3].show();
-					editor.putBoolean(SettingsActivity.OPT_INFO_TARGET, true);
-					editor.commit();
+					SettingsActivity.setInfoTarget(true);
 					textToSpeech.speak(res.getString(R.string.tutorial_step4_dialog_select));
 				}
 			});
@@ -357,8 +352,7 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[4].dismiss();
 					step[5].show();
-					editor.putBoolean(SettingsActivity.OPT_VIBRATION_FEEDBACK, true);
-					editor.commit();
+					SettingsActivity.setVibration(true);
 					textToSpeech.speak(res
 							.getString(R.string.tutorial_step6_dialog_select));
 				}
@@ -371,8 +365,7 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[5].dismiss();
 					step[6].show();
-					editor.putBoolean(SettingsActivity.OPT_SOUND_FEEDBACK, true);
-					editor.commit();
+					SettingsActivity.setSoundFeedback(true);
 					textToSpeech.speak(res
 							.getString(R.string.tutorial_step7_dialog_select));
 				}
@@ -385,8 +378,7 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[6].dismiss();
 					step[7].show();
-					editor.putBoolean(SettingsActivity.OPT_SOUND_DOPPLER_EFFECT, true);
-					editor.commit();
+					SettingsActivity.setDoppler(true);
 					textToSpeech.speak(res
 							.getString(R.string.tutorial_step8_dialog_select));
 				}

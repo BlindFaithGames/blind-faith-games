@@ -90,6 +90,9 @@
     <string name="ranking_speech">time, date and record</string>
     <string name="instructions_dialog_select">Select controls or instructions</string>
     <string name="game_dialog_select">Select difficulty</string>
+    <string name="initial_settings">Click any option</string>
+    
+    <!-- TUTORIAL -->
     <string name="tutorial_step1_dialog_select">Para disparar realiza un fling</string>
     <string name="tutorial_step2_dialog_select">Ese modo de lanzamiento es el establecido por defecto. Cada vez que se acierta un lanzamiento
         el objetivo cambia de posición.</string>
@@ -100,13 +103,6 @@
     <string name="tutorial_step6_dialog_select">La vibración te da una pista de por dónde anda el objetivo</string>
     <string name="tutorial_step7_dialog_select">Sound effect también es una ayuda para localizar el objetivo en el lanzamiento</string>
     <string name="tutorial_step8_dialog_select">Sound variation te da una pista de cuánto de cerca o lejos ha quedado tu lanzamiento</string>
-    <string name="tutorial_step9_dialog_select">Fin</string>
-    
-    	<!-- Game Actions -->
-	<string name="action_exploration">Exploration: </string>
-	<string name="action_coordinates">Coordinates: </string>
-	<string name="action_zoom">Zoom: </string>
-	<string name="action_context">Context: </string>
-    
+    <string name="tutorial_step9_dialog_select">Fin</string>   
 
 </resources>

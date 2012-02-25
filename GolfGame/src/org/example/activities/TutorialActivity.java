@@ -14,8 +14,10 @@ import org.example.tinyEngineClasses.TTS;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -32,7 +34,7 @@ public class TutorialActivity extends Activity {
 
 	// Cargamos la conf desde un .xml
 	private XMLKeyboard keyboard;
-
+	private SharedPreferences settings;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,12 @@ public class TutorialActivity extends Activity {
 
 
 		game = new GolfGame(2, golfView, textToSpeech, this);
+		
+		// We set the configuration options at its default values
+		settings = PreferenceManager.getDefaultSharedPreferences(this);
+		SettingsActivity.setDefaultTutorialConfig(settings.edit());
+		
+		
 	}
 
 	private void loadKeyConfiguration() {
