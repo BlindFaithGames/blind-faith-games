@@ -5,7 +5,6 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:padding="10dp" android:gravity="center_horizontal">
-<!--               android:onClick="true"> -->
  
 	<TextView android:id="@+id/tutorial_step4_textView"
 			android:layout_width="wrap_content"

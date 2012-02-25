@@ -2,6 +2,7 @@ package org.example.golf;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Flushable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -305,7 +306,9 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[0].dismiss();
 					step[1].show();
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step2_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;
@@ -317,7 +320,9 @@ public class GolfGame extends Game implements OnCancelListener {
 					step[1].dismiss();
 					step[2].show();
 					SettingsActivity.setOnUp(true);
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step3_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;
@@ -329,7 +334,9 @@ public class GolfGame extends Game implements OnCancelListener {
 					step[2].dismiss();
 					step[3].show();
 					SettingsActivity.setInfoTarget(true);
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step4_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;
@@ -340,8 +347,9 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[3].dismiss();
 					step[4].show();
-					textToSpeech.speak(res
-							.getString(R.string.tutorial_step5_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
+					textToSpeech.speak(res.getString(R.string.tutorial_step5_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;
@@ -353,8 +361,9 @@ public class GolfGame extends Game implements OnCancelListener {
 					step[4].dismiss();
 					step[5].show();
 					SettingsActivity.setVibration(true);
-					textToSpeech.speak(res
-							.getString(R.string.tutorial_step6_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
+					textToSpeech.speak(res.getString(R.string.tutorial_step6_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;
@@ -366,8 +375,9 @@ public class GolfGame extends Game implements OnCancelListener {
 					step[5].dismiss();
 					step[6].show();
 					SettingsActivity.setSoundFeedback(true);
-					textToSpeech.speak(res
-							.getString(R.string.tutorial_step7_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
+					textToSpeech.speak(res.getString(R.string.tutorial_step7_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;
@@ -379,8 +389,9 @@ public class GolfGame extends Game implements OnCancelListener {
 					step[6].dismiss();
 					step[7].show();
 					SettingsActivity.setDoppler(true);
-					textToSpeech.speak(res
-							.getString(R.string.tutorial_step8_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
+					textToSpeech.speak(res.getString(R.string.tutorial_step8_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;
@@ -391,8 +402,9 @@ public class GolfGame extends Game implements OnCancelListener {
 				public void run() {
 					step[7].dismiss();
 					step[8].show();
-					textToSpeech.speak(res
-							.getString(R.string.tutorial_step9_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
+					textToSpeech.speak(res.getString(R.string.tutorial_step9_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 				}
 			});
 			break;

@@ -2,11 +2,10 @@
 <resources>
 
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Main menu Golf Game</string>
+    <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     <string name="golfGamerActivity">Golf game</string>
-    <string name="gameOverMessage">Fin de la partida!</string>
-    <string name="resetButtonMessage">Reiniciar</string>
     <string name="exitButton">Exit</string>
     <string name="app_name">GolfGame</string>
     <string name="main_title">GolfGame</string>
@@ -93,16 +92,27 @@
     <string name="initial_settings">Click any option</string>
     
     <!-- TUTORIAL -->
-    <string name="tutorial_step1_dialog_select">Para disparar realiza un fling</string>
-    <string name="tutorial_step2_dialog_select">Ese modo de lanzamiento es el establecido por defecto. Cada vez que se acierta un lanzamiento
-        el objetivo cambia de posición.</string>
-    <string name="tutorial_step3_dialog_select">Puedes cambiar el modo a on Up. Para disparar arrastra y levanta el dedo</string>
-    <string name="tutorial_step4_dialog_select">La opción clue target te permite localizar el objetivo mediante pulsaciones.
-  	    Prueba a encontrarlo.</string>
-    <string name="tutorial_step5_dialog_select">Este sonido es el que se emite cuando encuentras el objetivo</string>
-    <string name="tutorial_step6_dialog_select">La vibración te da una pista de por dónde anda el objetivo</string>
-    <string name="tutorial_step7_dialog_select">Sound effect también es una ayuda para localizar el objetivo en el lanzamiento</string>
-    <string name="tutorial_step8_dialog_select">Sound variation te da una pista de cuánto de cerca o lejos ha quedado tu lanzamiento</string>
-    <string name="tutorial_step9_dialog_select">Fin</string>   
+    <string name="tutorial_step1_dialog_select">To shoot you have to do a fling.</string>
+    <string name="tutorial_step2_dialog_select">By default that is the shot mode. Each time you score a shot, the target will change its position.</string>
+    <string name="tutorial_step3_dialog_select">You can change the shot mode in settings. To shoot, drag as if it were a slingshot and release the screen touch.</string>
+    <string name="tutorial_step4_dialog_select">The clue target option, let you localize the target by touches. Let\'s try it.</string>
+    <string name="tutorial_step5_dialog_select">This sound is emitted when you find the target.</string>
+    <string name="tutorial_step6_dialog_select">The vibration gives you a clue about where is located the target.</string>
+    <string name="tutorial_step7_dialog_select">The sound effect also is an aid to locate the target at the shot.</string>
+    <string name="tutorial_step8_dialog_select">The sound variation indicates how far your shot has gone out of the target.</string>
+    <string name="tutorial_step9_dialog_select">The End</string> 
+     
+    <!-- SPANISH -->
+<!--     <string name="tutorial_step1_dialog_select">Para disparar realiza un fling</string> -->
+<!--     <string name="tutorial_step2_dialog_select">Ese modo de lanzamiento es el establecido por defecto. Cada vez que se acierta un lanzamiento -->
+<!--         el objetivo cambia de posición.</string> -->
+<!--     <string name="tutorial_step3_dialog_select">Puedes cambiar el modo a on Up. Para disparar arrastra y levanta el dedo</string> -->
+<!--     <string name="tutorial_step4_dialog_select">La opción clue target te permite localizar el objetivo mediante pulsaciones. -->
+<!--   	    Prueba a encontrarlo.</string> -->
+<!--     <string name="tutorial_step5_dialog_select">Este sonido es el que se emite cuando encuentras el objetivo</string> -->
+<!--     <string name="tutorial_step6_dialog_select">La vibración te da una pista de por dónde anda el objetivo</string> -->
+<!--     <string name="tutorial_step7_dialog_select">Sound effect también es una ayuda para localizar el objetivo en el lanzamiento</string> -->
+<!--     <string name="tutorial_step8_dialog_select">Sound variation te da una pista de cuánto de cerca o lejos ha quedado tu lanzamiento</string> -->
+<!--     <string name="tutorial_step9_dialog_select">Fin</string>    -->
 
 </resources>

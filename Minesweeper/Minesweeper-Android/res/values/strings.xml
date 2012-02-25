@@ -61,8 +61,8 @@
     <!-- Notification message [CHAR LIMIT=NONE] -->
     <string name="unregistration_succeeded">Unegistered %1$s for C2DM messaging.</string>
     <string name="find">Find</string>
-    <string name="intro_main_menu">Main Menu minesweeper, to interact you can do a touch on the screen to know a button,
-    							 and a long touch to select one of the next options</string>
+    <string name="intro_main_menu">Main Menu minesweeper, you can navigate through the menu by making simple taps in the different options
+    							 and just make a long press to select one of the options below</string>
     <string name="create">Create new log</string>
     <string name="introMessage">Welcome, select a difficulty</string>
     <string name="buttonMessage">Go!</string>

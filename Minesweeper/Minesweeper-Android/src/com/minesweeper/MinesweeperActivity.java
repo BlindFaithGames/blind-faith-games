@@ -317,12 +317,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this,  getString(R.string.intro_main_menu)
-				+ newButton.getContentDescription() + " "
-				+ settingsButton.getContentDescription() + " "
-				+ keyConfButton.getContentDescription() +  " "
-				+ instructionsButton.getContentDescription() + " "
-				+ aboutButton.getContentDescription() + " "
-				+ formButton.getContentDescription() + " "
+				+ newButton.getContentDescription() + ","
+				+ tutorialButton.getContentDescription() + ","
+				+ settingsButton.getContentDescription() + ","
+				+ keyConfButton.getContentDescription() +  ","
+				+ instructionsButton.getContentDescription() + ","
+				+ aboutButton.getContentDescription() + ","
+				+ formButton.getContentDescription() + ","
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
