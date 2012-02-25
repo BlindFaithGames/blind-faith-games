@@ -76,13 +76,8 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 									  this.getString(R.string.tut_step));
 		this.textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
-		Log.getLog().addEntry(MinesweeperTutorialActivity.TAG,PrefsActivity.configurationToString(this),
-				Log.ONCREATE,Thread.currentThread().getStackTrace()[2].getMethodName(), mineField.getMines());
-		
 		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.TUTORIAL_ACTIVITY);
 		
-		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.BOARD, 
-					mineField.getMines(), 3);
 	}
 
 

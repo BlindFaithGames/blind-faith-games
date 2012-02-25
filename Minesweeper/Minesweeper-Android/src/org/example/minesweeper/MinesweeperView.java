@@ -129,15 +129,7 @@ public class MinesweeperView extends View {
 		zoomMode = false;
 		
 		this.keyboard = Input.getInstance();
-		
-		Log.getLog().addEntry(MinesweeperView.TAG,
-					PrefsActivity.configurationToString(game),
-					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
-					width + " " + height + " " + cellSeparation + " " + CELL_SIZE + " " + ARROW_SIZE);
-		
-		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.GAME_DATA, 
-				width + " " + height + " " + cellSeparation + " " + CELL_SIZE + " " + ARROW_SIZE, 3);
-		
+	
 	}
 
 	@Override

@@ -195,7 +195,7 @@ public class Board {
 			for (int j = 0; j < colN; j++) {
 				c = board[i][j];
 				if(c.getState() == CellStates.MINE)
-					s+="(" + i + "," + j +  ") ";
+					s+="|" + i + "," + j +  "|";
 			}
 		}
 		return s;

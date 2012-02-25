@@ -111,7 +111,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.GAME_ACTIVITY);
 		
 		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.BOARD, 
-					mineField.getMines(), 3);
+					mineField.getMines(), 0);
 	}
 
 
