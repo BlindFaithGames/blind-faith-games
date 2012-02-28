@@ -78,9 +78,7 @@
     <string name="about_label">About</string>
     <string name="exit_label">Exit</string>
     <string name="about_title">About Android Minesweeper</string>
-    <string name="about_text">
-		Computer Systems Project UCM, 2011-2012.
-</string>
+    <string name="about_text">		Computer Systems Project UCM, 2011-2012.</string>
     <string name="settings_label">Settings</string>
     <string name="settings_title">Minesweeper settings</string>
     <string name="settings_shortcut">s</string>
@@ -100,18 +98,15 @@
     <string name="instructions_general_title">Instructions Minesweeper</string>
     <string name="instructions_controls_label">Controls</string>
     <string name="instructions_controls_title">Controls Minesweeper</string>
-    <string name="instructions_general_text">
-		The board is a grid of cells, and some of them are hiding a mine. Your 
+    <string name="instructions_general_text">		The board is a grid of cells, and some of them are hiding a mine. Your 
 		goal is to find all of those mines, without detonating any of them.\n\n
 		To accomplish that, you can press any cell -dig mode- or mark it -exploration mode- 
 		with a flag,if you are sure it contains a mine. When you press a cell, several cells
 		can be discovered, and they will show you how many mines are around them.\n\n
 		\n\n
 		Options: make use of the settings while in the main menu in order to 
-		turn on Speech synthesizer as well as music.
-</string>
-    <string name="instructions_controls_text">
-		To play Android Minesweeper there are several controls you should know:\n\n
+		turn on Speech synthesizer as well as music.</string>
+    <string name="instructions_controls_text">		To play Android Minesweeper there are several controls you should know:\n\n
 		
 		Buttons, use:\n
 		- menu button - listen to cell coordinates\n 
@@ -133,8 +128,7 @@
 		- arrows, to select a cell\n
 		- enter button or similar, to dig or explore\n\n
 		
-		While in zoom mode, enter button or tap to dig or explore.
-</string>
+		While in zoom mode, enter button or tap to dig or explore.</string>
     <string name="synthetizer_title">Synthetizer</string>
     <string name="LosePositiveButtonLabel">Reset</string>
     <string name="LoseNegativeButtonLabel">Back to the main menu</string>
@@ -173,71 +167,67 @@
     <string name="on_back_pressed">You have to complete the form</string>
 
     <!-- Forms -->
-    <string name="q1_context">Have you had any special keyboard in your Android device?</string>
-    <string name="q2_context">Do you miss some form of interaction?</string>
-<!--     <string name="q3_context">Do you think that the voice synthesizer is annoying? Choice (1-5) 1-Totally Disagree 5-Totally agree</string> -->
-    <string name="q4_context">Is it comfortable use physical keys?</string>
-    <string name="q5_context">Have you changed the key configuration?</string>
-    <string name="q6_context">Has your Android device enough physical keys?</string>
-<!--     <string name="q7_context">The game have too much information</string> -->
-    <string name="q8_context">Has the game, enough information to play it?</string>
-    <string name="q10_context">About the boards in the minesweeper, are the buttons on the screen too small?</string>
-<!--     <string name="q11_context">About the boards, It\'s uncomfortable that the board dimensions are larger than the screen size in level hard and medium</string> -->
-    <string name="q12_context">Do you think that it\'s hard to change the game configuration?</string>
-<!--     <string name="q13_context">Are there few configuration options in the menu?</string> -->
-    <string name="q14_context">Commentaries</string>
-    <string name="radio10_context">TalkBack</string>
-    <string name="no_context">No</string>
-    <string name="yes_context">Yes</string>
-    <string name="radio12_context">Physical keyboard</string>
-    <string name="radio20_context">More gestures</string>
-    <string name="radio30_context">It\'s impossible to play it</string>
-    <string name="radio40_context">Few</string>
-    <string name="radio21_context">Zones for concrete actions on the screen</string>
-    <string name="radio31_context">I don\'t miss any key</string>
-    <string name="radio41_context">There are enough</string>
-    <string name="radio32_context">I think that the game experience would be better</string>
-    <string name="radio42_context">Too many</string>
-<!--     <string name="one_context">1</string> -->
-<!--     <string name="two_context">2</string> -->
-<!--     <string name="three_context">3</string> -->
-<!--     <string name="four_context">4</string> -->
-<!--     <string name="five_context">5</string> -->
+    <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
+devices and how developers could make games that are not only accessible, but also enjoyable
+for them. To fulfill these goals, we would like to know some details about you and how you
+interact with technologies in general and games in particular. This will help us to interpret your
+answers to this questionnaire. All the information collected through this questionnaire will be
+anonymous, untraceable and will be treated confidentially and only used for the purpose of the
+study. \n</string>
+    <string name="q1_context">Mark the option that better describes your current visual level</string>
+    <string name="q2_context">Rate how often you play games in your computer or game console. Where 1 means "Never" and 5 "very often"</string>
+    <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>    
+    <string name="q4_context">Please rate how easy/difficult it was to learn to play. Where 1 means "very difficult" and 5 "very easy".</string>
+    <string name="q5_context">Rate how fun it was to play. Where 1 means "very boring" and 5 "very fun".</string>
+    <string name="q6_context">Rate how engaging was the game. Where 1 means "not engaging" and 5 "very engaging".</string>
+    <string name="q7_context">Rate how pleasant or frustrating was the interaction with the game. Where 1 means "very frustrating" and 5 "very pleasant".</string>
+    <string name="q8_context">Rate how you liked the story and narrative atmosphere (if applicable). Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q9_context">Rate how you liked the accessibility and control settings. Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q10_context">Rate how you liked the feedback provide by the game. Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q11_context">Finally, please provide any comments or suggestions to improve the game. Then tap on "Finish" to send the responses to us, and that\'s all!</string>
+    <string name="radio11">I am legally blind</string>
+    <string name="radio12">My vision is limited</string>
+    <string name="radio13">I have no visual disability</string>
+    <string name="one_context">1</string>
+    <string name="two_context">2</string>
+    <string name="three_context">3</string>
+    <string name="four_context">4</string>
+    <string name="five_context">5</string>
+    <string name="na">NA</string>
     <string name="next_context">Next</string>
     <string name="finish_context">Finish</string>
-  	<string name="load_text">Sending information... Please wait</string>
-  	<string name="instructions_dialog_select">Select controls or instructions</string>
-  	<string name="game_dialog_select">Select difficulty</string>
-	<!-- Tutorial info -->
-	<string name="tut_step">To go to the next tip, do a tap in the top of the screen.</string>
-	<string name="tut_finish">To finish, do a tap in the top of the screen.</string>
-	<string name="tut_intro_text">In this tutorial, you are learning the game basics.</string>
-	<string name="tut_tap_text">You can do a tap on the screen to select a cell and to listen its state. Try to do it on this screen!.</string>
-	<string name="tut_dtap_text">You can do double tap on the screen to dig a cell. Try to do it on this screen!.</string>
-	<string name="tut_trtap_text">You can do triple tap on the screen to explore a non pushed cell or to non explore a explored cell. Try to do it on this screen!.</string>
-	<string name="tut_drag_text">You will be able to check out how to change the selected cell using drag events. Check it out!</string>
-	<string name="tut_keyboard_text">In Accessible Minesweeper you can assign some keys to some actions.
+    
+    <string name="load_text">Sending information... Please wait</string>
+    <string name="instructions_dialog_select">Select controls or instructions</string>
+    <string name="game_dialog_select">Select difficulty</string>
+    <!-- Tutorial info -->
+    <string name="tut_step">To go to the next tip, do a tap in the top of the screen.</string>
+    <string name="tut_finish">To finish, do a tap in the top of the screen.</string>
+    <string name="tut_intro_text">In this tutorial, you are learning the game basics.</string>
+    <string name="tut_tap_text">You can do a tap on the screen to select a cell and to listen its state. Try to do it on this screen!.</string>
+    <string name="tut_dtap_text">You can do double tap on the screen to dig a cell. Try to do it on this screen!.</string>
+    <string name="tut_trtap_text">You can do triple tap on the screen to explore a non pushed cell or to non explore a explored cell. Try to do it on this screen!.</string>
+    <string name="tut_drag_text">You will be able to check out how to change the selected cell using drag events. Check it out!</string>
+    <string name="tut_keyboard_text">In Accessible Minesweeper you can assign some keys to some actions.
 									Some of them are:\n
 									Instructions reading: To remember how to play, using the key Menu by default.\n
 									Coordinates: To read the cell state and coordinates, using the key Menu by default.. \n
 									The more complex actions like Zoom mode, exploration mode or Read cell context are explained in tutorial next steps
 									Now, try to use them!.</string>
-	<string name="tut_zoom_mode_text">
-						Zoom mode allows you select a cell easier, 
+    <string name="tut_zoom_mode_text">						Zoom mode allows you select a cell easier, 
 						only clicking in the center of the screen. 
 						If you do a tap in some of the screen ends you will be changing the focused cell. 
 						Remember only a tap!. Moreover the way of interact changes.
 						Now you have to do a tap to dig and a double tap to flag a cell
 						To enables zoom mode you must use the key Volume Up by default.
-						Now, try to use it !.
-	</string>
-	<string name="tut_exploration_mode_text">Exploration mode allows you flag cells independently of the event, simple double or triple tap. Check it out!.</string>
-	<string name="tut_read_context_text">It\'s an additional option that reads the cell states around the focused cell. Check it out!.</string>
+						Now, try to use it !.</string>
+    <string name="tut_exploration_mode_text">Exploration mode allows you flag cells independently of the event, simple double or triple tap. Check it out!.</string>
+    <string name="tut_read_context_text">It\'s an additional option that reads the cell states around the focused cell. Check it out!.</string>
 
-	<!-- Game Actions -->
-	<string name="action_exploration">Exploration: </string>
-	<string name="action_coordinates">Coordinates: </string>
-	<string name="action_zoom">Zoom: </string>
-	<string name="action_context">Context: </string>
+    <!-- Game Actions -->
+    <string name="action_exploration">Exploration: </string>
+    <string name="action_coordinates">Coordinates: </string>
+    <string name="action_zoom">Zoom: </string>
+    <string name="action_context">Context: </string>
 
 </resources>
