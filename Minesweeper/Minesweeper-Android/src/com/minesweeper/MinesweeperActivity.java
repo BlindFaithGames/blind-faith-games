@@ -46,6 +46,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -224,6 +225,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
 
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
+		
+ 		if (!TTS.isBestTTSInstalled(this)){
+			Toast toast = Toast.makeText(this, getString(R.string.synthesizer_suggestion), Toast.LENGTH_LONG);
+			toast.show();
+			textToSpeech.speak(getString(R.string.synthesizer_suggestion));
+		}
 
 		Log.getLog().addEntry(MinesweeperActivity.TAG,
 				PrefsActivity.configurationToString(this), Log.NONE,

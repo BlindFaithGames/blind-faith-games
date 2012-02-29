@@ -24,6 +24,7 @@ import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
@@ -400,6 +401,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
+		
+ 		if (!TTS.isBestTTSInstalled(this)){
+			Toast toast = Toast.makeText(this, getString(R.string.synthesizer_suggestion), Toast.LENGTH_LONG);
+			toast.show();
+			textToSpeech.speak(getString(R.string.synthesizer_suggestion));
+		}
 		
 		Music.getInstanceMusic().stop(this,R.raw.storm);
 		

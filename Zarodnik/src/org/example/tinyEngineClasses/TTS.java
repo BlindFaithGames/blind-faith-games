@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Parcel;
@@ -36,6 +37,10 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable{
 	private boolean enabled;
 	
 	private String initialSpeech;
+	
+	private static String appname = "IVONA Text-to-Speech HQ";
+
+	private static final String SYSTEM_TTS = "com.svox.pico";
 	
 	
 	 public static final Parcelable.Creator<TTS> CREATOR= new Parcelable.Creator<TTS>() {
@@ -116,6 +121,34 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable{
 			// Initialization failed.
 			Log.e(TAG, "Could not initialize TextToSpeech.");
 		}
+	}
+	
+	public static boolean isBestTTSInstalled(Context c) {
+		// Checks if IVONA is installed.
+		List<PackageInfo> packs = c.getPackageManager().getInstalledPackages(0);
+		int i = 0;
+		boolean found = false, enabled = false;
+		while (!found && i < packs.size()) {
+			PackageInfo p = packs.get(i);
+			Log.d(TAG, p.applicationInfo.loadLabel(c.getPackageManager()).toString());
+			found = appname.equals(p.applicationInfo.loadLabel(c.getPackageManager()).toString());
+			i++;
+		}
+		// If it's not installed check if Pico TTS is the only one
+		if (!found) {
+			Intent intent = new Intent("android.intent.action.START_TTS_ENGINE");
+			ResolveInfo[] enginesArray = new ResolveInfo[0];
+			PackageManager pm = c.getPackageManager();
+			enginesArray = pm.queryIntentActivities(intent, 0).toArray(enginesArray);
+			int j = 0;
+			while (!enabled && j < enginesArray.length) {
+				// If it's Pico TTS and is enabled
+				enabled = enginesArray[j].activityInfo.packageName.equals(SYSTEM_TTS) && enginesArray.length == 1;
+				j++;
+			}
+			return !enabled;
+		} else
+			return true;
 	}
 
 	public static boolean isInstalled(Context ctx) {

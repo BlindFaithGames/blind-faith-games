@@ -53,7 +53,8 @@
 		You have to touch and drag the screen in order to move the player. You will listen different sounds around the screen. 
 		To know more, go to the game tutorial.
 	</string>
-	<string name="synthetizer_title">Synthetizer</string>
+	<string name="synthetizer_title">Synthesizer</string>
+	<string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
 
 	<string name="onup_title">On Up event</string>
 	<string name="onup_summary">Enables to shoot when a on up event occurs</string>

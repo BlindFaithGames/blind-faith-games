@@ -129,7 +129,8 @@
 		- enter button or similar, to dig or explore\n\n
 		
 		While in zoom mode, enter button or tap to dig or explore.</string>
-    <string name="synthetizer_title">Synthetizer</string>
+    <string name="synthetizer_title">Synthesizer</string>
+    <string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
     <string name="LosePositiveButtonLabel">Reset</string>
     <string name="LoseNegativeButtonLabel">Back to the main menu</string>
     <string name="WinPositiveButtonLabel">Ok</string>
