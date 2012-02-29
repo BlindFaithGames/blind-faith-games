@@ -350,7 +350,7 @@ public class ZarodnikGameplay extends GameState {
 					predator_sound, new Point(frameW/2,frameW/2), true);
 			
 			
-			while (!this.positionFreeEntities(e)){
+			while (!positionFreeEntities(tempEntities,e)){
 				predatorX = numberGenerator.nextInt(width);
 				predatorY = numberGenerator.nextInt(height);
 				e.setX(predatorX); e.setY(predatorY);
@@ -368,6 +368,21 @@ public class ZarodnikGameplay extends GameState {
 		}
 	}
 
+
+	private boolean positionFreeEntities(List<Entity> tempEntities, Entity e1) {
+			Iterator<Entity> it = tempEntities.iterator();
+			boolean collision = false;
+			Entity e;
+			e1.onUpdate();
+			while (!collision && it.hasNext()){
+				e = it.next();
+				e.onUpdate();
+				if (e.isCollidable() && e != e1){
+					collision = e.collides(e1);
+				}
+			}
+			return !collision;
+	}
 
 	private void createPrey(int sheetSize) {
 		int  preyX, preyY;
@@ -425,7 +440,7 @@ public class ZarodnikGameplay extends GameState {
 		e = new SmartPrey(preyX, preyY, null, this, preyMasks, animations,  
 				prey_sound, new Point(frameW/2,frameW/2),true, prey_sound_die);
 		
-		while (!this.positionFreeEntities(e)){
+		while (!positionFreeEntities(tempEntities,e)){
 			preyX = numberGenerator.nextInt(width);
 			preyY = numberGenerator.nextInt(height);
 			e.setX(preyX); e.setY(preyY);
@@ -444,6 +459,7 @@ public class ZarodnikGameplay extends GameState {
 		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
 		this.getTextToSpeech().speak(" ");
 		Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
+		Music.getInstanceMusic().stop(intro_sound);
 		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
 		this.getTextToSpeech().speak(this.getContext().getString(R.string.game_play_initial_TTStext));
 		Input.getInput().clean();
@@ -484,35 +500,35 @@ public class ZarodnikGameplay extends GameState {
 		}
 		
 		isChangeScreen();
-
 	}
 
 	private void isChangeScreen() {
 		if(preyN == 0 && !transition){
 				if(player.getX() < 30){
-					incX = 32;
+					incX = 4;
 					incY = 0;
+		
 					transition = true;
 					createEntitiesWithoutPlayer(400);
 					Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
 				}else{
 					if(player.getX() + (player.getImgWidth()) > GameState.SCREEN_WIDTH){
-						incX = -32;
+						incX = -4;
 						incY = 0;
 						transition = true;
 						createEntitiesWithoutPlayer(400);
 						Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
 					}else{
-						if(player.getY() < 30){
+						if(player.getY() < 50){
 							incX = 0;
-							incY = 32;
+							incY = 4;
 							transition = true;
 							createEntitiesWithoutPlayer(400);
 							Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
 						}else{
 							if(player.getY() + (player.getImgHeight()) > GameState.SCREEN_HEIGHT){
 								incX = 0;
-								incY = -32;
+								incY = -4;
 								transition = true;
 								createEntitiesWithoutPlayer(400);
 								Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
@@ -597,7 +613,7 @@ public class ZarodnikGameplay extends GameState {
 			dy = 0;
 			this.getTextToSpeech().setQueueMode(TTS.QUEUE_FLUSH);
 			this.getTextToSpeech().speak(this.getContext().getString(R.string.screen_change));
-			Music.getInstanceMusic().stop(this.getContext(), R.raw.bip);
+			Music.getInstanceMusic().stop(R.raw.bip);
 			if(tutorial)
 				this.stop();
 		}
@@ -716,5 +732,4 @@ public class ZarodnikGameplay extends GameState {
 
 		return i;
 	}
-
 }

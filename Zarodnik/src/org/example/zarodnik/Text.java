@@ -95,7 +95,7 @@ public class Text extends Entity {
 	}
 	
 	@Override
-	protected void onUpdate() {
+	public void onUpdate() {
 		super.onUpdate();
 		
 		steps++;

@@ -329,7 +329,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.getInstanceMusic().stop(this,R.raw.the_path_of_the_goblin_king);
+		Music.getInstanceMusic().stop(R.raw.the_path_of_the_goblin_king);
 	}
 
 	/**

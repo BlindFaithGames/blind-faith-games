@@ -204,52 +204,17 @@ public abstract class GameState {
 		this.textToSpeech = textToSpeech;
 	}
 	
-	
 	public boolean positionFreeEntities(Entity e1){
 		Iterator<Entity> it = entities.iterator();
-		Iterator<Mask> i;
-		boolean empty = true;
-		Entity e; Mask m; int w,h;
-		while (empty && it.hasNext()){
+		boolean collision = false;
+		Entity e;
+		while (!collision && it.hasNext()){
 			e = it.next();
-			if (e.isCollidable()){
-				i = e.getMask().iterator();
-				while (empty && i.hasNext()){
-					m = i.next();
-					if (m instanceof MaskBox){
-						w = ((MaskBox)m).getWidth();
-						h = ((MaskBox)m).getHeight();
-					} else{
-						w = h = ((MaskCircle)m).getRadius() * 2;
-					}
-						
-					empty = !encloses(w, h, e1, e.getX(),e.getY());
-				}
+			if (e.isCollidable() && e != e1){
+				collision = e.collides(e1);
 			}
 		}
-		return empty;
-	}
-
-	private boolean encloses(int w1, int h1, Entity e, float ex, float ey) {
-		// para cada máscara de e
-		Iterator<Mask> i = e.getMask().iterator();
-		boolean ok = true; Mask m;
-		int w, h;
-		while (ok && i.hasNext()){
-			m = i.next();
-			if (m instanceof MaskBox){
-				w = ((MaskBox)m).getWidth();
-				h = ((MaskBox)m).getHeight();
-			} else{
-				w = h = ((MaskCircle)m).getRadius() * 2;
-			}
-			if ((ey <= e.getY() + h) && (ey + h1 >= e.getY()))			// width match
-				if ((ex <= e.getX() + w) && (ex + w1 >= e.getX()))		// heigh match
-					ok = false;
-			
-		}
-
-		return !ok;
+		return !collision;
 	}
 
 	public boolean isOnInitialized() {

@@ -160,6 +160,7 @@
     <string name="button_zoom">Zoom Button</string>
     <string name="button_exploration">Exploration Button</string>
     <string name="button_context">Reading cell context</string>
+    <string name="button_blind_mode">To enable blind mode</string>
     <string name="context_coordinates_title">Cells context</string>
     <string name="context_coordinates_summary">Reads cells around the selected</string>
     <string name="keydialog">Action configuration</string>
@@ -226,9 +227,10 @@ study. \n</string>
     <string name="tut_read_context_text">It\'s an additional option that reads the cell states around the focused cell. Check it out!.</string>
 
     <!-- Game Actions -->
-    <string name="action_exploration">Exploration: </string>
-    <string name="action_coordinates">Coordinates: </string>
-    <string name="action_zoom">Zoom: </string>
-    <string name="action_context">Context: </string>
-
+    <string name="action_exploration">Exploration mode on/off</string>
+    <string name="action_coordinates">Coordinates</string>
+    <string name="action_zoom">Zoom mode on/off </string>
+    <string name="action_context">Reading cell context</string>
+    <string name="action_blind_mode">Blind mode</string>
+    <string name="action_instructions">Instructions</string>
 </resources>

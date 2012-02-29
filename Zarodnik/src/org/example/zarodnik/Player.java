@@ -35,6 +35,7 @@ public class Player extends Entity{
 	
 	private enum State { EAT, MOVE, DIE, INVULNERABLE };
 	private boolean inMovement;
+	private boolean invulnerable;
 	private State state;
 
 	private static final int die_sound = R.raw.die;
@@ -90,6 +91,7 @@ public class Player extends Entity{
 	}
 	
 	public void setInvulnerable(boolean invulnerable){
+		this.invulnerable = invulnerable;
 		if(invulnerable){
 			this.state = State.INVULNERABLE;
 		}
@@ -184,7 +186,7 @@ public class Player extends Entity{
 			}
 			else{
 				inMovement = false;
-				Music.getInstanceMusic().stop(this.gameState.getContext(), move_sound);
+				Music.getInstanceMusic().stop(move_sound);
 			}
 		} 
 	}
@@ -407,8 +409,12 @@ public class Player extends Entity{
 	public void onTimer(int timer) {
 		if(timer == 0)
 			this.remove();
-		if(timer == 1)
-			state = State.MOVE;
+		if(timer == 1){
+			if(invulnerable)
+				state = State.INVULNERABLE;
+			else
+				state = State.MOVE;
+		}
 	}
 
 	@Override
@@ -417,7 +423,7 @@ public class Player extends Entity{
 	@Override
 	public void onRemove() {
 		Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), die_sound, false);
-		Music.getInstanceMusic().stop(this.gameState.getContext(), move_sound);
+		Music.getInstanceMusic().stop(move_sound);
 		this.gameState.stop();
 	}
 }

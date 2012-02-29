@@ -31,7 +31,7 @@ public class Boss extends Creature{
 	}
 	
 	@Override
-	protected void onUpdate() {
+	public void onUpdate() {
 		super.onUpdate();
 		int ans;
 		float touchX, touchY;

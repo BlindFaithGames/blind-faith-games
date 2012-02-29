@@ -80,8 +80,8 @@ public class ZarodnikGameActivity extends Activity {
 		gameStates.add(TUTORIAL1_ID, new ZarodnikTutorial(zarodnikView,textToSpeech,this,TutorialID.TUTORIAL1,game));
 		gameStates.add(TUTORIAL2_ID, new ZarodnikTutorial(zarodnikView,textToSpeech,this,TutorialID.TUTORIAL2,game));
 		gameStates.add(TUTORIAL3_ID, new ZarodnikTutorial(zarodnikView,textToSpeech,this,TutorialID.TUTORIAL3,game));
-		gameStates.add(GAMEPLAY_ID, new ZarodnikGameplay(zarodnikView,textToSpeech,this, game));
- 		gameStates.add(GAME_OVER_ID, new ZarodnikGameOver(zarodnikView,textToSpeech,this, game));
+		gameStates.add(GAMEPLAY_ID, new ZarodnikGameplay(zarodnikView,textToSpeech,this,game));
+ 		gameStates.add(GAME_OVER_ID, new ZarodnikGameOver(zarodnikView,textToSpeech,this,game));
 		
 		game.initialize(gameStates, order);
 	}

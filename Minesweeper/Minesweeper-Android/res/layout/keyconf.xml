@@ -7,12 +7,12 @@
     <TableRow>
         <TextView
             android:layout_column="1"
-            android:text="Zoom mode on/off"
+            android:text="@string/action_zoom"
             android:padding="3dip" />
 	    <Button 
 	        android:id="@+id/buttonZoom"
 	        android:layout_width="fill_parent"
-	        android:text="zoom"
+	        android:text="@string/action_zoom"
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_zoom"/>
     </TableRow>
@@ -24,12 +24,12 @@
     <TableRow>
         <TextView
             android:layout_column="1"
-            android:text="Exploration mode on/off"
+            android:text="@string/action_exploration"
             android:padding="3dip" />
 	    <Button 
 	        android:id="@+id/buttonExploration"
 	        android:layout_width="fill_parent"
-	        android:text="exploration"
+	        android:text="@string/action_exploration"
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_exploration"/>
     </TableRow>
@@ -41,12 +41,12 @@
     <TableRow>
         <TextView
             android:layout_column="1"
-            android:text="Instructions"
+            android:text="@string/action_instructions"
             android:padding="3dip" />
 	    <Button 
 	        android:id="@+id/buttonInstructions"
 	        android:layout_width="fill_parent"
-	        android:text="instructions"
+	        android:text="@string/action_instructions"
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_instr"/>
     </TableRow>
@@ -58,12 +58,12 @@
      <TableRow>
         <TextView
             android:layout_column="1"
-            android:text="Coordinates"
+            android:text="@string/action_coordinates"
             android:padding="3dip" />
 	    <Button
 	        android:id="@+id/buttonCoordinates"
 	        android:layout_width="fill_parent"
-	        android:text="coordinates"
+	        android:text="@string/action_coordinates"
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_coord" />
     </TableRow>
@@ -75,17 +75,29 @@
      <TableRow>
         <TextView
             android:layout_column="1"
-            android:text="Reading cell context"
+            android:text="@string/action_context"
             android:padding="3dip" />
 	    <Button
 	        android:id="@+id/buttonContext"
 	        android:layout_width="fill_parent"
-	        android:text="Reading cell context"
+	        android:text="@string/action_context"
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_context" />
     </TableRow>
     
-
+     <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="@string/action_blind_mode"
+            android:padding="3dip" />
+	    <Button
+	        android:id="@+id/buttonBlindMode"
+	        android:layout_width="fill_parent"
+	        android:text="@string/action_blind_mode"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/button_blind_mode" />
+    </TableRow>
+    
     <View
         android:layout_height="2dip"
         android:background="#FF909090" />

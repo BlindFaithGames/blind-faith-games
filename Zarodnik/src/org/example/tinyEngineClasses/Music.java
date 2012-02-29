@@ -31,7 +31,7 @@ public class Music {
 	/** Stop old song and start new one */
 	public void play(Context context, int resource, boolean looping) {
 		// Start music only if not disabled in preferences
-		stop(context,resource);
+		stop(resource);
 		
 		MediaPlayer mp;
 		mp = MediaPlayer.create(context, resource);
@@ -42,7 +42,7 @@ public class Music {
 	
 	/** Stop old song and start new one */
 	public void playWithBlock(Context context, int resource, boolean looping) {
-		stop(context,resource);
+		stop(resource);
 		
 		MediaPlayer mp;
 		mp = MediaPlayer.create(context, resource);
@@ -59,7 +59,7 @@ public class Music {
 	}
 	
 	/** Stop the music */
-	public void stop(Context context, int resource) {
+	public void stop(int resource) {
 		MediaPlayer mp = sounds.get(resource);
 		if (mp != null) {
 				mp.stop();
@@ -67,7 +67,6 @@ public class Music {
 				mp = null;
 				sounds.remove(resource);
 		}
-		
 	}
 
 	public boolean isPlaying(int sound) {

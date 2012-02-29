@@ -5,6 +5,7 @@ import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.AnalyticsManager;
 import org.example.others.Log;
 import org.example.others.MinesweeperAnalytics;
+import org.example.others.RuntimeConfig;
 
 import com.minesweeper.Minesweeper;
 import com.minesweeper.PrefsActivity;
@@ -58,6 +59,8 @@ public class MinesweeperView extends View {
 	private boolean zoomMode; // Enables/Disables zoom mode
 	
 	private Paint brush; // Used to manage colors, fonts...
+	
+	private boolean blindMode; // Enable/Disable blind mode
 	
 	// Cargamos la conf desde un .xml
 	private XMLKeyboard keyboard;
@@ -128,6 +131,8 @@ public class MinesweeperView extends View {
 		
 		zoomMode = false;
 		
+		blindMode = RuntimeConfig.blindMode;
+		
 		this.keyboard = Input.getInstance();
 	
 	}
@@ -187,6 +192,11 @@ public class MinesweeperView extends View {
 		brush.setColor(Color.WHITE);
 		canvas.drawText("Zoom Mode: " + (zoomMode ? "on" : "off"), 10, 10, brush);
 		canvas.drawText("Exploration Mode: " + (this.game.isFlagMode() ? "on" : "off"), getWidth() - 150, 10, brush);
+		
+		if(blindMode){
+			canvas.drawColor(Color.BLACK);
+			invalidate();
+		}
 	}
 
 	
@@ -603,9 +613,11 @@ public class MinesweeperView extends View {
 		    	else if (keyboard.getAction(keyCode).equals("context")){
 		        	this.game.speakContextFocusedCell(selRow, selCol);
 		    	}
+		    	else if (keyboard.getAction(keyCode).equals("blind_mode")){
+		        	blindMode = !blindMode;
+		        	invalidate();
+		    	}
 		    }
-		    
-		    
 		    // Teclas siempre fijas
 		    else{
 		        switch(keyCode){
@@ -667,7 +679,7 @@ public class MinesweeperView extends View {
 		Log.getLog().addEntry(MinesweeperView.TAG,
 				PrefsActivity.configurationToString(game),
 				Log.KEY_EVENT,Thread.currentThread().getStackTrace()[2].getMethodName(),
-				keyboard.toString(keyCode) + " " +keyboard.getAction(keyCode));
+				keyboard.toString(keyCode) + " " + keyboard.getAction(keyCode));
 		
 		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.KEY_PUSHED, 
 				keyboard.toString(keyCode) + " " + keyboard.getAction(keyCode), 0);

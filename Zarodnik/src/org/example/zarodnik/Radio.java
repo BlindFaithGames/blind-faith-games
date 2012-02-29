@@ -48,6 +48,7 @@ public class Radio extends Item{
 	public void onTimer(int timer) {
 		if(timer == 0){
 			this.setVisible(false);
+			this.stopAllSources();
 		}else{
 			if(timer == 1){
 				if(clueNumber > 0){
@@ -55,9 +56,10 @@ public class Radio extends Item{
 					speakClue();
 					clueNumber--;
 				}
+				if(clueNumber == 0)
+					this.remove();
 			}
 		}
-		
 	}
 
 	private void speakClue() {

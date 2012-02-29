@@ -27,5 +27,7 @@
     <color name="orange3">#993300</color>
     
     <color name="grey1">#CCCCFF</color>
+    
+     <color name="black">#000000</color>
    
 </resources>

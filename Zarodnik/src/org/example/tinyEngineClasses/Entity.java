@@ -112,7 +112,7 @@ public abstract class Entity {
 	
 	
     /** Updates the animation entity and its mask set.*/
-	protected void onUpdate(){
+	public void onUpdate(){
 		if(animations != null)
 			animations.onUpdate();
 		

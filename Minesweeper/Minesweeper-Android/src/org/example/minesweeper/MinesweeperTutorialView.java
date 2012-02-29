@@ -5,6 +5,7 @@ import org.example.minesweeper.XML.XMLKeyboard;
 import org.example.others.AnalyticsManager;
 import org.example.others.Log;
 import org.example.others.MinesweeperAnalytics;
+import org.example.others.RuntimeConfig;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -63,12 +64,14 @@ public class MinesweeperTutorialView extends View {
 	
 	private boolean drawTransitionMode;
 	
-	private boolean zoomMode; // Enables/Disables zoom mode
+	private boolean zoomMode; // Enable/Disable zoom mode
 	
 	private Paint brush; // Used to manage colors, fonts...
 	
 	private TutorialState state;// step in the tutorial
 	
+	private boolean blindMode; // Enable/Disable blind mode
+
 	// Cargamos la conf desde un .xml
 	private XMLKeyboard keyboard;
 	
@@ -122,7 +125,7 @@ public class MinesweeperTutorialView extends View {
 			}
 		}
 	};
-
+	
 	public MinesweeperTutorialView(Context context, int rowN, int colN) {
 		super(context);
 		
@@ -154,6 +157,8 @@ public class MinesweeperTutorialView extends View {
 		eventTaps = new MotionEvent[3];
 		
 		zoomMode = false;
+		
+		blindMode = RuntimeConfig.blindMode;
 		
 		this.keyboard = Input.getInstance();
 		
@@ -218,6 +223,11 @@ public class MinesweeperTutorialView extends View {
 		brush.setColor(Color.WHITE);
 		canvas.drawText("Zoom Mode: " + (zoomMode ? "on" : "off"), 10, 10, brush);
 		canvas.drawText("Exploration Mode: " + (this.game.isFlagMode() ? "on" : "off"), getWidth() - 150, 10, brush);
+		
+		if(blindMode){
+			canvas.drawColor(Color.BLACK);
+			invalidate();
+		}
 	}
 
 	/**
@@ -632,6 +642,10 @@ public class MinesweeperTutorialView extends View {
 		    	}
 		    	else if (keyboard.getAction(keyCode).equals("context") && state == TutorialState.TUT_READ_CONTEXT){
 		        	this.game.speakContextFocusedCell(selRow, selCol);
+		    	}
+		    	else if (keyboard.getAction(keyCode).equals("blind_mode")){
+		        	blindMode = !blindMode;
+		        	invalidate();
 		    	}
 		    }
 		    

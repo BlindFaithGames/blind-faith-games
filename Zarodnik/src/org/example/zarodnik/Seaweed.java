@@ -30,7 +30,7 @@ public class Seaweed extends Item {
 	public void onCollision(Entity e) {
 		if(e instanceof Player){
 			this.setTimer(0, RuntimeConfig.FRAMES_PER_STEP);
-			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP*10);
+			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP*20);
 			
 			this.setCollidable(false);
 			this.state = State.EATEN;
@@ -40,7 +40,6 @@ public class Seaweed extends Item {
 			player.setInvulnerable(true);
 			
 			Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.barn_beat, true);
-			
 		}
 	}
 
@@ -54,7 +53,7 @@ public class Seaweed extends Item {
 			
 			player.setInvulnerable(false);
 			
-			Music.getInstanceMusic().stop(this.gameState.getContext(), R.raw.barn_beat);
+			Music.getInstanceMusic().stop(R.raw.barn_beat);
 		}
 	}
 
@@ -63,7 +62,7 @@ public class Seaweed extends Item {
 
 	@Override
 	public void onRemove() {
-		Music.getInstanceMusic().stop(this.gameState.getContext(), R.raw.barn_beat);
+		Music.getInstanceMusic().stop(R.raw.barn_beat);
 	}
 
 	

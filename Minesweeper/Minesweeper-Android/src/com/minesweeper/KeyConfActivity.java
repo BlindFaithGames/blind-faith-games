@@ -35,7 +35,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	private TTS textToSpeech;
 	private String action;
 	private int key;
-	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates, buttonContext;
+	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates, buttonContext, buttonBlindMode;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,10 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		buttonContext.setOnFocusChangeListener(this);
 		buttonContext.setOnClickListener(this);
 		
+		buttonBlindMode = (Button) findViewById(R.id.buttonBlindMode);
+		buttonBlindMode.setOnFocusChangeListener(this);
+		buttonBlindMode.setOnClickListener(this);
+		
 		this.buttonsUpdate();
 
 		// Initialize TTS engine
@@ -79,7 +83,8 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 				+ buttonExploration.getContentDescription() + " "
 				+ buttonInstructions.getContentDescription() + " "
 				+ buttonCoordinates.getContentDescription() + " "
-				+ buttonContext.getContentDescription());
+				+ buttonContext.getContentDescription()
+				+ buttonBlindMode.getContentDescription());
 		
 		Log.getLog().addEntry(KeyConfActivity.TAG,PrefsActivity.configurationToString(this),
 				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"Setting up keys");
@@ -102,6 +107,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		buttonInstructions.setText(keyboard.searchButtonByAction("instructions"));
 		buttonCoordinates.setText(keyboard.searchButtonByAction("coordinates"));
 		buttonContext.setText(keyboard.searchButtonByAction("context"));
+		buttonBlindMode.setText(keyboard.searchButtonByAction("blind_mode"));
 	}
 	
 	/**
@@ -140,6 +146,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		case R.id.buttonContext:
 			action = "context";
 			break;
+		case R.id.buttonBlindMode:
+			action = "blind_mode";
+			break;
 		}
 		AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.CONFIGURATION_CHANGED,
 				MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED, "Action-Key Changed: " + action, 0);
@@ -169,6 +178,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 				else if (action.equals("context")){
 					keyboard.addButtonAction(key, "context");
 				}
+				else if (action.equals("blind_mode")){
+					keyboard.addButtonAction(key, "blind_mode");
+				}
 				break;
 			}
 			buttonsUpdate();
@@ -196,10 +208,11 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 
 	private String keyConfigurationtoString() {
 		String aux;
-		aux = this.getString(R.string.action_exploration) + keyboard.getKeyByAction("exploration");
-		aux = this.getString(R.string.action_zoom) + aux.concat(keyboard.getKeyByAction("zoom") + keyboard.searchButtonByAction("zoom"));
-		aux = this.getString(R.string.action_coordinates) + aux.concat(keyboard.getKeyByAction("coordinates") + keyboard.searchButtonByAction("coordinates"));
-		aux = this.getString(R.string.action_context) + aux.concat(keyboard.getKeyByAction("context") + keyboard.searchButtonByAction("context"));
+		aux = "Exploration: " + keyboard.getKeyByAction("exploration");
+		aux = "Zoom: " + aux.concat(keyboard.getKeyByAction("zoom") + keyboard.searchButtonByAction("zoom"));
+		aux = "Coordinates: " + aux.concat(keyboard.getKeyByAction("coordinates") + keyboard.searchButtonByAction("coordinates"));
+		aux = "Context: " + aux.concat(keyboard.getKeyByAction("context") + keyboard.searchButtonByAction("context"));
+		aux = "BlindMode: " + aux.concat(keyboard.getKeyByAction("blind_mode") + keyboard.searchButtonByAction("blind_mode"));
 		return aux;
 	}
 

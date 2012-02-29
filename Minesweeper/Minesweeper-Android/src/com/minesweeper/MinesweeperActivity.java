@@ -31,6 +31,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -38,6 +41,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -79,7 +83,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 	private Dialog gameDialog;
 	private Dialog instructionsDialog;
-	private Dialog loadingDialog;
 	
 	private View focusedView;
 	
@@ -160,13 +163,34 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 		setScreenContent(R.layout.main);
 		
-		createGameDialog();
+		checkFolderApp("minesweeper.xml");
 		
-		createInstructionsDialog();
+		setTTS();
 
-		createLoadingDialog();
-}
+		Display display = ((WindowManager) this
+				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		width = display.getWidth();
+		height = display.getHeight();
 
+		Log.getLog().setTag("Minesweeper");
+		// Device information
+		Log.getLog().addEntry(
+				MinesweeperActivity.TAG,
+				PrefsActivity.configurationToString(this),
+				Log.DEVICE,
+				Thread.currentThread().getStackTrace()[2].getMethodName(),
+				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
+						+ " " + Build.BRAND + " " + Build.HARDWARE + " "
+						+ width + " " + height + " " + id);
+		
+		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.MAIN_ACTIVITY);
+		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.DEVICE_DATA, 
+				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
+				+ " " + Build.BRAND + " " + Build.HARDWARE + " "
+				+ width + " " + height + " " + id, 3);
+;
+	}
+	
 	private void checkId() {
 		id = null;
 		FileInputStream fis;
@@ -206,19 +230,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	@Override
 	public void onResume() {
 		super.onResume();
-
-    	/*ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    	NetworkInfo nInfo = cm.getActiveNetworkInfo();
-    	if(nInfo != null){
-    		if(nInfo.isConnected()){
-    			SharedPreferences prefs = Util.getSharedPreferences(mContext);
-				String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
-						Util.DISCONNECTED);
-				if (Util.DISCONNECTED.equals(connectionStatus)) {
-					startActivity(new Intent(this, AccountsActivity.class));
-				}
-    		}
-    	}*/
 
 		Music.play(this, R.raw.main);
 
@@ -263,14 +274,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		setContentView(screenId);
 		switch (screenId) {
 		case R.layout.main:
-			setMainScreenContent();
+			setMainScreenContent(R.layout.main);
+			break;
+		case R.layout.main_blind:
+			setMainScreenContent(R.layout.main_blind);
 			break;
 		}
 	}
 
-	private void setMainScreenContent() {
-		setContentView(R.layout.main);
-
+	private void setMainScreenContent(int id) {
 		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
@@ -318,12 +330,25 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		exitButton.setOnFocusChangeListener(this);
 		exitButton.setOnLongClickListener(this);
 		exitButton.setTextSize(fontSize);
-		exitButton.setTypeface(font);	
+		exitButton.setTypeface(font);
+		
+		createGameDialog();
+		
+		createInstructionsDialog();
+	}
 
-		checkFolderApp("minesweeper.xml");
+	private void setTTS() {
+		Button newButton = (Button) findViewById(R.id.new_button);
+        Button tutorialButton = (Button) findViewById(R.id.tutorial_button);
+		Button settingsButton = (Button) findViewById(R.id.settings_button);
+		Button keyConfButton = (Button) findViewById(R.id.keyConf_button);
+		Button aboutButton = (Button) findViewById(R.id.about_button);
+		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
+		Button formButton = (Button) findViewById(R.id.form_button);
+		Button exitButton = (Button) findViewById(R.id.exit_button);
 
 		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this,  getString(R.string.intro_main_menu)
+		textToSpeech = new TTS(this, getString(R.string.intro_main_menu)
 				+ newButton.getContentDescription() + ","
 				+ tutorialButton.getContentDescription() + ","
 				+ settingsButton.getContentDescription() + ","
@@ -334,28 +359,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
-
-		Display display = ((WindowManager) this
-				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		width = display.getWidth();
-		height = display.getHeight();
-
-		Log.getLog().setTag("Minesweeper");
-		// Device information
-		Log.getLog().addEntry(
-				MinesweeperActivity.TAG,
-				PrefsActivity.configurationToString(this),
-				Log.DEVICE,
-				Thread.currentThread().getStackTrace()[2].getMethodName(),
-				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
-						+ " " + Build.BRAND + " " + Build.HARDWARE + " "
-						+ width + " " + height + " " + id);
-		
-		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.MAIN_ACTIVITY);
-		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.DEVICE_DATA, 
-				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
-				+ " " + Build.BRAND + " " + Build.HARDWARE + " "
-				+ width + " " + height + " " + id, 3);
 	}
 
 	/**
@@ -367,6 +370,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		keyboard.addObject(82, "instructions");
 		keyboard.addObject(84, "coordinates");
 		keyboard.addObject(5, "context");
+		keyboard.addObject(10, "blind_mode");
 		keyboard.setNum(5);
 	}
 
@@ -457,7 +461,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			startInstructions(1);
 			break;
 		case R.id.exit_button:
-			// Si ya ha jugado una partida y sale, no aporta ninguna información
 			if (!gamed) {
 				Log.getLog().addEntry(
 						MinesweeperActivity.TAG,
@@ -502,15 +505,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);	
-	}
-	
-	/**
-	 * Builds the dialog shown  while the log is sent
-	 */
-	private void createLoadingDialog() {
-		loadingDialog = new Dialog(this);
-		loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		loadingDialog.setContentView(R.layout.loading);
 	}
 	
 	private void createInstructionsDialog() {
@@ -727,5 +721,17 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			result.add(n);
 		}
 		return result;
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_SEARCH)
+			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
+		
+		if(RuntimeConfig.blindMode)	
+			setScreenContent(R.layout.main_blind);
+		else
+			setScreenContent(R.layout.main);
+		return super.onKeyDown(keyCode, event);
 	}
 }

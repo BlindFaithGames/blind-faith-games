@@ -70,7 +70,7 @@ public abstract class Creature extends Entity{
 	}
 
 	@Override
-	protected void onUpdate() {
+	public void onUpdate() {
 		if(checkAround()){
 			this.playAllSources();
 		}

@@ -56,7 +56,7 @@ public abstract class Item extends Entity {
 	}
 	
 	@Override
-	protected void onUpdate() {
+	public void onUpdate() {
 		super.onUpdate();
 		if(checkAround() && state != State.EATEN){
 			this.playAllSources();

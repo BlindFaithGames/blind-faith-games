@@ -90,7 +90,7 @@ public class ZarodnikIntro extends GameState {
 		
 		e = Input.getInput().removeEvent("onLongPress");
 		if(e != null && text.isFinished()){
-			Music.getInstanceMusic().stop(this.getContext(), R.raw.frost_walz);
+			Music.getInstanceMusic().stop(R.raw.frost_walz);
 			this.stop();
 		}
 		else{

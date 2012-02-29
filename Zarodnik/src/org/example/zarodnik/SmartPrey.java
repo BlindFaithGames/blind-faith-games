@@ -24,7 +24,7 @@ public class SmartPrey extends Creature {
 	}
 	
     @Override
-    protected void onUpdate() {
+	public void onUpdate() {
     	super.onUpdate();
     	if(checkAround() && !this.die)
     			avoidPlayer();
