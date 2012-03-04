@@ -1,8 +1,5 @@
 package com.golfgame.activities;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,7 +18,6 @@ import com.accgames.tinyengine.DrawablePanel;
 import com.accgames.tinyengine.Input;
 import com.accgames.tinyengine.Music;
 import com.accgames.tinyengine.TTS;
-import com.accgames.xml.KeyboardReader;
 import com.accgames.xml.XMLKeyboard;
 import com.golfgame.R;
 import com.golfgame.game.GolfGame;
@@ -64,6 +60,7 @@ public class TutorialActivity extends Activity {
 
 	protected void onDestroy() {
 		super.onDestroy();
+		textToSpeech.stop();
 		Music.getInstanceMusic().stop(this, R.raw.storm);
 		Music.getInstanceMusic().stop(this, R.raw.sound_shot);
 		Music.getInstanceMusic().stop(this, R.raw.previous_shoot_feedback_sound);

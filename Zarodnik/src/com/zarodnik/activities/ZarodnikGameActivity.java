@@ -1,9 +1,6 @@
 package com.zarodnik.activities;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +12,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 
-import com.accgames.XML.KeyboardReader;
 import com.accgames.XML.XMLKeyboard;
 import com.accgames.tinyEngineClasses.DrawablePanel;
 import com.accgames.tinyEngineClasses.Game;
@@ -23,7 +19,6 @@ import com.accgames.tinyEngineClasses.GameState;
 import com.accgames.tinyEngineClasses.Input;
 import com.accgames.tinyEngineClasses.SoundManager;
 import com.accgames.tinyEngineClasses.TTS;
-import com.zarodnik.R;
 import com.zarodnik.game.ZarodnikGameOver;
 import com.zarodnik.game.ZarodnikGameplay;
 import com.zarodnik.game.ZarodnikIntro;
@@ -88,6 +83,7 @@ public class ZarodnikGameActivity extends Activity {
 
 	@Override
     protected void onDestroy() {
+		textToSpeech.stop();
     	SoundManager.getSoundManager(this).stopAllSources();
     	//Music.getInstanceMusic().stopAllResources();
     	super.onDestroy();

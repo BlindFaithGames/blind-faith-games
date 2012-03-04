@@ -28,7 +28,7 @@ import com.accgames.tinyEngineClasses.TTS;
 import com.zarodnik.R;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
+ * @author Gloria Pozuelo and Javier Álvarez
  * This class implements the music manager of the game
  */
 
