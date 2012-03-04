@@ -98,6 +98,8 @@
 	<string name="game_over_tts">The game concludes here. Long touch on the screen to end</string>
 	
 	<string name="screen_change">there is a screen change</string>
+	
+	<string name="instruction_speech">Long click to back to the main menu</string>
 
 	<string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
 	<string name="tutorial_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 

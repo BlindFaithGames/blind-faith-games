@@ -1,9 +1,6 @@
 package com.minesweeper;
 
-import org.example.minesweeper.TTS;
-import org.example.others.AnalyticsManager;
-import org.example.others.Log;
-import org.example.others.MinesweeperAnalytics;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +14,12 @@ import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.accgames.others.AnalyticsManager;
+import com.accgames.others.Log;
+import com.minesweeper.R;
+import com.minesweeper.game.MinesweeperAnalytics;
+import com.minesweeper.game.TTS;
 
 public class FormActivity extends Activity implements OnClickListener,
 		OnFocusChangeListener {

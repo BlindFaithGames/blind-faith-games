@@ -5,7 +5,7 @@
     android:padding="10dip"
     android:longClickable="true" 
     android:onClick="true"
-    android:id="@+id/instructions_scrollview">
+    android:id="@+id/general_root">
 
     <TextView
         android:id="@+id/instructions_general_content"

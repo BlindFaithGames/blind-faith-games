@@ -84,6 +84,9 @@
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_context" />
     </TableRow>
+        <View
+	     android:layout_height="2dip"
+	     android:background="#FF909090" />
     
      <TableRow>
         <TextView

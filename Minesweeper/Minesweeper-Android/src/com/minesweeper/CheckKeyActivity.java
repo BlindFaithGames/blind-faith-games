@@ -1,6 +1,7 @@
 package com.minesweeper;
 
-import org.example.minesweeper.TTS;
+import com.minesweeper.R;
+import com.minesweeper.game.TTS;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -3,15 +3,6 @@ package com.minesweeper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.minesweeper.Board;
-import org.example.minesweeper.Cell;
-import org.example.minesweeper.Cell.CellStates;
-import org.example.minesweeper.MinesweeperTutorialView;
-import org.example.minesweeper.Music;
-import org.example.minesweeper.TTS;
-import org.example.others.AnalyticsManager;
-import org.example.others.Log;
-import org.example.others.MinesweeperAnalytics;
 
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -21,6 +12,16 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
+
+import com.accgames.others.AnalyticsManager;
+import com.minesweeper.R;
+import com.minesweeper.game.Board;
+import com.minesweeper.game.Cell;
+import com.minesweeper.game.Cell.CellStates;
+import com.minesweeper.game.MinesweeperAnalytics;
+import com.minesweeper.game.MinesweeperTutorialView;
+import com.minesweeper.game.Music;
+import com.minesweeper.game.TTS;
 
 public class MinesweeperTutorialActivity extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
 

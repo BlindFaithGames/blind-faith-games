@@ -167,7 +167,7 @@
     <string name="keydialog_text">Press any key</string>
     <string name="form_label">Form</string>
     <string name="on_back_pressed">You have to complete the form</string>
-
+    <string name="key_conf_fail">Not a valid key</string>  
     <!-- Forms -->
     <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
 devices and how developers could make games that are not only accessible, but also enjoyable

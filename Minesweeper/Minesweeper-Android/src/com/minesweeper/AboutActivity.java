@@ -1,14 +1,15 @@
 package com.minesweeper;
 
-import org.example.minesweeper.TTS;
-import org.example.others.AnalyticsManager;
-import org.example.others.Log;
-import org.example.others.MinesweeperAnalytics;
 
-import com.minesweeper.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.accgames.others.AnalyticsManager;
+import com.accgames.others.Log;
+import com.minesweeper.R;
+import com.minesweeper.game.MinesweeperAnalytics;
+import com.minesweeper.game.TTS;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez

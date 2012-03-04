@@ -5,13 +5,6 @@ import java.io.FileOutputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.example.minesweeper.Input;
-import org.example.minesweeper.TTS;
-import org.example.minesweeper.XML.KeyboardWriter;
-import org.example.minesweeper.XML.XMLKeyboard;
-import org.example.others.AnalyticsManager;
-import org.example.others.Log;
-import org.example.others.MinesweeperAnalytics;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,6 +15,15 @@ import android.view.View.OnFocusChangeListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.accgames.XML.KeyboardWriter;
+import com.accgames.XML.XMLKeyboard;
+import com.accgames.others.AnalyticsManager;
+import com.accgames.others.Log;
+import com.minesweeper.R;
+import com.minesweeper.game.Input;
+import com.minesweeper.game.MinesweeperAnalytics;
+import com.minesweeper.game.TTS;
 
 
 public class KeyConfActivity extends Activity implements OnFocusChangeListener, OnClickListener {
@@ -193,7 +195,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 						MinesweeperAnalytics.KEY_CONFIGURATION_CHANGED,  MinesweeperAnalytics.KEY_CONFIGURATION_SUCCESS + keyConfigurationtoString(), 0);
 		}
 		else{
-			Toast toast = Toast.makeText(this, "Not a valid key", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(this, getString(R.string.key_conf_fail), Toast.LENGTH_SHORT);
 			toast.show();
 			Log.getLog().addEntry(KeyConfActivity.TAG,PrefsActivity.configurationToString(this),
 					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),

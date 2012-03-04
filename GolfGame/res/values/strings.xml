@@ -87,10 +87,12 @@
     <string name="EndingPositiveButtonLabelSpeech">Press ok to back to the main menu</string>
     <string name="alertOutsideShotArea">You are outside of the shot area</string>
     <string name="ranking_title">Previous games ranking</string>
-    <string name="ranking_speech">time, date and record</string>
+    <string name="ranking_speech">Time  Date  Record</string>
     <string name="instructions_dialog_select">Select controls or instructions</string>
     <string name="game_dialog_select">Select difficulty</string>
     <string name="initial_settings">Click any option</string>
+    <string name="key_conf_fail">Not a valid key</string>  
+    
     
     <!-- TUTORIAL -->
     <string name="tutorial_step1_dialog_select">To shoot you have to do a fling.</string>
@@ -102,6 +104,7 @@
     <string name="tutorial_step7_dialog_select">The sound effect also is an aid to locate the target at the shot.</string>
     <string name="tutorial_step8_dialog_select">The sound variation indicates how far your shot has gone out of the target.</string>
     <string name="tutorial_step9_dialog_select">The End</string> 
+    
      
     <!-- SPANISH -->
 <!--     <string name="tutorial_step1_dialog_select">Para disparar realiza un fling</string> -->

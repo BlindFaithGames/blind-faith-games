@@ -3,7 +3,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:padding="10dip" >
+	android:padding="10dip" 
+	android:id="@+id/about_root">
 	<TextView
 		android:id="@+id/about_content"
 		android:layout_width="wrap_content"

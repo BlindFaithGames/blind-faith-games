@@ -13,16 +13,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.example.minesweeper.Input;
-import org.example.minesweeper.Music;
-import org.example.minesweeper.TTS;
-import org.example.minesweeper.XML.KeyboardReader;
-import org.example.minesweeper.XML.XMLKeyboard;
-import org.example.others.AnalyticsManager;
-import org.example.others.Entry;
-import org.example.others.Log;
-import org.example.others.MinesweeperAnalytics;
-import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -31,9 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -52,11 +39,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.accgames.XML.KeyboardReader;
+import com.accgames.XML.XMLKeyboard;
+import com.accgames.others.AnalyticsManager;
+import com.accgames.others.Entry;
+import com.accgames.others.Log;
+import com.accgames.others.RuntimeConfig;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
+import com.minesweeper.R;
 import com.minesweeper.client.MyRequestFactory;
 import com.minesweeper.client.MyRequestFactory.EntryRequest;
 import com.minesweeper.client.MyRequestFactory.LogRequest;
+import com.minesweeper.game.Input;
+import com.minesweeper.game.MinesweeperAnalytics;
+import com.minesweeper.game.Music;
+import com.minesweeper.game.TTS;
 import com.minesweeper.shared.EntryProxy;
 import com.minesweeper.shared.LogProxy;
 
@@ -95,10 +93,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 	private AsyncTask<Void, Void, String> task;
 
-	// Screen size
-	private int width;
-	private int height;
-	
 	// User id
 	private UUID id;
 
@@ -169,6 +163,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 		Display display = ((WindowManager) this
 				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		// Screen size
+		int width;
+		int height;
 		width = display.getWidth();
 		height = display.getHeight();
 
@@ -187,7 +184,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.DEVICE_DATA, 
 				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
 				+ " " + Build.BRAND + " " + Build.HARDWARE + " "
-				+ width + " " + height + " " + id, 3);
+				+ width + " " + height, 3);
 ;
 	}
 	
@@ -456,9 +453,11 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			break;
 		case R.id.controls_button: // controls
 			startInstructions(0);
+			instructionsDialog.dismiss();
 			break;
 		case R.id.instructions_general_button: // instructions
 			startInstructions(1);
+			instructionsDialog.dismiss();
 			break;
 		case R.id.exit_button:
 			if (!gamed) {

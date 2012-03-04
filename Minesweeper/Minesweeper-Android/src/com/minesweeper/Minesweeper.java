@@ -3,16 +3,6 @@ package com.minesweeper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.minesweeper.Board;
-import org.example.minesweeper.Cell;
-import org.example.minesweeper.Cell.CellStates;
-import org.example.minesweeper.MinesweeperView;
-import org.example.minesweeper.Music;
-import org.example.minesweeper.TTS;
-import org.example.others.AnalyticsManager;
-import org.example.others.Log;
-import org.example.others.MinesweeperAnalytics;
-import org.example.others.RuntimeConfig;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -28,6 +18,18 @@ import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.accgames.others.AnalyticsManager;
+import com.accgames.others.Log;
+import com.accgames.others.RuntimeConfig;
+import com.minesweeper.R;
+import com.minesweeper.game.Board;
+import com.minesweeper.game.Cell;
+import com.minesweeper.game.Cell.CellStates;
+import com.minesweeper.game.MinesweeperAnalytics;
+import com.minesweeper.game.MinesweeperView;
+import com.minesweeper.game.Music;
+import com.minesweeper.game.TTS;
 
 public class Minesweeper extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
 
@@ -84,7 +86,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		
 		
 		// Start game
 		mineField = new Board(difficulty);
