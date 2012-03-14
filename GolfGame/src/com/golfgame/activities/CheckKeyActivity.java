@@ -10,7 +10,7 @@ import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.widget.EditText;
 
-import com.accgames.tinyengine.TTS;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
 
 public class CheckKeyActivity extends Activity implements OnKeyListener{

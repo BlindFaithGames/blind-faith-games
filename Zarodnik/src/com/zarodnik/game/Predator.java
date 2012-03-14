@@ -2,13 +2,13 @@ package com.zarodnik.game;
 
 import java.util.List;
 
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.Music;
-import com.accgames.tinyEngineClasses.SpriteMap;
-
 import android.graphics.Bitmap;
 import android.graphics.Point;
+
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.sound.Music;
 
 public class Predator extends Creature{
 

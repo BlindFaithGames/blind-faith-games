@@ -10,14 +10,14 @@ import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.view.View;
 
+import com.accgames.general.Game;
+import com.accgames.general.GameState;
+import com.accgames.graphics.BitmapScaler;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.BitmapScaler;
-import com.accgames.tinyEngineClasses.Game;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.TTS;
-import com.accgames.tinyEngineClasses.VolumeManager;
-import com.accgames.tinyEngineClasses.Input.EventType;
+import com.accgames.sound.TTS;
+import com.accgames.sound.VolumeManager;
 import com.zarodnik.R;
 
 public class ZarodnikGameOver extends GameState {

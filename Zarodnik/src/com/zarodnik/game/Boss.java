@@ -2,14 +2,14 @@ package com.zarodnik.game;
 
 import java.util.List;
 
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.SpriteMap;
-import com.accgames.tinyEngineClasses.Input.EventType;
-
 import android.graphics.Bitmap;
 import android.graphics.Point;
+
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
 
 public class Boss extends Creature{
 

@@ -26,7 +26,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.accgames.others.AnalyticsManager;
-import com.accgames.tinyengine.TTS;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 

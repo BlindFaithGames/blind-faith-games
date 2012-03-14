@@ -1,7 +1,6 @@
 package com.golfgame.activities;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,21 +15,25 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 
+import com.accgames.general.DrawablePanel;
+import com.accgames.general.Game;
+import com.accgames.general.GameState;
+import com.accgames.input.Input;
+import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
-import com.accgames.tinyengine.DrawablePanel;
-import com.accgames.tinyengine.Input;
-import com.accgames.tinyengine.Music;
-import com.accgames.tinyengine.TTS;
-import com.accgames.xml.KeyboardReader;
-import com.accgames.xml.XMLKeyboard;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
-import com.golfgame.game.GolfGame;
+import com.golfgame.game.GolfGameplay;
 import com.golfgame.game.GolfGameAnalytics;
 
 public class TutorialActivity extends Activity {
-
+	
 	private static String TAG = "TutorialActivity";
-	private GolfGame game;
+	
+	private static final Integer GAMEPLAY_ID = 0;
+	
+	private Game game;
 	private boolean mIsScrolling = false;
 	private static TTS textToSpeech;
 
@@ -53,7 +56,7 @@ public class TutorialActivity extends Activity {
 		DrawablePanel golfView = new GolfGamePanel(this);
 		setContentView(golfView);
 
-		game = new GolfGame(2, golfView, textToSpeech, this);
+		 createGame(2,golfView);
 		
 		// We set the configuration options at its default values
 		settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -62,14 +65,26 @@ public class TutorialActivity extends Activity {
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.TUTORIAL_ACTIVITY);
 	}
 
+    private void createGame(int mode, DrawablePanel golfView) {
+    	ArrayList<Integer> order = new ArrayList<Integer>();
+    	order.add(GAMEPLAY_ID);
+
+    	game = new Game();
+		
+    	ArrayList<GameState> gameStates = new ArrayList<GameState>();
+		gameStates.add(GAMEPLAY_ID, new GolfGameplay(mode,golfView,textToSpeech,this,game));
+		
+		game.initialize(gameStates, order);
+    }
+	
 	protected void onDestroy() {
 		super.onDestroy();
-		Music.getInstanceMusic().stop(this, R.raw.storm);
-		Music.getInstanceMusic().stop(this, R.raw.sound_shot);
-		Music.getInstanceMusic().stop(this, R.raw.previous_shoot_feedback_sound);
-		Music.getInstanceMusic().stop(this, R.raw.water_bubbles);
-		Music.getInstanceMusic().stop(this, R.raw.clue_feed_back_sound);
-		Music.getInstanceMusic().stop(this, R.raw.win_sound);
+		Music.getInstanceMusic().stop(R.raw.storm);
+		Music.getInstanceMusic().stop(R.raw.sound_shot);
+		Music.getInstanceMusic().stop(R.raw.previous_shoot_feedback_sound);
+		Music.getInstanceMusic().stop(R.raw.water_bubbles);
+		Music.getInstanceMusic().stop(R.raw.clue_feed_back_sound);
+		Music.getInstanceMusic().stop(R.raw.win_sound);
 	}
 
 	/*---------------------------------------------------------------------
@@ -190,6 +205,11 @@ public class TutorialActivity extends Activity {
 							KeyConfActivity.ACTION_RECORD)) {
 						Input.getInput().addEvent(
 								KeyConfActivity.ACTION_RECORD, e, -1, -1);
+					}
+					if (keyboard.getAction(keyCode).equals(
+							KeyConfActivity.ACTION_BLIND_MODE)) {
+						Input.getInput().addEvent(
+								KeyConfActivity.ACTION_BLIND_MODE, e, -1, -1);
 					}
 				}
 			}

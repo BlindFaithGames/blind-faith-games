@@ -14,17 +14,17 @@ import android.media.AudioManager;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 
+import com.accgames.general.Game;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.general.MaskCircle;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.Game;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.MaskCircle;
-import com.accgames.tinyEngineClasses.Music;
-import com.accgames.tinyEngineClasses.SpriteMap;
-import com.accgames.tinyEngineClasses.TTS;
-import com.accgames.tinyEngineClasses.VolumeManager;
-import com.accgames.tinyEngineClasses.Input.EventType;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
+import com.accgames.sound.VolumeManager;
 import com.zarodnik.R;
 
 public class ZarodnikTutorial extends  GameState{

@@ -4,23 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 
+import com.accgames.general.Entity;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.general.MaskCircle;
+import com.accgames.graphics.BitmapScaler;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.BitmapScaler;
-import com.accgames.tinyEngineClasses.Entity;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.MaskCircle;
-import com.accgames.tinyEngineClasses.Music;
-import com.accgames.tinyEngineClasses.SoundManager;
-import com.accgames.tinyEngineClasses.SpriteMap;
-import com.accgames.tinyEngineClasses.Input.EventType;
+import com.accgames.sound.Music;
+import com.accgames.sound.Sound3DManager;
 import com.zarodnik.R;
 import com.zarodnik.game.ZarodnikGameplay.Sense;
 
@@ -129,7 +128,7 @@ public class Player extends Entity{
 		
 		onEat();
 		
-		SoundManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
+		Sound3DManager.getSoundManager(this.gameState.getContext()).setListenerPosition(x, y, 0f);
 		
 		super.onUpdate();
 	}
@@ -220,6 +219,7 @@ public class Player extends Entity{
 			return false;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean inStage(double d, double e) {
 		if(d < ZarodnikGameplay.SCREEN_WIDTH && d >= 0 && e < ZarodnikGameplay.SCREEN_HEIGHT && e >= 0)
 			return true;

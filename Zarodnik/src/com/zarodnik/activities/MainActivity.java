@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,12 +18,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.accgames.XML.KeyboardReader;
-import com.accgames.XML.XMLKeyboard;
+import com.accgames.input.Input;
+import com.accgames.input.KeyboardReader;
+import com.accgames.input.XMLKeyboard;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.Music;
-import com.accgames.tinyEngineClasses.TTS;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
 import com.zarodnik.R;
 
 /**
@@ -155,7 +154,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	 */
 	private void fillXMLKeyboard(){
 		keyboard.addObject(22, KeyConfActivity.ACTION_RECORD);
-		keyboard.setNum(1);
+		keyboard.addObject(24, KeyConfActivity.ACTION_BLIND_MODE);
+		keyboard.setNum(2);
 	}
 
 	private void checkFolderApp(String file) {

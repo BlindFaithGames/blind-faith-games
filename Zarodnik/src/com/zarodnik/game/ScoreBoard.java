@@ -14,13 +14,13 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
+import com.accgames.general.Entity;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.Entity;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.SpriteMap;
-import com.accgames.tinyEngineClasses.Input.EventType;
 import com.zarodnik.R;
 import com.zarodnik.activities.MainActivity;
 

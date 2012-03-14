@@ -1,7 +1,6 @@
 package com.golfgame.activities;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,20 +13,24 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 
+import com.accgames.general.DrawablePanel;
+import com.accgames.general.Game;
+import com.accgames.general.GameState;
+import com.accgames.input.Input;
+import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
-import com.accgames.tinyengine.DrawablePanel;
-import com.accgames.tinyengine.Input;
-import com.accgames.tinyengine.Music;
-import com.accgames.tinyengine.TTS;
-import com.accgames.xml.KeyboardReader;
-import com.accgames.xml.XMLKeyboard;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
-import com.golfgame.game.GolfGame;
 import com.golfgame.game.GolfGameAnalytics;
+import com.golfgame.game.GolfGameplay;
 
 public class GolfGameActivity extends Activity {
+	
+	private static final Integer GAMEPLAY_ID = 0;
+	
 	private static String TAG = "GolfGameActivity";
-	private GolfGame game;
+	private Game game;
 	
 	private boolean UP_MODE = true;
 	
@@ -56,7 +59,7 @@ public class GolfGameActivity extends Activity {
         DrawablePanel golfView = new GolfGamePanel(this);
         setContentView(golfView);
         
-        game = new GolfGame(mode,golfView,textToSpeech,this);
+        createGame(mode,golfView);
         
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.GAME_ACTIVITY);
 		
@@ -64,14 +67,26 @@ public class GolfGameActivity extends Activity {
 					Integer.toString(mode), 0);
     }
 
+    private void createGame(int mode, DrawablePanel golfView) {
+    	ArrayList<Integer> order = new ArrayList<Integer>();
+    	order.add(GAMEPLAY_ID);
+
+    	game = new Game();
+		
+    	ArrayList<GameState> gameStates = new ArrayList<GameState>();
+		gameStates.add(GAMEPLAY_ID, new GolfGameplay(mode,golfView,textToSpeech,this,game));
+		
+		game.initialize(gameStates, order);
+    }
+    
 	protected void onDestroy(){
     	super.onDestroy();
-    	Music.getInstanceMusic().stop(this, R.raw.storm);
-    	Music.getInstanceMusic().stop(this, R.raw.sound_shot);
-    	Music.getInstanceMusic().stop(this,R.raw.previous_shoot_feedback_sound);
-    	Music.getInstanceMusic().stop(this,R.raw.water_bubbles);
-    	Music.getInstanceMusic().stop(this,R.raw.clue_feed_back_sound);
-    	Music.getInstanceMusic().stop(this,R.raw.win_sound);
+    	Music.getInstanceMusic().stop(R.raw.storm);
+    	Music.getInstanceMusic().stop(R.raw.sound_shot);
+    	Music.getInstanceMusic().stop(R.raw.previous_shoot_feedback_sound);
+    	Music.getInstanceMusic().stop(R.raw.water_bubbles);
+    	Music.getInstanceMusic().stop(R.raw.clue_feed_back_sound);
+    	Music.getInstanceMusic().stop(R.raw.win_sound);
     }
     
 	/*---------------------------------------------------------------------
@@ -180,6 +195,10 @@ public class GolfGameActivity extends Activity {
 				    	if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_RECORD)){
 				    		Input.getInput().addEvent(KeyConfActivity.ACTION_RECORD, e, -1, -1);
 				    	}
+				    	else 
+				    		if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_BLIND_MODE)){
+				    			game.setDisabled(!game.getDisabled());
+				    		}
 				    }
 			}
 			AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.GAME_EVENTS, GolfGameAnalytics.KEY_PUSHED, 

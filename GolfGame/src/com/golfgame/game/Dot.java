@@ -11,18 +11,19 @@ import android.graphics.Point;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 
+import com.accgames.general.Entity;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyengine.Entity;
-import com.accgames.tinyengine.Game;
-import com.accgames.tinyengine.Input;
-import com.accgames.tinyengine.Input.EventType;
-import com.accgames.tinyengine.Mask;
-import com.accgames.tinyengine.Music;
-import com.accgames.tinyengine.SoundConfig;
-import com.accgames.tinyengine.SoundConfig.Distance;
+import com.accgames.others.SoundConfig;
+import com.accgames.others.SoundConfig.Distance;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.activities.SettingsActivity;
-import com.golfgame.game.GolfGame.steps;
+import com.golfgame.game.GolfGameplay.steps;
 
 /**
  * Represents the ball
@@ -37,8 +38,8 @@ public class Dot extends Entity{
 	private static final int hit_feedback_sound = R.raw.hit_ball;
 	private static final int doppler_sound = R.raw.sound_shot;
 	private static final int alternative_doppler_sound = R.raw.storm;
-	private static final int originX = GolfGame.SCREEN_WIDTH/2;
-	private static final int originY = GolfGame.SCREEN_HEIGHT - GolfGame.SCREEN_HEIGHT/3;
+	private static final int originX = GolfGameplay.SCREEN_WIDTH/2;
+	private static final int originY = GolfGameplay.SCREEN_HEIGHT - GolfGameplay.SCREEN_HEIGHT/3;
 	private static final int MAX_SHOTS_FAILED = 10;
 	private boolean launched;
 	
@@ -59,7 +60,7 @@ public class Dot extends Entity{
 	
 	private int outOfShotAreaCounter;
 	
-	private GolfGame game; // To know if stageMode is active
+	private GolfGameplay game; // To know if stageMode is active
 	
 	
 	// Debug
@@ -75,14 +76,13 @@ public class Dot extends Entity{
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
 	 * 
 	 * */
-	public Dot(int x, int y, int record, Bitmap img, Game game, List<Mask> mask, Point targetPos, Context context) {
-		super(x, y, img, game, mask, false, 5);
-		soundConfig =  new SoundConfig(context, game);
+	public Dot(int x, int y, int record, Bitmap img, GameState state, List<Mask> mask, Point targetPos, Context context) {
+		super(x, y, img, state, mask, null, null, null, true);
+		soundConfig =  new SoundConfig(context, state);
 		launched = false;
 		param = 0;
-		this.stopAnim();
 		
-		this.game = (GolfGame) game;
+		this.game = (GolfGameplay) state;
 		
 		dotCenterX = this.x + this.getImgWidth()/2;
 		dotCenterY = this.y + this.getImgHeight()/2;
@@ -95,7 +95,7 @@ public class Dot extends Entity{
 		
 		this.targetPos = targetPos;
 		
-		scoreBoard = new ScoreBoard(0,2*Game.SCREEN_HEIGHT/3,record,null, game, null, false, 0);
+		scoreBoard = new ScoreBoard(0,2*GameState.SCREEN_HEIGHT/3,record,null, state, null, false, 0);
 		this.game.addEntity(scoreBoard);
 		
 		Music.getInstanceMusic().play(this.game.getContext(),previous_shot_feedback_sound,true);
@@ -121,7 +121,6 @@ public class Dot extends Entity{
 		onScrollManagement();
 	
 		if(launched){
-			this.playAnim();
 			// parametric equation defined by initial event and final event associated to onFling event
 			float auxX = initialX + param * v.x; 
 			float auxY = initialY + param * v.y;
@@ -131,7 +130,7 @@ public class Dot extends Entity{
 			this.x = (int) auxX;
 			this.y = (int) auxY;
 			
-			if (this.x <= -this.getImgWidth() || this.x > game.getView().getWidth() || this.y <= Game.SCREEN_HEIGHT/6 -this.getImgHeight()){
+			if (this.x <= -this.getImgWidth() || this.x > game.getView().getWidth() || this.y <= GameState.SCREEN_HEIGHT/6 -this.getImgHeight()){
 				// move	s ball to origin position
 				Distance dist = soundConfig.playSound(targetPos.x, this.x);
 				dist = soundConfig.playSound(targetPos.x, this.x);
@@ -172,7 +171,6 @@ public class Dot extends Entity{
 	private void onScrollManagement() {
 		EventType e  = Input.getInput().removeEvent("onScroll");
 		if(!launched && e != null){
-			this.playAnim();
 			
 			if(RuntimeConfig.IS_DEBUG_MODE){
 				scrollX = e.getMotionEventE2().getX();
@@ -192,15 +190,12 @@ public class Dot extends Entity{
 				}
 				outOfShotAreaCounter++;
 				if(outOfShotAreaCounter == MAX_SHOTS_FAILED){
-					this.game.getTTS().setQueueMode(this.game.getTTS().QUEUE_FLUSH);
+					this.game.getTTS().setQueueMode(TTS.QUEUE_FLUSH);
 					this.game.getTTS().speak(this.game.getContext().getString(R.string.alertOutsideShotArea));
-					this.game.getTTS().setQueueMode(this.game.getTTS().QUEUE_ADD);
+					this.game.getTTS().setQueueMode(TTS.QUEUE_ADD);
 					outOfShotAreaCounter = 0;
 				}
 			}
-		}
-		else{ 
-			this.stopAnim();
 		}
 	}
 
@@ -210,7 +205,7 @@ public class Dot extends Entity{
 	 * @param canvas surface which will be drawn
 	 * 
 	 * */
-	protected void onDraw(Canvas canvas){
+	public void onDraw(Canvas canvas){
 		super.onDraw(canvas);
 		
 		if(RuntimeConfig.IS_DEBUG_MODE){
@@ -238,17 +233,16 @@ public class Dot extends Entity{
 				if (inShotArea(e.getMotionEventE1().getY())&& inShotArea(e.getMotionEventE2().getY())){
 					launched = true;
 					outOfShotAreaCounter = 0;
-					this.playAnim();
 					shotEvent = MotionEvent.obtain(e.getMotionEventE2());
 					param = 0.5f;
 					incr = 0.03f;
 					initialX = this.x;
 					initialY = this.y;
 					Music.getInstanceMusic().play(this.game.getContext(), hit_feedback_sound,false);
-					Music.getInstanceMusic().stop(this.game.getContext(), previous_shot_feedback_sound);
+					Music.getInstanceMusic().stop(previous_shot_feedback_sound);
 					Music.getInstanceMusic().play(this.game.getContext(), doppler_sound, true);
 					if(!headPhonesMode){
-						Music.getInstanceMusic().stop(this.game.getContext(), alternative_previous_shot_feedback_sound);
+						Music.getInstanceMusic().stop(alternative_previous_shot_feedback_sound);
 						Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
 					}
 				}
@@ -289,17 +283,16 @@ public class Dot extends Entity{
 				if (inShotArea(e1.getY())&& inShotArea(e2.getY())){
 					Input.getInput().remove("onDown");
 					launched = true;
-					this.playAnim();
 					shotEvent = MotionEvent.obtain(eu.getMotionEventE1());
 					param = 0.5f;
 					incr = 0.03f;
 					initialX = this.x;
 					initialY = this.y;
 					Music.getInstanceMusic().play(this.game.getContext(), hit_feedback_sound,false);
-					Music.getInstanceMusic().stop(this.game.getContext(), previous_shot_feedback_sound);
+					Music.getInstanceMusic().stop(previous_shot_feedback_sound);
 					Music.getInstanceMusic().play(this.game.getContext(), doppler_sound, true);
 					if(!headPhonesMode){
-						Music.getInstanceMusic().stop(this.game.getContext(), alternative_previous_shot_feedback_sound);
+						Music.getInstanceMusic().stop(alternative_previous_shot_feedback_sound);
 						Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
 					}
 					
@@ -359,11 +352,11 @@ public class Dot extends Entity{
 	private void resetBall(){
 		Music.getInstanceMusic().play(this.game.getContext(),previous_shot_feedback_sound,true);
 		Music.getInstanceMusic().setVolume(0, 0, previous_shot_feedback_sound);
-		Music.getInstanceMusic().stop(this.game.getContext(), doppler_sound);
+		Music.getInstanceMusic().stop(doppler_sound);
 		if(!headPhonesMode){
 			Music.getInstanceMusic().play(this.game.getContext(),alternative_previous_shot_feedback_sound,true);
 			Music.getInstanceMusic().setVolume(0, 0, alternative_previous_shot_feedback_sound);
-			Music.getInstanceMusic().stop(this.game.getContext(), alternative_doppler_sound);
+			Music.getInstanceMusic().stop(alternative_doppler_sound);
 		}
 
 		// Removes all events
@@ -372,8 +365,6 @@ public class Dot extends Entity{
 		this.setX(originX);
 		this.setY(originY);
 		launched = false;
-		this.stopAnim();
-		
 		
 		if (this.game.isTutorialMode()){
 			if (this.game.getStep() == steps.STEP1 || this.game.getStep() == steps.STEP3 || this.game.getStep() == steps.STEP6
@@ -469,5 +460,8 @@ public class Dot extends Entity{
 					}
 				}
 		}
-	}	
+	}
+
+	@Override
+	public void onRemove() {}	
 }

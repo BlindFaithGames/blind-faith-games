@@ -32,6 +32,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>Engine_src</name>
+			<type>2</type>
+			<locationURI>_android_Engine_7bfce662/src</locationURI>
+		</link>
+		<link>
 			<name>OpenAL4Android_src</name>
 			<type>2</type>
 			<locationURI>_android_OpenAL4Android_64b3b6b0/src</locationURI>

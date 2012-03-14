@@ -12,7 +12,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.TTS;
+import com.accgames.sound.TTS;
 import com.zarodnik.R;
 
 /**

@@ -75,6 +75,7 @@
 	<string name="keydialog">Action configuration</string>
 	<string name="keydialog_text">Press any key</string>
 	<string name="button_speak_record">Play record in game</string>
+	<string name="button_blind_mode">To enable blind mode</string>
 
 	<string name="recordSpeech">your actual record is</string>
 	<string name="counterSpeech">your actual count is</string>

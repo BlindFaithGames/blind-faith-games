@@ -27,6 +27,14 @@ public class Simon {
 		chances = 3;
 	}
 	
+	public Context getmContext() {
+		return mContext;
+	}
+
+	public void setmContext(Context mContext) {
+		this.mContext = mContext;
+	}
+	
 	public void playSequence(){
 		Random numberGenerator = new Random();
 		sequence.add(numberGenerator.nextInt(4));

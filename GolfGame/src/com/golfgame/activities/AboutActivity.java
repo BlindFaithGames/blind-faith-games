@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyengine.TTS;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 

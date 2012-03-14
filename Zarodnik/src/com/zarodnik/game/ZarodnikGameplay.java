@@ -24,22 +24,22 @@ import android.speech.tts.TextToSpeech;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.accgames.general.Entity;
+import com.accgames.general.Game;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.general.MaskCircle;
+import com.accgames.graphics.BitmapScaler;
+import com.accgames.graphics.CustomBitmap;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
+import com.accgames.others.NumberGenerator;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.BitmapScaler;
-import com.accgames.tinyEngineClasses.CustomBitmap;
-import com.accgames.tinyEngineClasses.Entity;
-import com.accgames.tinyEngineClasses.Game;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.MaskCircle;
-import com.accgames.tinyEngineClasses.Music;
-import com.accgames.tinyEngineClasses.NumberGenerator;
-import com.accgames.tinyEngineClasses.Sound2D;
-import com.accgames.tinyEngineClasses.SpriteMap;
-import com.accgames.tinyEngineClasses.TTS;
-import com.accgames.tinyEngineClasses.VolumeManager;
-import com.accgames.tinyEngineClasses.Input.EventType;
+import com.accgames.sound.Music;
+import com.accgames.sound.Sound2D;
+import com.accgames.sound.TTS;
+import com.accgames.sound.VolumeManager;
 import com.zarodnik.R;
 import com.zarodnik.activities.MainActivity;
 import com.zarodnik.activities.ZarodnikGameActivity;
@@ -76,8 +76,6 @@ public class ZarodnikGameplay extends GameState {
 	
 	private boolean flag = false;
 	
-	private int level;
-
 	private int preyN;
 	
 	private boolean transition;
@@ -546,8 +544,8 @@ public class ZarodnikGameplay extends GameState {
 	
 
 	private void transitionEffectBackground(Canvas canvas) {
-		int width, widthPix; 
-		int height, heightPix;
+		int width; 
+		int height;
 		int offSetX, offSetY;
 		int x, y;
 		Iterator<Entity> it;
@@ -556,8 +554,6 @@ public class ZarodnikGameplay extends GameState {
 		this.getContext().getWindowManager().getDefaultDisplay().getMetrics(dm); 
 		width = dm.widthPixels; 
 		height = dm.heightPixels;
-		widthPix = (int) Math.ceil(dm.widthPixels * (dm.densityDpi / 160.0));
-		heightPix = (int) Math.ceil(dm.heightPixels * (dm.densityDpi / 160.0));
 		
 		canvas.drawBitmap(backgroundImage, null, new Rect(dx,dy,dx + backgroundImage.getWidth(),dy + backgroundImage.getHeight()),null);
 		

@@ -3,20 +3,19 @@ package com.zarodnik.game;
 import java.util.List;
 import java.util.Random;
 
-
-import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.Entity;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.SpriteMap;
-import com.zarodnik.game.ZarodnikGameplay.Sense;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
+
+import com.accgames.general.Entity;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.others.RuntimeConfig;
+import com.zarodnik.game.ZarodnikGameplay.Sense;
 
 public abstract class Creature extends Entity{
 	

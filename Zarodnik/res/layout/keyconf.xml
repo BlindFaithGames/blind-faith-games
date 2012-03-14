@@ -7,12 +7,12 @@
     <TableRow>
         <TextView
             android:layout_column="1"
-            android:text="Play Record"
+            android:text="@string/button_speak_record"
             android:padding="3dip" />
 	    <Button 
 	        android:id="@+id/buttonRecord"
 	        android:layout_width="fill_parent"
-	        android:text="Search"
+	        android:text="@string/button_speak_record"
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_speak_record"/>
     </TableRow>
@@ -21,4 +21,17 @@
         android:layout_height="2dip"
         android:background="#FF909090" />
 
+    <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="@string/button_blind_mode"
+            android:padding="3dip" />
+	    <Button 
+	        android:id="@+id/buttonBlindMode"
+	        android:layout_width="fill_parent"
+	        android:text="@string/button_blind_mode"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/button_blind_mode"/>
+    </TableRow>
+    
 </TableLayout>

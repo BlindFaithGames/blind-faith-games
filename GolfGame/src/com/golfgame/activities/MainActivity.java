@@ -22,13 +22,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.accgames.input.Input;
+import com.accgames.input.KeyboardReader;
+import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyengine.Input;
-import com.accgames.tinyengine.Music;
-import com.accgames.tinyengine.TTS;
-import com.accgames.xml.KeyboardReader;
-import com.accgames.xml.XMLKeyboard;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
@@ -168,7 +168,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	 */
 	private void fillXMLKeyboard(){
 		keyboard.addObject(22, KeyConfActivity.ACTION_RECORD);
-		keyboard.setNum(1);
+		keyboard.addObject(24, KeyConfActivity.ACTION_BLIND_MODE);
+		keyboard.setNum(2);
 	}
 
 	private void checkFolderApp(String file) {
@@ -215,7 +216,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void openNewGameDialog() {
 		gameDialog.show();
 	
-		Music.getInstanceMusic().stop(this,R.raw.main);
+		Music.getInstanceMusic().stop(R.raw.main);
 		
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_modes_TTStext)
@@ -434,7 +435,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			textToSpeech.speak(getString(R.string.synthesizer_suggestion));
 		}
 		
-		Music.getInstanceMusic().stop(this,R.raw.storm);
+		Music.getInstanceMusic().stop(R.raw.storm);
 		
 		// Removes all events
 		Input.getInput().clean();
@@ -443,7 +444,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.getInstanceMusic().stop(this,R.raw.main);
+		Music.getInstanceMusic().stop(R.raw.main);
 	}
 
 	/**

@@ -5,12 +5,12 @@ import java.util.List;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 
+import com.accgames.general.Entity;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.graphics.SpriteMap;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyEngineClasses.Entity;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.Music;
-import com.accgames.tinyEngineClasses.SpriteMap;
+import com.accgames.sound.Music;
 import com.zarodnik.R;
 
 public class Seaweed extends Item {

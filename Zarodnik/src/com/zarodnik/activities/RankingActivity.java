@@ -9,7 +9,6 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -26,7 +25,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.accgames.tinyEngineClasses.TTS;
+import com.accgames.sound.TTS;
 import com.zarodnik.R;
 
 public class RankingActivity extends Activity implements OnTouchListener, OnFocusChangeListener{

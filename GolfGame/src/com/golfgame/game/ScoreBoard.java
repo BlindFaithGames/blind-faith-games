@@ -14,19 +14,19 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
+import com.accgames.general.Entity;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.input.Input;
+import com.accgames.input.Input.EventType;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.tinyengine.Entity;
-import com.accgames.tinyengine.Game;
-import com.accgames.tinyengine.Input;
-import com.accgames.tinyengine.Input.EventType;
-import com.accgames.tinyengine.Mask;
 import com.golfgame.R;
 import com.golfgame.activities.MainActivity;
 
 public class ScoreBoard extends Entity {
 
-	private GolfGame game;
+	private GolfGameplay game;
 	
 	private int counter;
 	private int record;
@@ -36,11 +36,11 @@ public class ScoreBoard extends Entity {
 	private static Typeface font;
 	private Paint brush;
 	
-	public ScoreBoard(int x, int y, int record,Bitmap img, Game game, List<Mask> mask,
+	public ScoreBoard(int x, int y, int record,Bitmap img, GameState state, List<Mask> mask,
 			boolean animated, int frameCount) {
-		super(x, y, img, game, mask, animated, frameCount);
+		super(x, y, img, state, mask, null, null, null, false);
 		counter = 0;
-		this.game = (GolfGame) game;
+		this.game = (GolfGameplay) state;
 		this.record = record;
 		
 		font = Typeface.createFromAsset(this.game.getContext().getAssets(), RuntimeConfig.FONT_PATH);  
@@ -147,5 +147,8 @@ public class ScoreBoard extends Entity {
 	public void decrementCounter(int i) {
 		counter -= i;
 	}
+
+	@Override
+	public void onRemove() {}
 
 }

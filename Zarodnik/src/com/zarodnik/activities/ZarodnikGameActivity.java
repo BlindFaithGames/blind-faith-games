@@ -1,9 +1,6 @@
 package com.zarodnik.activities;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,15 +12,13 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 
-import com.accgames.XML.KeyboardReader;
-import com.accgames.XML.XMLKeyboard;
-import com.accgames.tinyEngineClasses.DrawablePanel;
-import com.accgames.tinyEngineClasses.Game;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Input;
-import com.accgames.tinyEngineClasses.SoundManager;
-import com.accgames.tinyEngineClasses.TTS;
-import com.zarodnik.R;
+import com.accgames.general.DrawablePanel;
+import com.accgames.general.Game;
+import com.accgames.general.GameState;
+import com.accgames.input.Input;
+import com.accgames.input.XMLKeyboard;
+import com.accgames.sound.Sound3DManager;
+import com.accgames.sound.TTS;
 import com.zarodnik.game.ZarodnikGameOver;
 import com.zarodnik.game.ZarodnikGameplay;
 import com.zarodnik.game.ZarodnikIntro;
@@ -31,8 +26,6 @@ import com.zarodnik.game.ZarodnikTutorial;
 import com.zarodnik.game.ZarodnikTutorial.TutorialID;
 
 public class ZarodnikGameActivity extends Activity {
-	private static String TAG = "ZarodnikGameActivity";
-
 	private TTS textToSpeech;
 	private Game game;
 	
@@ -88,7 +81,7 @@ public class ZarodnikGameActivity extends Activity {
 
 	@Override
     protected void onDestroy() {
-    	SoundManager.getSoundManager(this).stopAllSources();
+    	Sound3DManager.getSoundManager(this).stopAllSources();
     	//Music.getInstanceMusic().stopAllResources();
     	super.onDestroy();
     }
@@ -209,6 +202,9 @@ public class ZarodnikGameActivity extends Activity {
 				    if (found){
 				    	if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_RECORD)){
 				    		Input.getInput().addEvent(KeyConfActivity.ACTION_RECORD, e, -1, -1);
+				    	}
+				    	if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_BLIND_MODE)){
+				    		game.setDisabled(!game.getDisabled());
 				    	}
 				    }
 			}

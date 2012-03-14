@@ -15,11 +15,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.accgames.input.Input;
+import com.accgames.input.KeyboardWriter;
+import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
-import com.accgames.tinyengine.Input;
-import com.accgames.tinyengine.TTS;
-import com.accgames.xml.KeyboardWriter;
-import com.accgames.xml.XMLKeyboard;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
@@ -29,6 +29,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	public static final int KEY_PRESSED = 1;
 
 	public static final String ACTION_RECORD = "speakRecord";
+	public static final String ACTION_BLIND_MODE = "blindMode";
 	
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
@@ -38,7 +39,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	private String action;
 	private int key;
 	
-	private Button buttonRecord;
+	private Button buttonRecord, buttonBlindMode;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,13 +53,18 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		buttonRecord.setOnFocusChangeListener(this);
 		buttonRecord.setOnClickListener(this);
 		
+		buttonBlindMode = (Button) findViewById(R.id.buttonBlindMode);
+		buttonBlindMode.setOnFocusChangeListener(this);
+		buttonBlindMode.setOnClickListener(this);
+		
 		this.buttonsUpdate();
 
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
-										+ buttonRecord.getContentDescription() + " ");
+										+ buttonRecord.getContentDescription() + " "
+										+ buttonBlindMode.getContentDescription() + " ");
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.KEY_CONF_ACTIVITY);
 	}
 	
@@ -73,6 +79,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	
 	private void buttonsUpdate(){
 		buttonRecord.setText(keyboard.searchButtonByAction(ACTION_RECORD));
+		buttonBlindMode.setText(keyboard.searchButtonByAction(ACTION_BLIND_MODE));
 	}
 	
 	/**
@@ -99,6 +106,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		case R.id.buttonRecord:
 			action = ACTION_RECORD;
 			break;
+		case R.id.buttonBlindMode:
+			action = ACTION_BLIND_MODE;
+			break;
 		}
 		AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.CONFIGURATION_CHANGED,
 				GolfGameAnalytics.KEY_CONFIGURATION_CHANGED, "Action-Key Changed: " + action, 0);
@@ -114,6 +124,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 			case (KEY_PRESSED):
 				if (action.equals(ACTION_RECORD)){;
 					keyboard.addButtonAction(key, ACTION_RECORD);
+				}
+				if (action.equals(ACTION_BLIND_MODE)){;
+					keyboard.addButtonAction(key, ACTION_BLIND_MODE);
 				}
 				break;
 			}
@@ -133,6 +146,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	private String keyConfigurationtoString() {
 		String aux;
 		aux = ACTION_RECORD + ": " + keyboard.getKeyByAction(ACTION_RECORD);
+		aux += ACTION_BLIND_MODE + ": " + keyboard.getKeyByAction(ACTION_BLIND_MODE);
 		return aux;
 	}
 

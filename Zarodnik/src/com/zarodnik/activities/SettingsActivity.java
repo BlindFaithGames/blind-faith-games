@@ -9,7 +9,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
-import com.accgames.tinyEngineClasses.TTS;
+import com.accgames.sound.TTS;
 import com.zarodnik.R;
 
 public class SettingsActivity extends PreferenceActivity implements

@@ -2,14 +2,14 @@ package com.zarodnik.game;
 
 import java.util.List;
 
-import com.accgames.tinyEngineClasses.Entity;
-import com.accgames.tinyEngineClasses.GameState;
-import com.accgames.tinyEngineClasses.Mask;
-import com.accgames.tinyEngineClasses.Music;
-import com.accgames.tinyEngineClasses.SpriteMap;
-
 import android.graphics.Bitmap;
 import android.graphics.Point;
+
+import com.accgames.general.Entity;
+import com.accgames.general.GameState;
+import com.accgames.general.Mask;
+import com.accgames.graphics.SpriteMap;
+import com.accgames.sound.Music;
 
 public class SillyPrey extends Creature {
 
@@ -17,7 +17,6 @@ public class SillyPrey extends Creature {
 	
 	public SillyPrey(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable) {
 		super(x, y, img, game, mask, animations, soundName, soundOffset, collidable, 1);
-		this.die_sound = die_sound;
 	}
 	
 	@Override
