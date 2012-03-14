@@ -79,6 +79,7 @@ public class TutorialActivity extends Activity {
 	
 	protected void onDestroy() {
 		super.onDestroy();
+		textToSpeech.stop();
 		Music.getInstanceMusic().stop(R.raw.storm);
 		Music.getInstanceMusic().stop(R.raw.sound_shot);
 		Music.getInstanceMusic().stop(R.raw.previous_shoot_feedback_sound);

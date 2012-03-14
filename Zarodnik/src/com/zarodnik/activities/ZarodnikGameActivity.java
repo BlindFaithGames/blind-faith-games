@@ -18,6 +18,7 @@ import com.accgames.general.GameState;
 import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
 import com.accgames.sound.Sound3DManager;
+import com.accgames.sound.SoundManager;
 import com.accgames.sound.TTS;
 import com.zarodnik.game.ZarodnikGameOver;
 import com.zarodnik.game.ZarodnikGameplay;
@@ -81,6 +82,7 @@ public class ZarodnikGameActivity extends Activity {
 
 	@Override
     protected void onDestroy() {
+		textToSpeech.stop();
     	Sound3DManager.getSoundManager(this).stopAllSources();
     	//Music.getInstanceMusic().stopAllResources();
     	super.onDestroy();
