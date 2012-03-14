@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp" 
+              android:gravity="center_horizontal"
+              android:background="@color/black">
+ 
+	<TextView android:id="@+id/lose_dialog_textView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/LoseDialogTitle"
+			android:textColor="@color/black"
+			android:contentDescription="@string/LoseDialogTitle"/>
+			
+	<Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/reset_button"
+			android:layout_below="@+id/lose_dialog_textView"
+			android:text="@string/LosePositiveButtonLabel"
+			android:textColor="@color/black"
+			android:contentDescription="@string/LosePositiveButtonLabel" 
+			android:layout_alignRight="@+id/lose_dialog_textView" 
+			android:layout_alignLeft="@+id/lose_dialog_textView"
+			android:background="@drawable/blind_background_button" />
+			
+	<Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/back_button"
+			android:layout_below="@+id/reset_button"
+			android:text="@string/LoseNegativeButtonLabel"
+			android:textColor="@color/black"
+			android:contentDescription="@string/LoseNegativeButtonLabel" 
+			android:layout_alignLeft="@+id/reset_button" 
+			android:background="@drawable/blind_background_button" />
+
+
+</RelativeLayout>

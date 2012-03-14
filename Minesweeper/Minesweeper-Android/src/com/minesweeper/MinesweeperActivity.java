@@ -7,12 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -22,9 +17,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
@@ -42,21 +34,12 @@ import android.widget.Toast;
 import com.accgames.XML.KeyboardReader;
 import com.accgames.XML.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Entry;
 import com.accgames.others.Log;
 import com.accgames.others.RuntimeConfig;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
-import com.minesweeper.R;
-import com.minesweeper.client.MyRequestFactory;
-import com.minesweeper.client.MyRequestFactory.EntryRequest;
-import com.minesweeper.client.MyRequestFactory.LogRequest;
 import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.Music;
 import com.minesweeper.game.TTS;
-import com.minesweeper.shared.EntryProxy;
-import com.minesweeper.shared.LogProxy;
 
 /**
  * Main activity - messages from the server and provides
@@ -91,7 +74,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	// To know if the user has started a game or not
 	private boolean gamed = false;
 
-	private AsyncTask<Void, Void, String> task;
+//	private AsyncTask<Void, Void, String> task;
 
 	// User id
 	private UUID id;
@@ -252,6 +235,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	public void onDestroy() {
 		//unregisterReceiver(mUpdateUIReceiver);
 		textToSpeech.stop();
+		instructionsDialog.dismiss();
+		gameDialog.dismiss();
     	AnalyticsManager.dispatch();
 		super.onDestroy();
 		AnalyticsManager.stopTracker();
@@ -273,8 +258,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		case R.layout.main:
 			setMainScreenContent(R.layout.main);
 			break;
-		case R.layout.main_blind:
-			setMainScreenContent(R.layout.main_blind);
+		case R.layout.blind_main:
+			setMainScreenContent(R.layout.blind_main);
 			break;
 		}
 	}
@@ -469,7 +454,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 								.getMethodName(), "Exit");
 				AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, 
 						MinesweeperAnalytics.LEAVES_GAME, "Yes", 3);
-				sendLog();
+//				sendLog();
 			}
 			finish();
 			break;
@@ -481,7 +466,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		
 		gameDialog = new Dialog(this);
 		gameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		gameDialog.setContentView(R.layout.game_dialog);
+		if (RuntimeConfig.blindMode)
+			gameDialog.setContentView(R.layout.blind_game_dialog);
+		else 
+			gameDialog.setContentView(R.layout.game_dialog);
 		
 		t = (TextView) gameDialog.findViewById(R.id.game_textView);
 		t.setTextSize(fontSize);
@@ -511,7 +499,11 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		instructionsDialog.setContentView(R.layout.instructions_dialog);
+
+		if (RuntimeConfig.blindMode)
+			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
+		else
+			instructionsDialog.setContentView(R.layout.instructions_dialog);
 		
 		t = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
 		t.setTextSize(fontSize);
@@ -615,15 +607,14 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Intent nextIntent;
 		switch (resultCode) {
 		case (RESET_CODE):
-			
-			sendLog();
+//			sendLog();
 			nextIntent = new Intent(getApplicationContext(), Minesweeper.class);
 			nextIntent.putExtra(KEY_TTS, textToSpeech);
 			nextIntent.putExtra(KEY_DIFFICULTY, difficult);
 			startActivityForResult(nextIntent, RESET_CODE);
 			break;
 		case (EXIT_GAME_CODE):
-			sendLog();
+//			sendLog();
 			break;
 		case (RESULT_CANCELED):
 			break;
@@ -633,94 +624,94 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		}
 	}
 	
-	private synchronized void sendLog() {
-    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    	NetworkInfo nInfo = cm.getActiveNetworkInfo();
-    	if(nInfo != null){
-    		if(nInfo.isConnected()){
-				AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-					private String message;
-	
-					@Override
-					protected String doInBackground(Void... arg0) {
-						MyRequestFactory factory = (MyRequestFactory) Util
-								.getRequestFactory(mContext, MyRequestFactory.class);
-						LogRequest request = factory.logRequest();
-	
-						LogProxy log = request.create(LogProxy.class);
-	
-						log.setTag(Log.getLog().getTag());
-						log.setLogEntries(sendEntries());
-						log.setFormAnswers(Log.getLog().getFormAnswers());
-						log.setComment(Log.getLog().getComment());
-	
-						request.createLog(log).fire(new Receiver<LogProxy>() {
-		                    @Override
-		                    public void onFailure(ServerFailure error) {
-		                        message = "Failure: " + error.getMessage();
-		                        synchronized (Log.getLog()){
-		                        	Log.getLog().notify();
-		                        }
-		                    }
-		                    @Override
-		                    public void onSuccess(LogProxy l) {
-		                        message = "We have received your log succesfully";
-		                        synchronized (Log.getLog()){
-		                        	Log.getLog().notify();
-		                        }
-		                    }
-		                });
-						return message;
-					}
-	
-					@Override
-		            protected void onPostExecute(String result) {
-						 Log.getLog().getLogEntries().clear();
-		            }
-		        }.execute();
-		        synchronized (Log.getLog()){
-					try {
-						textToSpeech.speak(this.getString(R.string.load_text));
-						Log.getLog().wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-		        }
-    		}
-    	}	
-	}
-
-	private List<Long> sendEntries() {
-		MyRequestFactory factory = (MyRequestFactory) Util.getRequestFactory(mContext, MyRequestFactory.class);
-		EntryRequest request;
-
-		Set<Integer> entries = Log.getLog().getEntryKeys();
-		Iterator<Integer> it = entries.iterator();
-		Integer entryN;
-		Entry e;
-		EntryProxy entry;
-		List<Long> result = new ArrayList<Long>();
-		while (it.hasNext()) {
-			entryN = it.next();
-			e = Log.getLog().getEntry(entryN);
-
-			request = factory.entryRequest();
-			entry = request.create(EntryProxy.class);
-
-			entry.setComment(e.getComment());
-			entry.setPath(e.getPath());
-			entry.setTag(e.getTag());
-			entry.setType(e.getType());
-			entry.setConfigurationSettings(e.getConfigurationSettings());
-			entry.setTimestamp(e.getTimestamp());
-
-			EntryReceiver r = new EntryReceiver();
-			request.createEntry(entry).fire(r);
-			Long n = new Long(r.getResult());
-			result.add(n);
-		}
-		return result;
-	}
+//	private synchronized void sendLog() {
+//    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//    	NetworkInfo nInfo = cm.getActiveNetworkInfo();
+//    	if(nInfo != null){
+//    		if(nInfo.isConnected()){
+//				AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+//					private String message;
+//	
+//					@Override
+//					protected String doInBackground(Void... arg0) {
+//						MyRequestFactory factory = (MyRequestFactory) Util
+//								.getRequestFactory(mContext, MyRequestFactory.class);
+//						LogRequest request = factory.logRequest();
+//	
+//						LogProxy log = request.create(LogProxy.class);
+//	
+//						log.setTag(Log.getLog().getTag());
+//						log.setLogEntries(sendEntries());
+//						log.setFormAnswers(Log.getLog().getFormAnswers());
+//						log.setComment(Log.getLog().getComment());
+//	
+//						request.createLog(log).fire(new Receiver<LogProxy>() {
+//		                    @Override
+//		                    public void onFailure(ServerFailure error) {
+//		                        message = "Failure: " + error.getMessage();
+//		                        synchronized (Log.getLog()){
+//		                        	Log.getLog().notify();
+//		                        }
+//		                    }
+//		                    @Override
+//		                    public void onSuccess(LogProxy l) {
+//		                        message = "We have received your log succesfully";
+//		                        synchronized (Log.getLog()){
+//		                        	Log.getLog().notify();
+//		                        }
+//		                    }
+//		                });
+//						return message;
+//					}
+//	
+//					@Override
+//		            protected void onPostExecute(String result) {
+//						 Log.getLog().getLogEntries().clear();
+//		            }
+//		        }.execute();
+//		        synchronized (Log.getLog()){
+//					try {
+//						textToSpeech.speak(this.getString(R.string.load_text));
+//						Log.getLog().wait();
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//		        }
+//    		}
+//    	}	
+//	}
+//
+//	private List<Long> sendEntries() {
+//		MyRequestFactory factory = (MyRequestFactory) Util.getRequestFactory(mContext, MyRequestFactory.class);
+//		EntryRequest request;
+//
+//		Set<Integer> entries = Log.getLog().getEntryKeys();
+//		Iterator<Integer> it = entries.iterator();
+//		Integer entryN;
+//		Entry e;
+//		EntryProxy entry;
+//		List<Long> result = new ArrayList<Long>();
+//		while (it.hasNext()) {
+//			entryN = it.next();
+//			e = Log.getLog().getEntry(entryN);
+//
+//			request = factory.entryRequest();
+//			entry = request.create(EntryProxy.class);
+//
+//			entry.setComment(e.getComment());
+//			entry.setPath(e.getPath());
+//			entry.setTag(e.getTag());
+//			entry.setType(e.getType());
+//			entry.setConfigurationSettings(e.getConfigurationSettings());
+//			entry.setTimestamp(e.getTimestamp());
+//
+//			EntryReceiver r = new EntryReceiver();
+//			request.createEntry(entry).fire(r);
+//			Long n = new Long(r.getResult());
+//			result.add(n);
+//		}
+//		return result;
+//	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -728,7 +719,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
 		
 		if(RuntimeConfig.blindMode)	
-			setScreenContent(R.layout.main_blind);
+			setScreenContent(R.layout.blind_main);
 		else
 			setScreenContent(R.layout.main);
 		return super.onKeyDown(keyCode, event);

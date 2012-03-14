@@ -186,7 +186,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		
 		winDialog = new Dialog(this);
 		winDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		winDialog.setContentView(R.layout.win_dialog);
+		if (RuntimeConfig.blindMode)
+			winDialog.setContentView(R.layout.blind_win_dialog);
+		else
+			winDialog.setContentView(R.layout.win_dialog);
 		
 		t = (TextView) winDialog.findViewById(R.id.win_dialog_textView);
 		t.setTextSize(fontSize);
@@ -215,7 +218,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		
 		loseDialog = new Dialog(this);
 		loseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		loseDialog.setContentView(R.layout.lose_dialog);
+		if (RuntimeConfig.blindMode)
+			loseDialog.setContentView(R.layout.blind_lose_dialog);
+		else
+			loseDialog.setContentView(R.layout.lose_dialog);
 		
 		t = (TextView) loseDialog.findViewById(R.id.lose_dialog_textView);
 		t.setTextSize(fontSize);
