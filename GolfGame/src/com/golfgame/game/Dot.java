@@ -16,7 +16,6 @@ import com.accgames.general.GameState;
 import com.accgames.general.Mask;
 import com.accgames.input.Input;
 import com.accgames.input.Input.EventType;
-import com.accgames.others.RuntimeConfig;
 import com.accgames.others.SoundConfig;
 import com.accgames.others.SoundConfig.Distance;
 import com.accgames.sound.Music;
@@ -171,11 +170,6 @@ public class Dot extends Entity{
 	private void onScrollManagement() {
 		EventType e  = Input.getInput().removeEvent("onScroll");
 		if(!launched && e != null){
-			
-			if(RuntimeConfig.IS_DEBUG_MODE){
-				scrollX = e.getMotionEventE2().getX();
-				scrollY = e.getMotionEventE2().getY();
-			}
 		
 			feedBackManagement(e.getMotionEventE2().getX(),e.getMotionEventE2().getY());
 			
@@ -207,14 +201,6 @@ public class Dot extends Entity{
 	 * */
 	public void onDraw(Canvas canvas){
 		super.onDraw(canvas);
-		
-		if(RuntimeConfig.IS_DEBUG_MODE){
-			Paint brush = new Paint();
-			brush.setColor(Color.BLACK);
-			brush.setStrokeWidth(3);
-			canvas.drawLine(dotCenterX, dotCenterY, targetPos.x, targetPos.y, brush);
-			canvas.drawLine(scrollX, scrollY, dotCenterX, dotCenterY, brush);
-		}
 	}
 	
 	

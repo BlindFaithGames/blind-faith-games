@@ -20,6 +20,7 @@ import com.accgames.general.Game;
 import com.accgames.general.GameState;
 import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
+import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
 import com.accgames.sound.Sound3DManager;
 import com.accgames.sound.SubtitleInfo;
@@ -72,6 +73,8 @@ public class ZarodnikGameActivity extends Activity {
 		setContentView(zarodnikView);
 		
 		createGame(zarodnikView);
+		
+		if (RuntimeConfig.blindMode) game.setDisabled(true);
     }
     
     private void createGame(DrawablePanel zarodnikView) {
@@ -222,6 +225,7 @@ public class ZarodnikGameActivity extends Activity {
 				    	}
 				    	if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_BLIND_MODE)){
 				    		game.setDisabled(!game.getDisabled());
+							RuntimeConfig.blindMode = !RuntimeConfig.blindMode;
 				    	}
 				    }
 			}

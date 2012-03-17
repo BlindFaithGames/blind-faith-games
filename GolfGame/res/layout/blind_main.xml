@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:padding="30dip" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+		<Button
+			android:id="@+id/new_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/new_game_label"
+			android:contentDescription="@string/new_game_label"
+			android:layout_marginBottom="20dp"
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button" />
+		<Button
+			android:id="@+id/tutorial_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/tutorial_label"
+			android:contentDescription="@string/tutorial_label"
+			android:layout_marginBottom="20dp"
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button" />
+		<Button
+			android:id="@+id/settings_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/settings_label" 
+			android:contentDescription="@string/settings_label"
+			android:layout_marginBottom="20dp"
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button" />
+		<Button
+			android:id="@+id/keyConf_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/keyConf_label" 
+			android:contentDescription="@string/keyConf_label"
+			android:layout_marginBottom="20dp"
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button" />
+		<Button
+			android:id="@+id/instructions_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/instructions_label" 
+			android:contentDescription="@string/instructions_label"
+			android:layout_marginBottom="20dp"
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button" />
+		<Button
+			android:id="@+id/about_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/about_label"
+			android:contentDescription="@string/about_label"
+			android:layout_marginBottom="20px"
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button" />
+		<Button
+			android:id="@+id/exit_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/exit_label" 
+			android:contentDescription="@string/exit_label" 
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button" />
+	</LinearLayout>
+
+</LinearLayout>

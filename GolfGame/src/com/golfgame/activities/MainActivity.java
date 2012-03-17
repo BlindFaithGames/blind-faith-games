@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -83,9 +84,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
 		
-		setContentScreen();
+		setScreenContent(R.layout.main);
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
+		
+		setTTS();
 		
 		Display display = ((WindowManager) this
 				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -98,8 +101,15 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				+ " " + Build.BRAND + " " + Build.HARDWARE + " " + width + " " + height, 3);
 	}	
 	
-	private void setContentScreen() {
-		setContentView(R.layout.main);
+		/**
+	 * Sets the screen content based on the screen id.
+	 */
+	private void setScreenContent(int screenId) {
+		setContentView(screenId);
+		setMainScreenContent();
+	}
+	
+	private void setMainScreenContent() {
 		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
@@ -152,26 +162,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		createGameDialog();
 		
 		createInstructionsDialog();
-		
-		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
-		
-		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
-		
-		Music.enableTranscription(this, s);
-		
-		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
-				+ newButton.getContentDescription() + ","
-				+ tutorialButton.getContentDescription() + ","
-				+ settingsButton.getContentDescription() + ","
-				+ keyConfButton.getContentDescription() + ","
-				+ instructionsButton.getContentDescription() + ","
-				+ aboutButton.getContentDescription() + ","
-				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH, s);
-		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		
-		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 	}
 
 	/**
@@ -179,7 +169,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	 */
 	private void fillXMLKeyboard(){
 		keyboard.addObject(22, KeyConfActivity.ACTION_RECORD);
-		keyboard.addObject(24, KeyConfActivity.ACTION_BLIND_MODE);
+		keyboard.addObject(84, KeyConfActivity.ACTION_BLIND_MODE);
 		keyboard.setNum(2);
 	}
 
@@ -320,7 +310,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		gameDialog = new Dialog(this);
 		gameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		gameDialog.setContentView(R.layout.game_dialog);
+		
+		if (RuntimeConfig.blindMode)	
+			gameDialog.setContentView(R.layout.blind_game_dialog);
+		else
+			gameDialog.setContentView(R.layout.game_dialog);
 		
 		t = (TextView) gameDialog.findViewById(R.id.game_textView);
 		t.setTextSize(fontSize);
@@ -345,7 +339,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		instructionsDialog.setContentView(R.layout.instructions_dialog);
+		
+		if(RuntimeConfig.blindMode)	
+			instructionsDialog.setContentView(R.layout.instructions_dialog);
+		else
+			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
 		
 		t = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
 		t.setTextSize(fontSize);
@@ -426,6 +424,35 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 	}
 	
+	private void setTTS() {
+		Button newButton = (Button) findViewById(R.id.new_button);
+        Button tutorialButton = (Button) findViewById(R.id.tutorial_button);
+		Button settingsButton = (Button) findViewById(R.id.settings_button);
+		Button keyConfButton = (Button) findViewById(R.id.keyConf_button);
+		Button aboutButton = (Button) findViewById(R.id.about_button);
+		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
+		Button exitButton = (Button) findViewById(R.id.exit_button);
+
+		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		Music.enableTranscription(this, s);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
+				+ newButton.getContentDescription() + ","
+				+ tutorialButton.getContentDescription() + ","
+				+ settingsButton.getContentDescription() + ","
+				+ keyConfButton.getContentDescription() + ","
+				+ instructionsButton.getContentDescription() + ","
+				+ aboutButton.getContentDescription() + ","
+				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH, s);
+		
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+	}		
+	
 	/**
 	 * ------------------------------------------------------------ Music
 	 * ---------------------------------------------------------------
@@ -433,6 +460,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if (RuntimeConfig.blindMode)	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+		
 		if(SettingsActivity.getMusic(this))
 			Music.getInstanceMusic().play(this, R.raw.main, true);
 
@@ -481,6 +513,18 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.stop();
     	AnalyticsManager.dispatch();
 		AnalyticsManager.stopTracker();
+	}
+	
+		@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_SEARCH)
+			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
+		
+		if (RuntimeConfig.blindMode)	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+		return super.onKeyDown(keyCode, event);
 	}
 
 }
