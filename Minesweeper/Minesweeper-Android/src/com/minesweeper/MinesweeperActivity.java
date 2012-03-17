@@ -20,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +40,7 @@ import com.accgames.others.RuntimeConfig;
 import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.Music;
+import com.minesweeper.game.SubtitleInfo;
 import com.minesweeper.game.TTS;
 
 /**
@@ -214,6 +216,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Music.play(this, R.raw.main);
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
+		
+		if(PrefsActivity.getTranscription(this)){
+			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, true);
+			textToSpeech.enableTranscription(s);
+		}else
+			textToSpeech.disableTranscription();
 
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
@@ -329,6 +338,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Button formButton = (Button) findViewById(R.id.form_button);
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, true);
+	
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.intro_main_menu)
 				+ newButton.getContentDescription() + ","
@@ -338,7 +350,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				+ instructionsButton.getContentDescription() + ","
 				+ aboutButton.getContentDescription() + ","
 				+ formButton.getContentDescription() + ","
-				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
+				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH, s);
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
 	}
@@ -353,7 +365,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		keyboard.addObject(84, "coordinates");
 		keyboard.addObject(5, "context");
 		keyboard.addObject(10, "blind_mode");
-		keyboard.setNum(5);
+		keyboard.setNum(6);
 	}
 
 	private void checkFolderApp(String file) {
@@ -569,6 +581,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private void openInstructionsDialog() {
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_instructions_TTStext)
+				+ " "
 				+ this.getString(R.string.instructions_general_label)
 				+ " "
 				+ this.getString(R.string.instructions_controls_label));

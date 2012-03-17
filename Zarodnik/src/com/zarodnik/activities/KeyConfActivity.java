@@ -130,8 +130,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 			this.saveEditedKeyboard(getString(R.string.app_name)+".xml");
 		}
 		else{
-			Toast toast = Toast.makeText(this, "Not a valid key", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(this, R.string.key_conf_fail, Toast.LENGTH_SHORT);
 			toast.show();
+			textToSpeech.speak(getString(R.string.key_conf_fail));
 		}
 	}
 

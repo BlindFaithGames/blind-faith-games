@@ -84,6 +84,8 @@
     <string name="settings_shortcut">s</string>
     <string name="music_title">Music</string>
     <string name="music_summary">Play background music</string>
+    <string name="transcription_title">Transcription mode</string>
+    <string name="transcription_summary">It shows text that contains the TTS speech</string>
     <string name="new_game_title">Difficulty</string>
     <string name="easy_label">Easy</string>
     <string name="medium_label">Medium</string>
@@ -148,7 +150,7 @@
     <string name="alert_dialog_difficulty_TTStext">Dialog difficulty</string>
     <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
-    <string name="settings_menu_initial_TTStext">menu settings</string>
+    <string name="settings_menu_initial_TTStext">Menu settings</string>
     <string name=" accounts_menu_initial_TTStext">accounts</string>
     <string name="game_initial_TTStext">Game started!</string>
     <string name="exploration_mode_TTStext">Exploration mode</string>

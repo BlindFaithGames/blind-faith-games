@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	<PreferenceCategory android:title="@string/main_category">
 		<CheckBoxPreference
 			android:key="music"
 			android:title="@string/music_title"
@@ -11,20 +10,9 @@
 			android:title="@string/tts_title"
 			android:summary="@string/tts_summary"
 			android:defaultValue="true" />
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/profiles_category">
 		<CheckBoxPreference
-			android:key="profile A"
-			android:title="@string/profileA_title"
-			android:summary="@string/profileA_summary"
-			android:defaultValue="false" />
-		<CheckBoxPreference
-			android:key="profile B"
-			android:title="@string/profileB_title"
-			android:summary="@string/profileB_summary"
-			android:defaultValue="false"/>
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/custom_profile_category">
-
-	</PreferenceCategory>
+			android:key="transcription"
+			android:title="@string/transcription_title"
+			android:summary="@string/transcription_summary"
+			android:defaultValue="true" />
 </PreferenceScreen>

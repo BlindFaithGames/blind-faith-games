@@ -75,7 +75,8 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 		textToSpeech.setInitialSpeech(this.getString(R.string.tut_intro_text) + ". "  + 
 									  this.getString(R.string.tut_drag_text) + ". "  +  
 									  this.getString(R.string.tut_step));
-		this.textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+		textToSpeech.disableTranscription();
 		
 		AnalyticsManager.getAnalyticsManager(this).registerPage(MinesweeperAnalytics.TUTORIAL_ACTIVITY);
 		

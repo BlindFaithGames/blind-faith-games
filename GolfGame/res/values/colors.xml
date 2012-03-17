@@ -20,5 +20,7 @@
     <color name="green2">#339933</color>
     <color name="green3">#003300</color>
     
+    <color name="transparent_green">#64339933</color>
+    
     <color name="orange1">#64ff8000</color>
 </resources>

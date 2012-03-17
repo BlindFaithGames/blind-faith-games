@@ -3,6 +3,7 @@ package com.golfgame.activities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,6 +13,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -26,8 +28,10 @@ import com.accgames.input.Input;
 import com.accgames.input.KeyboardReader;
 import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
+import com.accgames.others.GolfMusicSources;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
+import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
@@ -149,6 +153,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		createInstructionsDialog();
 		
+		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		Music.enableTranscription(this, s);
+		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
 				+ newButton.getContentDescription() + ","
@@ -157,7 +168,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				+ keyConfButton.getContentDescription() + ","
 				+ instructionsButton.getContentDescription() + ","
 				+ aboutButton.getContentDescription() + ","
-				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
+				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH, s);
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
@@ -416,7 +427,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	}
 	
 	/**
-	 * ------------------------------------------------------------ Musica
+	 * ------------------------------------------------------------ Music
 	 * ---------------------------------------------------------------
 	 */
 	@Override
@@ -426,6 +437,20 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			Music.getInstanceMusic().play(this, R.raw.main, true);
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+		
+		if(SettingsActivity.getTranscription(this)){
+			
+			Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
+			
+			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+			
+			textToSpeech.enableTranscription(s);
+			Music.enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.disableTranscription();
+		}
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		

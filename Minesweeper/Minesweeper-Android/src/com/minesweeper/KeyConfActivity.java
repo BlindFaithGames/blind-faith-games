@@ -37,8 +37,8 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	private TTS textToSpeech;
 	private String action;
 	private int key;
-	private Button buttonZoom, buttonInstructions, buttonExploration, buttonCoordinates, buttonContext, buttonBlindMode;
-
+	private Button buttonZoom, buttonInstructions, buttonExploration;
+	private Button buttonCoordinates, buttonContext, buttonBlindMode;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -197,6 +197,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		else{
 			Toast toast = Toast.makeText(this, getString(R.string.key_conf_fail), Toast.LENGTH_SHORT);
 			toast.show();
+			textToSpeech.speak(getString(R.string.key_conf_fail));
 			Log.getLog().addEntry(KeyConfActivity.TAG,PrefsActivity.configurationToString(this),
 					Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),
 					"invalid new configuration");

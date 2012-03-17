@@ -40,6 +40,8 @@
     <string name="profileA_summary"> - </string>
     <string name="profileB_title">Profile B</string>
     <string name="profileB_summary"> - </string>
+    <string name="transcription_title">Transcription mode</string>
+    <string name="transcription_summary">It shows text that contains the TTS speech</string>
     <string name="game_title">Game</string>
     <string name="flags_title">Flags settings</string>
     <string name="flags_shortcut">f</string>
@@ -63,8 +65,8 @@
     <string name="back">Back</string>
     <string name="options">Options</string>
     <string name="search">Search</string>
-    <string name="alert_dialog_modes_TTStext">Alert Dialog select mode</string>
-    <string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
+    <string name="alert_dialog_modes_TTStext">Dialog select mode</string>
+    <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
     <string name="settings_menu_initial_TTStext">Menu settings</string>
     <string name="game_initial_TTStext">Game started!</string>
@@ -93,8 +95,8 @@
     <string name="game_dialog_select">Select difficulty</string>
     <string name="initial_settings">Click any option</string>
     <string name="key_conf_fail">Not a valid key</string>  
-    
-    
+    <string name="stage_speech">Stage number</string>  
+   
     <!-- TUTORIAL -->
     <string name="tutorial_step1_dialog_select">To shoot you have to do a fling.</string>
     <string name="tutorial_step2_dialog_select">By default that is the shot mode. Each time you score a shot, the target will change its position.</string>
@@ -106,6 +108,21 @@
     <string name="tutorial_step8_dialog_select">The sound variation indicates how far your shot has gone out of the target.</string>
     <string name="tutorial_step9_dialog_select">The End</string> 
     
+    <!-- Onomatopeias -->
+    <string name="bing_ono"> - bing bing! - </string>    
+    <string name="bip_ono"> - Bip bip! -</string>    
+    <string name="clue_feed_back_sound_ono"> - Ring! - </string>    
+    <string name="hit_ball_ono"> - Tip! - </string>    
+    <string name="left_ono"> - Biiiip! - </string>    
+    <string name="main_ono">Playing Golf OST!</string>    
+    <string name="missed_ono">biiiip!</string>    
+    <string name="previous_shoot_feedback_sound_ono"> - Sonar - </string>    
+    <string name="right_ono"> - biiiip! - </string>    
+    <string name="sound_shot_ono"> - Toc! - </string>    
+    <string name="storm_ono"> - Storm - </string>    
+    <string name="water_bubbles_ono"> - Bubbles - </string>    
+    <string name="win_sound_ono"> - Applause - </string>    
+
      
     <!-- SPANISH -->
 <!--     <string name="tutorial_step1_dialog_select">Para disparar realiza un fling</string> -->

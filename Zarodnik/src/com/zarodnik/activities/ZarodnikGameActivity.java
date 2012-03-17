@@ -1,6 +1,7 @@
 package com.zarodnik.activities;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,21 +9,26 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.accgames.general.DrawablePanel;
 import com.accgames.general.Game;
 import com.accgames.general.GameState;
 import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
+import com.accgames.sound.Music;
 import com.accgames.sound.Sound3DManager;
-import com.accgames.sound.SoundManager;
+import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
+import com.zarodnik.R;
 import com.zarodnik.game.ZarodnikGameOver;
 import com.zarodnik.game.ZarodnikGameplay;
 import com.zarodnik.game.ZarodnikIntro;
+import com.zarodnik.game.ZarodnikMusicSources;
 import com.zarodnik.game.ZarodnikTutorial;
 import com.zarodnik.game.ZarodnikTutorial.TutorialID;
 
@@ -47,6 +53,15 @@ public class ZarodnikGameActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+        
+		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		Music.enableTranscription(this, s);
+		
+        
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);

@@ -11,6 +11,11 @@
 			android:title="@string/tts_title"
 			android:summary="@string/tts_summary"
 			android:defaultValue="true" />
+		<CheckBoxPreference
+			android:key="transcription"
+			android:title="@string/transcription_title"
+			android:summary="@string/transcription_summary"
+			android:defaultValue="true" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/profiles_category">
 		<CheckBoxPreference

@@ -15,4 +15,9 @@
 		android:title="@string/context_coordinates_title"
 		android:summary="@string/context_coordinates_summary"
 		android:defaultValue="true" />
+	<CheckBoxPreference
+		android:key="transcription"
+		android:title="@string/transcription_title"
+		android:summary="@string/transcription_summary"
+		android:defaultValue="true" />
 </PreferenceScreen>

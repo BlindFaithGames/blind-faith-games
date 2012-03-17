@@ -15,15 +15,15 @@ import com.zarodnik.R;
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
 
-	private CheckBoxPreference music, tts, profileA, profileB;
+	private CheckBoxPreference music, tts, transcription;
 
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
 	private static final boolean OPT_MUSIC_DEF = false;
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
-	private static final String OPT_PROFILEA = "profile A";
-	private static final String OPT_PROFILEB = "profile B";
+	private static final String OPT_TRANSCRIPTION = "tts";
+	private static final boolean OPT_TRANSCRIPTION_DEF = true;
 	private TTS textToSpeech;
 
 	@Override
@@ -38,12 +38,9 @@ public class SettingsActivity extends PreferenceActivity implements
 		tts = (CheckBoxPreference) findPreference(OPT_TTS);
 		tts.setOnPreferenceClickListener(this);
 
-		profileA = (CheckBoxPreference) findPreference(OPT_PROFILEA);
-		profileA.setOnPreferenceClickListener(this);
-		profileB = (CheckBoxPreference) findPreference(OPT_PROFILEB);
-		profileB.setOnPreferenceClickListener(this);
+		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
+		transcription.setOnPreferenceClickListener(this);
 		
-
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
@@ -71,6 +68,11 @@ public class SettingsActivity extends PreferenceActivity implements
 				.getBoolean(OPT_TTS, OPT_TTS_DEF);
 	}
 
+	/** Get the current value of the tts option */
+	public static boolean getTranscription(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_TRANSCRIPTION, OPT_TRANSCRIPTION_DEF);
+	}
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
@@ -80,27 +82,11 @@ public class SettingsActivity extends PreferenceActivity implements
 		} else if (OPT_TTS.equals(preference.getKey())) {
 			textToSpeech.speak(findPreference(OPT_TTS).toString()
 					+ tts.isChecked());
-		} else if (OPT_PROFILEA.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_PROFILEA).toString()
-					+ profileA.isChecked());
-			manageProfileA();
-		} else if (OPT_PROFILEB.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_PROFILEB).toString()
-					+ profileB.isChecked());
-			manageProfileB();
+		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
+			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString()
+					+ transcription.isChecked());
 		}
 		return true;
-	}
-
-	private void manageProfileA() {
-		profileB.setChecked(false);;
-
-	}
-	
-	private void manageProfileB() {
-
-		 profileA.setChecked(false);
-
 	}
 	
 }

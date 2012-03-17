@@ -64,7 +64,7 @@ public class ZarodnikGameOver extends GameState {
 	@Override
 	public void onInit() {
 		super.onInit();
-		getTextToSpeech().speak(this.context.getString(R.string.game_over_tts));
+		getTTS().speak(this.context.getString(R.string.game_over_tts));
 	}
 	
 	@Override

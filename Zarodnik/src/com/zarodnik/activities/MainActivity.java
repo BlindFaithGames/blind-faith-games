@@ -3,12 +3,14 @@ package com.zarodnik.activities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -23,8 +25,10 @@ import com.accgames.input.KeyboardReader;
 import com.accgames.input.XMLKeyboard;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
+import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
+import com.zarodnik.game.ZarodnikMusicSources;
 
 /**
  * @author Gloria Pozuelo and Javier Álvarez
@@ -111,6 +115,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 
+		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		Music.enableTranscription(this, s);
+		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
 				+ newButton.getContentDescription() + " "
@@ -118,7 +129,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				+ keyConfButton.getContentDescription() + " "
 				+ instructionsButton.getContentDescription() + " "
 				+ aboutButton.getContentDescription() + " "
-				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH);
+				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
@@ -313,6 +324,21 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		if(SettingsActivity.getMusic(this))
 		Music.getInstanceMusic().play(this, R.raw.the_path_of_the_goblin_king, true);
 
+		if(SettingsActivity.getTranscription(this)){
+			
+			Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+			
+			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+			
+			
+			textToSpeech.enableTranscription(s);
+			Music.enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.disableTranscription();
+		}
+		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));

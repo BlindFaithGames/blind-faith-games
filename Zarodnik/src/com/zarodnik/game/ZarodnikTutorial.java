@@ -56,8 +56,8 @@ public class ZarodnikTutorial extends  GameState{
 	@Override
 	public void onInit() {
 		super.onInit();
-		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial_intro));
+		this.getTTS().setQueueMode(TextToSpeech.QUEUE_FLUSH);
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial_intro));
 	}
 	
 	private void initializeStage(TutorialID tutorialN) {
@@ -339,7 +339,7 @@ public class ZarodnikTutorial extends  GameState{
 		
 		if(nTouches > 10){
 			nTouches = 0;
-			this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial_warning));
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial_warning));
 		}
 		
 		e = Input.getInput().removeEvent("onLongPress");
@@ -388,27 +388,27 @@ public class ZarodnikTutorial extends  GameState{
 	
 	private void explainSeaweed() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial02_seaweed));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial02_seaweed));
 	}
 	
 	private void explainCapsule() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial03_capsule));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial03_capsule));
 	}
 	
 	private void explainRadio() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial01_radio));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial01_radio));
 	}
 
 	private void explainPredator() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.predator, false);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial00_predator));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial00_predator));
 	}
 
 	private void explainPrey() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.prey, false);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.tutorial00_prey));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial00_prey));
 	}
 	
 }

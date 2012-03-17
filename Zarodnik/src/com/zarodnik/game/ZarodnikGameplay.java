@@ -455,12 +455,12 @@ public class ZarodnikGameplay extends GameState {
 	@Override
 	public void onInit() {
 		super.onInit();
-		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
-		this.getTextToSpeech().speak(" ");
+		this.getTTS().setQueueMode(TextToSpeech.QUEUE_FLUSH);
+		this.getTTS().speak(" ");
 		Music.getInstanceMusic().playWithBlock(this.getContext(), intro_sound, false);
 		Music.getInstanceMusic().stop(intro_sound);
-		this.getTextToSpeech().setQueueMode(TextToSpeech.QUEUE_FLUSH);
-		this.getTextToSpeech().speak(this.getContext().getString(R.string.game_play_initial_TTStext));
+		this.getTTS().setQueueMode(TextToSpeech.QUEUE_FLUSH);
+		this.getTTS().speak(this.getContext().getString(R.string.game_play_initial_TTStext));
 		Input.getInput().clean();
 	}
 
@@ -608,8 +608,8 @@ public class ZarodnikGameplay extends GameState {
 			getRenderables().clear();
 			dx = 0;
 			dy = 0;
-			this.getTextToSpeech().setQueueMode(TTS.QUEUE_FLUSH);
-			this.getTextToSpeech().speak(this.getContext().getString(R.string.screen_change));
+			this.getTTS().setQueueMode(TTS.QUEUE_FLUSH);
+			this.getTTS().speak(this.getContext().getString(R.string.screen_change));
 			Music.getInstanceMusic().stop(R.raw.bip);
 			if(tutorial)
 				this.stop();

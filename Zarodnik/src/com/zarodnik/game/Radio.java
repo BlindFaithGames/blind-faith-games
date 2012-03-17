@@ -66,15 +66,15 @@ public class Radio extends Item{
 		if(prey != null && !prey.isRemovable()){
 			if (Math.abs(player.getX() - prey.getX()) > Math.abs(player.getY() - prey.getY())){
 				if (prey.getX() < player.getX())
-					this.gameState.getTextToSpeech().speak("left");
+					this.gameState.getTTS().speak("left");
 				else
-					this.gameState.getTextToSpeech().speak("right");
+					this.gameState.getTTS().speak("right");
 			}
 			else{
 				if (prey.getY() < player.getY())
-					this.gameState.getTextToSpeech().speak("up");
+					this.gameState.getTTS().speak("up");
 				else
-					this.gameState.getTextToSpeech().speak("down");
+					this.gameState.getTTS().speak("down");
 			}
 		}
 	}

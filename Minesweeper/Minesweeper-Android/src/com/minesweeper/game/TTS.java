@@ -18,14 +18,18 @@ import android.view.View;
 /**
  * 
  * 
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez This class
- *         implements OnInitListener Interface
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez 
+ * This class implements OnInitListener Interface
  * 
  */
 public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 
 	private static final String TAG = "Synthesizer";
 
+	private static final String appname = "IVONA Text-to-Speech HQ";
+
+	private static final String SYSTEM_TTS = "com.svox.pico";
+	
 	public static final int QUEUE_FLUSH = TextToSpeech.QUEUE_FLUSH;
 
 	public static final int QUEUE_ADD = TextToSpeech.QUEUE_ADD;
@@ -33,14 +37,12 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	private TextToSpeech mTts;
 
 	private int queueMode;
+	
+	private SubtitleManager subs;
 
 	private boolean enabled;
-
+	
 	private String initialSpeech;
-
-	private static final String appname = "IVONA Text-to-Speech HQ";
-
-	private static final String SYSTEM_TTS = "com.svox.pico";
 
 	public static final Parcelable.Creator<TTS> CREATOR = new Parcelable.Creator<TTS>() {
 		public TTS createFromParcel(Parcel in) {
@@ -56,6 +58,8 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		mTts = null;
 		enabled = in.readInt() == 1;
 		queueMode = in.readInt();
+		
+		subs = new SubtitleManager((SubtitleInfo)in.readParcelable(SubtitleInfo.class.getClassLoader()));
 	}
 
 	public TTS(Context ctxt, int queueMode) {
@@ -64,7 +68,9 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 
 		initialSpeech = null;
 		enabled = true;
-		this.queueMode = queueMode;
+		this.queueMode = queueMode;	
+		
+		subs = new SubtitleManager(ctxt);
 	}
 
 	public TTS(Context ctxt, String initialSpeech, int queueMode) {
@@ -74,11 +80,26 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		this.initialSpeech = initialSpeech;
 		enabled = true;
 		this.queueMode = queueMode;
+		
+		subs = new SubtitleManager(ctxt);
+	}
+	
+	public TTS(Context ctxt, String initialSpeech, int queueMode, SubtitleInfo sInfo) {
+		if (isInstalled(ctxt))
+			this.mTts = new TextToSpeech(ctxt, this);
+
+		this.initialSpeech = initialSpeech;
+		enabled = true;
+		this.queueMode = queueMode;
+		
+		subs = new SubtitleManager(ctxt, sInfo);
 	}
 
 	public void setContext(Context ctxt) {
-		if (isInstalled(ctxt))
+		if (isInstalled(ctxt)){
 			this.mTts = new TextToSpeech(ctxt, this);
+			subs.setContext(ctxt);
+		}
 	};
 
 	public boolean isEnabled() {
@@ -96,7 +117,21 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	public void setQueueMode(int queueMode) {
 		this.queueMode = queueMode;
 	}
-
+	
+	public void enableTranscription(SubtitleInfo sInfo){
+		if(subs != null){
+			subs.setEnabled(true);
+			if(sInfo != null)
+				subs.setsInfo(sInfo);
+		}
+	}
+	
+	public void disableTranscription(){
+		if(subs != null){
+			subs.setEnabled(false);
+		}
+	}
+	
 	public void onInit(int status) {
 		// status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
 		if (status == TextToSpeech.SUCCESS) {
@@ -111,8 +146,10 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 				Log.e(TAG, "Language is not available.");
 			} else {
 				// The TTS engine has been successfully initialized.
-				if (initialSpeech != null && enabled)
+				if (initialSpeech != null && enabled){
 					mTts.speak(initialSpeech, TextToSpeech.QUEUE_FLUSH, null);
+					subs.showSubtitle(initialSpeech);
+				}
 			}
 
 		} else {
@@ -161,20 +198,26 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	}
 
 	public void speak(String msg) {
-		if (enabled)
+		if (enabled){
 			mTts.speak(msg, queueMode, null);
+			subs.showSubtitle(msg);
+		}
 	}
 
 	public void speak(View v) {
-		if (enabled)
+		if (enabled){
 			mTts.speak(v.getContentDescription().toString(), queueMode, null);
+			subs.showSubtitle(v.getContentDescription().toString());
+		}
 	}
 
 	public void speak(List<String> msg) {
 		if (enabled) {
 			Iterator<String> it = msg.iterator();
-			while (it.hasNext())
+			while (it.hasNext()){
 				mTts.speak(" " + it.next() + " ", QUEUE_ADD, null);
+				subs.showSubtitle(" " + it.next() + " ");
+			}
 		}
 	}
 
@@ -190,54 +233,6 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(enabled ? 1 : 0);
 		dest.writeInt(queueMode);
+		dest.writeParcelable(subs.getsInfo(), flags);
 	}
-
-//	public static boolean isTalkBackAccessibilityEnabled(Context c) {
-//		int accessibilityEnabled = 0;
-//		boolean accessibilityFound = false;
-//		final String TALKBACK_ACCESSIBILITY_SERVICE = "com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService";
-//
-//		try {
-//			accessibilityEnabled = Settings.Secure.getInt(
-//					c.getContentResolver(),
-//					android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
-//			Log.d(TAG, "ACCESSIBILITY: " + accessibilityEnabled);
-//		} catch (SettingNotFoundException e) {
-//			Log.d(TAG,
-//					"Error finding setting, default accessibility to not found: "
-//							+ e.getMessage());
-//		}
-//
-//		TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(
-//				':');
-//
-//		if (accessibilityEnabled == 1) {
-//			Log.d(TAG, "***ACCESSIBILIY IS ENABLED***: ");
-//
-//			String settingValue = Settings.Secure.getString(
-//					c.getContentResolver(),
-//					Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-//			Log.d(TAG, "Setting: " + settingValue);
-//
-//			if (settingValue != null) {
-//				TextUtils.SimpleStringSplitter splitter = mStringColonSplitter;
-//				splitter.setString(settingValue);
-//				while (splitter.hasNext()) {
-//					String accessabilityService = splitter.next();
-//					Log.d(TAG, "Setting: " + accessabilityService);
-//					if (accessabilityService
-//							.equalsIgnoreCase(TALKBACK_ACCESSIBILITY_SERVICE)) {
-//						Log.d(TAG,
-//								"We've found the correct setting - accessibility is switched on!");
-//						return true;
-//					}
-//				}
-//			}
-//
-//			Log.d(TAG, "***END***");
-//		} else {
-//			Log.d(TAG, "***ACCESSIBILIY IS DISABLED***");
-//		}
-//		return accessibilityFound;
-//	}
 }

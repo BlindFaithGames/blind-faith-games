@@ -15,10 +15,13 @@ import android.media.MediaPlayer;
 public class Music {
 	private static HashMap<Integer, MediaPlayer> sounds = null;
 
+	private static SubtitleManager subs;
+	
 	private static Music m = null;
 	
 	private Music(){
 		sounds = new HashMap<Integer, MediaPlayer>();
+		subs = new SubtitleManager();
 	}
 	
 	public static Music getInstanceMusic(){
@@ -38,6 +41,15 @@ public class Music {
 		sounds.put(resource, mp);
 		mp.setLooping(looping);
 		mp.start();
+		
+		if(subs != null){
+			String aux = subs.getOnomatopeia(resource);
+			subs.setDuration(mp.getDuration());
+			if(aux != null)
+				subs.showSubtitle(aux);
+			else
+				subs.showSubtitle(Integer.toString(resource));
+		}
 	}
 	
 	/** Stop old song and start new one */
@@ -49,6 +61,15 @@ public class Music {
 		sounds.put(resource, mp);
 		mp.setLooping(looping);
 		mp.start();
+		
+		if(subs != null){
+			String aux = subs.getOnomatopeia(resource);
+			subs.setDuration(mp.getDuration());
+			if(aux != null)
+				subs.showSubtitle(aux);
+			else
+				subs.showSubtitle(Integer.toString(resource));
+		}
 		
 		while(mp.isPlaying()){};
 	}
@@ -75,6 +96,20 @@ public class Music {
 		 		return mp.isPlaying();
 		 	}
 		 		return false;
+	}
+	
+	public static void enableTranscription(Context c, SubtitleInfo sInfo){
+		subs = new SubtitleManager(c, sInfo);
+		subs.setEnabled(true);
+		if(sInfo != null)
+				subs.setsInfo(sInfo);
+
+	}
+	
+	public static void disableTranscription(){
+		if(subs != null){
+			subs.setEnabled(false);
+		}
 	}
 	
 	public void stopAllResources() {

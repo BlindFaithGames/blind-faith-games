@@ -190,15 +190,11 @@ public abstract class GameState {
 	}
 	
 	public TTS getTTS(){
-		return getTextToSpeech();
+		return textToSpeech;
 	}
 	
 	public void editBackground(Paint brush){
 		this.brush = brush;
-	}
-
-	public TTS getTextToSpeech() {
-		return textToSpeech;
 	}
 
 	public void setTextToSpeech(TTS textToSpeech) {

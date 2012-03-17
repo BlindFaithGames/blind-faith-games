@@ -66,7 +66,7 @@ public class ZarodnikIntro extends GameState {
 		super.onInit();
 		Music.getInstanceMusic().play(this.getContext(), R.raw.frost_walz, true);
 		
-		getTextToSpeech().speak(this.context.getString(R.string.intro_game_tts));
+		getTTS().speak(this.context.getString(R.string.intro_game_tts));
 	}
 	
 	@Override

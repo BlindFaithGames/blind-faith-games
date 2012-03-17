@@ -227,7 +227,7 @@ public class Dot extends Entity{
 	private void normalModeShotManagement() {
 		EventType e  = Input.getInput().removeEvent("onFling");
 		if (!launched &&  e != null){
-			if (e.getDvy() > 0){
+ 			if (e.getDvy() > 0){
 				v = new Point((int)(dotCenterX - e.getMotionEventE2().getX()),
 						      (int)(dotCenterY - e.getMotionEventE2().getY()));
 				if (inShotArea(e.getMotionEventE1().getY())&& inShotArea(e.getMotionEventE2().getY())){
@@ -246,16 +246,14 @@ public class Dot extends Entity{
 						Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
 					}
 				}
-				else{
-					// Si está fuera de la zona de lanzamiento está buscando el target
-					if (SettingsActivity.getNotifyTarget(this.game.getContext())){
-						// If onDown event occurs it create a onDownTarget event
-						EventType onDown  = Input.getInput().removeEvent("onDown");
-						if(onDown != null)
-							Input.getInput().addEvent("onDownTarget", onDown.getMotionEventE1(), null, -1, -1);
-					}
-				}
 			}
+		}
+		// Si está fuera de la zona de lanzamiento está buscando el target
+		if (SettingsActivity.getNotifyTarget(this.game.getContext())){
+			// If onDown event occurs it create a onDownTarget event
+			EventType onDown  = Input.getInput().removeEvent("onDown");
+			if(onDown != null)
+				Input.getInput().addEvent("onDownTarget", onDown.getMotionEventE1(), null, -1, -1);
 		}
 	}
 

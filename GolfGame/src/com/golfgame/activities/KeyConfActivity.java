@@ -137,6 +137,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		}
 		else{
 			Toast toast = Toast.makeText(this, getString(R.string.key_conf_fail), Toast.LENGTH_SHORT);
+			textToSpeech.speak(getString(R.string.key_conf_fail));
 			toast.show();
 			AnalyticsManager.getAnalyticsManager(this).registerAction(GolfGameAnalytics.CONFIGURATION_CHANGED, 
 					GolfGameAnalytics.KEY_CONFIGURATION_CHANGED, GolfGameAnalytics.KEY_CONFIGURATION_FAILS, 0);

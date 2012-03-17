@@ -1,0 +1,126 @@
+package com.minesweeper.game;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class SubtitleManager {
+	
+	private Toast subtitles;
+	private SubtitleInfo sInfo;
+	
+	private Activity context;
+	
+	// To increase the time that the toast is showed
+	private int toast_long; 
+	private Handler mHandler = new Handler();
+
+	public SubtitleManager(Context c, SubtitleInfo sInfo) {
+		this.context = (Activity) c;
+		this.sInfo = sInfo;
+	}
+	
+	public SubtitleManager(Context c) {
+		this.context = (Activity) c;
+		sInfo = new SubtitleInfo();
+	}
+
+	public SubtitleManager(SubtitleInfo sInfo) {
+		this.sInfo = sInfo;
+	}
+
+	public SubtitleInfo getsInfo() {
+		return sInfo;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		sInfo.setEnabled(enabled);
+	}
+	
+	public void setCustomToast(Toast customToast) {
+		subtitles = customToast;
+	}
+	
+	public void setGravity(int gravity) {
+		sInfo.setGravity(gravity);
+	}
+	
+	public void setDuration(int duration) {
+		sInfo.setDuration(duration);
+	}
+
+	public void setsInfo(SubtitleInfo sInfo) {
+		this.sInfo = sInfo;
+	}
+	
+	public void setOffset(int xOffset, int yOffset) {
+		sInfo.setOffset(xOffset,yOffset);
+	}
+	
+	public void setContext(Context ctxt) {
+		this.context = (Activity) ctxt;
+	}
+	
+	private Toast createToast(Context c, String msg, SubtitleInfo sInfo) {
+		Toast toast;
+		if(sInfo.getResourceId() == -1){
+			toast = Toast.makeText(c, msg, sInfo.getDuration());
+		}else{
+			View layout;
+			try {
+				LayoutInflater inflater = context.getLayoutInflater();
+				layout = inflater.inflate(sInfo.getResourceId(),
+				                               (ViewGroup) context.findViewById(sInfo.getViewGroupRoot()));
+
+				TextView text = (TextView) layout.findViewById(sInfo.getId_text());
+				text.setText(msg);
+				
+				toast = new Toast(c);
+				toast.setGravity(sInfo.getGravity(), sInfo.getxOffset(), sInfo.getyOffset());
+				toast.setDuration(sInfo.getDuration());
+				toast.setView(layout);
+				
+			} catch (Exception e) {
+				toast = Toast.makeText(c, msg, sInfo.getDuration());
+			}
+		}
+		
+		return toast;
+	}
+	
+	public void showSubtitle(String msg){
+		if(msg != null && msg.length() < 100 && sInfo.isEnabled()){
+			subtitles = createToast(context, msg, sInfo);
+			displayMyToast(msg);
+		}
+	}
+	
+	private Runnable extendStatusMessageLengthRunnable = new Runnable() {
+		@Override
+	    public void run() {
+			
+		    //Show the toast for another interval.
+		    subtitles.show();
+		    
+		    toast_long--;
+		    
+		    if(toast_long > 0)
+		    	 mHandler.post(extendStatusMessageLengthRunnable);
+	   }
+	};
+	 
+	public void displayMyToast(String msg) {
+		mHandler.removeCallbacks(extendStatusMessageLengthRunnable);
+		
+		toast_long = msg.length();
+		
+		subtitles.show();
+		  
+		mHandler.post(extendStatusMessageLengthRunnable);
+	}
+}

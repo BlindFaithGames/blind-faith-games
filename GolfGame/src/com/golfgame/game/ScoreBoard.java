@@ -47,7 +47,6 @@ public class ScoreBoard extends Entity {
 		scale = this.game.getContext().getResources().getDisplayMetrics().density;
 		fontSize =  (this.game.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
-		
 		brush = new Paint();
 		
 		brush.setTextSize(fontSize);

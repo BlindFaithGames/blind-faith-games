@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 import android.app.Dialog;
@@ -16,13 +17,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.accgames.general.Game;
 import com.accgames.general.GameState;
@@ -32,10 +34,12 @@ import com.accgames.general.MaskCircle;
 import com.accgames.graphics.CustomBitmap;
 import com.accgames.input.Input;
 import com.accgames.input.Input.EventType;
+import com.accgames.others.GolfMusicSources;
+import com.accgames.sound.Music;
+import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.accgames.sound.VolumeManager;
 import com.golfgame.R;
-import com.golfgame.activities.KeyConfActivity;
 import com.golfgame.activities.MainActivity;
 import com.golfgame.activities.SettingsActivity;
 
@@ -66,7 +70,11 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 
 		this.textToSpeech = textToSpeech;
 		this.textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-
+		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this.getContext());
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		Music.enableTranscription(this.context, s);
+		
 		stage = 1;
 		stageMode = (mode == 0);
 
@@ -92,7 +100,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			createDialogs(c);
 			step[0].show();
 			this.textToSpeech.setInitialSpeech(res.getString(R.string.tutorial_step1_dialog_select));
-			
+			this.textToSpeech.disableTranscription();
 			record = -1;
 		}
 
@@ -264,7 +272,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				this.context.setResult(MainActivity.EXIT_GAME_CODE, i);
 				this.context.finish();
 			} else {
-				this.getTTS().speak("Stage number" + stage);
+				this.getTTS().speak(this.getContext().getString(R.string.stage_speech) + " " + stage);
 				// Change background image
 				// Set background image
 				Bitmap field;

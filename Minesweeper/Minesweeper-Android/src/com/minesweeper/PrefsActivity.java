@@ -24,7 +24,7 @@ import com.minesweeper.game.TTS;
 public class PrefsActivity extends PreferenceActivity implements OnPreferenceClickListener {
 	private static String TAG = "SettingsMenu";
 	
-	private CheckBoxPreference music, tts, contextCell;
+	private CheckBoxPreference music, tts, contextCell, transcription;
 	
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
@@ -33,6 +33,8 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 	private static final boolean OPT_TTS_DEF = true;
 	private static final String OPT_COORDINATES = "context";
 	private static final boolean OPT_COORDINATES_DEF = true;
+	private static final String OPT_TRANSCRIPTION = "transcription";
+	private static final boolean OPT_TRANSCRIPTION_DEF = false;
 
 	
 	private TTS textToSpeech;
@@ -50,6 +52,9 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 
 		contextCell = (CheckBoxPreference) findPreference(OPT_COORDINATES);
 		contextCell.setOnPreferenceClickListener(this);
+		
+		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
+		transcription.setOnPreferenceClickListener(this);
 		
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
@@ -93,30 +98,39 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				.getBoolean(OPT_TTS, OPT_TTS_DEF);
 	}
 	
-	/** Get the current value of the tts option */
+	/** Get the current value of the context option */
 	public static boolean getCoordinates(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_COORDINATES, OPT_COORDINATES_DEF);
 	}
 	
+	/** Get the current value of the transcription option */
+	public static boolean getTranscription(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_TRANSCRIPTION, OPT_TRANSCRIPTION_DEF);
+	}
+	
 	public static String configurationToString(Context context){
 		return	"Music: " + PrefsActivity.getMusic(context) + "/" +
 				" TTS: " + PrefsActivity.getTTS(context) + "/" +
-				" Context Coordinates: "+ PrefsActivity.getCoordinates(context);
+				" Context Coordinates: "+ PrefsActivity.getCoordinates(context) + "/" +
+				" Transcription " + PrefsActivity.getTranscription(context);
 	}
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		if (OPT_MUSIC.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_MUSIC).toString()
+			textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " "
 					+ music.isChecked());
 		} else if (OPT_TTS.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_TTS).toString()
+			textToSpeech.speak(findPreference(OPT_TTS).toString() + " "
 					+ tts.isChecked());
-			
-		} else if (OPT_COORDINATES.equals(preference.getKey())) 
-			textToSpeech.speak(findPreference(OPT_COORDINATES).toString()
+		} else if (OPT_COORDINATES.equals(preference.getKey())) {
+			textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " "
 					+ contextCell.isChecked());
+		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) 
+			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " "
+					+ transcription.isChecked());
 		return true;
 	}
 }

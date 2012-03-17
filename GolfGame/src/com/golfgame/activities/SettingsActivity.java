@@ -19,7 +19,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
 
 	private CheckBoxPreference music, tts, infoTarget, on_up_event,
-			vibration_feedback, sound_feedback, profileA, profileB, doppler_effect_feedback;
+			vibration_feedback, sound_feedback, profileA, profileB, doppler_effect_feedback, transcription;
 
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
@@ -36,6 +36,8 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final boolean OPT_SOUND_FEEDBACK_DEF = false;
 	public static final String OPT_SOUND_DOPPLER_EFFECT = "doppler effect";
 	private static final boolean OPT_SOUND_DOPPLER_EFFECT_DEF = false;
+	public static final String OPT_TRANSCRIPTION = "transcription";
+	private static final boolean OPT_TRANSCRIPTION_DEF = true;
 	private static final String OPT_PROFILEA = "profile A";
 	private static final String OPT_PROFILEB = "profile B";
 	private TTS textToSpeech;
@@ -73,7 +75,10 @@ public class SettingsActivity extends PreferenceActivity implements
 		
 		doppler_effect_feedback = (CheckBoxPreference) findPreference(OPT_SOUND_DOPPLER_EFFECT);
 		doppler_effect_feedback.setOnPreferenceClickListener(this);
-
+		
+		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
+		transcription.setOnPreferenceClickListener(this);
+		
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
@@ -91,6 +96,7 @@ public class SettingsActivity extends PreferenceActivity implements
 	public static String configurationToString(Context context){
 		return	"Music: " + SettingsActivity.getMusic(context) + "/" +
 				" TTS: " + SettingsActivity.getTTS(context) + "/" +
+				" Transcription "+ SettingsActivity.getTranscription(context) + "/" +
 				" Context Coordinates: "+ SettingsActivity.getDopplerEffect(context) + "/" +
 				" Notify target: "+ SettingsActivity.getNotifyTarget(context) + "/" +
 				" on Up: "+ SettingsActivity.getOnUp(context) + "/" +
@@ -119,6 +125,12 @@ public class SettingsActivity extends PreferenceActivity implements
 	public static boolean getTTS(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_TTS, OPT_TTS_DEF);
+	}
+	
+	/** Get the current value of the transcription option */
+	public static boolean getTranscription(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_TRANSCRIPTION, OPT_TRANSCRIPTION_DEF);
 	}
 
 	/** Get the current value of the info target option */
@@ -154,40 +166,44 @@ public class SettingsActivity extends PreferenceActivity implements
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		if (OPT_MUSIC.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_MUSIC).toString()
+			textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " "
 					+ music.isChecked());
 		} else if (OPT_TTS.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_TTS).toString()
+			textToSpeech.speak(findPreference(OPT_TTS).toString() + " "
 					+ tts.isChecked());
 			
 		} else if (OPT_INFO_TARGET.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_INFO_TARGET).toString()
+			textToSpeech.speak(findPreference(OPT_INFO_TARGET).toString() + " "
 					+ infoTarget.isChecked());
 			manageCustomProfile();
 		} else if (OPT_UP.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_UP).toString()
+			textToSpeech.speak(findPreference(OPT_UP).toString() + " "
 					+ on_up_event.isChecked());
 			manageCustomProfile();
 		} else if (OPT_VIBRATION_FEEDBACK.equals(preference.getKey())) {
 			textToSpeech.speak(findPreference(OPT_VIBRATION_FEEDBACK)
-					.toString() + vibration_feedback.isChecked());
+					.toString() + " " + vibration_feedback.isChecked());
 			manageCustomProfile();
 		} else if (OPT_SOUND_FEEDBACK.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_SOUND_FEEDBACK).toString()
+			textToSpeech.speak(findPreference(OPT_SOUND_FEEDBACK).toString() + " "
 					+ sound_feedback.isChecked());
 			manageCustomProfile();
 		} else if (OPT_SOUND_DOPPLER_EFFECT.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_SOUND_DOPPLER_EFFECT).toString()
+			textToSpeech.speak(findPreference(OPT_SOUND_DOPPLER_EFFECT).toString() + " "
 					+ doppler_effect_feedback.isChecked());
 			manageCustomProfile();
 		} else if (OPT_PROFILEA.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_PROFILEA).toString()
+			textToSpeech.speak(findPreference(OPT_PROFILEA).toString() + " "
 					+ profileA.isChecked());
 			manageProfileA();
 		} else if (OPT_PROFILEB.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_PROFILEB).toString()
+			textToSpeech.speak(findPreference(OPT_PROFILEB).toString() + " "
 					+ profileB.isChecked());
 			manageProfileB();
+		} else if (OPT_PROFILEB.equals(preference.getKey())) {
+			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " "
+					+ transcription.isChecked());
+
 		}
 		return true;
 	}

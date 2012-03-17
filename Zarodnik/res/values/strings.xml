@@ -32,10 +32,8 @@
 	<string name="music_summary">Play background music</string>
 	<string name="tts_title">Default TTS</string>
 	<string name="tts_summary">Enables voice synthetizer</string>
-	<string name="profileA_title">Profile A</string>
-	<string name="profileA_summary"> - </string>
-	<string name="profileB_title">Profile B</string>
-	<string name="profileB_summary"> - </string>
+    <string name="transcription_title">Transcription mode</string>
+    <string name="transcription_summary">It shows text that contains the TTS speech</string>
 	<string name="game_title">Game</string>
 	<string name="flags_title">Flags settings</string>
 	<string name="flags_shortcut">f</string>
@@ -101,7 +99,9 @@
 	<string name="screen_change">there is a screen change</string>
 	
 	<string name="instruction_speech">Long click to back to the main menu</string>
-
+	<string name="key_conf_fail">Not a valid key</string>
+	
+	<!--Tutorial strings-->
 	<string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
 	<string name="tutorial_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 
 	When you want to leave this info page do an a long touch on the screen.</string>
@@ -110,4 +110,20 @@
 	<string name="tutorial01_radio">That sounds represents the radio that you can find in the screen. It helps you to find the prey.</string>
 	<string name="tutorial02_seaweed">That sounds represents the seaweed that you can find in the screen. If you eat it you become invulnerable.</string>
 	<string name="tutorial03_capsule">That sounds represents the capsule that you can find in the screen. Randomly increments/decrements your size.</string>
+	
+	<!--Onomatopeias strings-->
+	<string name="appear_ono">bing bing!</string>
+	<string name="apple_bite_ono">crap!</string>
+	<string name="barn_beat_ono">Playing Barn Beat</string>
+	<string name="bip_ono">bip!!</string>
+	<string name="bubble_ono">run run</string>
+	<string name="die_ono">qua qua qua!</string>
+	<string name="frost_walz_ono">Playing frost walz</string>
+	<string name="predator_ono">arg!!</string>
+	<string name="prey_ono">miau!</string>
+	<string name="prey_dead_ono">ayyy!!</string>
+	<string name="radio_ono">tunning?!</string>
+	<string name="start_ono">Piii!</string>
+	<string name="the_path_of_the_goblin_ono">Playing path of the goblin</string>
+	
 </resources>

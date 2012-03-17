@@ -1,9 +1,5 @@
 package com.minesweeper.game;
 
-
-
-
-
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
