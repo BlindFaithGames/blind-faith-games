@@ -9,7 +9,9 @@ public class RuntimeConfig {
 
 	public static boolean IS_DEBUG_MODE = false; // Draws the skeleton mask
 	
-	public static final String FONT_PATH = "fonts/Abduction.ttf"; // type of font path 
+	public static boolean blindMode = false;
+	
+	public static final String FONT_PATH = "fonts/Abduction.ttf";
 	public static final int TEXT_SPEED = 5; // game Steps per word
 	public static final int FRAMES_PER_STEP = 15; // frames per game step
 

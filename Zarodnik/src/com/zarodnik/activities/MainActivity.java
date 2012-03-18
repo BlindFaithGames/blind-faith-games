@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -57,15 +58,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private XMLKeyboard keyboard;
 	private Dialog instructionsDialog;
 	private View focusedView;
+	private Typeface font;
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		Typeface font; 
-		
+	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.main);
+		setScreenContent(R.layout.main);
 
 		keyboard = Input.getKeyboard();
 		
@@ -74,6 +74,23 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
+		setTTS();
+		
+		checkFolderApp(getString(R.string.app_name)+".xml");
+	}	
+	
+			
+	// Manage UI Screens
+
+	/**
+	 * Sets the screen content based on the screen id.
+	 */
+	private void setScreenContent(int screenId) {
+		setContentView(screenId);
+		setMainScreenContent();
+	}
+
+	private void setMainScreenContent(){
 		Button newButton = (Button) findViewById(R.id.new_button);
 		newButton.setOnClickListener(this);
 		newButton.setOnFocusChangeListener(this);
@@ -112,6 +129,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		exitButton.setTypeface(font);
 		
 		createInstructionsDialog();
+<<<<<<< HEAD
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 
@@ -134,6 +152,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 	}	
+=======
+	}
+>>>>>>> 632da481c883110ce80cdbc6aa95664324c2121d
 	
 	private void createInstructionsDialog() {
 		Typeface font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
@@ -141,9 +162,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		instructionsDialog.setContentView(R.layout.custom_dialog);
 		
-		text = (TextView) instructionsDialog.findViewById(R.id.TextView01);
+		if (RuntimeConfig.blindMode)
+			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
+		else
+			instructionsDialog.setContentView(R.layout.instructions_dialog);
+		
+		text = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
 		text.setTextSize(fontSize);
 		text.setTypeface(font);
 		b = (Button) instructionsDialog.findViewById(R.id.Button01main);
@@ -159,13 +184,41 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
 	}
+	
+	private void setTTS(){
+		Button newButton = (Button) findViewById(R.id.new_button);
+		Button settingsButton = (Button) findViewById(R.id.settings_button);
+		Button keyConfButton = (Button) findViewById(R.id.keyConf_button);
+		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
+		Button aboutButton = (Button) findViewById(R.id.about_button);
+		Button exitButton = (Button) findViewById(R.id.exit_button);
+		
+		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		Music.enableTranscription(this, s);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
+				+ newButton.getContentDescription() + " "
+				+ settingsButton.getContentDescription() + " "
+				+ keyConfButton.getContentDescription() + " "
+				+ instructionsButton.getContentDescription() + " "
+				+ aboutButton.getContentDescription() + " "
+				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
+		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+		
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+	}
 
 	/**
 	 * Default keyboard config
 	 */
 	private void fillXMLKeyboard(){
 		keyboard.addObject(22, KeyConfActivity.ACTION_RECORD);
-		keyboard.addObject(24, KeyConfActivity.ACTION_BLIND_MODE);
+		keyboard.addObject(84, KeyConfActivity.ACTION_BLIND_MODE);
 		keyboard.setNum(2);
 	}
 
@@ -344,6 +397,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
+		if (RuntimeConfig.blindMode)	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+		
  		if (!TTS.isBestTTSInstalled(this)){
 			Toast toast = Toast.makeText(this, getString(R.string.synthesizer_suggestion), Toast.LENGTH_LONG);
 			toast.show();
@@ -367,5 +425,17 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	protected void onDestroy() {
 		super.onDestroy();
 		textToSpeech.stop();
+	}
+	
+		@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_SEARCH)
+			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
+		
+		if (RuntimeConfig.blindMode)	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+		return super.onKeyDown(keyCode, event);
 	}
 }

@@ -23,6 +23,7 @@ import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
+import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
 import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
@@ -79,6 +80,8 @@ public class GolfGameActivity extends Activity {
         setContentView(golfView);
         
         createGame(mode,golfView);
+		
+		if (RuntimeConfig.blindMode)game.setDisabled(true);
         
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.GAME_ACTIVITY);
 		
@@ -218,6 +221,7 @@ public class GolfGameActivity extends Activity {
 				    	else 
 				    		if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_BLIND_MODE)){
 				    			game.setDisabled(!game.getDisabled());
+								RuntimeConfig.blindMode = !RuntimeConfig.blindMode;
 				    		}
 				    }
 			}
