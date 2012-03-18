@@ -131,6 +131,11 @@
 		- enter button or similar, to dig or explore\n\n
 		
 		While in zoom mode, enter button or tap to dig or explore.</string>
+	<string name="cellStatePushed">Pushed</string>
+	<string name="cellStateNotPushed">Not Pushed</string>
+	<string name="cellStateMine">Mine</string>
+	<string name="cellStateFlagged">Flagged</string>
+	<string name="cellStateUnknown">Unknown state</string>
     <string name="synthetizer_title">Synthesizer</string>
     <string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
     <string name="LosePositiveButtonLabel">Reset</string>

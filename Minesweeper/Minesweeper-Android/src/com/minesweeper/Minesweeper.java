@@ -3,12 +3,12 @@ package com.minesweeper;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.Log;
 import com.accgames.others.RuntimeConfig;
-import com.minesweeper.R;
 import com.minesweeper.game.Board;
 import com.minesweeper.game.Cell;
 import com.minesweeper.game.Cell.CellStates;
@@ -59,6 +58,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	private static float fontSize;
 	private static float scale;
 	private static Typeface font;
+	
+	private static Resources res;
 	
 	/* Game states */
 	public enum FINAL_STATE {
@@ -100,6 +101,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		buildWinDialog();
 
 		buildEndingDialog();	
+		
+		res = getResources();
 	
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
@@ -113,6 +116,24 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		
 		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.BOARD, 
 					mineField.getMines(), 0);
+	}
+	
+	public static String cellToString(Cell c){
+		switch (c.getState()){
+		case PUSHED:
+			return res.getString(R.string.cellStatePushed) + c.getValue();
+		case NOTPUSHED :
+			return res.getString(R.string.cellStateNotPushed);
+		case FLAGGED:
+			return res.getString(R.string.cellStateFlagged);
+		case MINE:
+			if(!c.isVisible())
+				return res.getString(R.string.cellStateNotPushed);
+			else
+				return res.getString(R.string.cellStateMine);
+		}
+		
+		return res.getString(R.string.cellStateUnknown);		
 	}
 
 
@@ -355,21 +376,21 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 			List<String> msg = new ArrayList<String>();
 			
 			if(selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol).toString());
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol)));
 			if(selRow - 1 >= 0 && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow - 1, selCol + 1).toString());		
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol + 1)));		
 			if(selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow, selCol + 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow, selCol + 1)));	
 			if(selRow + 1 <= rowN && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow + 1, selCol + 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol + 1)));	
 			if(selRow + 1 <= rowN)
-				msg.add(mineField.getCell(selRow + 1, selCol).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol)));	
 			if(selRow + 1 <= rowN && selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow + 1, selCol - 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol - 1)));	
 			if(selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow, selCol - 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow, selCol - 1)));	
 			if(selCol - 1 >= 0 && selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol - 1).toString());
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol - 1)));
 			
 			textToSpeech.speak(msg);
 		}

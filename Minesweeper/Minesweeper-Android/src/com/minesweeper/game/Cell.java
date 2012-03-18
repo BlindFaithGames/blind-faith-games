@@ -1,6 +1,7 @@
 package com.minesweeper.game;
 
 
+
 public class Cell {
 	private int value;
 	private boolean visible;
@@ -44,23 +45,6 @@ public class Cell {
 
 	public void setCellVisible(boolean visible) {
 		this.visible = visible;
-	}
-
-	public String toString(){
-		switch(state){
-			case PUSHED:
-				return "Pushed " + value;
-			case NOTPUSHED :
-				return "No pushed";
-			case FLAGGED:
-				return "Flagged";
-			case MINE:
-				if(!visible)
-					return "No pushed";
-				else
-					return "Mine";
-		}
-		return "Unkwown state";
 	}
 
 }
