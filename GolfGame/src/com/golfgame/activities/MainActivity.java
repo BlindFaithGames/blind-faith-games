@@ -340,10 +340,10 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
-		if(RuntimeConfig.blindMode)	
-			instructionsDialog.setContentView(R.layout.instructions_dialog);
-		else
+		if (RuntimeConfig.blindMode)	
 			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
+		else
+			instructionsDialog.setContentView(R.layout.instructions_dialog);
 		
 		t = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
 		t.setTextSize(fontSize);

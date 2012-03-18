@@ -43,13 +43,13 @@ public class InstructionsActivity extends Activity implements OnTouchListener{
 		
 		if(type == 0){
 			setContentView(R.layout.instructions_controls);
-			speech = getString(R.string.instructions_controls_label) + " " + getString(R.id.instructions_controls_content);
+			speech = getString(R.string.instructions_controls_label) + " " + getString(R.string.instructions_controls_text);
 			AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.INSTRUCTIONS_CONTROLS_ACTIVITY);
 			t = (TextView) findViewById(R.id.instructions_controls_content);
 			v = findViewById(R.id.control_root);
 		}else{
 			setContentView(R.layout.instructions_general);
-			speech = getString(R.string.instructions_general_label) + " " + getString(R.id.instructions_general_content);
+			speech = getString(R.string.instructions_general_label) + " " + getString(R.string.instructions_general_text);
 			AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.INSTRUCTIONS_GENERAL_ACTIVITY);
 			t = (TextView) findViewById(R.id.instructions_general_content);
 			v = findViewById(R.id.general_root);

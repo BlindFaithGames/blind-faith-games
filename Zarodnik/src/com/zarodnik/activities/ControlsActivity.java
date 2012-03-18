@@ -35,7 +35,7 @@ public class ControlsActivity extends Activity implements OnTouchListener{
 		View v = findViewById(R.id.control_root);
 		v.setOnTouchListener(this);
 		
-		String speech = getString(R.string.instructions_controls_label) + " " + t.getContentDescription() + " " + getString(R.string.instruction_speech);
+		String speech = getString(R.string.instructions_controls_label) + " " + t.getContentDescription();
 		// This initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);

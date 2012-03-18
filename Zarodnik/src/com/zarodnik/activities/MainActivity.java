@@ -177,13 +177,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
-				+ newButton.getContentDescription() + " "
-				+ settingsButton.getContentDescription() + " "
-				+ keyConfButton.getContentDescription() + " "
-				+ instructionsButton.getContentDescription() + " "
-				+ aboutButton.getContentDescription() + " "
+				+ newButton.getContentDescription() + ","
+				+ settingsButton.getContentDescription() + ","
+				+ keyConfButton.getContentDescription() + ","
+				+ instructionsButton.getContentDescription() + ","
+				+ aboutButton.getContentDescription() + ","
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
-		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 	}

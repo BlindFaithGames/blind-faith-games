@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Zarodnik</string>
+    
+    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    							 ,para seleccionar haga una pulsación larga sobre la opción que desee.</string>
+    <string name="buttonMessage">¡Adelante!</string>
+    <string name="zarodnik_activity">Zarodnik Accesible</string>
+    <string name="exitButton">Salir</string>
+	<string name="main_title">Zarodnik</string>
+	<string name="continue_label">Continuar</string>
+	<string name="new_game_label">Nuevo juego</string>
+	<string name="keyConf_label">Configuración de teclado</string>
+	<string name="about_label">Acerca de</string>
+	<string name="exit_label">Salir</string>
+	<string name="about_title">Acerca de Zarodnik Accesible </string>
+	<string name="about_text">
+           Music by www.SoundJay.com \n
+           and www.freesound.org \n
+           Proyecto de Sistemas Informáticos de la UCM, 2011-2012.
+	</string>
+	<string name="settings_label">Configuración</string>
+	<string name="settings_title">Configuración de Zarodnik Accesible</string>
+	<string name="settings_shortcut">s</string>
+	<string name="main_category">Principal</string>
+	<string name="profiles_category">Perfiles</string>
+	<string name="custom_profile_category">Perfil personalizado</string>
+	<string name="music_title">Música</string>
+	<string name="music_summary">Reproducir música de fondo</string>
+	<string name="tts_title">Sintetizador por defecto</string>
+	<string name="tts_summary">Habilita el sintetizador</string>
+    <string name="transcription_title">Modo onomatopeyas</string>
+    <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
+	<string name="game_title">Juego</string>
+	<string name="flags_title">Ajutes de bandera</string>
+	<string name="flags_shortcut">f</string>
+	<string name="instructions_label">Instrucciones</string>
+	<string name="instructions_title">Instrucciones de Zarodnik Accesible</string>
+	<string name="controls_title">Controles de Zarodnik Accesible</string>
+	<string name="instructions_general_label">Instrucciones</string>
+	<string name="instructions_controls_label">Controles</string>
+	<string name="instructions_general_text">
+	    El objetivo del juego es comer tantas presas como pueda, evitando a los depredadores que pueda escuchar.
+	    Cuantas más presas coma, mejor será la partida.
+
+	</string>
+	<string name="instructions_controls_text">
+	    Tiene que realizar eventos de pulsación y arrastre en pantalla para mover al personaje. Escuchará distintos sonidos. Para saber más, diríjase al tutorial del juego.
+	</string>
+	<string name="synthetizer_title">Sintetizador</string>
+	<string name="synthesizer_suggestion">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ"</string>
+
+	<string name="onup_title">Evento tirachinas</string>
+	<string name="onup_summary">Habilita el lanzamiento mediante eventos de arrastre (como si de un tirachinas se tratase)</string>
+	<string name="volume_up">Subir volumen</string>
+	<string name="volume_down">Bajar volumen</string>
+	<string name="home">Inicio</string>
+	<string name="back">Atrás</string>
+	<string name="options">Opciones</string>
+	<string name="search">Buscar</string>
+	<string name="alert_dialog_instructions_TTStext">Diálogo de alerta</string>
+	<string name="main_menu_initial_TTStext">Menú principal</string>  
+	<string name="settings_menu_initial_TTStext">Menú de ajustes</string>  
+	<string name="game_play_initial_TTStext">¡El juego ha comenzado! Empieza en el centro de la pantalla.</string>  
+
+	<string name="coordinates_information_button_TTStext">Posición</string>  
+	<string name="key_configuration_menu_initial_TTStext">Configuración de teclado</string>
+	
+	<string name="keydialog">Configuración de acción</string>
+	<string name="keydialog_text">Pulse cualquier tecla</string>
+	<string name="button_speak_record">Mostrar record durante el juego</string>
+	<string name="button_blind_mode">Para habilitar el modo ciego</string>
+
+	<string name="recordSpeech">Su record actual es</string>
+	<string name="counterSpeech">Su contador actual es</string>
+	<string name="newRecordSpeech">¡Nuevo record!</string>	
+	
+	<string name="ranking_title">Ranking de juego anteriores</string>
+	<string name="ranking_speech">Tiempo, fecha y record</string>
+	
+	<string name="dialog_select">Seleccione controles o instrucciones generales</string>
+	<string name="initial_message">Preparado... ¡Ya!</string>
+	<string name="ending_lose_message">Fin del juego</string>
+	<string name="ending_win_message">Encontró su presa</string>
+	
+	<string name="intro_game_text">Había una vez, un pequeño monstruo que viajaba inmerso en las profundidades. 
+A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
+Es por ello, que ahora nuestro protagonista se encuentra en medio de una batalla entre presas y depredadores. ¿Qué nos deparará en nuestra aventura?</string>
+	
+	<string name="intro_game_tts">Había una vez, un pequeño monstruo que viajaba inmerso en las profundidades. 
+A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
+Es por ello, que ahora nuestro protagonista se encuentra en medio de una batalla entre presas y depredadores. ¿Qué nos deparará en nuestra aventura?
+Para continuar realiza una pulsación larga sobre la pantalla</string>
+	
+	<string name="game_over_text">El juego finaliza aquí</string>
+	<string name="game_over_tts">El juego finaliza aquí. Para salir realice una pulsación larga</string>
+	
+	<string name="screen_change">Se está realizando un cambio de pantalla</string>
+	
+	<string name="instruction_speech">Pulsación larga para regresar al menú principal</string>
+	<string name="key_conf_fail">No es una tecla válida</string>
+	
+	<!--Tutorial strings-->
+	<string name="tutorial_warning">Si quiere salir de esta pantalla simplemente haga una pulsación larga en pantalla.</string>
+	<string name="tutorial_intro">En esta pantalla aprenderá los conceptos básicos para aprender a jugar. Para interactuar realice una doble pulsación en pantalla. 
+	Cuando quiera salir de esta pantalla realice una pulsación larga.</string>
+	<string name="tutorial00_predator">Ese sonido representa el depredador que debe de evitar.</string>
+	<string name="tutorial00_prey">Ese sonido representa la presa que tiene que encontrar por la pantalla.</string>
+	<string name="tutorial01_radio">Ese sonido representa la radio que encontrará en algunas pantallas. Le ayudará a encontrar la presa.</string>
+	<string name="tutorial02_seaweed">Ese sonido representa el alga marina que encontrará en algunas pantallas. Si la encuentra se volverá invulnerable.</string>
+	<string name="tutorial03_capsule">Ese sonido representa la cápsula que encontrará en algunas pantallas.Incrementará o decrementará de manera aleatoria el tamaño
+	    del protagonista dificultando o facilitando respectivamente la movilidad por pantalla.</string>
+	
+	<!--Onomatopeias strings-->
+	<string name="appear_ono">bing bing!</string>
+	<string name="apple_bite_ono">crap!</string>
+	<string name="barn_beat_ono">Playing Barn Beat</string>
+	<string name="bip_ono">bip!!</string>
+	<string name="bubble_ono">run run</string>
+	<string name="die_ono">qua qua qua!</string>
+	<string name="frost_walz_ono">Playing frost walz</string>
+	<string name="predator_ono">arg!!</string>
+	<string name="prey_ono">miau!</string>
+	<string name="prey_dead_ono">ayyy!!</string>
+	<string name="radio_ono">tunning?!</string>
+	<string name="start_ono">Piii!</string>
+	<string name="the_path_of_the_goblin_ono">Playing path of the goblin</string>
+	
+</resources>

@@ -39,7 +39,7 @@ public class InstructionsActivity extends Activity implements OnTouchListener{
 		View v = findViewById(R.id.general_root);
 		v.setOnTouchListener(this);
 		
-		String speech = getString(R.string.instructions_general_label) + " " + t.getContentDescription()+ " "+ getString(R.string.instruction_speech);
+		String speech = getString(R.string.instructions_general_label) + " " + t.getContentDescription();
 		// This initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
