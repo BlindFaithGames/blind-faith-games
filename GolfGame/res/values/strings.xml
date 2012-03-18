@@ -109,19 +109,19 @@
     <string name="tutorial_step9_dialog_select">The End</string> 
     
     <!-- Onomatopeias -->
-    <string name="bing_ono"> - bing bing! - </string>    
-    <string name="bip_ono"> - Bip bip! -</string>    
-    <string name="clue_feed_back_sound_ono"> - Ring! - </string>    
-    <string name="hit_ball_ono"> - Tip! - </string>    
-    <string name="left_ono"> - Biiiip! - </string>    
+    <string name="bing_ono">bing bing!</string>    
+    <string name="bip_ono">Bip bip!</string>    
+    <string name="clue_feed_back_sound_ono">Ring!</string>    
+    <string name="hit_ball_ono">Tip!</string>    
+    <string name="left_ono">Biiiip!</string>    
     <string name="main_ono">Playing Golf OST!</string>    
     <string name="missed_ono">biiiip!</string>    
-    <string name="previous_shoot_feedback_sound_ono"> - Sonar - </string>    
-    <string name="right_ono"> - biiiip! - </string>    
-    <string name="sound_shot_ono"> - Toc! - </string>    
+    <string name="previous_shoot_feedback_sound_ono">Sonar</string>    
+    <string name="right_ono">biiiip!</string>    
+    <string name="sound_shot_ono">Toc!</string>    
     <string name="storm_ono"> - Storm - </string>    
-    <string name="water_bubbles_ono"> - Bubbles - </string>    
-    <string name="win_sound_ono"> - Applause - </string>    
+    <string name="water_bubbles_ono">Bubbles</string>    
+    <string name="win_sound_ono">Applause</string>    
 
      
     <!-- SPANISH -->

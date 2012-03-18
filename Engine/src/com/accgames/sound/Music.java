@@ -44,7 +44,7 @@ public class Music {
 		
 		if(subs != null){
 			String aux = subs.getOnomatopeia(resource);
-			subs.setDuration(mp.getDuration());
+			subs.setDuration(mp.getDuration()/1000);
 			if(aux != null)
 				subs.showSubtitle(aux);
 			else
@@ -64,7 +64,7 @@ public class Music {
 		
 		if(subs != null){
 			String aux = subs.getOnomatopeia(resource);
-			subs.setDuration(mp.getDuration());
+			subs.setDuration(mp.getDuration()/1000);
 			if(aux != null)
 				subs.showSubtitle(aux);
 			else
@@ -98,15 +98,15 @@ public class Music {
 		 		return false;
 	}
 	
-	public static void enableTranscription(Context c, SubtitleInfo sInfo){
+	public void enableTranscription(Context c, SubtitleInfo sInfo){
 		subs = new SubtitleManager(c, sInfo);
 		subs.setEnabled(true);
 		if(sInfo != null)
 				subs.setsInfo(sInfo);
 
 	}
-	
-	public static void disableTranscription(){
+
+	public void disableTranscription(){
 		if(subs != null){
 			subs.setEnabled(false);
 		}

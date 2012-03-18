@@ -1,6 +1,8 @@
 package com.golfgame.activities;
 
 
+import java.util.Map;
+
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -9,8 +11,13 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.accgames.others.AnalyticsManager;
+import com.accgames.others.GolfMusicSources;
+import com.accgames.sound.Music;
+import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
@@ -200,7 +207,16 @@ public class SettingsActivity extends PreferenceActivity implements
 			textToSpeech.speak(findPreference(OPT_PROFILEB).toString() + " "
 					+ profileB.isChecked());
 			manageProfileB();
-		} else if (OPT_PROFILEB.equals(preference.getKey())) {
+		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
+			if(transcription.isChecked()){
+				Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
+				
+				SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+						R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+				
+				Music.getInstanceMusic().enableTranscription(this, s);
+				textToSpeech.enableTranscription(s);
+			}
 			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " "
 					+ transcription.isChecked());
 

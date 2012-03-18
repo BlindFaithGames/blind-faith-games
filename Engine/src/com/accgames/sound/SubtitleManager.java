@@ -1,8 +1,6 @@
 package com.accgames.sound;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +14,7 @@ import android.widget.Toast;
 public class SubtitleManager {
 	
 	private static Toast subtitles;
-	private LinkedList<String> subsQueue;
+	private static LinkedList<String> subsQueue;
 	private SubtitleInfo sInfo;
 	
 	private Activity context;
@@ -141,7 +139,7 @@ public class SubtitleManager {
 	}
 	
 	public void showSubtitle(String msg){
-		if(msg != null && msg.length() < 150 && sInfo.isEnabled()){
+		if(msg != null && msg.length() < 200 && sInfo.isEnabled()){
 			if(subsQueue.isEmpty())
 				displayMyToast(msg);
 			subsQueue.offer(msg);
@@ -157,14 +155,25 @@ public class SubtitleManager {
 		    
 		    toast_long--;
 		    
-		    if(toast_long > 0){
-		    	mHandler.postDelayed(extendStatusMessageLengthRunnable,100L);
+		   if(!subsQueue.isEmpty()) {String s = subsQueue.poll(); 
+		    while(!subsQueue.isEmpty()){
+		    			s +=  ", " + subsQueue.poll();
 		    }
-		    else{
-		    	String s =  subsQueue.poll();
-		    	if(s != null)
-		    		displayMyToast(s);
-		    }
+		    if(s != null)
+		    	displayMyToast(s);
+		    
+		   }else{if(toast_long > 0){
+			    	mHandler.postDelayed(extendStatusMessageLengthRunnable,100L);
+			}
+			else{
+			    String s = subsQueue.poll(); 
+			    while(!subsQueue.isEmpty()){
+			    			s +=  ", " + subsQueue.poll();
+			    }
+			    if(s != null)
+			    	displayMyToast(s);
+			}
+		   }
 	   }
 	};
 	 

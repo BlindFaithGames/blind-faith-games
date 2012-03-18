@@ -11,6 +11,7 @@ import org.pielot.openal.SoundEnv;
 import org.pielot.openal.Source;
 
 import android.app.Activity;
+import android.content.Context;
 
 public class Sound3DManager {
 	
@@ -19,6 +20,8 @@ public class Sound3DManager {
 	protected Map<String,List<Source>> sources;
 	
 	protected Map<String,Buffer> buffers;
+	
+	private static SubtitleInfo sInfo;
 
 	private static Sound3DManager sm = null;
 	

@@ -158,7 +158,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
 		
-		Music.enableTranscription(this, s);
+		Music.getInstanceMusic().enableTranscription(this, s);
 		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
@@ -433,8 +433,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.main, true);
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
@@ -446,11 +444,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
 			
 			textToSpeech.enableTranscription(s);
-			Music.enableTranscription(this, s);
+			Music.getInstanceMusic().enableTranscription(this, s);
 		}else{
 			textToSpeech.disableTranscription();
-			Music.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
 		}
+		
+		if(SettingsActivity.getMusic(this))
+			Music.getInstanceMusic().play(this, R.raw.main, true);
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		

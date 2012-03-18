@@ -1,12 +1,15 @@
 package com.minesweeper.game;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.Gravity;
 import android.widget.Toast;
 
 public class SubtitleInfo implements Parcelable {
-
+	
 	private boolean enabled;
 	
 	private int resourceId;
@@ -15,6 +18,7 @@ public class SubtitleInfo implements Parcelable {
 	private int xOffset, yOffset;
 	private int duration;
 	private int gravity;
+	private Map<Integer,String> onomatopeias;
 	
 	public static final Parcelable.Creator<SubtitleInfo> CREATOR = new Parcelable.Creator<SubtitleInfo>() {
 		public SubtitleInfo createFromParcel(Parcel in) {
@@ -35,10 +39,11 @@ public class SubtitleInfo implements Parcelable {
 		this.duration = Toast.LENGTH_LONG;
 		this.gravity = Gravity.CENTER;
 		this.enabled = true;
+		this.onomatopeias = new HashMap<Integer, String>();
 	}
 
 	public SubtitleInfo(int resourceId, int viewGroupRoot, int id_text,
-			int xOffset, int yOffset, int duration, int gravity, boolean enabled) {
+			int xOffset, int yOffset, int duration, int gravity, Map<Integer, String> onomatopeias) {
 		super();
 		this.resourceId = resourceId;
 		this.viewGroupRoot = viewGroupRoot;
@@ -47,7 +52,8 @@ public class SubtitleInfo implements Parcelable {
 		this.yOffset = yOffset;
 		this.duration = duration;
 		this.gravity = gravity;
-		this.enabled = enabled;
+		this.enabled = true;
+		this.onomatopeias = onomatopeias;
 	}
 	public SubtitleInfo(Parcel in) {
 		this.resourceId = in.readInt();
@@ -58,6 +64,7 @@ public class SubtitleInfo implements Parcelable {
 		this.duration = in.readInt();
 		this.gravity = in.readInt();
 		this.enabled = in.readInt() == 1;
+		this.onomatopeias = in.readHashMap(HashMap.class.getClassLoader());
 	}
 
 	public int getResourceId() {
@@ -112,7 +119,7 @@ public class SubtitleInfo implements Parcelable {
 	public void setGravity(int gravity) {
 		this.gravity = gravity;
 	}
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -121,6 +128,13 @@ public class SubtitleInfo implements Parcelable {
 		this.enabled = enabled;
 	}
 
+	public String getOnomatopeia(int resource) {
+		if(onomatopeias != null)
+			return onomatopeias.get(resource);
+		else
+			return null;
+	}
+	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -139,6 +153,7 @@ public class SubtitleInfo implements Parcelable {
 			dest.writeInt(1);
 		else
 			dest.writeInt(0);
+		dest.writeMap(onomatopeias);
 	}
 
 }

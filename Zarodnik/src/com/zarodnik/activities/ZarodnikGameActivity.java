@@ -36,7 +36,7 @@ public class ZarodnikGameActivity extends Activity {
 	private TTS textToSpeech;
 	private Game game;
 	
-	// Cargamos la conf desde un .xml
+	// Cargamos la conf desde un XML
 	private XMLKeyboard keyboard;
 	
 	public static final int INTRO_ID = 0;
@@ -52,19 +52,24 @@ public class ZarodnikGameActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        
-		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
-		
-		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
-		
-		Music.enableTranscription(this, s);
-		
         
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
+		
+		if(SettingsActivity.getTranscription(this)){
+			
+			Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+			
+			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+			
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}
 		
 		keyboard = Input.getKeyboard();
 		

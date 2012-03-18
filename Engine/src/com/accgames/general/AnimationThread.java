@@ -1,34 +1,54 @@
 package com.accgames.general;
-
-
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
+/**
+ * Provides a separate thread where the game loop acts.
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo.
+ * */
+
 public class AnimationThread extends Thread {
 	
-	public static int DELAY = 1000/60;
-	public static int FRAMES_PER_SECOND = 30;
-	public static int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
+	public static int DELAY = 1000/60; // 
+	public static int FRAMES_PER_SECOND = 30; //
+ 	public static int SKIP_TICKS = 1000 / FRAMES_PER_SECOND; // Amount that have to be added in order to check the FPS
 	
-	private SurfaceHolder surfaceHolder;
-	private ISurface panel;
-	private boolean run = false;
+	private SurfaceHolder surfaceHolder; // To manage the surface
+	private ISurface panel; // Custom Surface
 	
+	private boolean run = false; // Game is paused?
+	
+	/**
+	 * Unique constructor of the class
+	 * 
+	 * @param surfaceHolder To manage the surface.
+	 * @param panel Custom Surface.
+	 * 
+	 * */
 	public AnimationThread(SurfaceHolder surfaceHolder, ISurface panel) {
 		this.surfaceHolder = surfaceHolder;
 		this.panel = panel;
 	}
+// ----------------------------------------------------------- Getters -----------------------------------------------------------
 	
 	public boolean isRunning() {
 		return run;
 	}
 	
+// ----------------------------------------------------------- Setters -----------------------------------------------------------
+	
 	public void setRunning(boolean value) {
 		run = value;
 	}
 	
+// ----------------------------------------------------------- Others -----------------------------------------------------------
+	/**
+	 * Method that represents a classical game loop.
+	 * It provides FPS control, updates logic and renders the view. 
+	 * 
+	 * */
 	@Override
 	public void run() {
 		float fps = 0;

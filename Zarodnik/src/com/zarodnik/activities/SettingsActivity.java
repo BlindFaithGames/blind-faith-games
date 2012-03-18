@@ -1,6 +1,8 @@
 package com.zarodnik.activities;
 
 
+import java.util.Map;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -8,9 +10,14 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.widget.Toast;
 
+import com.accgames.sound.Music;
+import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
+import com.zarodnik.game.ZarodnikMusicSources;
 
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
@@ -22,7 +29,7 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final boolean OPT_MUSIC_DEF = false;
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
-	private static final String OPT_TRANSCRIPTION = "tts";
+	private static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = true;
 	private TTS textToSpeech;
 
@@ -77,13 +84,22 @@ public class SettingsActivity extends PreferenceActivity implements
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		if (OPT_MUSIC.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_MUSIC).toString()
+			textToSpeech.speak(findPreference(OPT_MUSIC).toString()+ " "
 					+ music.isChecked());
 		} else if (OPT_TTS.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_TTS).toString()
+			textToSpeech.speak(findPreference(OPT_TTS).toString() + " "
 					+ tts.isChecked());
 		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString()
+			if(transcription.isChecked()){
+				Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+				
+				SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+						R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+				
+				Music.getInstanceMusic().enableTranscription(this, s);
+				textToSpeech.enableTranscription(s);
+			}
+			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString()+ " "
 					+ transcription.isChecked());
 		}
 		return true;

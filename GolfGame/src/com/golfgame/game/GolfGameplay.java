@@ -67,13 +67,6 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 		super(v, c, textToSpeech, game);
 
 		int record;
-
-		this.textToSpeech = textToSpeech;
-		this.textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this.getContext());
-		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
-		Music.enableTranscription(this.context, s);
 		
 		stage = 1;
 		stageMode = (mode == 0);
