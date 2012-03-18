@@ -138,6 +138,8 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 						R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
 				textToSpeech.enableTranscription(s);
+			}else{
+				textToSpeech.disableTranscription();
 			}
 			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " "
 					+ transcription.isChecked());

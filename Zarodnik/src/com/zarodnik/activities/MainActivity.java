@@ -129,16 +129,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		exitButton.setTypeface(font);
 		
 		createInstructionsDialog();
-<<<<<<< HEAD
-		
-		checkFolderApp(getString(R.string.app_name)+".xml");
 
+		checkFolderApp(getString(R.string.app_name)+".xml");
+		
 		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
 		
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
-		
-		Music.getInstanceMusic().enableTranscription(this, s);
 		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
@@ -151,10 +148,16 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
-	}	
-=======
+		
+		if(SettingsActivity.getTranscription(this)){
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}
 	}
->>>>>>> 632da481c883110ce80cdbc6aa95664324c2121d
+
 	
 	private void createInstructionsDialog() {
 		Typeface font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
@@ -198,7 +201,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
 		
-		Music.enableTranscription(this, s);
+		Music.getInstanceMusic().enableTranscription(this, s);
 		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)

@@ -217,6 +217,10 @@ public class SettingsActivity extends PreferenceActivity implements
 				Music.getInstanceMusic().enableTranscription(this, s);
 				textToSpeech.enableTranscription(s);
 			}
+			else{
+				Music.getInstanceMusic().disableTranscription();
+				textToSpeech.disableTranscription();
+			}
 			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " "
 					+ transcription.isChecked());
 
