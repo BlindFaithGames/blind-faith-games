@@ -131,8 +131,8 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		}
 		else{
 			Toast toast = Toast.makeText(this, R.string.key_conf_fail, Toast.LENGTH_SHORT);
-			toast.show();
 			textToSpeech.speak(getString(R.string.key_conf_fail));
+			toast.show();
 		}
 	}
 

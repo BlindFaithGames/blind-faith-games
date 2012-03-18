@@ -31,7 +31,7 @@
 	<string name="music_title">Music</string>
 	<string name="music_summary">Play background music</string>
 	<string name="tts_title">Default TTS</string>
-	<string name="tts_summary">Enables voice synthetizer</string>
+	<string name="tts_summary">Enables voice synthesizer</string>
     <string name="transcription_title">Transcription mode</string>
     <string name="transcription_summary">It shows text that contains the TTS speech</string>
 	<string name="game_title">Game</string>
@@ -62,7 +62,7 @@
 	<string name="back">Back</string>
 	<string name="options">Options</string>
 	<string name="search">Search</string>
-	<string name="alert_dialog_instructions_TTStext">Alert Dialog</string>
+	<string name="alert_dialog_instructions_TTStext">Dialog</string>
 	<string name="main_menu_initial_TTStext">Main menu</string>  
 	<string name="settings_menu_initial_TTStext">Menu settings</string>  
 	<string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen</string>  
@@ -75,12 +75,12 @@
 	<string name="button_speak_record">Play record in game</string>
 	<string name="button_blind_mode">To enable blind mode</string>
 
-	<string name="recordSpeech">your actual record is</string>
-	<string name="counterSpeech">your actual count is</string>
-	<string name="newRecordSpeech">new record!</string>	
+	<string name="recordSpeech">Your actual record is</string>
+	<string name="counterSpeech">Your actual count is</string>
+	<string name="newRecordSpeech">New record!</string>	
 	
 	<string name="ranking_title">Previous games ranking</string>
-	<string name="ranking_speech">time, date and record</string>
+	<string name="ranking_speech">Time, date and record</string>
 	
 	<string name="dialog_select">Select controls or general instructions</string>
 	<string name="initial_message">Ready... Go!</string>

@@ -7,8 +7,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 
 /**
- * Clase encargada de validar y leer el archivo XML
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
+ * 
+ * Class that validates and reads XML files.
+ * 
+ * @author Gloria Pozuelo & Javier Álvarez
  *
  */
 public class KeyboardReader {
@@ -16,9 +18,9 @@ public class KeyboardReader {
 	public KeyboardReader(){}
 	
 	/**
-	 * Carga un teclado desde un ficheor XML.
-	 * @param fis Fichero XML.
-	 * @return El teclado creado.
+	 * Loads a keyboard from XML file.
+	 * @param fis XML file
+	 * @return The new keyboard
 	 */
 	public XMLKeyboard loadEditedKeyboard(FileInputStream fis) {
 		try {
@@ -34,7 +36,7 @@ public class KeyboardReader {
 			return saxHandler.getXMLKeyboard();
 			
 		} catch (Exception e) {
-			System.out.println("XML Pasing Excpetion = " + e);
+			System.out.println("XML Parsing Exception = " + e);
 			return null;
 		}		
 	}

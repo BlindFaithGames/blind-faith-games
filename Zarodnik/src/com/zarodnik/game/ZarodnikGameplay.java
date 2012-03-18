@@ -42,6 +42,7 @@ import com.accgames.sound.TTS;
 import com.accgames.sound.VolumeManager;
 import com.zarodnik.R;
 import com.zarodnik.activities.MainActivity;
+import com.zarodnik.activities.SettingsActivity;
 import com.zarodnik.activities.ZarodnikGameActivity;
 
 public class ZarodnikGameplay extends GameState {
@@ -53,11 +54,11 @@ public class ZarodnikGameplay extends GameState {
 	private static final int maxPredatorNumber = 3;
 	private static final int prey_sound_die = R.raw.prey_dead;
 
-	private static String prey_sound = "prey";
-	private static String predator_sound = "predator";
-	private static String radio_sound = "radio";
-	private static String seaweed_sound = "radio"; // TODO: find ocean sound
-	private static String capsule_sound = "radio"; // TODO: find ? sound
+	private static String prey_sound = "miau";
+	private static String predator_sound = "arg";
+	private static String radio_sound = "tunning...";
+	private static String seaweed_sound = "tunning..."; // TODO: find ocean sound
+	private static String capsule_sound = "tunning..."; // TODO: find ? sound
  	
 	// Sheets dimensions
 	private static int playerRow = 8;
@@ -348,6 +349,7 @@ public class ZarodnikGameplay extends GameState {
 			e = new Predator(predatorX, predatorY, null, this, predatorMasks, animations, 
 					predator_sound, new Point(frameW/2,frameW/2), true);
 			
+			e.setTranscription(SettingsActivity.getTranscription(this.getContext()));
 			
 			while (!positionFreeEntities(tempEntities,e)){
 				predatorX = numberGenerator.nextInt(width);
@@ -438,6 +440,8 @@ public class ZarodnikGameplay extends GameState {
 		
 		e = new SmartPrey(preyX, preyY, null, this, preyMasks, animations,  
 				prey_sound, new Point(frameW/2,frameW/2),true, prey_sound_die);
+		
+		e.setTranscription(SettingsActivity.getTranscription(this.getContext()));
 		
 		while (!positionFreeEntities(tempEntities,e)){
 			preyX = numberGenerator.nextInt(width);
@@ -720,6 +724,8 @@ public class ZarodnikGameplay extends GameState {
 		default:
 			break;
 		}
+		
+		i.setTranscription(SettingsActivity.getTranscription(this.getContext()));
 		
 		while (!this.positionFreeEntities(i)){
 			x = NumberGenerator.nextInt(width);

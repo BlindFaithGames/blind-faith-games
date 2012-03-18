@@ -2,10 +2,17 @@ package com.accgames.graphics;
 
 import java.util.ArrayList;
 
+/**
+ * This class contains only a simple animation.
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo 
+ * 
+ * */
+
 public class Animation {
 
-	private String name;
-	private ArrayList<Integer> frameList;
+	private String name; // animation name
+	private ArrayList<Integer> frameList; // 
 	private boolean loop;
 	private int frameCount;
 	private int framesPerStep;
@@ -17,6 +24,8 @@ public class Animation {
 		this.loop = loop;
 		this.frameCount = frameList.size();
 	}
+	
+// ----------------------------------------------------------- Getters -----------------------------------------------------------  
 	
 	public boolean isLoop() {
 		return loop;
@@ -37,6 +46,8 @@ public class Animation {
 	public int getFramesPerStep() {
 		return framesPerStep;
 	}
+	
+// ----------------------------------------------------------- Setters -----------------------------------------------------------
 	
 	public void setLoop(boolean loop) {
 		this.loop = loop;

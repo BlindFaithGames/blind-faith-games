@@ -219,7 +219,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		
 		if(PrefsActivity.getTranscription(this)){
 			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, true);
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
 			textToSpeech.enableTranscription(s);
 		}else
 			textToSpeech.disableTranscription();
@@ -339,8 +339,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, true);
-	
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
+		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.intro_main_menu)
 				+ newButton.getContentDescription() + ","
@@ -353,6 +353,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH, s);
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
+		
+		if(PrefsActivity.getTranscription(this)){
+			textToSpeech.enableTranscription(s);
+		}else
+			textToSpeech.disableTranscription();
+
 	}
 
 	/**

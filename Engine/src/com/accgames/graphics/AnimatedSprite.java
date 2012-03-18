@@ -4,6 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+/**
+ * This class contains only a simple animation. It's supposed that the graphic frame are only in horizontal sense.
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo 
+ * 
+ * */
+
 public class AnimatedSprite {
 	
 	private Bitmap animation;

@@ -6,23 +6,26 @@ import java.util.Map;
 
 
 /**
- * Clase que representa una Teclado XML.
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
+ * This class represents a XML keyboard.
+ * @author Gloria Pozuelo and Javier Álvarez.
  */
 
 public class XMLKeyboard {
 
-	private HashMap<Integer, String> keyList; /* Mapa tecla - acción */
-	private HashMap<Integer, String> keyButton; /* Mapa tecla - botón */
-	private int num; // Número de acciones definidas para el teclado
-	// Para llevar el número de errores que se produjeron
-	private int numErrors;
+	private HashMap<Integer, String> keyList; /* Map key - action */
+	private HashMap<Integer, String> keyButton; /* Map key - button */
+	private int num; // Action number defined to the keyboard
+	
+	private int numErrors;// Number of errors counter
 
-
+	/**
+	 * 
+	 * 
+	 * */
 	public XMLKeyboard(){
 		keyList = new HashMap<Integer, String>();
 		keyButton = new HashMap<Integer, String>();
-		/* Botones configurables */
+		/* Custom buttons */
 		keyButton.put(7, "0");
 		keyButton.put(8, "1");
 		keyButton.put(9, "2");
@@ -226,24 +229,19 @@ public class XMLKeyboard {
 		numErrors = 0;
 		num = 0;
 	}
-
-// SETTERS
 	
-	public void setNum(int num) {
-		this.num = num;
-	}
-	
-	public void setKeyButton(HashMap<Integer, String> keyButton) {
-		this.keyButton = keyButton;
-	}
-
-	// GETTERS
+// ----------------------------------------------------------- Getters -----------------------------------------------------------
 	public HashMap<Integer, String> getKeyList() {
 		return keyList;
 	}
 	
-	public int getNum(){return num;}
-	public int getNumErrors() {return numErrors;}
+	public int getNum(){
+		return num;
+	}
+	
+	public int getNumErrors() {
+		return numErrors;
+	}
 
 	public String getAction(int i) {
 		return keyList.get(i);
@@ -252,17 +250,41 @@ public class XMLKeyboard {
     public String toString(int key){
             return keyButton.get(key);
     }
-	
-// OTHERS
+    
+ // ----------------------------------------------------------- Setters -----------------------------------------------------------
+ 	public void setNum(int num) {
+ 		this.num = num;
+ 	}
+ 	
+ 	public void setKeyButton(HashMap<Integer, String> keyButton) {
+ 		this.keyButton = keyButton;
+ 	}
 
+	
+// ----------------------------------------------------------- Others -----------------------------------------------------------
+
+	
+	/**
+	 * Increases the errors number
+	 * @param unit 
+	 * */
 	public void riseNumberOfErrors(int unit){
 		numErrors += unit;
 	}
 
+	
+	/**
+	 * If it exits it gets the key associated with the button, button
+	 * @param button the button name whose action we want to get
+	 * */
 	public void addObject(Integer k, String v) {
 		keyList.put(k, v);
 	}
 	
+	/**
+	 * If it exits it gets the key associated with the button, button
+	 * @param button the button name whose action we want to get
+	 * */
 	public Integer getKeyByButton(String button){
 		Iterator it = keyButton.entrySet().iterator();
 		Map.Entry e = null;
@@ -306,11 +328,11 @@ public class XMLKeyboard {
 	
 	/**
 	 * Check if a button given by parameter is available
-	 * @param key
-	 * @return
+	 * @param key 
+	 * @param action
 	 */
 	public void addButtonAction(int key, String action){
-		// Eliminar tecla asignada a esa acción
+		// Remove the key associated with action
 		Integer k = getKeyByAction(action);
 		if (k != null){
 			keyList.remove(k);

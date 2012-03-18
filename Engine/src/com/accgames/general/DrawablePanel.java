@@ -6,10 +6,24 @@ import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+/**
+ * This class provides a Custom surface view controlled within other thread
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo. 
+ * 
+ * @implements SurfaceHolder.Callback, ISurface.
+ * 
+ * */
+
 public abstract class DrawablePanel extends SurfaceView implements SurfaceHolder.Callback, ISurface {
 	
 	private AnimationThread thread;
-	
+	/**
+	 * Unique constructor of the class.
+	 * 
+	 * @param context Activity which is associated to this view.
+	 * 
+	 * */
 	public DrawablePanel(Context context) {
 		super(context);
 		getHolder().addCallback(this);

@@ -18,8 +18,8 @@ import android.view.View;
 /**
  * 
  * 
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez 
- * This class implements OnInitListener Interface
+ * @author Gloria Pozuelo & Javier Álvarez 
+ * @implements OnInitListener, Parcelable
  * 
  */
 public class TTS implements TextToSpeech.OnInitListener, Parcelable {
@@ -148,7 +148,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 				// The TTS engine has been successfully initialized.
 				if (initialSpeech != null && enabled){
 					mTts.speak(initialSpeech, TextToSpeech.QUEUE_FLUSH, null);
-					subs.showSubtitle(initialSpeech);
+					subs.showSubtitle("TTS:" + initialSpeech);
 				}
 			}
 
@@ -200,14 +200,14 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	public void speak(String msg) {
 		if (enabled){
 			mTts.speak(msg, queueMode, null);
-			subs.showSubtitle(msg);
+			subs.showSubtitle("TTS:" + msg);
 		}
 	}
 
 	public void speak(View v) {
 		if (enabled){
 			mTts.speak(v.getContentDescription().toString(), queueMode, null);
-			subs.showSubtitle(v.getContentDescription().toString());
+			subs.showSubtitle("TTS:" + v.getContentDescription().toString());
 		}
 	}
 
@@ -216,7 +216,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 			Iterator<String> it = msg.iterator();
 			while (it.hasNext()){
 				mTts.speak(" " + it.next() + " ", QUEUE_ADD, null);
-				subs.showSubtitle(" " + it.next() + " ");
+				subs.showSubtitle(" " + "TTS:" +  it.next() + " ");
 			}
 		}
 	}

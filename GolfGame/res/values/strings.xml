@@ -109,17 +109,37 @@
     <string name="tutorial_step9_dialog_select">The End</string> 
     
     <!-- Onomatopeias -->
-    <string name="bing_ono"> - bing bing! - </string>    
-    <string name="bip_ono"> - Bip bip! -</string>    
-    <string name="clue_feed_back_sound_ono"> - Ring! - </string>    
-    <string name="hit_ball_ono"> - Tip! - </string>    
-    <string name="left_ono"> - Biiiip! - </string>    
+    <string name="bing_ono">bing bing!</string>    
+    <string name="bip_ono">Bip bip!</string>    
+    <string name="clue_feed_back_sound_ono">Ring!</string>    
+    <string name="hit_ball_ono">Tip!</string>    
+    <string name="left_ono">Biiiip!</string>    
     <string name="main_ono">Playing Golf OST!</string>    
     <string name="missed_ono">biiiip!</string>    
-    <string name="previous_shoot_feedback_sound_ono"> - Sonar - </string>    
-    <string name="right_ono"> - biiiip! - </string>    
-    <string name="sound_shot_ono"> - Toc! - </string>    
+    <string name="previous_shoot_feedback_sound_ono">Sonar</string>    
+    <string name="right_ono">biiiip!</string>    
+    <string name="sound_shot_ono">Toc!</string>    
     <string name="storm_ono"> - Storm - </string>    
+<<<<<<< HEAD
     <string name="water_bubbles_ono"> - Bubbles - </string>    
     <string name="win_sound_ono"> - Applause - </string>    
+=======
+    <string name="water_bubbles_ono">Bubbles</string>    
+    <string name="win_sound_ono">Applause</string>    
+
+     
+    <!-- SPANISH -->
+<!--     <string name="tutorial_step1_dialog_select">Para disparar realiza un fling</string> -->
+<!--     <string name="tutorial_step2_dialog_select">Ese modo de lanzamiento es el establecido por defecto. Cada vez que se acierta un lanzamiento -->
+<!--         el objetivo cambia de posición.</string> -->
+<!--     <string name="tutorial_step3_dialog_select">Puedes cambiar el modo a on Up. Para disparar arrastra y levanta el dedo</string> -->
+<!--     <string name="tutorial_step4_dialog_select">La opción clue target te permite localizar el objetivo mediante pulsaciones. -->
+<!--   	    Prueba a encontrarlo.</string> -->
+<!--     <string name="tutorial_step5_dialog_select">Este sonido es el que se emite cuando encuentras el objetivo</string> -->
+<!--     <string name="tutorial_step6_dialog_select">La vibración te da una pista de por dónde anda el objetivo</string> -->
+<!--     <string name="tutorial_step7_dialog_select">Sound effect también es una ayuda para localizar el objetivo en el lanzamiento</string> -->
+<!--     <string name="tutorial_step8_dialog_select">Sound variation te da una pista de cuánto de cerca o lejos ha quedado tu lanzamiento</string> -->
+<!--     <string name="tutorial_step9_dialog_select">Fin</string>    -->
+
+>>>>>>> f97a3b6aed0147f3f75a06835a0fd8431ff200ed
 </resources>

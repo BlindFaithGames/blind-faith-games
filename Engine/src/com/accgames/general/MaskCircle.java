@@ -5,19 +5,32 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
+
+/**
+ * Mask with a circular shape.
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo. 
+ * 
+ * @extends Mask.
+ * 
+ * */
 public class MaskCircle  extends Mask{
 	
-	private int radius;
+	private int radius; // mask radius
 	
+	/**
+	 * Unique constructor of the class.
+	 * 
+	 * @param offsetX Offset within x relative to the entity coordinates.
+	 * @param offsetY Offset within y relative to the entity coordinates.
+	 * @param radius mask radius.
+	 * 
+	 * */
 	public MaskCircle(int offsetX, int offsetY, int radius){
 		super(offsetX,offsetY);
 		this.radius = radius;
 	}
-	
-	@Override
-	public boolean isInMask(int x, int y) {
-		return Math.sqrt((x-this.x)*(x-this.x) + (y-this.y)*(y-this.y)) <= radius;
-	}
+// ----------------------------------------------------------- Getters -----------------------------------------------------------   
 	public int getRadius(){return radius;}
 
 	public int getCenterY() {
@@ -26,6 +39,12 @@ public class MaskCircle  extends Mask{
 
 	public int getCenterX() {
 		return this.x;
+	}
+
+// ----------------------------------------------------------- Others -----------------------------------------------------------   	
+	@Override
+	public boolean isInMask(int x, int y) {
+		return Math.sqrt((x-this.x)*(x-this.x) + (y-this.y)*(y-this.y)) <= radius;
 	}
 	
 	//  For debug

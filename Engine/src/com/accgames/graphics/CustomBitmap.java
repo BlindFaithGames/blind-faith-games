@@ -3,8 +3,21 @@ package com.accgames.graphics;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 
+/**
+ * Class that provides methods to resize a bitmap
+ */
+
 public class CustomBitmap {
 
+	/**
+	 * Scales bm depending of newHeight and newWidth.
+	 * 
+	 *  @param bm
+	 *  @param newHeight
+	 *  @param newWidth
+	 *  @return 
+	 * 
+	 * */
 	public static Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
 		int width = bm.getWidth();
 		int height = bm.getHeight();

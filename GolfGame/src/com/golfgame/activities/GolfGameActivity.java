@@ -1,6 +1,7 @@
 package com.golfgame.activities;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,9 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.accgames.general.DrawablePanel;
 import com.accgames.general.Game;
@@ -19,8 +22,10 @@ import com.accgames.general.GameState;
 import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
+import com.accgames.others.GolfMusicSources;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
+import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
@@ -54,6 +59,20 @@ public class GolfGameActivity extends Activity {
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
+		
+		if(SettingsActivity.getTranscription(this)){
+			
+			Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
+			
+			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+			
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}
 		
 		keyboard = Input.getKeyboard();
 		

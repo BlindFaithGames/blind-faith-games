@@ -2,6 +2,8 @@ package com.minesweeper;
 
 
 
+import java.util.Map;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -9,11 +11,14 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.Log;
-import com.minesweeper.R;
 import com.minesweeper.game.MinesweeperAnalytics;
+import com.minesweeper.game.Music;
+import com.minesweeper.game.SubtitleInfo;
 import com.minesweeper.game.TTS;
 
 /**
@@ -128,9 +133,17 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 		} else if (OPT_COORDINATES.equals(preference.getKey())) {
 			textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " "
 					+ contextCell.isChecked());
-		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) 
+		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())){
+			if(transcription.isChecked()){
+				SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+						R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
+				textToSpeech.enableTranscription(s);
+			}else{
+				textToSpeech.disableTranscription();
+			}
 			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " "
 					+ transcription.isChecked());
+		}
 		return true;
 	}
 }

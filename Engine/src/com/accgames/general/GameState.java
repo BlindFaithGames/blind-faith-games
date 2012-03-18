@@ -18,33 +18,48 @@ import com.accgames.input.Input.EventType;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 
+/**
+ * This class represents a game state, a part of a game for example, the introduction, gameplay and game over.
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo.
+ * 
+ * */
 
 public abstract class GameState {
 	
-	public static int SCREEN_WIDTH;
+	public static int SCREEN_WIDTH;  
 	public static int SCREEN_HEIGHT;
-	public static float scale;
+	public static float scale; 
 	
-	protected View v;
+	protected View v; // View associated with this game state
 	
-	protected Activity context;
+	protected Activity context; // Activity associated with this game state
 	
-	private Bitmap background = null;
+	private Bitmap background = null; // If it's required, a background can be painted by default on the view
 	
-    boolean game_is_running;
+    private boolean game_is_running; // Indicates if the game state is finished
 	
-	private List<Entity> entities;
-	private List<Entity> collidables;
+	private List<Entity> entities; 
+	private List<Entity> collidables; 
 	private List<Entity> renderables;
 	private List<Entity> removables;
 
-	private TTS textToSpeech;
+	private TTS textToSpeech; // To have access to the voice synthesizer
 
-	private Paint brush;
+	private Paint brush; 
 	
-	protected Game game;
-	private boolean onInitialized;
+	protected Game game; // To have access to the game
+	private boolean onInitialized; // To check if onInit method has been called any time from this instance
 	
+	/**
+	 * Unique constructor of the class.
+	 * 
+	 * @param v View associated with this game state.
+	 * @param context Context where game is running.
+	 * @param textToSpeech Instance of TTS class to have access from the entities.
+	 * @param game Reference to Game class to have access from the entities.
+	 * 
+	 * */
 	public GameState(View v, Context context, TTS textToSpeech, Game game){
 		game_is_running = true;
 		this.game = game;
@@ -66,6 +81,80 @@ public abstract class GameState {
 		onInitialized = false;
 	}
 	
+// ----------------------------------------------------------- Getters -----------------------------------------------------------
+
+	public boolean isRunning(){
+		return game_is_running;
+	}
+	
+	public View getView(){
+		return v;
+	}
+	
+	public Activity getContext(){
+		return context;
+	}
+	
+	public Bitmap getBackground(){
+		return background;
+	}
+	
+	public List<Entity> getEntities(){
+		return entities;
+	}
+	
+	public List<Entity> getRenderables(){
+		return renderables;
+	}
+	public TTS getTTS(){
+		return textToSpeech;
+	}
+	
+	public boolean isOnInitialized() {
+		return onInitialized;
+	}
+	
+// ----------------------------------------------------------- Setters -----------------------------------------------------------
+	public void editBackground(Paint brush){
+		this.brush = brush;
+	}
+
+	public void setTextToSpeech(TTS textToSpeech) {
+		this.textToSpeech = textToSpeech;
+	}
+	
+	public void run(){
+		game_is_running = true;
+	}
+	
+	public void stop(){
+		game_is_running = false;
+	}
+	
+	public void addEntity(Entity e){	
+		entities.add(e);
+	}
+	
+	public void removeEntity(Entity e){	
+		removables.add(e);
+	}
+	
+	/**
+	 * If the previous background is not freed this method recycled it.
+	 * 
+	 * @param background the image that will be painted on the view background.
+	 * */
+	protected void setBackground(Bitmap background) {
+		if(this.background != null)
+			this.background.recycle();
+		this.background = background;
+	}
+	
+// ----------------------------------------------------------- Others -----------------------------------------------------------
+	/**
+	 * Called before game loop beginning. It calls every onInit method of Entity.
+	 * 
+	 * */
 	public void onInit() {
 		Iterator<Entity> it = entities.iterator();
 		Entity e;
@@ -76,6 +165,11 @@ public abstract class GameState {
 		onInitialized = true;
 	}
 	
+	/**
+	 * Draws the background if this exits. Also It calls every onDraw method of Entity.      
+	 * 
+	 * @param canvas
+	 * */
 	protected void onDraw(Canvas canvas) {
 		if(background != null)
 			canvas.drawBitmap(background,0,0,brush);
@@ -90,6 +184,11 @@ public abstract class GameState {
 		renderables.clear();
 	}
 	
+	/**
+	 * Updates the background if this exits. Also It calls every onUpdate method of Entity
+	 * and updates the buffers of game state.
+	 * 
+	 * */
 	protected void onUpdate(){
 		Entity e1,e2,e = null;
 		Iterator<Entity> it = entities.iterator();
@@ -138,69 +237,12 @@ public abstract class GameState {
 		}
 	}
 	
-	public void run(){
-		game_is_running = true;
-	}
-	
-	public void stop(){
-		game_is_running = false;
-	}
-	
-	public boolean isRunning(){
-		return game_is_running;
-	}
-	
-	public void addEntity(Entity e){	
-		entities.add(e);
-	}
-	
-	public void removeEntity(Entity e){	
-		removables.add(e);
-	}
-	
-	public View getView(){
-		return v;
-	}
-	
-	public Activity getContext(){
-		return context;
-	}
-	
-	public Bitmap getBackground(){
-		return background;
-	}
-	
-	public List<Entity> getEntities(){
-		return entities;
-	}
-	
-	public List<Entity> getRenderables(){
-		return renderables;
-	}
-	
-	
 	/**
-	 * if the previous background is not freed this method recycled it.
+	 * Checks if e1 collides with another entity in the buffer Entities.
 	 * 
+	 * @param e1 Entity to be tested.
+	 * @return The result of the test.
 	 * */
-	protected void setBackground(Bitmap background) {
-		if(this.background != null)
-			this.background.recycle();
-		this.background = background;
-	}
-	
-	public TTS getTTS(){
-		return textToSpeech;
-	}
-	
-	public void editBackground(Paint brush){
-		this.brush = brush;
-	}
-
-	public void setTextToSpeech(TTS textToSpeech) {
-		this.textToSpeech = textToSpeech;
-	}
-	
 	public boolean positionFreeEntities(Entity e1){
 		Iterator<Entity> it = entities.iterator();
 		boolean collision = false;
@@ -214,7 +256,5 @@ public abstract class GameState {
 		return !collision;
 	}
 
-	public boolean isOnInitialized() {
-		return onInitialized;
-	}
+
 }

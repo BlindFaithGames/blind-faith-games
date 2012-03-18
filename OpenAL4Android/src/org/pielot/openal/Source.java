@@ -15,6 +15,7 @@ public class Source {
 
 	private int		sourceId;
 	private Buffer	buffer;
+	private String transcription;
 
 	// ========================================================================
 	// Constructor
@@ -32,11 +33,15 @@ public class Source {
 	// ========================================================================
 	// Methods
 	// ========================================================================	
+
+	public String getTranscription() {
+		return buffer.getName();
+	}
 	
 	public void setPosition(float x, float y, float z) {
 		OpenAlBridge.setPosition(sourceId, x, y, z);
 	}
-	
+
 	public void setPitch(float pitch) {
 		OpenAlBridge.setPitch(sourceId, pitch);
 	}
@@ -64,5 +69,4 @@ public class Source {
 	public String toString() {
 		return "source " + sourceId + " playing " + buffer;
 	}
-
 }

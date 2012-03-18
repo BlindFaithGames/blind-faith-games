@@ -5,17 +5,33 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
-
+/**
+ * Mask with a rectangular shape.
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo. 
+ * 
+ * @extends Mask.
+ * 
+ * */
 public class MaskBox extends Mask{
 
-	private int width,height;
+	private int width,height; // width and height of the rectangle relatives to Mask x and Mask y
 	
+	/**
+	 * Unique constructor of the class.
+	 * 
+	 * @param offsetX Offset within x relative to the entity coordinates.
+	 * @param offsetY Offset within y relative to the entity coordinates.
+	 * @param width rectangle width relatives to Mask x and Mask y.
+	 * @param height rectangle height relatives to Mask x and Mask y.
+	 * 
+	 * */
 	public MaskBox(int offsetX, int offsetY, int width, int height){
 		super(offsetX, offsetY);
 		this.width = width;
 		this.height = height;
 	}
-
+// ----------------------------------------------------------- Getters -----------------------------------------------------------    
 	public int getWidth() {
 		return width;
 	}
@@ -23,13 +39,13 @@ public class MaskBox extends Mask{
 	public int getHeight() {
 		return height;
 	}
-	
+// ----------------------------------------------------------- Others -----------------------------------------------------------    	
 	@Override
 	public boolean isInMask(int x, int y) {
 		return x >= this.x && x <= width+this.x && y >= this.y && y <= height+this.y;
 	}
 	
-	//  For debug
+	@Override
 	public void onDraw(Canvas canvas){
 		Paint brush = new Paint();
 		brush.setColor(Color.GREEN);

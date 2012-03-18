@@ -129,7 +129,35 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		exitButton.setTypeface(font);
 		
 		createInstructionsDialog();
+
+		checkFolderApp(getString(R.string.app_name)+".xml");
+		
+		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
+				+ newButton.getContentDescription() + " "
+				+ settingsButton.getContentDescription() + " "
+				+ keyConfButton.getContentDescription() + " "
+				+ instructionsButton.getContentDescription() + " "
+				+ aboutButton.getContentDescription() + " "
+				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
+		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+		
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+		
+		if(SettingsActivity.getTranscription(this)){
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}
 	}
+
 	
 	private void createInstructionsDialog() {
 		Typeface font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
@@ -173,7 +201,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
 		
-		Music.enableTranscription(this, s);
+		Music.getInstanceMusic().enableTranscription(this, s);
 		
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
@@ -348,8 +376,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(SettingsActivity.getMusic(this))
-		Music.getInstanceMusic().play(this, R.raw.the_path_of_the_goblin_king, true);
 
 		if(SettingsActivity.getTranscription(this)){
 			
@@ -360,11 +386,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			
 			
 			textToSpeech.enableTranscription(s);
-			Music.enableTranscription(this, s);
+			Music.getInstanceMusic().enableTranscription(this, s);
 		}else{
 			textToSpeech.disableTranscription();
-			Music.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
 		}
+		
+		if(SettingsActivity.getMusic(this))
+			Music.getInstanceMusic().play(this, R.raw.the_path_of_the_goblin_king, true);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
