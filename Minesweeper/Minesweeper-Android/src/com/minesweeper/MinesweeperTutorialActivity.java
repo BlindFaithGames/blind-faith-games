@@ -218,21 +218,21 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 			List<String> msg = new ArrayList<String>();
 			
 			if(selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol).toString());
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol)));
 			if(selRow - 1 >= 0 && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow - 1, selCol + 1).toString());		
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol + 1)));		
 			if(selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow, selCol + 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow, selCol + 1)));	
 			if(selRow + 1 <= rowN && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow + 1, selCol + 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol + 1)));	
 			if(selRow + 1 <= rowN)
-				msg.add(mineField.getCell(selRow + 1, selCol).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol)));	
 			if(selRow + 1 <= rowN && selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow + 1, selCol - 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol - 1)));	
 			if(selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow, selCol - 1).toString());	
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow, selCol - 1)));	
 			if(selCol - 1 >= 0 && selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol - 1).toString());
+				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol - 1)));
 			
 			textToSpeech.speak(msg);
 		}
