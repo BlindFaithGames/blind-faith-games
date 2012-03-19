@@ -2,7 +2,7 @@ package com.accgames.others;
 
 
 /**
- * Static stuff about the configuration of the games. Like font size or type of font. 
+ * Static stuff about the configuration of the games. Like font size, type of font... 
  * 
  * */
 public class RuntimeConfig {

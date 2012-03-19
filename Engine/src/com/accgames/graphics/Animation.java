@@ -3,19 +3,29 @@ package com.accgames.graphics;
 import java.util.ArrayList;
 
 /**
- * This class contains only a simple animation.
+ * This class represents a simple animation.
  * 
- * @author Javier Álvarez & Gloria Pozuelo 
+ * @author Javier Álvarez & Gloria Pozuelo.
  * 
  * */
 
 public class Animation {
 
-	private String name; // animation name
-	private ArrayList<Integer> frameList; // 
-	private boolean loop;
-	private int frameCount;
-	private int framesPerStep;
+	private String name; //  name of the animation
+	private ArrayList<Integer> frameList; // List that contains the order which will be played this animation
+	private boolean loop; // Indicates if the animation loops
+	private int frameCount; // Counts the last frame showed
+	private int framesPerStep; // Number of frames per game step
+	
+	/**
+	 * Unique constructor of the class.
+	 * 
+	 * @param name Name of the animation.
+	 * @param frameList List that contains the order which will be used to play this animation.
+	 * @param framesPerStep Number of frames per game step.
+	 * @param loop Indicates if the animation loops.
+	 * 
+	 * */
 	
 	public Animation(String name, ArrayList<Integer> frameList, int framesPerStep, boolean loop){
 		this.name = name;

@@ -10,24 +10,37 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-
+/**
+ * This class provides a set of animation objects which will be used comfortably.
+ * 
+ * @author Javier Álvarez & Gloria Pozuelo.
+ * 
+ * */
+@SuppressWarnings("unused")
 public class SpriteMap {
 	
-	private HashMap<String, Animation> map; 	// mapa de animaciones del spriteMap
-	private Animation currentAnim; 			// animación en ejecución
-	private Bitmap bitmap;							// Imagen cargada
+	private HashMap<String, Animation> map; // Animations map - <animation name, animation>
+	private Animation currentAnim; // Selected animation from map 
+	private Bitmap bitmap; // Sprite sheet
 	
-	private int frame; 								// frame actual en la animación en ejecución (de 0 a frameCount-1).
-	private int lastFrame; 							/* sprite en el que termina la última animación 
-													ejecutada (de 0 a nCol*nRow-1).*/
-	private int step; 								/* pasos del juego ejecutados desde la última actualización de 
-													la animación en curso.*/
-	private int nCol; 								// número de columnas del spriteMap.
-	private int nRow; 								// número de filas del spriteMap.
-	private boolean finished; 						// indica si la animación actual ha terminado.
+	private int frame; // Current frame within the selected animation (from 0 to frameCount-1)
+	private int lastFrame; // Last frame in last animation (from 0 to nCol*nRow-1).*/
+	private int step; // Game steps since last animation change 
+	private int nCol; // Column number of the sprite sheet
+	private int nRow; // Row number of the sprite sheet
+	private boolean finished; // Indicates if the current animation has finished
 	
-	private int currentFrame;
+	private int currentFrame; // Previous frame to the Current frame within the selected animation 
 	
+	/**
+	 * Unique constructor of the class.
+	 * 
+	 * @param rows Row number of the sprite sheet.
+	 * @param cols Column number of the sprite sheet.
+	 * @param bitmap Sprite sheet which contains every animation contained in this set.
+	 * @param frame First animation frame.
+	 * 
+	 * */
 	public SpriteMap(int rows, int cols, Bitmap bitmap, int frame){
 		this.bitmap = bitmap;
 		nRow = rows;
@@ -41,6 +54,8 @@ public class SpriteMap {
 		lastFrame = frame;
 	}
 	
+// ----------------------------------------------------------- Getters -----------------------------------------------------------   
+	
 	public int getWidth(){
 		int w = bitmap.getWidth() / nCol;
 		return w;
@@ -50,13 +65,13 @@ public class SpriteMap {
 		return h;
 	}
 	
-	
+// ----------------------------------------------------------- Others -----------------------------------------------------------   
 	/**
-	 * Añade una animación a la tabla creándola desde cero.
-	 * @param name
-	 * @param frameList
-	 * @param framesPerStep
-	 * @param loop
+	 * Adds a new animation to the animation set.
+	 * @param name Animation name.
+	 * @param frameList Frames from the sprite sheet which compounds the animation added.
+	 * @param framesPerStep Animation frames per game step.
+	 * @param loop Determines if animation ends or doesn't.
 	 */
 	public void addAnim(String name, ArrayList<Integer> frameList, int framesPerStep, boolean loop){
 		Animation aux = new Animation(name,frameList,framesPerStep,loop);
@@ -64,13 +79,20 @@ public class SpriteMap {
 		map.put(name, aux);
 	}
 
-	// Manda ejecutar una animación de la tabla.
+	/**
+	 * Plays an animation from the set. Previously It has to be added.
+	 * 
+	 * @param name Animation name which will be played.
+	 * 
+	 * */
+	@SuppressWarnings("rawtypes")
 	public void playAnim(String name){
-		// Guardamos la animación actual
+		// Saves the current animation
 		Animation oldAnim = currentAnim;
 
-		// Buscamos la siguiente
+		// 
 		Iterator<Animation> it = map.values().iterator();
+
 		Map.Entry e = null;
 		boolean found = false;
 		while (!found && it.hasNext()){
@@ -82,7 +104,7 @@ public class SpriteMap {
 		else {
 			currentAnim = map.get(name);
 			if (oldAnim != null) {
-				// Si había animación anterior puede que sea la misma
+				// If there was an animation it could be the same.
 				if (!oldAnim.equals(currentAnim))	{
 					frame = 0;  // Reset animation because it has changed
 					finished = false;
@@ -95,9 +117,12 @@ public class SpriteMap {
 		}
 	}
 
-	/* Manda ejecutar una animación de la tabla, pero alterando su velocidad y su
-	 * repetición durante esta ejecución (velocidad expresada en frames por paso).
-	 */
+	/** 
+	 * Plays an animation from the set but changing its velocity and its frames per game step.
+	 * @param name Animation name which will be played.
+	 * @param framesPerStep Number of animation frames per game step.
+	 * @param loop Determines if animation ends or doesn't.
+	 **/
 	public void playAnim(String name, int framesPerStep, boolean loop) {	
 		playAnim(name);
 		if (currentAnim != null){
@@ -105,17 +130,21 @@ public class SpriteMap {
 			currentAnim.setLoop(loop);
 		}
 	}
-
-
-	/* Si hay alguna animación ejecutándose, la para y fija el último frame por el
-	 * que iba esta.
-	 */
+	
+	/** 
+	 * Stops the current animation.
+	 **/
 	public void stopAnim() {
 		if (currentAnim != null) {
 			//currentAnim.stop();
 		}
 	}
 	
+	/***
+	 * Increments the frame counter, checking if animation hasn't finished.
+	 * 
+	 * @return If the current animation has finished.
+	 **/
 	private boolean nextFrame() {
 		if (step >= currentAnim.getFramesPerStep() && currentAnim.getFramesPerStep() > 0) {
 			step = 0;
@@ -127,6 +156,10 @@ public class SpriteMap {
 		}
 	}
 
+	/**
+	 * Updates the logic of the animation.
+	 * 
+	 * */
 	public void onUpdate() {
 		if (currentAnim != null){
 			if (!finished && nextFrame())
@@ -145,6 +178,14 @@ public class SpriteMap {
 		}
 	}
 
+	/**
+	 * Draws the current frame of the current animation.
+	 * 
+	 * @param x the coordinate on the x axis where the current frame will be painted.
+	 * @param y the coordinate on the y axis where the current frame will be painted.
+	 * @param canvas Surface which will be painted.
+	 * 
+	 * */
 	public void onDraw(int x, int y, Canvas canvas) {
 		int w = bitmap.getWidth() / nCol;
 		int h = bitmap.getHeight() / nRow;
@@ -156,18 +197,30 @@ public class SpriteMap {
 			
 				Point pos = numToXY(posnum);
 				
-				Rect actualFrame = new Rect(pos.x*w, pos.y*h, pos.x*w + w, pos.y*h + h);
+				Rect currentFrame = new Rect(pos.x*w, pos.y*h, pos.x*w + w, pos.y*h + h);
 				Rect dest = new Rect(x,y,x + w,y + h);
-				canvas.drawBitmap(bitmap, actualFrame, dest, null);
+				canvas.drawBitmap(bitmap, currentFrame, dest, null);
 			}
 		}
 	}
-
+	
+	/**
+	 * From number of frame to XY positions.
+	 * 
+	 * @param num Number of frame which will be converted.
+	 * @return XY positions of the frame, on the sprite sheet.
+	 * */
 	private Point numToXY (int num) {
 		return new Point(num % nCol, num / nCol);
 	}
 
-	@SuppressWarnings("unused")
+	/**
+	 * From XY positions to number of frame.
+	 * 
+	 *  @param x Column on the sprite sheet where frame is.
+	 *  @param y Row on the sprite sheet where frame is.
+	 *  @return Number of frame associated with XY.
+	 * */
 	private int XYToNum(int x, int y) {
 		return x*nCol+y;
 	}

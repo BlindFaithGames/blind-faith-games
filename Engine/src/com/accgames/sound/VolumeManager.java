@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 
-/** La peor clase de la historia
+/**
+ * 
+ * This class manages the device volume.
+ * 
+ *  @author Javier Álvarez & Gloria Pozuelo.
  * 
  * */
 
 public class VolumeManager {
+	
 	private static AudioManager amanager;
 	
 	public static AudioManager getAudioManager(Context c) {

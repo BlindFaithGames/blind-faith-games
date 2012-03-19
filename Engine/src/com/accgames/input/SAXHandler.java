@@ -5,7 +5,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 /**
  * 
- * Class to manage the event sent by the parser SAX.
+ * Class to manage events sent by a parser SAX.
  * @author Gloria Pozuelo and Javier Álvarez.
  */
 public class SAXHandler extends DefaultHandler {

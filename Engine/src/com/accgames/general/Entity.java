@@ -25,7 +25,7 @@ import com.accgames.sound.Sound3DManager;
 
 public abstract class Entity {
 
-	private static final int N_TIMERS = 5;
+	private static final int N_TIMERS = 5; // the number of timers associated to Entity
 	
 	private String id; // Unique Entity id  
 
@@ -40,7 +40,7 @@ public abstract class Entity {
 	private boolean visible; // Can the instance be painted?
 	private boolean frozen;  // Can the instance be updated?
 	private boolean removable;  // Can the instance be removed?
-	private boolean transcription;
+	private boolean transcription; // Indicates if we want to transcribe sources
 	
     private int[] timers; // Can the instance be painted?
 	
@@ -49,7 +49,7 @@ public abstract class Entity {
     private List<Sound2D> sources; // 3D sound sources associated with an entity
     private boolean isPlaying; // Indicates if some sound is being played
     
-	protected GameState gameState; // GameState where the instance is active
+	protected GameState gameState; // GameState where the instance of the class is active
 
 	/**
 	 *  Unique class constructor.
@@ -207,8 +207,8 @@ public abstract class Entity {
 
 // ----------------------------------------------------------- Others -----------------------------------------------------------    
 	/**
-	 *  Draws the entity graphic.
-	 *  If it's animated the object animation
+	 *  Draws the graphic of the entity.
+	 *  If it's animated the animation object
 	 *  else the image associated. 
 	 *  In other case it do nothing.
 	 *  
@@ -240,7 +240,7 @@ public abstract class Entity {
 	}
 	
 	/**
-	 *  Draws the entity graphic.
+	 *  Draws the graphic of the entity.
 	 *  If it's animated the object animation
 	 *  else the image associated on the specified coordinates.
 	 *  
@@ -269,7 +269,7 @@ public abstract class Entity {
 	
 	
     /**
-     *  Updates the logic of the entity. It includes the animation entity, its mask set and the 3D sound sources.
+     *  Updates the logic of the entity. It includes the animation of the entity, its mask set and the 3D sound sources.
      * 
      * */
 	public void onUpdate(){
