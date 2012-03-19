@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="interactionMode_select">Seleccione un modo de interacción</string>
+    <string name="interactionMode_select_TTS">Seleccione un modo de interacción. Para seleccionar una opción mantenga la pulsación</string>
+    <string name="blindMode_label">Interacción para ciegos</string>
+    <string name="noBlindMode_label">Interacción estándar</string>
     <string name="introMessage">Bienvenido, seleccione una dificultad</string>
     <string name="introMainMenu">Menú principal del Golf Accesible. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee.</string>
@@ -42,6 +45,8 @@
     <string name="profileB_summary"> - </string>
     <string name="transcription_title">Modo onomatopeyas</string>
     <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
+    <string name="blind_interaction_title">Modo de interacción para ciegos</string>
+    <string name="blind_interaction_summary">Añade una pulsación más a todos los eventos táctiles en pantalla</string>
     <string name="game_title">Juego</string>
     <string name="flags_title">Ajuste de banderas</string>
     <string name="flags_shortcut">f</string>
@@ -95,7 +100,7 @@
     <string name="ranking_speech">Tiempo, fecha y record</string>
     <string name="instructions_dialog_select">Seleccione controles o instrucciones generales</string>
     <string name="game_dialog_select">Seleccione dificultad</string>
-    <string name="initial_settings">Presione cualquier optición</string>
+    <string name="initial_settings">Presione cualquier opción</string>
     <string name="key_conf_fail">No es una tecla válida</string>  
     <string name="stage_speech">Hoyo número</string>  
    

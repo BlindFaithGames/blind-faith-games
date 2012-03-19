@@ -8,8 +8,10 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -56,9 +58,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private TTS textToSpeech;
 	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
-	private Dialog instructionsDialog;
+	private Dialog instructionsDialog, interactionModeDialog;
 	private View focusedView;
 	private Typeface font;
+	
+	private SharedPreferences wmbPreference;
+	private SharedPreferences.Editor editor;
+	private boolean blindInteraction;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -74,10 +80,27 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
-		setTTS();
+		checkFirstExecution();
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 	}	
+	
+	private void checkFirstExecution() {
+		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean isFirstRun = wmbPreference.getBoolean(SettingsActivity.FIRSTRUN, SettingsActivity.FIRSTRUN_DEF);
+		if (isFirstRun)	{
+		    // Code to run once
+			this.createInteractionModeDialog();
+			this.openInteractionModeDialog();
+			
+		    editor = wmbPreference.edit();
+		    editor.putBoolean(SettingsActivity.FIRSTRUN, false);
+		    editor.commit();
+		}
+		else{
+			setTTS();
+		}
+	}
 	
 			
 	// Manage UI Screens
@@ -131,31 +154,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		createInstructionsDialog();
 
 		checkFolderApp(getString(R.string.app_name)+".xml");
-		
-		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
-		
-		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
-		
-		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
-				+ newButton.getContentDescription() + " "
-				+ settingsButton.getContentDescription() + " "
-				+ keyConfButton.getContentDescription() + " "
-				+ instructionsButton.getContentDescription() + " "
-				+ aboutButton.getContentDescription() + " "
-				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
-		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		
-		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
-		
-		if(SettingsActivity.getTranscription(this)){
-			textToSpeech.enableTranscription(s);
-			Music.getInstanceMusic().enableTranscription(this, s);
-		}else{
-			textToSpeech.disableTranscription();
-			Music.getInstanceMusic().disableTranscription();
-		}
 	}
 
 	
@@ -186,6 +184,31 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
+	}
+	
+	private void createInteractionModeDialog() {
+		Button b; TextView t;
+		
+		interactionModeDialog = new Dialog(this);
+		interactionModeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		interactionModeDialog.setContentView(R.layout.interaction_mode_dialog);
+		
+		t = (TextView) interactionModeDialog.findViewById(R.id.interactionMode_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);	
+		b = (Button) interactionModeDialog.findViewById(R.id.blindMode_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+		b = (Button) interactionModeDialog.findViewById(R.id.noBlindMode_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);		
 	}
 	
 	private void setTTS(){
@@ -241,19 +264,27 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	}
 
 	public void onClick(View v) {
-		if(focusedView != null){
-			if(focusedView.getId() == v.getId())
-				menuAction(v);
+		if (blindInteraction){
+			if(focusedView != null){
+				if(focusedView.getId() == v.getId())
+					menuAction(v);
+				else
+					textToSpeech.speak(v);
+			}
 			else
 				textToSpeech.speak(v);
 		}
-		else
-			textToSpeech.speak(v);
+		else{
+			menuAction(v);
+		}
 	}
 	
 	public boolean onLongClick(View v) {
-		menuAction(v);
-		return true;
+		if (blindInteraction){
+			menuAction(v);
+			return true;	
+		}
+		return false;
 	}
 	
 	private void menuAction(View v) {
@@ -288,6 +319,22 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				startInstructions(1);
 				instructionsDialog.dismiss();
 				break;
+				// Interaction mode dialog
+			case R.id.blindMode_button:
+				// Change preferences
+				editor.putBoolean(SettingsActivity.OPT_BLIND_INTERACTION, true);
+				editor.commit();
+				blindInteraction = true;
+				interactionModeDialog.dismiss();
+				setTTS();
+				break;
+			case R.id.noBlindMode_button:
+				editor.putBoolean(SettingsActivity.OPT_BLIND_INTERACTION, false);
+				editor.commit();
+				blindInteraction = false;
+				interactionModeDialog.dismiss();
+				setTTS();
+				break;
 			case R.id.exit_button:
 				finish();
 				break;
@@ -313,6 +360,36 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				+ this.getString(R.string.instructions_controls_label));
 		
 		instructionsDialog.show();
+		
+	}
+	
+	/** Ask the user what interaction mode wants */
+	private void openInteractionModeDialog() {
+		interactionModeDialog.show();
+		
+		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, this
+				.getString(R.string.interactionMode_select_TTS)
+				+ ","
+				+ this.getString(R.string.blindMode_label)
+				+ ","
+				+ this.getString(R.string.noBlindMode_label), TTS.QUEUE_FLUSH, s);
+
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+		
+		if(SettingsActivity.getTranscription(this)){
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}
+
 		
 	}
 
@@ -377,6 +454,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	protected void onResume() {
 		super.onResume();
 
+		blindInteraction = SettingsActivity.getBlindInteraction(this);
+		
 		if(SettingsActivity.getTranscription(this)){
 			
 			Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);

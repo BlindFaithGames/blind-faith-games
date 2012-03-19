@@ -19,6 +19,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -64,8 +65,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
 
-	private Dialog gameDialog;
-	private Dialog instructionsDialog;
+	private Dialog gameDialog, instructionsDialog, interactionModeDialog;
 	
 	private View focusedView;
 	
@@ -75,6 +75,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	
 	// To know if the user has started a game or not
 	private boolean gamed = false;
+	
+	private SharedPreferences wmbPreference;
+	private SharedPreferences.Editor editor;
+	
+	// By default interaction is set to blind mode
+	private boolean blindInteraction = true; 
 
 //	private AsyncTask<Void, Void, String> task;
 
@@ -120,6 +126,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 					String.format(message, accountName));
 		}
 	};
+
+
 	/**
 	 * Begins the activity.
 	 */
@@ -144,7 +152,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		
 		checkFolderApp("minesweeper.xml");
 		
-		setTTS();
+		checkFirstExecution();
 
 		Display display = ((WindowManager) this
 				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -170,9 +178,26 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
 				+ " " + Build.BRAND + " " + Build.HARDWARE + " "
 				+ width + " " + height, 3);
-;
+
 	}
 	
+	private void checkFirstExecution() {
+		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean isFirstRun = wmbPreference.getBoolean(PrefsActivity.FIRSTRUN, PrefsActivity.FIRSTRUN_DEF);
+		if (isFirstRun)	{
+		    // Code to run once
+			this.createInteractionModeDialog();
+			this.openInteractionModeDialog();
+			
+		    editor = wmbPreference.edit();
+		    editor.putBoolean(PrefsActivity.FIRSTRUN, false);
+		    editor.commit();
+		}
+		else{
+			setTTS();
+		}
+	}
+
 	private void checkId() {
 		id = null;
 		FileInputStream fis;
@@ -217,6 +242,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
 		
+		blindInteraction = PrefsActivity.getBlindInteraction(this);
+		
 		if(PrefsActivity.getTranscription(this)){
 			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
@@ -244,8 +271,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	public void onDestroy() {
 		//unregisterReceiver(mUpdateUIReceiver);
 		textToSpeech.stop();
-		instructionsDialog.dismiss();
-		gameDialog.dismiss();
     	AnalyticsManager.dispatch();
 		super.onDestroy();
 		AnalyticsManager.stopTracker();
@@ -388,17 +413,131 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			}
 		}
 	}
+
+	private void createGameDialog() {
+		Button b; TextView t;
+		
+		gameDialog = new Dialog(this);
+		gameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		if (RuntimeConfig.blindMode)
+			gameDialog.setContentView(R.layout.blind_game_dialog);
+		else 
+			gameDialog.setContentView(R.layout.game_dialog);
+		
+		t = (TextView) gameDialog.findViewById(R.id.game_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);	
+		b = (Button) gameDialog.findViewById(R.id.easy_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+		b = (Button) gameDialog.findViewById(R.id.medium_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+		b = (Button) gameDialog.findViewById(R.id.hard_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+	}
+	
+	private void createInstructionsDialog() {
+		Button b; TextView t;
+		
+		instructionsDialog = new Dialog(this);
+		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		if (RuntimeConfig.blindMode)
+			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
+		else
+			instructionsDialog.setContentView(R.layout.instructions_dialog);
+		
+		t = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);
+		b = (Button) instructionsDialog.findViewById(R.id.controls_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+		b = (Button) instructionsDialog.findViewById(R.id.instructions_general_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+	}
+	
+	private void createInteractionModeDialog() {
+		Button b; TextView t;
+		
+		interactionModeDialog = new Dialog(this);
+		interactionModeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		interactionModeDialog.setContentView(R.layout.interaction_mode_dialog);
+		
+		t = (TextView) interactionModeDialog.findViewById(R.id.interactionMode_textView);
+		t.setTextSize(fontSize);
+		t.setTypeface(font);	
+		b = (Button) interactionModeDialog.findViewById(R.id.blindMode_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);	
+		b = (Button) interactionModeDialog.findViewById(R.id.noBlindMode_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		b.setTypeface(font);		
+	}
+
+	/**
+	 * onClick manager
+	 */
+	public void onClick(View v) {
+		if (blindInteraction){
+			if (focusedView != null){
+				if(focusedView.getId() == v.getId())
+					menuAction(v);
+				else
+					textToSpeech.speak(v);
+			}
+			else
+				textToSpeech.speak(v);
+		}
+		else{
+			menuAction(v);
+		}
+		if(v != null)
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.CLICK, 
+				"Button Reading", 0);
+		else
+			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.CLICK, 
+					"Button Reading fail", 0);
+	}
 	
 	@Override
 	public boolean onLongClick(View v) {
-		menuAction(v);
+		if (blindInteraction){
+			menuAction(v);
+			return true;
+		}
 		if(v != null)
 			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS,
 					MinesweeperAnalytics.LONG_CLICK, "Success", 0);
 		else
 			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
 					"Fail", 0);
-		return true;
+		return false;
 	}
 
 	private void menuAction(View v) {
@@ -462,6 +601,22 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			startInstructions(1);
 			instructionsDialog.dismiss();
 			break;
+			// Interaction mode dialog
+		case R.id.blindMode_button:
+			// Change preferences
+			editor.putBoolean(PrefsActivity.OPT_BLIND_INTERACTION, true);
+			editor.commit();
+			blindInteraction = true;
+			interactionModeDialog.dismiss();
+			setTTS();
+			break;
+		case R.id.noBlindMode_button:
+			editor.putBoolean(PrefsActivity.OPT_BLIND_INTERACTION, false);
+			editor.commit();
+			blindInteraction = false;
+			interactionModeDialog.dismiss();
+			setTTS();
+			break;
 		case R.id.exit_button:
 			if (!gamed) {
 				Log.getLog().addEntry(
@@ -477,87 +632,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			finish();
 			break;
 		}
-	}
-
-	private void createGameDialog() {
-		Button b; TextView t;
-		
-		gameDialog = new Dialog(this);
-		gameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		if (RuntimeConfig.blindMode)
-			gameDialog.setContentView(R.layout.blind_game_dialog);
-		else 
-			gameDialog.setContentView(R.layout.game_dialog);
-		
-		t = (TextView) gameDialog.findViewById(R.id.game_textView);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);	
-		b = (Button) gameDialog.findViewById(R.id.easy_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
-		b = (Button) gameDialog.findViewById(R.id.medium_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
-		b = (Button) gameDialog.findViewById(R.id.hard_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
-	}
-	
-	private void createInstructionsDialog() {
-		Button b; TextView t;
-		
-		instructionsDialog = new Dialog(this);
-		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		if (RuntimeConfig.blindMode)
-			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
-		else
-			instructionsDialog.setContentView(R.layout.instructions_dialog);
-		
-		t = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);
-		b = (Button) instructionsDialog.findViewById(R.id.controls_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
-		b = (Button) instructionsDialog.findViewById(R.id.instructions_general_button);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
-	}
-
-	/**
-	 * onClick manager
-	 */
-	public void onClick(View v) {
-		if(focusedView != null){
-			if(focusedView.getId() == v.getId())
-				menuAction(v);
-			else
-				textToSpeech.speak(v);
-		}
-		else
-			textToSpeech.speak(v);
-		if(v != null)
-			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.CLICK, 
-				"Button Reading", 0);
-		else
-			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.MAIN_MENU_EVENTS, MinesweeperAnalytics.CLICK, 
-					"Button Reading fail", 0);
 	}
 
 	/**
@@ -593,6 +667,23 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				+ this.getString(R.string.instructions_controls_label));
 		
 		instructionsDialog.show();
+	}
+	
+	/** Ask the user what interaction mode wants */
+	private void openInteractionModeDialog() {
+		interactionModeDialog.show();
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, this
+				.getString(R.string.interactionMode_select_TTS)
+				+ ","
+				+ this.getString(R.string.blindMode_label)
+				+ ","
+				+ this.getString(R.string.noBlindMode_label), TTS.QUEUE_FLUSH, s);
+
+		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
 	}
 
 	/** Start a new game with the given difficulty level */

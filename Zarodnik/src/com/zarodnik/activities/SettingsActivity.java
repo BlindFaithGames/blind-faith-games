@@ -22,7 +22,7 @@ import com.zarodnik.game.ZarodnikMusicSources;
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
 
-	private CheckBoxPreference music, tts, transcription;
+	private CheckBoxPreference music, tts, transcription, blindInteraction;
 
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
@@ -31,6 +31,10 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final boolean OPT_TTS_DEF = true;
 	private static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = true;
+	public static final String FIRSTRUN = "first";
+	public static final boolean FIRSTRUN_DEF = true;
+	public static final String OPT_BLIND_INTERACTION = "interaction";
+	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
 	private TTS textToSpeech;
 
 	@Override
@@ -48,10 +52,13 @@ public class SettingsActivity extends PreferenceActivity implements
 		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
 		transcription.setOnPreferenceClickListener(this);
 		
+		blindInteraction = (CheckBoxPreference) findPreference(OPT_BLIND_INTERACTION);
+		blindInteraction.setOnPreferenceClickListener(this);
+		
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech("Click any option");
+		textToSpeech.setInitialSpeech(this.getString(R.string.settingsInitialSpeech));
 	}
 
 	/**
@@ -80,6 +87,12 @@ public class SettingsActivity extends PreferenceActivity implements
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_TRANSCRIPTION, OPT_TRANSCRIPTION_DEF);
 	}
+	
+	/** Get the current value of the blind interaction option */
+	public static boolean getBlindInteraction(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_BLIND_INTERACTION, OPT_BLIND_INTERACTION_DEF);
+	}
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
@@ -89,6 +102,9 @@ public class SettingsActivity extends PreferenceActivity implements
 		} else if (OPT_TTS.equals(preference.getKey())) {
 			textToSpeech.speak(findPreference(OPT_TTS).toString() + " "
 					+ tts.isChecked());
+		}else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
+			textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " "
+					+ blindInteraction.isChecked());
 		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
 			if(transcription.isChecked()){
 				Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
