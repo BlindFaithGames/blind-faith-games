@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	<CheckBoxPreference
-		android:key="music"
-		android:title="@string/music_title"
-		android:summary="@string/music_summary"
-		android:defaultValue="false" />
+
     <CheckBoxPreference
-		android:key="tts"
-		android:title="@string/tts_title"
-		android:summary="@string/tts_summary"
-		android:defaultValue="true" />
-	<CheckBoxPreference
-		android:key="context"
-		android:title="@string/context_coordinates_title"
-		android:summary="@string/context_coordinates_summary"
-		android:defaultValue="true" />
-	<CheckBoxPreference
-		android:key="transcription"
-		android:title="@string/transcription_title"
-		android:summary="@string/transcription_summary"
-		android:defaultValue="true" />
+        android:defaultValue="false"
+        android:key="music"
+        android:summary="@string/music_summary"
+        android:title="@string/music_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="tts"
+        android:summary="@string/tts_summary"
+        android:title="@string/tts_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="context"
+        android:summary="@string/context_coordinates_summary"
+        android:title="@string/context_coordinates_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="transcription"
+        android:summary="@string/transcription_summary"
+        android:title="@string/transcription_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="interaction"
+        android:summary="@string/blind_interaction_summary"
+        android:title="@string/blind_interaction_title" />
+
 </PreferenceScreen>

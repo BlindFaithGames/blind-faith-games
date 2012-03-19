@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="interactionMode_select">Seleccione un modo de interacción</string>
+    <string name="interactionMode_select_TTS">Seleccione un modo de interacción. Para seleccionar una opción mantenga la pulsación</string>
+    <string name="blindMode_label">Interacción para ciegos</string>
+    <string name="noBlindMode_label">Interacción estándar</string>
+    <string name="introMessage">Bienvenido, seleccione una dificultad</string>
+    <string name="introMainMenu">Menú principal del Golf Accesible. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    							 ,para seleccionar haga una pulsación larga sobre la opción que desee.</string>
+    <string name="buttonMessage">¡Adelante!</string>
+    <string name="golfGamerActivity">Golf Accesible</string>
+    <string name="exitButton">Salir</string>
+    <string name="app_name">Golf Accesible</string>
+    <string name="main_title">Golf Accesible</string>
+    <string name="continue_label">Continuar</string>
+    <string name="new_game_label">Nuevo juego</string>
+    <string name="keyConf_label">Configuración de teclado</string>
+    <string name="about_label">Acerca de</string>
+    <string name="exit_label">Salir</string>
+    <string name="tutorial_label">Tutorial</string>
+    <string name="about_title">Acerca de Golf Accesible</string>
+    <string name="about_text">		   Music by www.SoundJay.com \n
+           Proyecto de Sistemas Informáticos de la UCM, 2011-2012.</string>
+    <string name="settings_label">Configuración</string>
+    <string name="settings_title">Configuración de Golf Accesible</string>
+    <string name="settings_shortcut">s</string>
+    <string name="main_category">Principal</string>
+    <string name="profiles_category">Perfiles</string>
+    <string name="custom_profile_category">Perfil personalizado</string>
+    <string name="music_title">Música</string>
+    <string name="music_summary">Reproducir música de fondo</string>
+    <string name="tts_title">Sintetizador por defecto</string>
+    <string name="tts_summary">Habilita el sintetizador</string>
+    <string name="infoTarget_title">Pista - Objetivo</string>
+    <string name="infoTarget_summary">Habilita efectos de sonido para encontrar el objetivo</string>
+    <string name="v_feedback_title">Vibración</string>
+    <string name="v_feedback_summary">Efecto de vibración para ayudar a encontrar la localización del objetivo</string>
+    <string name="s_feedback_title">Pistas con efectos de sonido</string>
+    <string name="s_feedback_summary">Sonido estéreo que ayuda a encontrar el objetivo</string>
+    <string name="doppler_title">Variación de sonido</string>
+    <string name="doppler_summary"> Disminución progresiva del volumen cuando se lanza la pelota</string>
+    <string name="profileA_title">Perfil A</string>
+    <string name="profileA_summary"> - </string>
+    <string name="profileB_title">Perfil B</string>
+    <string name="profileB_summary"> - </string>
+    <string name="transcription_title">Modo onomatopeyas</string>
+    <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
+    <string name="blind_interaction_title">Modo de interacción para ciegos</string>
+    <string name="blind_interaction_summary">Añade una pulsación más a todos los eventos táctiles en pantalla</string>
+    <string name="game_title">Juego</string>
+    <string name="flags_title">Ajuste de banderas</string>
+    <string name="flags_shortcut">f</string>
+    <string name="instructions_label">Instrucciones</string>
+    <string name="instructions_title">Instrucciones de Golf Accesible</string>
+    <string name="instructions_general_label">Instrucciones</string>
+    <string name="instructions_controls_label">Controles</string>
+    <string name="instructions_general_text">¡Simplemente tienes que pulsar y disparar!</string>
+    <string name="instructions_controls_text">	
+        
+        	Dentro de la configuración se puede seleccionar entre las siguientes opciones:\n
+		1 - Modo tirachinas establece el tipo de lanzamiento\n
+		2 - Información de objetivo permite buscar el hoyo mediante pulsaciones en pantalla\n
+		3 - Efecto Doppler habilita la reproducción de un sonido durante un lanzamiento\n
+		4 - Vibración y sonido- Antes de lanzar la pelota se producirá un evento de sonido o vibración para orientarle de la situación del hoyo\n</string>
+    <string name="synthetizer_title">Sintetizador</string>
+        <string name="synthesizer_suggestion">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ"</string>
+    <string name="onup_title">Evento tirachinas</string>
+    <string name="onup_summary">Habilita el lanzamiento mediante evento de arrastre (como un tirachinas)</string>
+    <string name="volume_up">Subir volumen</string>
+    <string name="volume_down">Bajar volumen</string>
+    <string name="home">Inicio</string>
+    <string name="back">Atrás</string>
+    <string name="options">Opciones</string>
+    <string name="search">Buscar</string>
+    <string name="alert_dialog_modes_TTStext">Diálogo de selección de modo</string>
+    <string name="alert_dialog_instructions_TTStext">Diálogo</string>
+    <string name="main_menu_initial_TTStext">Menú principal</string>
+    <string name="settings_menu_initial_TTStext">Menú de ajustes</string>
+    <string name="game_initial_TTStext">¡El juego ha comenzado!</string>
+    <string name="game_initial_stage_TTStext">¡El juego ha comenzado! Hoyo 1</string>
+    <string name="coordinates_information_button_TTStext">Posición</string>
+    <string name="key_configuration_menu_initial_TTStext">Configuración de teclado</string>
+    <string name="keydialog">Configuración de acción</string>
+    <string name="keydialog_text">Pulsa cualquier tecla</string>
+    <string name="button_speak_record">Mostrar record durante el juego</string>
+    <string name="button_blind_mode">Para habilitar el modo ciego</string>
+    <string name="StageMode">Modo 18 hoyos</string>
+    <string name="FreeMode">Modo libre</string>
+    <string name="Yes">Sí</string>
+    <string name="No">No</string>
+    <string name="new_game_dialog_title">Selección de modo</string>
+    <string name="recordSpeech">Su record actual es</string>
+    <string name="counterSpeech">Su contador actual es</string>
+    <string name="newRecordSpeech">¡Nuevo record!</string>
+    <string name="EndingDialogTitle">Ronda completada</string>
+    <string name="EndingPositiveButtonLabel">Ok</string>
+    <string name="EndingPositiveButtonLabelSpeech">Presione ok para volver al menú principal</string>
+    <string name="alertOutsideShotArea">Se encuentra fuera de la zona de tiro</string>
+    <string name="ranking_title">Ranking de juego anteriores</string>
+    <string name="ranking_speech">Tiempo, fecha y record</string>
+    <string name="instructions_dialog_select">Seleccione controles o instrucciones generales</string>
+    <string name="game_dialog_select">Seleccione dificultad</string>
+    <string name="initial_settings">Presione cualquier opción</string>
+    <string name="key_conf_fail">No es una tecla válida</string>  
+    <string name="stage_speech">Hoyo número</string>  
+   
+    <!-- TUTORIAL -->
+    <string name="tutorial_step1_dialog_select">Para disparar realiza un fling</string>
+    <string name="tutorial_step2_dialog_select">Ese modo de lanzamiento es el establecido por defecto. Cada vez que se acierta un lanzamiento
+        el objetivo cambia de posición.</string>
+    <string name="tutorial_step3_dialog_select">Puedes cambiar el modo a on Up. Para disparar arrastra y levanta el dedo</string>
+    <string name="tutorial_step4_dialog_select">La opción clue target te permite localizar el objetivo mediante pulsaciones.
+  	    Prueba a encontrarlo.</string>
+    <string name="tutorial_step5_dialog_select">Este sonido es el que se emite cuando encuentras el objetivo</string>
+    <string name="tutorial_step6_dialog_select">La vibración te da una pista de por dónde anda el objetivo</string>
+    <string name="tutorial_step7_dialog_select">Sound effect también es una ayuda para localizar el objetivo en el lanzamiento</string>
+    <string name="tutorial_step8_dialog_select">Sound variation te da una pista de cuánto de cerca o lejos ha quedado tu lanzamiento</string>
+    <string name="tutorial_step9_dialog_select">Fin</string> 
+    
+    <!-- Onomatopeias -->
+    <string name="bing_ono"> - bing bing! - </string>    
+    <string name="bip_ono"> - Bip bip! -</string>    
+    <string name="clue_feed_back_sound_ono"> - Ring! - </string>    
+    <string name="hit_ball_ono"> - Tip! - </string>    
+    <string name="left_ono"> - Biiiip! - </string>    
+    <string name="main_ono">Reproduciendo BSO de Golf Accesible!</string>    
+    <string name="missed_ono">biiiip!</string>    
+    <string name="previous_shoot_feedback_sound_ono"> - Sonar - </string>    
+    <string name="right_ono"> - biiiip! - </string>    
+    <string name="sound_shot_ono"> - Toc! - </string>    
+    <string name="storm_ono"> - Tormenta - </string>    
+    <string name="water_bubbles_ono"> - Burbujas - </string>    
+    <string name="win_sound_ono"> - Aplausos - </string>     
+
+</resources>

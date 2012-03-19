@@ -60,6 +60,10 @@
 
     <!-- Notification message [CHAR LIMIT=NONE] -->
     <string name="unregistration_succeeded">Unegistered %1$s for C2DM messaging.</string>
+    <string name="interactionMode_select">Select an interaction mode</string>
+    <string name="interactionMode_select_TTS">Select an interaction mode. To select make a long press on the option</string>
+    <string name="blindMode_label">Blind interaction</string>
+    <string name="noBlindMode_label">Standard interaction</string>
     <string name="find">Find</string>
     <string name="intro_main_menu">Main Menu minesweeper, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
@@ -78,7 +82,7 @@
     <string name="about_label">About</string>
     <string name="exit_label">Exit</string>
     <string name="about_title">About Android Minesweeper</string>
-    <string name="about_text">		Computer Systems Project UCM, 2011-2012.</string>
+    <string name="about_text">Computer Systems Project UCM, 2011-2012.</string>
     <string name="settings_label">Settings</string>
     <string name="settings_title">Minesweeper settings</string>
     <string name="settings_shortcut">s</string>
@@ -86,6 +90,8 @@
     <string name="music_summary">Play background music</string>
     <string name="transcription_title">Transcription mode</string>
     <string name="transcription_summary">It shows text that contains the TTS speech</string>
+    <string name="blind_interaction_title">Blind Interaction Mode</string>
+    <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
     <string name="new_game_title">Difficulty</string>
     <string name="easy_label">Easy</string>
     <string name="medium_label">Medium</string>
@@ -100,15 +106,15 @@
     <string name="instructions_general_title">Instructions Minesweeper</string>
     <string name="instructions_controls_label">Controls</string>
     <string name="instructions_controls_title">Controls Minesweeper</string>
-    <string name="instructions_general_text">		The board is a grid of cells, and some of them are hiding a mine. Your 
+    <string name="instructions_general_text">The board is a grid of cells, and some of them are hiding a mine. Your 
 		goal is to find all of those mines, without detonating any of them.\n\n
 		To accomplish that, you can press any cell -dig mode- or mark it -exploration mode- 
 		with a flag,if you are sure it contains a mine. When you press a cell, several cells
 		can be discovered, and they will show you how many mines are around them.\n\n
 		\n\n
 		Options: make use of the settings while in the main menu in order to 
-		turn on Speech synthesizer as well as music.</string>
-    <string name="instructions_controls_text">		To play Android Minesweeper there are several controls you should know:\n\n
+		turn on Speech synthesizer as well as music.</string>
+    <string name="instructions_controls_text">To play Android Minesweeper there are several controls you should know:\n\n
 		
 		Buttons, use:\n
 		- menu button - listen to cell coordinates\n 
@@ -130,12 +136,12 @@
 		- arrows, to select a cell\n
 		- enter button or similar, to dig or explore\n\n
 		
-		While in zoom mode, enter button or tap to dig or explore.</string>
-	<string name="cellStatePushed">Pushed</string>
-	<string name="cellStateNotPushed">Not Pushed</string>
-	<string name="cellStateMine">Mine</string>
-	<string name="cellStateFlagged">Flagged</string>
-	<string name="cellStateUnknown">Unknown state</string>
+		While in zoom mode, enter button or tap to dig or explore.</string>
+    <string name="cellStatePushed">Pushed</string>
+    <string name="cellStateNotPushed">Not Pushed</string>
+    <string name="cellStateMine">Mine</string>
+    <string name="cellStateFlagged">Flagged</string>
+    <string name="cellStateUnknown">Unknown state</string>
     <string name="synthetizer_title">Synthesizer</string>
     <string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
     <string name="LosePositiveButtonLabel">Reset</string>
@@ -174,7 +180,7 @@
     <string name="keydialog_text">Press any key</string>
     <string name="form_label">Form</string>
     <string name="on_back_pressed">You have to complete the form</string>
-    <string name="key_conf_fail">Not a valid key</string>  
+    <string name="key_conf_fail">Not a valid key</string>
     <!-- Forms -->
     <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
 devices and how developers could make games that are not only accessible, but also enjoyable
@@ -185,7 +191,7 @@ anonymous, untraceable and will be treated confidentially and only used for the 
 study. \n</string>
     <string name="q1_context">Mark the option that better describes your current visual level</string>
     <string name="q2_context">Rate how often you play games in your computer or game console. Where 1 means "Never" and 5 "very often"</string>
-    <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>    
+    <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>
     <string name="q4_context">Please rate how easy/difficult it was to learn to play. Where 1 means "very difficult" and 5 "very easy".</string>
     <string name="q5_context">Rate how fun it was to play. Where 1 means "very boring" and 5 "very fun".</string>
     <string name="q6_context">Rate how engaging was the game. Where 1 means "not engaging" and 5 "very engaging".</string>
@@ -205,7 +211,6 @@ study. \n</string>
     <string name="na">NA</string>
     <string name="next_context">Next</string>
     <string name="finish_context">Finish</string>
-    
     <string name="load_text">Sending information... Please wait</string>
     <string name="instructions_dialog_select">Select controls or instructions</string>
     <string name="game_dialog_select">Select difficulty</string>
@@ -240,4 +245,5 @@ study. \n</string>
     <string name="action_context">Reading cell context</string>
     <string name="action_blind_mode">Blind mode</string>
     <string name="action_instructions">Instructions</string>
+
 </resources>

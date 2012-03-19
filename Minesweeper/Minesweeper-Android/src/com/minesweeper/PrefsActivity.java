@@ -2,8 +2,6 @@ package com.minesweeper;
 
 
 
-import java.util.Map;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.Log;
 import com.minesweeper.game.MinesweeperAnalytics;
-import com.minesweeper.game.Music;
 import com.minesweeper.game.SubtitleInfo;
 import com.minesweeper.game.TTS;
 
@@ -29,7 +26,7 @@ import com.minesweeper.game.TTS;
 public class PrefsActivity extends PreferenceActivity implements OnPreferenceClickListener {
 	private static String TAG = "SettingsMenu";
 	
-	private CheckBoxPreference music, tts, contextCell, transcription;
+	private CheckBoxPreference music, tts, contextCell, transcription, blindInteraction;
 	
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
@@ -40,9 +37,13 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 	private static final boolean OPT_COORDINATES_DEF = true;
 	private static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = false;
+	public static final String FIRSTRUN = "first";
+	public static final boolean FIRSTRUN_DEF = true;
+	public static final String OPT_BLIND_INTERACTION = "interaction";
+	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
 
-	
 	private TTS textToSpeech;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,9 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 		
 		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
 		transcription.setOnPreferenceClickListener(this);
+		
+		blindInteraction = (CheckBoxPreference) findPreference(OPT_BLIND_INTERACTION);
+		blindInteraction.setOnPreferenceClickListener(this);
 		
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
@@ -103,6 +107,12 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				.getBoolean(OPT_TTS, OPT_TTS_DEF);
 	}
 	
+	/** Get the current value of the blind interaction option */
+	public static boolean getBlindInteraction(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_BLIND_INTERACTION, OPT_BLIND_INTERACTION_DEF);
+	}
+	
 	/** Get the current value of the context option */
 	public static boolean getCoordinates(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
@@ -113,6 +123,12 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 	public static boolean getTranscription(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_TRANSCRIPTION, OPT_TRANSCRIPTION_DEF);
+	}
+	
+	/** Get the current value of the first run option */
+	public static boolean getFirstRun(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(FIRSTRUN, FIRSTRUN_DEF);
 	}
 	
 	public static String configurationToString(Context context){
@@ -133,6 +149,9 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 		} else if (OPT_COORDINATES.equals(preference.getKey())) {
 			textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " "
 					+ contextCell.isChecked());
+		}else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
+			textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " "
+					+ blindInteraction.isChecked());
 		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())){
 			if(transcription.isChecked()){
 				SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
