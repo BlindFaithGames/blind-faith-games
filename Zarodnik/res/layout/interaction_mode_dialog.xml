@@ -5,30 +5,29 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:padding="10dp" android:gravity="center_horizontal">
- 
-	<TextView android:id="@+id/interactionMode_textView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/interactionMode_select"
-			android:contentDescription="@string/interactionMode_select"/>
-			
-	<Button android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/blindMode_button"
-			android:layout_below="@+id/interactionMode_textView"
-			android:text="@string/blindMode_label"
+	<TextView android:layout_height="wrap_content" 
+			  android:text="@string/interactionMode_select" 
+			  android:contentDescription="@string/interactionMode_select" 
+			  android:id="@+id/interactionMode_textView" 
+			  android:layout_width="wrap_content" 
+			  android:layout_alignParentTop="true" 
+			  android:layout_centerHorizontal="true"></TextView>
+	<Button android:layout_height="wrap_content" 
+			android:text="@string/blindMode_label" 
 			android:contentDescription="@string/blindMode_label" 
-			android:layout_alignRight="@+id/game_textView" android:layout_alignLeft="@+id/interactionMode_textView"
-			android:textColor="@color/button"
-			android:background="@drawable/background_button" />
-			
-	<Button android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+			android:textColor="@color/button" 
+			android:id="@+id/blindMode_button" 
+			android:layout_width="wrap_content" 
+			android:background="@drawable/background_button" 
+			android:layout_below="@+id/interactionMode_textView" 
+			android:layout_centerHorizontal="true"></Button>
+	<Button android:layout_height="wrap_content" 
+			android:text="@string/noBlindMode_label" 
+			android:contentDescription="@string/noBlindMode_label"
+			android:textColor="@color/button" 
 			android:id="@+id/noBlindMode_button"
-			android:layout_below="@+id/blindMode_button"
-			android:text="@string/noBlindMode_label"
-			android:contentDescription="@string/noBlindMode_label" 
-			android:layout_alignLeft="@+id/blindMode_button" android:layout_alignRight="@+id/interactionMode_textView"
-			android:textColor="@color/button"
-			android:background="@drawable/background_button" />
+			android:layout_width="wrap_content" 
+			android:background="@drawable/background_button" 
+			android:layout_below="@+id/blindMode_button" 
+			android:layout_centerHorizontal="true"></Button>
 </RelativeLayout>

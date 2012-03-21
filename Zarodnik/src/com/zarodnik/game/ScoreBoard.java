@@ -86,7 +86,7 @@ public class ScoreBoard extends Entity {
 		if(counter > record){
 			record = counter;
 			save();
-			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.newRecordSpeech) + counter);
+			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.newRecordSpeech) + " "+ counter);
 		}
 	}
 	

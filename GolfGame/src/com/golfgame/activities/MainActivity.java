@@ -463,6 +463,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void openInstructionsDialog() {
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_instructions_TTStext)
+				+ " "
 				+ this.getString(R.string.instructions_general_label)
 				+ " "
 				+ this.getString(R.string.instructions_controls_label));

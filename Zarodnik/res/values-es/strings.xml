@@ -69,7 +69,7 @@
 	<string name="alert_dialog_instructions_TTStext">Diálogo de alerta</string>
 	<string name="main_menu_initial_TTStext">Menú principal</string>  
 	<string name="settings_menu_initial_TTStext">Menú de ajustes</string>  
-	<string name="game_play_initial_TTStext">¡El juego ha comenzado! Empieza en el centro de la pantalla.</string>  
+	<string name="game_play_initial_TTStext">¡El juego ha comenzado! Empieza en el centro en la parte de abajo de la pantalla.</string>  
 
 	<string name="coordinates_information_button_TTStext">Posición</string>  
 	<string name="key_configuration_menu_initial_TTStext">Configuración de teclado</string>

@@ -254,7 +254,7 @@ public class Player extends Entity{
 			this.resize(PIXEL_PLAYER_RESIZE);
 			
 			state = State.EAT;
-			Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.apple_bite, false);
+			Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), R.raw.apple_bite, false);
 			onEat();
 			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP);
 		
@@ -285,7 +285,6 @@ public class Player extends Entity{
 		
 		this.playAnim("die", RuntimeConfig.FRAMES_PER_STEP, false);
 		state = State.DIE;
-		//TODO: Music.getInstanceMusic().play(this.gameState.getContext(), R.raw.die_sound, false); sonido de muerte del bicho
 		this.setTimer(0,RuntimeConfig.FRAMES_PER_STEP*4);
 		this.setCollidable(false);
 	}

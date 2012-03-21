@@ -507,39 +507,28 @@ public class ZarodnikGameplay extends GameState {
 
 	private void isChangeScreen() {
 		if(preyN == 0 && !transition){
-				if(player.getX() < 30){
-					incX = 4;
+			transition = true;
+			createEntitiesWithoutPlayer(400);
+			Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
+			if(player.getX() < 30){
+				incX = 4;
+				incY = 0;
+			}else{
+				if(player.getX() + (player.getImgWidth()) > GameState.SCREEN_WIDTH){
+					incX = -4;
 					incY = 0;
-		
-					transition = true;
-					createEntitiesWithoutPlayer(400);
-					Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
 				}else{
-					if(player.getX() + (player.getImgWidth()) > GameState.SCREEN_WIDTH){
-						incX = -4;
-						incY = 0;
-						transition = true;
-						createEntitiesWithoutPlayer(400);
-						Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
+					if(player.getY() < 50){
+						incX = 0;
+						incY = 4;
 					}else{
-						if(player.getY() < 50){
+						if(player.getY() + (player.getImgHeight()) > GameState.SCREEN_HEIGHT){
 							incX = 0;
-							incY = 4;
-							transition = true;
-							createEntitiesWithoutPlayer(400);
-							Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
-						}else{
-							if(player.getY() + (player.getImgHeight()) > GameState.SCREEN_HEIGHT){
-								incX = 0;
-								incY = -4;
-								transition = true;
-								createEntitiesWithoutPlayer(400);
-								Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
-							}
+							incY = -4;
 						}
 					}
 				}
-
+			}
 		}
         if(transition){
         	transitionEffectLogic();
@@ -575,9 +564,10 @@ public class ZarodnikGameplay extends GameState {
 				e.setY((int) (e.getY() + incY));
 			}
 			if(e instanceof Radio || e instanceof Seaweed || e instanceof Capsule){
-				e.remove();
+			//	e.remove();
 			}
-			e.onDraw(canvas);
+			if(e.isRenderable())
+				e.onDraw(canvas);
 		}
 
 		it = tempEntities.iterator(); 
@@ -586,7 +576,8 @@ public class ZarodnikGameplay extends GameState {
 			e.setFrozen(true);
 			x = (int) (e.getX() + offSetX); 
 			y = (int) (e.getY() + offSetY);
-			e.onDraw(x, y, canvas);
+			if(e.isRenderable())
+				e.onDraw(x, y, canvas);
 		}
 
 		if(dy  == height || dx == width || dy  == -height || dx ==  -width){

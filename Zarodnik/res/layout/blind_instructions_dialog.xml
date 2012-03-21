@@ -14,26 +14,23 @@
 			android:textColor="@color/black"
 			android:text="@string/dialog_select"/>
 			
-    <Button android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/Button01main"
-			android:layout_below="@+id/TextView01"
-			android:text="@string/instructions_controls_label"
-			android:contentDescription="@string/instructions_controls_label" 
-			android:layout_alignLeft="@+id/TextView01" 
-			android:layout_alignRight="@+id/TextView01"
-			android:textColor="@color/black"
-			android:background="@drawable/blind_background_button" />
+	<Button android:layout_height="wrap_content" 
+			android:text="@string/instructions_general_label" 
+			android:contentDescription="@string/instructions_general_label" 
+			android:textColor="@color/black" android:id="@+id/Button02main" 
+			android:layout_width="wrap_content" 
+			android:background="@drawable/blind_background_button" 
+			android:layout_below="@+id/Button01main" 
+			android:layout_centerHorizontal="true"/>
 			
 	<Button android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/Button02main"
-			android:layout_below="@+id/Button01main"
-			android:text="@string/instructions_general_label"
-			android:contentDescription="@string/instructions_general_label" 
-			android:layout_alignRight="@+id/Button01main" 
-			android:layout_alignLeft="@+id/Button01main"
-			android:textColor="@color/black"
-			android:background="@drawable/blind_background_button"/>
+			android:text="@string/instructions_controls_label" 
+			android:contentDescription="@string/instructions_controls_label" 
+			android:textColor="@color/black" 
+			android:id="@+id/Button01main" 
+			android:layout_width="wrap_content" 
+			android:background="@drawable/blind_background_button" 
+			android:layout_below="@+id/instructions_textView" 
+			android:layout_alignLeft="@+id/Button02main"/>
 
 </RelativeLayout>
