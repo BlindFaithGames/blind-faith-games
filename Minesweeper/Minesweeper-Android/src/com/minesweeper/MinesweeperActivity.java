@@ -59,6 +59,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	public static final String KEY_TTS = "org.example.game.TTS";
 	public static final String KEY_DIFFICULTY = "org.example.game.difficulty";
 	private static final String FILE_NAME_ID = ".info";
+	public static final String KEY_INTERACTION = "interaction";
 
 	private int difficult;
 	private TTS textToSpeech;
@@ -692,6 +693,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Intent intent = new Intent(mContext, Minesweeper.class);
 		intent.putExtra(KEY_TTS, textToSpeech);
 		intent.putExtra(KEY_DIFFICULTY, i);
+		intent.putExtra(KEY_INTERACTION, blindInteraction);
 		difficult = i;
 		startActivityForResult(intent, RESET_CODE);
 	}
