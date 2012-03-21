@@ -54,6 +54,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	private boolean flagMode;
 
 	private View focusedView;
+
+	private boolean blindInteraction;
 	
 	private static float fontSize;
 	private static float scale;
@@ -82,6 +84,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         
 		int difficulty = getIntent().getIntExtra(MinesweeperActivity.KEY_DIFFICULTY, DIFFICULTY_EASY);
+		blindInteraction = getIntent().getBooleanExtra(MinesweeperActivity.KEY_INTERACTION, true);
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
@@ -426,14 +429,19 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 
 	@Override
 	public void onClick(View v) {
-		if(focusedView != null){
-			if(focusedView.getId() == v.getId())
-				menuAction(v);
+		if (blindInteraction){
+			if(focusedView != null){
+				if(focusedView.getId() == v.getId())
+					menuAction(v);
+				else
+					textToSpeech.speak(v);
+			}
 			else
 				textToSpeech.speak(v);
 		}
-		else
-			textToSpeech.speak(v);
+		else{
+			menuAction(v);
+		}
 		if(v != null)
 			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.CLICK, 
 				"Button Reading", 3);
@@ -444,11 +452,14 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 
 	@Override
 	public boolean onLongClick(View v) {
-		menuAction(v);
-		if(v == null)
+		if (blindInteraction){
+			menuAction(v);
+			return true;
+		}
+		if (v == null)
 			AnalyticsManager.getAnalyticsManager().registerAction(MinesweeperAnalytics.GAME_EVENTS, MinesweeperAnalytics.LONG_CLICK, 
 					"Fail", 3);
-		return true;
+		return false;
 	}
 
 	private void menuAction(View v) {
