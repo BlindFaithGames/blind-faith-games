@@ -15,7 +15,6 @@ public class Source {
 
 	private int		sourceId;
 	private Buffer	buffer;
-	private String transcription;
 
 	// ========================================================================
 	// Constructor

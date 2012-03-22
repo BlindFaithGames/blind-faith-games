@@ -31,7 +31,7 @@ public class Input {
 	 * 
 	 * @author Javier Álvarez & Gloria Pozuelo.
 	 * 
-	 * */
+	 * */	
 	public class EventType{
 		private float dvx, dvy;
 		private Object e, e2;
@@ -39,10 +39,10 @@ public class Input {
 		/**
 		 * Unique constructor of the class.
 		 * 
-		 * @param e
-		 * @param e2
-		 * @param dvx
-		 * @param dvy
+		 * @param e initial MotionEvent that starts event.
+		 * @param e2  final MotionEvent.
+		 * @param dvx e2 offset on the x axis 
+		 * @param dvy e2 offset on the y axis 
 		 * 
 		 * */
 		public EventType(Object e, Object e2, float dvx, float dvy){
@@ -120,42 +120,36 @@ public class Input {
 	}
 // ----------------------------------------------------------- Getters -----------------------------------------------------------
 
-	/**
-     *  Gets an event by action
-     * */
 	public EventType getEvent(String key){
 		return events.get(key);
 	}
 	
-    /**
-     * To check if there are some event
-     * */
 	public boolean hasEvents(){
 		return events.size() != 0;
 	}
 
-// ----------------------------------------------------------- Setters -----------------------------------------------------------
+// ----------------------------------------------------------- Others -----------------------------------------------------------
 	
 	/**
-	 * Adds a motion event
+	 * Adds a motion event.
 	 * 
-	 * @param type
-	 * @param e
-	 * @param e2
-	 * @param dvx
-	 * @param dvy
+	 * @param type the type of MotionEvent.
+	 * @param e initial MotionEvent that starts event.
+	 * @param e2 final MotionEvent.
+	 * @param dvx e2 offset on the x axis 
+	 * @param dvy e2 offset on the y axis 
 	 * */
 	public void addEvent(String type, MotionEvent e, MotionEvent e2, float dvx, float dvy) {
 		events.put(type, new EventType(e,e2,dvx,dvy));
 	}
 	
 	/**
-	 * Adds a key event
+	 * Adds a key event.
 	 * 
-	 * @param type
+	 * @param type the type of KeyEvent.
 	 * @param event
-	 * @param dvx
-	 * @param dvy
+	 * @param dvx event offset on the x axis 
+	 * @param dvy event offset on the y axis 
 	 * 
 	 * */
 	public void addEvent(String type, KeyEvent event, int dvx,int dvy) {
@@ -163,7 +157,7 @@ public class Input {
 	}
 	
 	/**
-	 * 
+	 * Removes a event  the given key.
 	 * @param key Event name that was given when it was added to the class buffer.
 	 * 
 	 * */

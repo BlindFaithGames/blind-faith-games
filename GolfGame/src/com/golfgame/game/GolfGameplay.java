@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 import android.app.Dialog;
@@ -21,10 +20,8 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.Handler;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.accgames.general.Game;
 import com.accgames.general.GameState;
@@ -34,9 +31,6 @@ import com.accgames.general.MaskCircle;
 import com.accgames.graphics.CustomBitmap;
 import com.accgames.input.Input;
 import com.accgames.input.Input.EventType;
-import com.accgames.others.GolfMusicSources;
-import com.accgames.sound.Music;
-import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.accgames.sound.VolumeManager;
 import com.golfgame.R;

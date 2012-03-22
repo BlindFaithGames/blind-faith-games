@@ -8,18 +8,30 @@ import android.os.Parcelable;
 import android.view.Gravity;
 import android.widget.Toast;
 
+/**
+ * This class encapsulates all persistent information needed to make work SubtitlesManager class.
+ * 
+ * @author Gloria Pozuelo & Javier Álvarez 
+ * @implements Parcelable
+ * 
+ * */
+
 public class SubtitleInfo implements Parcelable {
 	
-	private boolean enabled;
+	private boolean enabled; // is transcription visible?
 	
-	private int resourceId;
-	private int viewGroupRoot;
-	private int id_text;
-	private int xOffset, yOffset;
-	private int duration;
-	private int gravity;
-	private Map<Integer,String> onomatopeias;
+	private int resourceId; // custom toast id
+	private int viewGroupRoot; // custom toast root
+	private int id_text; // text id of the custom toast
+	private int xOffset, yOffset; // values added to gravity
+	private int duration; // custom toast duration can be Toast.LONG or TOAST.SHORT
+	private int gravity; // custom toast gravity
+	private Map<Integer,String> onomatopeias; // transcription between a sound id in the application environment and a string that represent it
 	
+	/**
+	 * Creator for interface Parcelable. 
+	 * 
+	 * */
 	public static final Parcelable.Creator<SubtitleInfo> CREATOR = new Parcelable.Creator<SubtitleInfo>() {
 		public SubtitleInfo createFromParcel(Parcel in) {
 			return new SubtitleInfo(in);
@@ -30,6 +42,10 @@ public class SubtitleInfo implements Parcelable {
 		}
 	};
 	
+	/**
+	 * Default constructor.
+	 * 
+	 * */
 	public SubtitleInfo() {
 		this.resourceId = -1;
 		this.viewGroupRoot = -1;
@@ -41,7 +57,21 @@ public class SubtitleInfo implements Parcelable {
 		this.enabled = true;
 		this.onomatopeias = new HashMap<Integer, String>();
 	}
-
+	
+	/**
+	 * Unique constructor of the class.
+	 * 
+	 * @param resourceId custom toast id.
+	 * @param viewgroupRoot custom toast root.
+	 * @param id_text text id of the custom toast.
+	 * @param xOffset values added to gravity.
+	 * @param yOffset values added to gravity.
+	 * @param duration custom toast duration can be Toast.LONG or TOAST.SHORT 
+	 * @param gravity custom toast gravity
+	 * @para onomatopeias transcription between a sound id in the application environment and a string that represent it
+	 * 
+	 * 
+	 * */
 	public SubtitleInfo(int resourceId, int viewGroupRoot, int id_text,
 			int xOffset, int yOffset, int duration, int gravity, Map<Integer, String> onomatopeias) {
 		super();
@@ -55,6 +85,12 @@ public class SubtitleInfo implements Parcelable {
 		this.enabled = true;
 		this.onomatopeias = onomatopeias;
 	}
+	
+	/**
+	 * Parcel constructor.
+	 * 
+	 * */
+	@SuppressWarnings("unchecked")
 	public SubtitleInfo(Parcel in) {
 		this.resourceId = in.readInt();
 		this.viewGroupRoot = in.readInt();
@@ -67,28 +103,18 @@ public class SubtitleInfo implements Parcelable {
 		this.onomatopeias = in.readHashMap(HashMap.class.getClassLoader());
 	}
 
+// ----------------------------------------------------------- Getters -----------------------------------------------------------
+	
 	public int getResourceId() {
 		return resourceId;
-	}
-	
-	public void setResourceId(int resourceId) {
-		this.resourceId = resourceId;
 	}
 	
 	public int getViewGroupRoot() {
 		return viewGroupRoot;
 	}
 	
-	public void setViewGroupRoot(int viewGroupRoot) {
-		this.viewGroupRoot = viewGroupRoot;
-	}
-	
 	public int getId_text() {
 		return id_text;
-	}
-	
-	public void setId_text(int id_text) {
-		this.id_text = id_text;
 	}
 	
 	public int getxOffset() {
@@ -99,33 +125,16 @@ public class SubtitleInfo implements Parcelable {
 		return yOffset;
 	}
 	
-	public void setOffset(int xOffset, int yOffset) {
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
-	}
-	
 	public int getDuration() {
 		return duration;
-	}
-	
-	public void setDuration(int duration) {
-		this.duration = duration;
 	}
 	
 	public int getGravity() {
 		return gravity;
 	}
 	
-	public void setGravity(int gravity) {
-		this.gravity = gravity;
-	}
-
 	public boolean isEnabled() {
 		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public String getOnomatopeia(int resource) {
@@ -134,7 +143,38 @@ public class SubtitleInfo implements Parcelable {
 		else
 			return null;
 	}
+// ----------------------------------------------------------- Setters -----------------------------------------------------------
+
+	public void setResourceId(int resourceId) {
+		this.resourceId = resourceId;
+	}
+
+	public void setViewGroupRoot(int viewGroupRoot) {
+		this.viewGroupRoot = viewGroupRoot;
+	}
 	
+	public void setId_text(int id_text) {
+		this.id_text = id_text;
+	}
+	
+	public void setOffset(int xOffset, int yOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+	}
+	
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+	
+	public void setGravity(int gravity) {
+		this.gravity = gravity;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+// ----------------------------------------------------------- Others -----------------------------------------------------------
 	@Override
 	public int describeContents() {
 		return 0;

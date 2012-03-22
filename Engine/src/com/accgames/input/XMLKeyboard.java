@@ -7,9 +7,11 @@ import java.util.Map;
 
 /**
  * This class represents a XML keyboard.
+ * 
  * @author Gloria Pozuelo and Javier Álvarez.
  */
 
+@SuppressWarnings("rawtypes")
 public class XMLKeyboard {
 
 	private HashMap<Integer, String> keyList; /* Map key - action */
@@ -19,7 +21,9 @@ public class XMLKeyboard {
 	private int numErrors;// Number of errors counter
 
 	/**
+	 * Unique constructor of the class.
 	 * 
+	 * Fills a map with the correspondence between keys and chars.
 	 * 
 	 * */
 	public XMLKeyboard(){
@@ -231,6 +235,7 @@ public class XMLKeyboard {
 	}
 	
 // ----------------------------------------------------------- Getters -----------------------------------------------------------
+	
 	public HashMap<Integer, String> getKeyList() {
 		return keyList;
 	}
@@ -252,44 +257,47 @@ public class XMLKeyboard {
     }
     
  // ----------------------------------------------------------- Setters -----------------------------------------------------------
- 	public void setNum(int num) {
+ 	
+    public void setNum(int num) {
  		this.num = num;
  	}
  	
  	public void setKeyButton(HashMap<Integer, String> keyButton) {
  		this.keyButton = keyButton;
  	}
-
 	
 // ----------------------------------------------------------- Others -----------------------------------------------------------
 
-	
 	/**
 	 * Increases the errors number
-	 * @param unit 
+	 * @param unit increased amount.
 	 * */
 	public void riseNumberOfErrors(int unit){
 		numErrors += unit;
 	}
 
-	
 	/**
-	 * If it exits it gets the key associated with the button, button
-	 * @param button the button name whose action we want to get
+	 * Adds a new pair <key int value, string name> to the key buffer.
+	 * @param k int value of a key.
+	 * @param v button name.
+	 * 
 	 * */
 	public void addObject(Integer k, String v) {
 		keyList.put(k, v);
 	}
 	
 	/**
-	 * If it exits it gets the key associated with the button, button
-	 * @param button the button name whose action we want to get
+	 * Gets the integer value associated to a key.
+	 * 
+	 * @param button the button name whose action we want to get.
+	 * @return int value of a key.
+	 * 
 	 * */
 	public Integer getKeyByButton(String button){
 		Iterator it = keyButton.entrySet().iterator();
 		Map.Entry e = null;
 		boolean found = false;
-		// Para cada fila del teclado
+		// For each row in keyboard
 		while (!found && it.hasNext()) {
 			e = (Map.Entry) it.next();
 			found = button.equals(e.getValue());
@@ -298,12 +306,20 @@ public class XMLKeyboard {
 		else return null;
 	}
 	
+	/**
+	 * Gets a key associated to an action.
+	 * 
+	 * @param action the action whose key associated is requested.
+	 * 
+	 * @return key associated to "action".
+	 * */
 	public String searchButtonByAction(String action){
 		Iterator it = keyList.entrySet().iterator();
+		
 		Map.Entry e = null;
 		String s1 = "";
 		boolean found = false;
-		// Para cada fila del teclado
+		// For each row in keyboard
 		while (!found && it.hasNext()) {
 			e = (Map.Entry) it.next();
 			found = action.equals(e.getValue());
@@ -313,11 +329,16 @@ public class XMLKeyboard {
 		return s1;
 	}
 	
+	/**
+	 * Given a string "action" returns its associated key.
+	 * 
+	 * @return int value of a key.
+	 * */
 	public Integer getKeyByAction(String action){
 		Iterator it = keyList.entrySet().iterator();
 		Map.Entry e = null;
 		boolean found = false;
-		// Para cada fila del teclado
+		// For each row in keyboard
 		while (!found && it.hasNext()) {
 			e = (Map.Entry) it.next();
 			found = action.equals(e.getValue());
@@ -327,9 +348,10 @@ public class XMLKeyboard {
 	}
 	
 	/**
-	 * Check if a button given by parameter is available
-	 * @param key 
-	 * @param action
+	 * Checks if a button is available.
+	 * 
+	 * @param key the key that will be added.
+	 * @param action the action that will be added.
 	 */
 	public void addButtonAction(int key, String action){
 		// Remove the key associated with action

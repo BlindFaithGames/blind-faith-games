@@ -31,7 +31,7 @@ public class Sound3DManager {
 	/**
 	 * Unique constructor of the class
 	 * 
-	 * @param a Context where the class is instanced.
+	 * @param a Context where the class is instantiated.
 	 * 
 	 * */
 	public Sound3DManager(Activity a){

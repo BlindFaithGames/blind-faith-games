@@ -5,8 +5,6 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Vibrator;
 import android.view.MotionEvent;
@@ -61,10 +59,6 @@ public class Dot extends Entity{
 	
 	private GolfGameplay game; // To know if stageMode is active
 	
-	
-	// Debug
-	private float scrollX;
-	private float scrollY;
 	
 	private SoundConfig soundConfig;
 	private boolean headPhonesMode;

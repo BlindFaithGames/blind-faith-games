@@ -24,7 +24,7 @@ import android.util.Log;
 
 /**
  * 
- * Class who manages everything related to saving an edited XML keyboard.
+ * Class that manages everything related to saving an edited XML keyboard.
  * 
  * @author Gloria Pozuelo & Javier Álvarez
  * 
@@ -44,7 +44,7 @@ public class KeyboardWriter {
 	@SuppressWarnings("rawtypes")
 	public void saveEditedKeyboard(int num, HashMap<Integer, String> keyList,
 			FileOutputStream fos) throws ParserConfigurationException {
-		// Instances the DOM object
+		// Instantiates the DOM object
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		doc = db.newDocument();
@@ -86,7 +86,7 @@ public class KeyboardWriter {
 	}
 
 	/**
-	 * Saves an XML keyboard.
+	 * Saves a XML keyboard.
 	 * 
 	 * @param doc
 	 * @param fos
@@ -100,10 +100,10 @@ public class KeyboardWriter {
 		// factory.setAttribute("indent-number", 4);
 		Transformer transformer = factory.newTransformer();
 
-		// Instances a Source from the dom tree
+		// Instantiates a Source from the dom tree
 		DOMSource origen = new DOMSource(doc);
 
-		// Instances a Result from the input file
+		// Instantiates a Result from the input file
 		OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 		// Sets up the transformer and executes it
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");

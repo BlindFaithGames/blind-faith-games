@@ -16,7 +16,8 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * 
+ * This class allows use the default voice synthesizer in the system to transcribe a string, 
+ * and checks what is the synthesis engine installed in a device.
  * 
  * @author Gloria Pozuelo & Javier Álvarez 
  * @implements OnInitListener, Parcelable
@@ -24,26 +25,30 @@ import android.view.View;
  */
 public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 
-	private static final String TAG = "Synthesizer";
+	private static final String TAG = "Synthesizer"; // Debug
 
-	private static final String appname = "IVONA Text-to-Speech HQ";
+	private static final String appname = "IVONA Text-to-Speech HQ"; //
 
-	private static final String SYSTEM_TTS = "com.svox.pico";
+	private static final String SYSTEM_TTS = "com.svox.pico"; //
 	
-	public static final int QUEUE_FLUSH = TextToSpeech.QUEUE_FLUSH;
+	public static final int QUEUE_FLUSH = TextToSpeech.QUEUE_FLUSH; // Mapping 
 
-	public static final int QUEUE_ADD = TextToSpeech.QUEUE_ADD;
+	public static final int QUEUE_ADD = TextToSpeech.QUEUE_ADD; // Mapping
 
-	private TextToSpeech mTts;
+	private TextToSpeech mTts; // Reference to TextToSpeech class
 
-	private int queueMode;
+	private int queueMode; // Determines if the sound will be accumulated or flushed.
 	
-	private SubtitleManager subs;
+	private SubtitleManager subs; // References to be able to transcribe the text
 
-	private boolean enabled;
+	private boolean enabled; // to disable the speech synthesis
 	
-	private String initialSpeech;
+	private String initialSpeech; // speech read at the creation of a class instance.
 
+	/**
+	 * Creator for Parcelable interface.
+	 * 
+	 * */
 	public static final Parcelable.Creator<TTS> CREATOR = new Parcelable.Creator<TTS>() {
 		public TTS createFromParcel(Parcel in) {
 			return new TTS(in);
@@ -54,6 +59,9 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		}
 	};
 
+	/**
+	 * Constructor used in Parcelable.
+	 * */
 	private TTS(Parcel in) {
 		mTts = null;
 		enabled = in.readInt() == 1;
@@ -62,6 +70,14 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		subs = new SubtitleManager((SubtitleInfo)in.readParcelable(SubtitleInfo.class.getClassLoader()));
 	}
 
+	/**
+	 * 
+	 * Class constructor.
+	 * 
+	 * @param ctxt current context where TTS is used.
+	 * @param initialSpeech speech read at the creation of a class instance.
+	 * 
+	 * */
 	public TTS(Context ctxt, int queueMode) {
 		if (isInstalled(ctxt))
 			this.mTts = new TextToSpeech(ctxt, this);
@@ -73,6 +89,13 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		subs = new SubtitleManager(ctxt);
 	}
 
+	/**
+	 * Class constructor.
+	 * 
+	 * @param ctxt current context where TTS is used.
+	 * @param initialSpeech speech read at the creation of a class instance.
+	 * @param queueMode determines if the sound will be accumulated or flushed.
+	 * */
 	public TTS(Context ctxt, String initialSpeech, int queueMode) {
 		if (isInstalled(ctxt))
 			this.mTts = new TextToSpeech(ctxt, this);
@@ -84,6 +107,15 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		subs = new SubtitleManager(ctxt);
 	}
 	
+	/**
+	 * Constructor that will be used in transcription mode.
+	 * 
+	 * @param ctxt current context where TTS is used.
+	 * @param initialSpeech speech read at the creation of a class instance.
+	 * @param queueMode determines if the sound will be accumulated or flushed.
+	 * @param sInfo info needed to instantiate SubtitleManager
+	 * 
+	 * */
 	public TTS(Context ctxt, String initialSpeech, int queueMode, SubtitleInfo sInfo) {
 		if (isInstalled(ctxt))
 			this.mTts = new TextToSpeech(ctxt, this);
@@ -94,18 +126,20 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		
 		subs = new SubtitleManager(ctxt, sInfo);
 	}
-
-	public void setContext(Context ctxt) {
-		if (isInstalled(ctxt)){
-			this.mTts = new TextToSpeech(ctxt, this);
-			subs.setContext(ctxt);
-		}
-	};
+// ----------------------------------------------------------- Getters -----------------------------------------------------------
 
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+// ----------------------------------------------------------- Setters ----------------------------------------------------------
+	public void setContext(Context ctxt) {
+		if (isInstalled(ctxt)){
+			this.mTts = new TextToSpeech(ctxt, this);
+			subs.setContext(ctxt);
+		}
+	}
+	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
@@ -118,20 +152,17 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		this.queueMode = queueMode;
 	}
 	
-	public void enableTranscription(SubtitleInfo sInfo){
-		if(subs != null){
-			subs.setEnabled(true);
-			if(sInfo != null)
-				subs.setsInfo(sInfo);
-		}
+	public void setmTts(TextToSpeech mTts) {
+		this.mTts = mTts;
 	}
-	
-	public void disableTranscription(){
-		if(subs != null){
-			subs.setEnabled(false);
-		}
-	}
-	
+
+// ----------------------------------------------------------- Others ----------------------------------------------------------
+
+	/**
+	 * Initialize the TTS in the current context.
+	 * @param status indicates if the initialization is successful. It can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
+	 * 
+	 * */
 	public void onInit(int status) {
 		// status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
 		if (status == TextToSpeech.SUCCESS) {
@@ -142,7 +173,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 			// Try this someday for some interesting results.
 			if (result == TextToSpeech.LANG_MISSING_DATA
 					|| result == TextToSpeech.LANG_NOT_SUPPORTED) {
-				// Lanuage data is missing or the language is not supported.
+				// Language data is missing or the language is not supported.
 				Log.e(TAG, "Language is not available.");
 			} else {
 				// The TTS engine has been successfully initialized.
@@ -158,6 +189,13 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		}
 	}
 
+	/**
+	 * Checks if only is installed Pico TTS.
+	 * 
+	 * @param c Current context where TTS is used.
+	 * 
+	 * @result the search result.
+	 * */
 	public static boolean isBestTTSInstalled(Context c) {
 		// Checks if IVONA is installed.
 		List<PackageInfo> packs = c.getPackageManager().getInstalledPackages(0);
@@ -186,6 +224,13 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 			return true;
 	}
 
+	/**
+	 * Checks if any tts engine is installed.
+	 * 
+	 * @param ctx the application context where the tts is working.
+	 * 
+	 * @return the search result.
+	 * */
 	public static boolean isInstalled(Context ctx) {
 		Intent intent = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
 		List<ResolveInfo> list = ctx.getPackageManager().queryIntentActivities(
@@ -193,10 +238,11 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		return list.size() > 0;
 	}
 
-	public void setmTts(TextToSpeech mTts) {
-		this.mTts = mTts;
-	}
-
+	/**
+	 * Reads a message given by parameter.
+	 *
+	 * @param msg the message that will be read.
+	 * */
 	public void speak(String msg) {
 		if (enabled){
 			mTts.speak(msg, queueMode, null);
@@ -204,6 +250,11 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		}
 	}
 
+	/**
+	 * Reads a view given by parameter. Based in contentDescription attribute.
+	 *
+	 * @param v the v that will be read.
+	 * */
 	public void speak(View v) {
 		if (enabled){
 			mTts.speak(v.getContentDescription().toString(), queueMode, null);
@@ -211,6 +262,11 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		}
 	}
 
+	/**
+	 * Reads a message list given by parameter.
+	 *
+	 * @param msg the message list that will be read.
+	 * */
 	public void speak(List<String> msg) {
 		if (enabled) {
 			Iterator<String> it = msg.iterator();
@@ -221,15 +277,43 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		}
 	}
 
+	/**
+	 * Stops the tts action.
+	 * 
+	 * */
 	public void stop() {
 		mTts.stop();
 		mTts.shutdown();
 	}
-
+	
+	/**
+	 * Enables the speech transcription.
+	 * 
+	 * */
+	public void enableTranscription(SubtitleInfo sInfo){
+		if(subs != null){
+			subs.setEnabled(true);
+			if(sInfo != null)
+				subs.setsInfo(sInfo);
+		}
+	}
+	
+	/**
+	 * Disables the speech transcription.
+	 * 
+	 * */
+	public void disableTranscription(){
+		if(subs != null){
+			subs.setEnabled(false);
+		}
+	}
+	
+	@Override
 	public int describeContents() {
 		return 0;
 	}
-
+	
+	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(enabled ? 1 : 0);
 		dest.writeInt(queueMode);

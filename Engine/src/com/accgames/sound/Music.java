@@ -11,7 +11,7 @@ import android.media.MediaPlayer;
  * 
  * This class implements the music manager using MediaPlayer class.
  * 
- * @author Gloria Pozuelo & Javier Álvarez.
+ * 
  *
  */
 

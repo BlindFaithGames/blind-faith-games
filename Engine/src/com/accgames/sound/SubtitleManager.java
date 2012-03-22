@@ -11,26 +11,35 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This class manages the transcription system both to music and voice synthesizer.
+ * 
+ * */
 public class SubtitleManager {
 	
-	private static Toast subtitles;
-	private static LinkedList<String> subsQueue;
-	private SubtitleInfo sInfo;
+	private static Toast subtitles; // Toast used on the screen
+	private static LinkedList<String> subsQueue; // List where the message are been accumulated.
+	private SubtitleInfo sInfo; // information to custom toast.
 	
-	private Activity context;
+	private Activity context; // context where the subtitle manager is working.
 	
 	// To increase the time that the toast is showed
 	private int toast_long; 
 	private static Handler mHandler = new Handler();
-
-	public SubtitleManager(Context c, SubtitleInfo sInfo) {
-		this.context = (Activity) c;
-		this.sInfo = sInfo;
+	
+	/**
+	 * Default constructor
+	 * */
+	public SubtitleManager() {
+		this.sInfo = new SubtitleInfo();
 		mHandler = new Handler();
-		subtitles = createToast(c, sInfo);
 		subsQueue = new LinkedList<String>();
 	}
 	
+	/**
+	 * To instantiate a default toast.
+	 * 
+	 * */
 	public SubtitleManager(Context c) {
 		this.context = (Activity) c;
 		sInfo = new SubtitleInfo();
@@ -39,24 +48,41 @@ public class SubtitleManager {
 		subsQueue = new LinkedList<String>();
 	}
 
+	/**
+	 * To instantiate a custom toast.
+	 * 
+	 * */
 	public SubtitleManager(SubtitleInfo sInfo) {
 		this.sInfo = sInfo;
 		mHandler = new Handler();
 		subsQueue = new LinkedList<String>();
 	}
-
-	public SubtitleManager() {
-		this.sInfo = new SubtitleInfo();
+	
+	/**
+	 * To instantiate a custom toast in a given context.
+	 * 
+	 * */
+	public SubtitleManager(Context c, SubtitleInfo sInfo) {
+		this.context = (Activity) c;
+		this.sInfo = sInfo;
 		mHandler = new Handler();
+		subtitles = createToast(c, sInfo);
 		subsQueue = new LinkedList<String>();
 	}
-
+	
+// ----------------------------------------------------------- Getters -----------------------------------------------------------
 	public SubtitleInfo getsInfo() {
 		return sInfo;
 	}
 
 	public String getOnomatopeia(int resource) {
 		return sInfo.getOnomatopeia(resource);
+	}
+
+// ----------------------------------------------------------- Setters -----------------------------------------------------------	
+	public void setContext(Context ctxt) {
+		this.context = (Activity) ctxt;
+		subtitles = createToast(ctxt,sInfo);
 	}
 	
 	public void setEnabled(boolean enabled) {
@@ -83,11 +109,17 @@ public class SubtitleManager {
 		sInfo.setOffset(xOffset,yOffset);
 	}
 	
-	public void setContext(Context ctxt) {
-		this.context = (Activity) ctxt;
-		subtitles = createToast(ctxt,sInfo);
-	}
+// ----------------------------------------------------------- Others -----------------------------------------------------------
 	
+	/**
+	 * Creates a new toast in the context c with custom preferences sInfo. If sInfo is null creates a default toast.
+	 * 
+	 * @param c context where the subtitle manager is working.
+	 * @param sInfo information to custom toast.
+	 * 
+	 * @return a new instance of toast.
+	 * 
+	 * */
 	private Toast createToast(Context c, SubtitleInfo sInfo) {
 		Toast toast;
 		if(sInfo.getResourceId() == -1){
@@ -115,6 +147,14 @@ public class SubtitleManager {
 		return toast;
 	}
 	
+	/**
+	 * Updates the toast with msg based in sInfo if it's a custom toast.
+	 * 
+	 * @param toast the toast that will be updated.
+	 * @param msg the text used to update.
+	 * @param sInfo information about the toast visualization.
+	 * 
+	 * */
 	private void updateToastText(Toast toast, String msg, SubtitleInfo sInfo) {
 		if(sInfo.getResourceId() == -1){
 			toast.setText(msg);
@@ -138,6 +178,11 @@ public class SubtitleManager {
 		}
 	}
 	
+	/**
+	 * Shows msg in a toast on the screen.
+	 * 
+	 * @param msg message that will be showed.
+	 * */
 	public void showSubtitle(String msg){
 		if(msg != null && msg.length() < 200 && sInfo.isEnabled()){
 			if(subsQueue.isEmpty())
@@ -146,6 +191,10 @@ public class SubtitleManager {
 		}
 	}
 	
+	/**
+	 * To refresh the toast an control its duration in seconds.
+	 * 
+	 * */
 	private Runnable extendStatusMessageLengthRunnable = new Runnable() {
 		@Override
 	    public void run() {
@@ -176,7 +225,12 @@ public class SubtitleManager {
 		   }
 	   }
 	};
-	 
+	
+	/**
+	 * Updates the toast text and shows it.
+	 * 
+	 * @param msg message that will be showed..
+	 * */
 	public void displayMyToast(String msg) {
 		mHandler.removeCallbacks(extendStatusMessageLengthRunnable);
 		
