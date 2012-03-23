@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="settingsInitialSpeech">Click any option</string>
-    <string name="interactionMode_select">Select an interaction mode</string>
-    <string name="interactionMode_select_TTS">Select an interaction mode. To select make a long press on the option</string>
+
+    <string name="settingsInitialSpeech">Click any option</string>
+    <string name="interactionMode_select">This is a research project that tries to gather insight on how blind people play games on mobile
+devices and how developers could make games that are not only accessible, but also enjoyable
+for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
+    <string name="interactionMode_select_TTS">This is a research project that tries to gather insight on how blind people play games on mobile
+devices and how developers could make games that are not only accessible, but also enjoyable
+for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
     <string name="app_name">Zarodnik Game</string>
@@ -100,16 +105,16 @@
     <!-- Onomatopeias strings -->
     <string name="appear_ono">bing bing!</string>
     <string name="apple_bite_ono">crap!</string>
-    <string name="barn_beat_ono">Playing Barn Beat</string>
+    <string name="barn_beat_ono">Playing \'Barn Beat\'</string>
     <string name="bip_ono">bip!!</string>
     <string name="bubble_ono">run run</string>
     <string name="die_ono">qua qua qua!</string>
-    <string name="frost_walz_ono">Playing frost walz</string>
+    <string name="frost_walz_ono">Playing \'Frost Walz\'</string>
     <string name="predator_ono">arg!!</string>
     <string name="prey_ono">miau!</string>
     <string name="prey_dead_ono">ayyy!!</string>
-    <string name="radio_ono">tunning?!</string>
+    <string name="radio_ono">tuning</string>
     <string name="start_ono">Piii!</string>
-    <string name="the_path_of_the_goblin_ono">Playing path of the goblin</string>
+    <string name="the_path_of_the_goblin_ono">Playing \'Path of the Goblin\'</string>
 
 </resources>
