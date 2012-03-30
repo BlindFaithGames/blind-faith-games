@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Colors text -->
+	<color name="text_button_color">#A80000</color>
+	<color name="text_button_color_pressed">#FF0000</color>
+	<color name="text_button_color_focused">#FF0000</color>
+
+	<!-- Colors General -->
+    <color name="blue1">#646699FF</color>
+    <color name="blue2">#643399FF</color>
+    <color name="blue3">#640B0B61</color>
+    
+    	<!-- Colors General -->
+    <color name="red1">#FF0000</color>
+    <color name="red2">#A80000</color>
+    <color name="red3">#400000</color>
+    
+    <!-- Colors Button -->
+    <color name="button_color">#ffff0000</color>
+    <color name="button_color_pressed">#64ff0000</color>
+    <color name="button_color_focused">#640000ff</color>
+
+    <color name="transparent_blue">#646699FF</color>
+    <color name="green1">#99CC99</color>
+    <color name="green2">#339933</color>
+    <color name="green3">#003300</color>
+    <color name="black">#000000</color>
+    <color name="purple">#330099</color>
+
+</resources>

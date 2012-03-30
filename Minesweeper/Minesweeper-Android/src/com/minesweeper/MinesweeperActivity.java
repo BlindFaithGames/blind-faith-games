@@ -628,7 +628,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 								.getMethodName(), "Exit");
 				AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, 
 						MinesweeperAnalytics.LEAVES_GAME, "Yes", 3);
-//				sendLog();
 			}
 			finish();
 			break;
@@ -719,14 +718,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Intent nextIntent;
 		switch (resultCode) {
 		case (RESET_CODE):
-//			sendLog();
 			nextIntent = new Intent(getApplicationContext(), Minesweeper.class);
 			nextIntent.putExtra(KEY_TTS, textToSpeech);
 			nextIntent.putExtra(KEY_DIFFICULTY, difficult);
 			startActivityForResult(nextIntent, RESET_CODE);
 			break;
 		case (EXIT_GAME_CODE):
-//			sendLog();
 			break;
 		case (RESULT_CANCELED):
 			break;
@@ -736,94 +733,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		}
 	}
 	
-//	private synchronized void sendLog() {
-//    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//    	NetworkInfo nInfo = cm.getActiveNetworkInfo();
-//    	if(nInfo != null){
-//    		if(nInfo.isConnected()){
-//				AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-//					private String message;
-//	
-//					@Override
-//					protected String doInBackground(Void... arg0) {
-//						MyRequestFactory factory = (MyRequestFactory) Util
-//								.getRequestFactory(mContext, MyRequestFactory.class);
-//						LogRequest request = factory.logRequest();
-//	
-//						LogProxy log = request.create(LogProxy.class);
-//	
-//						log.setTag(Log.getLog().getTag());
-//						log.setLogEntries(sendEntries());
-//						log.setFormAnswers(Log.getLog().getFormAnswers());
-//						log.setComment(Log.getLog().getComment());
-//	
-//						request.createLog(log).fire(new Receiver<LogProxy>() {
-//		                    @Override
-//		                    public void onFailure(ServerFailure error) {
-//		                        message = "Failure: " + error.getMessage();
-//		                        synchronized (Log.getLog()){
-//		                        	Log.getLog().notify();
-//		                        }
-//		                    }
-//		                    @Override
-//		                    public void onSuccess(LogProxy l) {
-//		                        message = "We have received your log succesfully";
-//		                        synchronized (Log.getLog()){
-//		                        	Log.getLog().notify();
-//		                        }
-//		                    }
-//		                });
-//						return message;
-//					}
-//	
-//					@Override
-//		            protected void onPostExecute(String result) {
-//						 Log.getLog().getLogEntries().clear();
-//		            }
-//		        }.execute();
-//		        synchronized (Log.getLog()){
-//					try {
-//						textToSpeech.speak(this.getString(R.string.load_text));
-//						Log.getLog().wait();
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//		        }
-//    		}
-//    	}	
-//	}
-//
-//	private List<Long> sendEntries() {
-//		MyRequestFactory factory = (MyRequestFactory) Util.getRequestFactory(mContext, MyRequestFactory.class);
-//		EntryRequest request;
-//
-//		Set<Integer> entries = Log.getLog().getEntryKeys();
-//		Iterator<Integer> it = entries.iterator();
-//		Integer entryN;
-//		Entry e;
-//		EntryProxy entry;
-//		List<Long> result = new ArrayList<Long>();
-//		while (it.hasNext()) {
-//			entryN = it.next();
-//			e = Log.getLog().getEntry(entryN);
-//
-//			request = factory.entryRequest();
-//			entry = request.create(EntryProxy.class);
-//
-//			entry.setComment(e.getComment());
-//			entry.setPath(e.getPath());
-//			entry.setTag(e.getTag());
-//			entry.setType(e.getType());
-//			entry.setConfigurationSettings(e.getConfigurationSettings());
-//			entry.setTimestamp(e.getTimestamp());
-//
-//			EntryReceiver r = new EntryReceiver();
-//			request.createEntry(entry).fire(r);
-//			Long n = new Long(r.getResult());
-//			result.add(n);
-//		}
-//		return result;
-//	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

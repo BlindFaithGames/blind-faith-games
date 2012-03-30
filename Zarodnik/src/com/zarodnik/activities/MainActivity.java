@@ -433,12 +433,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			nextIntent.putExtra(KEY_TTS, textToSpeech);
 			startActivityForResult(nextIntent, RESET_CODE);
 			break;
-		case (EXIT_GAME_CODE):
-			nextIntent = new Intent(getApplicationContext(),RankingActivity.class);
-			nextIntent.putExtra(KEY_TTS, textToSpeech);
-			nextIntent.putExtra(KEY_RESULTS, data.getStringExtra(KEY_RESULTS));
-			startActivity(nextIntent);
-			break;
 		case (RESULT_CANCELED):
 			break;
 		default:

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="settingsInitialSpeech">Click any option</string>
+    <string name="interactionMode_select">Select an interaction mode</string>
+    <string name="interactionMode_select_TTS">Select an interaction mode. To select make a long press on the option</string>
+    <string name="blindMode_label">Blind interaction</string>
+    <string name="noBlindMode_label">Standard interaction</string>
+    <string name="app_name">Zarodnik Game</string>
+    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="introMainMenu">Main menu Zarodnik Game, you can navigate through the menu by making simple taps in the different options
+    							 and just make a long press to select one of the options below</string>
+    <string name="buttonMessage">Go!</string>
+    <string name="zarodnik_activity">Zarodnik game</string>
+    <string name="exitButton">Exit</string>
+    <string name="main_title">Zarodnik</string>
+    <string name="continue_label">Continue</string>
+    <string name="new_game_label">New Game</string>
+    <string name="keyConf_label">Key Configuration</string>
+    <string name="about_label">About</string>
+    <string name="exit_label">Exit</string>
+    <string name="about_title">Zarodnik About </string>
+    <string name="about_text">           Music by www.SoundJay.com \n
+           and www.freesound.org \n
+           Insertar nombre grupo UCM, 2011-2012.</string>
+    <string name="settings_label">Settings</string>
+    <string name="settings_title">Zarodnik settings</string>
+    <string name="settings_shortcut">s</string>
+    <string name="main_category">Main</string>
+    <string name="profiles_category">Profiles</string>
+    <string name="custom_profile_category">Custom Profile</string>
+    <string name="music_title">Music</string>
+    <string name="music_summary">Play background music</string>
+    <string name="tts_title">Default TTS</string>
+    <string name="tts_summary">Enables voice synthesizer</string>
+    <string name="transcription_title">Transcription mode</string>
+    <string name="transcription_summary">It shows text that contains the TTS speech</string>
+    <string name="blind_interaction_title">Blind Interaction Mode</string>
+    <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
+    <string name="game_title">Game</string>
+    <string name="flags_title">Flags settings</string>
+    <string name="flags_shortcut">f</string>
+    <string name="instructions_label">Instructions</string>
+    <string name="instructions_title">Instructions Zarodnik</string>
+    <string name="controls_title">Controls Zarodnik</string>
+    <string name="instructions_general_label">Instructions</string>
+    <string name="instructions_controls_label">Controls</string>
+    <string name="instructions_general_text">		</string>
+    <string name="instructions_controls_text">		</string>
+    <string name="synthetizer_title">Synthesizer</string>
+    <string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
+    <string name="onup_title">On Up event</string>
+    <string name="onup_summary">Enables to shoot when a on up event occurs</string>
+    <string name="volume_up">Volume Up</string>
+    <string name="volume_down">Volume Down</string>
+    <string name="home">Home</string>
+    <string name="back">Back</string>
+    <string name="options">Options</string>
+    <string name="search">Search</string>
+    <string name="alert_dialog_instructions_TTStext">Dialog</string>
+    <string name="main_menu_initial_TTStext">Main menu</string>
+    <string name="settings_menu_initial_TTStext">Menu settings</string>
+    <string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen</string>
+
+    <string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
+    <string name="keydialog">Action configuration</string>
+    <string name="keydialog_text">Press any key</string>
+    <string name="button_speak_record">Play record in game</string>
+    <string name="button_blind_mode">To enable blind mode</string>
+    <string name="dialog_select">Select controls or general instructions</string>
+    <string name="instruction_speech">Long click to back to the main menu</string>
+    <string name="key_conf_fail">Not a valid key</string>
+
+    <!-- Tutorial strings -->
+    <string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
+    <string name="tutorial_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 
+	When you want to leave this info page do an a long touch on the screen.</string>
+
+    <!-- Onomatopeias strings -->
+    <string name="appear_ono">bing bing!</string>
+    <string name="apple_bite_ono">crap!</string>
+    <string name="barn_beat_ono">Playing Barn Beat</string>
+    <string name="bip_ono">bip!!</string>
+    <string name="bubble_ono">run run</string>
+    <string name="die_ono">qua qua qua!</string>
+    <string name="frost_walz_ono">Playing frost walz</string>
+    <string name="predator_ono">arg!!</string>
+    <string name="prey_ono">miau!</string>
+    <string name="prey_dead_ono">ayyy!!</string>
+    <string name="radio_ono">tunning?!</string>
+    <string name="start_ono">Piii!</string>
+    <string name="the_path_of_the_goblin_ono">Playing path of the goblin</string>
+
+</resources>
