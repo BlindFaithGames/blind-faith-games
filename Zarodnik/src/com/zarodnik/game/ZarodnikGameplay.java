@@ -183,6 +183,16 @@ public class ZarodnikGameplay extends GameState {
 	}
 	
 	
+	private void createEntitiesWithoutPlayer(int sheetSize){
+		// Predators
+		createPredator(sheetSize);
+		// Prey
+		createPrey(sheetSize);
+		// Capsule, radio, seaweed, whatever
+		createItems();
+	}
+	
+	
 	private void createPlayer(int record, int sheetSize) {
 		int  playerX, playerY;
 		int frameW, frameH;
@@ -564,7 +574,7 @@ public class ZarodnikGameplay extends GameState {
 				e.setY((int) (e.getY() + incY));
 			}
 			if(e instanceof Radio || e instanceof Seaweed || e instanceof Capsule){
-			//	e.remove();
+				e.remove();
 			}
 			if(e.isRenderable())
 				e.onDraw(canvas);
@@ -618,15 +628,6 @@ public class ZarodnikGameplay extends GameState {
 
 	public void decrementPrey() {
 		preyN --;
-	}
-	
-	private void createEntitiesWithoutPlayer(int sheetSize){
-		// Predators
-		createPredator(sheetSize);
-		// Prey
-		createPrey(sheetSize);
-		// Capsule, radio, seaweed, whatever
-		createItems();
 	}
 
 	private void createItems() {
@@ -718,7 +719,7 @@ public class ZarodnikGameplay extends GameState {
 		
 		i.setTranscription(SettingsActivity.getTranscription(this.getContext()));
 		
-		while (!this.positionFreeEntities(i)){
+		while (!positionFreeEntities(tempEntities,i)){
 			x = NumberGenerator.nextInt(width);
 			y = NumberGenerator.nextInt(height);
 			i.setX(x); i.setY(y);
