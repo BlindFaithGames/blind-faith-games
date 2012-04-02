@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import com.accgames.input.XMLKeyboard;
 import com.juego4.game.SceneManager;
 
 
@@ -16,9 +15,9 @@ import com.juego4.game.SceneManager;
  * @author Gloria Pozuelo & Javier Álvarez
  *
  */
-public class KeyboardReader {
+public class ScenesReader {
 
-	public KeyboardReader(){}
+	public ScenesReader(){}
 	
 	/**
 	 * Loads a keyboard from XML file.

@@ -9,10 +9,17 @@ public class NPC {
 	
 	private List<String> questions;
 	private Map<Integer,List<String>> answer;
+	private String name;
 	
 	public NPC(){
 		questions = new ArrayList<String>();
 		answer = new HashMap<Integer, List<String>>();
+	}
+	
+	public NPC(String n){
+		questions = new ArrayList<String>();
+		answer = new HashMap<Integer, List<String>>();
+		name = n;
 	}
 	
 	public NPC(List<String> questions, Map<Integer,List<String>> answer){

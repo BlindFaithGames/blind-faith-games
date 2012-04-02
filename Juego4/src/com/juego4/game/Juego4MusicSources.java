@@ -5,8 +5,6 @@ import java.util.Map;
 
 import android.content.Context;
 
-import com.juego4.R;
-
 public class Juego4MusicSources {
 	
 	//private static final int appear = R.raw.appear;

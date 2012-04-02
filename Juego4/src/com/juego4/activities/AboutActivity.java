@@ -17,7 +17,7 @@ import com.juego4.R;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
- * This class implements the about activity, where is shown a description of minesweeper
+ * This class implements the about activity, where is shown a description of 
  */
 
 public class AboutActivity extends Activity implements OnTouchListener{	

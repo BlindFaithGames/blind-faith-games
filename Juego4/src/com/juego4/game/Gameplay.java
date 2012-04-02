@@ -12,7 +12,6 @@ import com.accgames.general.GameState;
 import com.accgames.input.Input;
 import com.accgames.input.Input.EventType;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.sound.Music;
 import com.accgames.sound.TTS;
 import com.accgames.sound.VolumeManager;
 import com.juego4.R;
