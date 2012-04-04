@@ -78,7 +78,7 @@
     <string name="ranking_title">Ranking de juego anteriores</string>
     <string name="ranking_speech">Tiempo, fecha y record</string>
     <string name="dialog_select">Seleccione controles o instrucciones generales</string>
-    <string name="initial_message">Preparado...\n ¡Ya!</string>
+    <string name="initial_message">Preparado... ¡Ya!</string>
     <string name="ending_lose_message">Fin del juego</string>
     <string name="ending_win_message">Encontró su presa</string>
     <string name="intro_game_text">Había una vez, un pequeño monstruo que viajaba inmerso en las profundidades. 

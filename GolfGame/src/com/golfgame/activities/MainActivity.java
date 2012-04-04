@@ -624,7 +624,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 		@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_SEARCH)
+		if(keyCode == keyboard.getKeyByAction(KeyConfActivity.ACTION_BLIND_MODE))
 			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
 		
 		if (RuntimeConfig.blindMode)	

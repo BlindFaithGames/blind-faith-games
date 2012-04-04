@@ -736,7 +736,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_SEARCH)
+		if(keyCode == keyboard.getKeyByAction("blind_mode"))
 			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
 		
 		if(RuntimeConfig.blindMode)	
