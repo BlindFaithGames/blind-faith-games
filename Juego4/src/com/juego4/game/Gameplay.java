@@ -18,9 +18,13 @@ import com.juego4.R;
 
 public class Gameplay extends GameState {
 	
-
+	private enum StateGameplay { SELECT_NPC, SELECT_SCENE, SHOW_DIALOG, SHOW_INTRO};
+	
 	private Text text;
 	
+	private SceneManager scm;
+	
+	private StateGameplay state;
 	
 	private static final int textoffSetX = 0;
 	private static final int textoffSetY = 40;
@@ -43,9 +47,11 @@ public class Gameplay extends GameState {
 			brush.setTypeface(font);
 		
 		text = new Text(textoffSetX, textoffSetY, null, this, null, null, 
-				null, null, false, brush, stepsPerWord, this.getContext().getString(R.string.intro_game_text));
+				null, null, false, brush, stepsPerWord, "");
 		this.addEntity(text);
-	
+		
+		// TODO: scm = new SceneManager(sceneBuffer);
+		state = StateGameplay.SHOW_INTRO;
 	}
 	
 	@Override
@@ -57,7 +63,6 @@ public class Gameplay extends GameState {
 	@Override
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
 	}
 	
 	public void onUpdate() {
@@ -70,7 +75,56 @@ public class Gameplay extends GameState {
 			if (e != null)
 				VolumeManager.adjustStreamVolume(this.context, AudioManager.ADJUST_LOWER);
 		}
-		
 
+		switch(state){
+			case SHOW_INTRO:
+				scm.showIntro(text);
+				state = StateGameplay.SELECT_NPC;
+				break;
+			case SELECT_NPC:
+				e = Input.getInput().removeEvent("onLongPress");
+				int nOptions = scm.showNPCOptions(text);
+				if(e != null){
+					int selectedNPC = screenPosToSelectedOption(e,nOptions);
+					scm.changeNPC(selectedNPC);
+					state = StateGameplay.SHOW_DIALOG;
+				}
+				break;
+			case SHOW_DIALOG:
+				if(!scm.updateDialog(text)){
+					state = StateGameplay.SELECT_SCENE;
+				}
+				break;
+			case SELECT_SCENE:
+					e = Input.getInput().removeEvent("onLongPress");
+					int nScenes = scm.showSceneOptions(text);
+					if(e != null){
+						int selectedScene = screenPosToSelectedOption(e,nScenes);
+						scm.changeScene(selectedScene);
+						state = StateGameplay.SELECT_NPC;
+					}
+					break;
+
+		}
+	}
+	
+	private int screenPosToSelectedOption(EventType e, int nOptions){
+		int inc = GameState.SCREEN_HEIGHT / nOptions;
+		int top = 0;
+		int bot = inc;
+		int counter = 0;
+		boolean found = false;
+		while(!found && counter < nOptions){
+			if(e.getMotionEventE1().getY() > top && e.getMotionEventE1().getY() < bot){
+				found = true;
+			}
+			counter++;
+			top += inc;
+			bot += inc;
+		}
+		if (found)
+			return counter--;
+		else
+			return -1;
 	}
 }

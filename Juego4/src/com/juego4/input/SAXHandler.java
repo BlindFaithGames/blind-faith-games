@@ -1,6 +1,7 @@
 package com.juego4.input;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
@@ -18,19 +19,19 @@ import com.juego4.game.SceneType;
  */
 public class SAXHandler extends DefaultHandler {
 	// Scenes
-	private ArrayList<Scene> scenes;
-	private ArrayList<NPC> npcs;
+	private List<Scene> scenes;
+	private List<NPC> npcs;
 	private SceneManager sceneManager;
 	private SceneType type;
 	private int id;
-	private ArrayList<Integer> nextScenes;
+	private List<Integer> nextScenes;
 	private boolean isDescription = false, isIntroMsg = false;
 	private String description, introMsg;
+	private List<Integer> endCondition, transitionCondition; 
 	
 	// NPCs
 	private boolean isIntro = false;
 	private String intro, name;
-
 	
 	public SceneManager getSceneManager() {
 		return sceneManager;
@@ -63,7 +64,10 @@ public class SAXHandler extends DefaultHandler {
 		else if (qName.equals("idScene")){
 			nextScenes.add(Integer.parseInt(att.getValue("id")));
 		}
-		else if (qName.equals("endSceneCondition")){
+		else if (qName.equals("endCondition")){
+			// TODO
+		}
+		else if (qName.equals("transitionCondition")){
 			// TODO
 		}
 		// NPC
@@ -78,10 +82,9 @@ public class SAXHandler extends DefaultHandler {
 		}
 	}
 
-
 	public void endElement(String uri, String localName, String qName){
-		if (qName.equals("scene")){
-			scenes.add(new Scene(npcs, id, type, nextScenes, introMsg, description));
+		if (qName.equals("scene")){ 
+			scenes.add(new Scene(npcs, id, type, nextScenes, introMsg, description, transitionCondition, endCondition));
 			npcs.clear();
 			nextScenes.clear();
 		}		
@@ -107,7 +110,6 @@ public class SAXHandler extends DefaultHandler {
 			intro = new String(ch, start, length);
 			isIntro = false;
 		}
- 
 	}
 }
 

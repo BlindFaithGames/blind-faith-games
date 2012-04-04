@@ -1,30 +1,44 @@
 package com.juego4.game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class NPC {
 	
-	private List<String> questions;
-	private Map<Integer,List<String>> answer;
+	private List<String> dialog;
 	private String name;
 	
+	private int nextDialog;
+	
 	public NPC(){
-		questions = new ArrayList<String>();
-		answer = new HashMap<Integer, List<String>>();
+		dialog = new ArrayList<String>();
+		nextDialog = 0;
+		name = "";
 	}
 	
 	public NPC(String n){
-		questions = new ArrayList<String>();
-		answer = new HashMap<Integer, List<String>>();
+		dialog = new ArrayList<String>();
 		name = n;
+		nextDialog = 0;
 	}
 	
-	public NPC(List<String> questions, Map<Integer,List<String>> answer){
-		this.answer = answer;
-		this.questions = questions;
+	public NPC(List<String> dialog){
+		this.dialog = dialog;
+		nextDialog = 0;
+		name = "";
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public String nextDialog(){
+		String speech = "";
+		if(nextDialog < dialog.size()){
+			speech = dialog.get(nextDialog);
+			nextDialog++;
+		}
+		return speech;
 	}
 
 }

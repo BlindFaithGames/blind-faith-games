@@ -122,4 +122,7 @@ public class Text extends Entity {
 		steps = 0;
 	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
 }

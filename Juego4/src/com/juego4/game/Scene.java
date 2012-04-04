@@ -1,25 +1,109 @@
 package com.juego4.game;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class Scene {
 
-	private int npc;
-	private ArrayList<NPC> npcs;
+	private NPC currentNPC;
+	private List<NPC> npcs;
 	private int id;
 	private SceneType type;
-	private ArrayList<Integer> nextScenes;		/* Scene ids from the next possible scenes */
+	private List<Integer> nextScenes;		/* Scene ids of the next possible scenes */
 	private String introMsg, description;
 	
+	private boolean finished;
 	
-	public Scene(ArrayList<NPC> npcs, int id, SceneType type, ArrayList<Integer> next, String introMsg, String description){
+	private List<Integer> transitionCondition;
+	private List<Integer> endCondition;
+	
+	
+	public Scene(List<NPC> npcs, int id, SceneType type, List<Integer> next, String introMsg,
+					String description,List<Integer> transitionCondition, List<Integer> endCondition){
 		this.npcs = npcs;
 		this.id = id;
 		this.type = type;
 		this.nextScenes = next;
 		this.introMsg = introMsg;
 		this.description = description;
+		this.transitionCondition = transitionCondition;
+		this.endCondition = endCondition;
+		
+		finished = false;
 	}
 	
+	public String getintroMsg() {
+		return introMsg;
+	}
+	
+	public List<Integer> getNextScenes() {
+		return nextScenes;
+	}
+
+	public List<NPC> getNPCS() {
+		return npcs;
+	}
+	
+	public List<Integer> getTransitionCondition() {
+		return transitionCondition;
+	}
+	
+	public List<Integer> getEndCondition() {
+		return endCondition;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public boolean isFinished() {
+		return finished;
+	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+	
+	public void changeNPC(int selectedNPC) {
+		currentNPC = npcs.get(selectedNPC);
+	}
+	
+	public boolean equals(Object o){
+		Scene sc = (Scene) o;
+		return this.id == sc.id;
+	}
+
+	public boolean updateDialog(Text text) {
+		String speech = currentNPC.nextDialog();
+		text.setText(speech);
+		return speech != null;
+	}
+
+	public boolean isInNextScene(int selectedScene) {
+		boolean found = false;
+		for(Integer sc:nextScenes){
+			found = (sc == selectedScene);
+		}
+		return found;
+	}
+
+	public String getNPCSOptions() {
+		String options = "";
+		int counter = 0;
+		for(NPC npc:npcs){
+			options += counter + "- " + npc.getName() + "\n";
+		}
+		return options;
+	}
+
+	public int showNPCOptions(Text text) {
+		String options = "";
+		int counter = 0;
+		for(NPC npc:npcs){
+			options += counter + "- " + npc.getName() + "\n";
+			counter++;
+		}
+		text.setText(options);
+		return counter;
+	}
 }
