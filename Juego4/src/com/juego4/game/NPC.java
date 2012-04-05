@@ -28,6 +28,12 @@ public class NPC {
 		name = "";
 	}
 	
+	public NPC(List<String> dialog, String name){
+		this.dialog = dialog;
+		nextDialog = 0;
+		this.name = name;
+	}
+	
 	public String getName(){
 		return name;
 	}

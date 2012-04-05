@@ -24,14 +24,14 @@ public class SAXHandler extends DefaultHandler {
 	private SceneManager sceneManager;
 	private SceneType type;
 	private int id;
-	private List<Integer> nextScenes;
 	private boolean isDescription = false, isIntroMsg = false;
 	private String description, introMsg;
-	private List<Integer> endCondition, transitionCondition; 
+	private List<Integer> endCondition, transitionCondition, nextScenes; 
 	
 	// NPCs
-	private boolean isIntro = false;
-	private String intro, name;
+	private boolean isAnswer = false;
+	private String name;
+	private List<String> dialog;
 	
 	public SceneManager getSceneManager() {
 		return sceneManager;
@@ -45,9 +45,12 @@ public class SAXHandler extends DefaultHandler {
 	}
 	
 	public void startDocument(){	
+		endCondition = new ArrayList<Integer>();
+		transitionCondition= new ArrayList<Integer>();
 		nextScenes = new ArrayList<Integer>();
 		scenes = new ArrayList<Scene>();
 		npcs = new ArrayList<NPC>();
+		dialog = new ArrayList<String>();
 	}
 	
 	public void startElement(String uri, String localName, String qName, Attributes att){
@@ -61,36 +64,35 @@ public class SAXHandler extends DefaultHandler {
 		else if (qName.equals("description")){
 			isDescription = true;
 		}
-		else if (qName.equals("idScene")){
-			nextScenes.add(Integer.parseInt(att.getValue("id")));
+		else if (qName.equals("idTransitionCondition")){
+			transitionCondition.add(Integer.parseInt(att.getValue("id")));
 		}
-		else if (qName.equals("endCondition")){
-			// TODO
+		else if (qName.equals("idEndCondition")){
+			endCondition.add(Integer.parseInt(att.getValue("id")));
 		}
-		else if (qName.equals("transitionCondition")){
-			// TODO
+		else if (qName.equals("idNextScene")){
+			endCondition.add(Integer.parseInt(att.getValue("id")));
 		}
+		
 		// NPC
 		else if (qName.equals("npc")){
 			name = att.getValue("name");
 		}
-		else if (qName.equals("intro")){
-			isIntro = true;
-		}
-		else if (qName.equals("dialog")){
-			
+		else if (qName.equals("answer")){
+			isAnswer = true;
 		}
 	}
 
 	public void endElement(String uri, String localName, String qName){
 		if (qName.equals("scene")){ 
-			scenes.add(new Scene(npcs, id, type, nextScenes, introMsg, description, transitionCondition, endCondition));
+			scenes.add(new Scene(npcs, id, type, introMsg, description, nextScenes, transitionCondition, endCondition));
 			npcs.clear();
-			nextScenes.clear();
+			transitionCondition.clear();
+			endCondition.clear();
 		}		
 		else if (qName.equals("npc")){
-//			npcs.add(new NPC(name, intro, dialog));
-//			dialog.clear();
+			npcs.add(new NPC(dialog, name));
+			dialog.clear();
 		}
 		else if (qName.equals("sceneManager")){
 			sceneManager = new SceneManager(scenes);
@@ -106,9 +108,9 @@ public class SAXHandler extends DefaultHandler {
 			introMsg = new String(ch, start, length);
 			isIntroMsg = false;
 		}
-		if (isIntro){
-			intro = new String(ch, start, length);
-			isIntro = false;
+		if (isAnswer) {
+			dialog.add(new String(ch, start, length));
+			isAnswer = false;
 		}
 	}
 }

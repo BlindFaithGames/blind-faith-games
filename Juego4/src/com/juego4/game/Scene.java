@@ -18,14 +18,14 @@ public class Scene {
 	private List<Integer> endCondition;
 	
 	
-	public Scene(List<NPC> npcs, int id, SceneType type, List<Integer> next, String introMsg,
-					String description,List<Integer> transitionCondition, List<Integer> endCondition){
+	public Scene(List<NPC> npcs, int id, SceneType type, String introMsg, String description,
+					List<Integer> nextScenes,List<Integer> transitionCondition, List<Integer> endCondition){
 		this.npcs = npcs;
 		this.id = id;
 		this.type = type;
-		this.nextScenes = next;
 		this.introMsg = introMsg;
 		this.description = description;
+		this.nextScenes = nextScenes;
 		this.transitionCondition = transitionCondition;
 		this.endCondition = endCondition;
 		
