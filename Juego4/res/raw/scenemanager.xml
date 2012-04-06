@@ -1,0 +1,29 @@
+<sceneManager>
+	<scene type="normal" id = "1">
+		<npc name = "Old Man">
+			<dialog>
+				<answer author = "Guybrush">Hello!</answer>
+				<answer author = "Old Man">Yikes! Don't sneak up on me like that!</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>Our hero, Guybrush Threepwood, appears on the screen and greets and old man.</introMessage>
+		
+		<description>Un ejemplo de descripcion</description>
+		
+		<nextScenes>
+			<idNextScenes id = "2"/>
+			<idNextScenes id = "2"/>
+		</nextScenes>
+		
+		<transitionCondition>
+			<idTransitionCondition id = "2"/>
+			<idTransitionCondition id = "4"/>
+		</transitionCondition>
+		
+		<endCondition>
+			<idEndCondition id = "2"/>
+			<idEndCondition id = "4"/>
+		</endCondition>
+	</scene>
+</sceneManager>
