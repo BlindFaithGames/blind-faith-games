@@ -30,7 +30,7 @@ public class SAXHandler extends DefaultHandler {
 	
 	// NPCs
 	private boolean isAnswer = false;
-	private String name;
+	private String name, author;
 	private List<String> dialog;
 	
 	public SceneManager getSceneManager() {
@@ -55,7 +55,7 @@ public class SAXHandler extends DefaultHandler {
 	
 	public void startElement(String uri, String localName, String qName, Attributes att){
 		if (qName.equals("scene")){
-			type = SceneType.valueOf(att.getValue("type"));
+			type = SceneType.valueOf(att.getValue("type").toUpperCase());
 			id = Integer.parseInt(att.getValue("id"));
 		}
 		else if (qName.equals("introMessage")){
@@ -70,8 +70,8 @@ public class SAXHandler extends DefaultHandler {
 		else if (qName.equals("idEndCondition")){
 			endCondition.add(Integer.parseInt(att.getValue("id")));
 		}
-		else if (qName.equals("idNextScene")){
-			endCondition.add(Integer.parseInt(att.getValue("id")));
+		else if (qName.equals("idNextScenes")){
+			nextScenes.add(Integer.parseInt(att.getValue("id")));
 		}
 		
 		// NPC
@@ -79,6 +79,7 @@ public class SAXHandler extends DefaultHandler {
 			name = att.getValue("name");
 		}
 		else if (qName.equals("answer")){
+			author = att.getValue("author");
 			isAnswer = true;
 		}
 	}
@@ -86,13 +87,14 @@ public class SAXHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName){
 		if (qName.equals("scene")){ 
 			scenes.add(new Scene(npcs, id, type, introMsg, description, nextScenes, transitionCondition, endCondition));
-			npcs.clear();
-			transitionCondition.clear();
-			endCondition.clear();
+			npcs = new ArrayList<NPC>();
+			transitionCondition = new ArrayList<Integer>();
+			nextScenes = new ArrayList<Integer>();
+			endCondition = new ArrayList<Integer>();
 		}		
 		else if (qName.equals("npc")){
 			npcs.add(new NPC(dialog, name));
-			dialog.clear();
+			dialog = new ArrayList<String>();
 		}
 		else if (qName.equals("sceneManager")){
 			sceneManager = new SceneManager(scenes);
@@ -109,7 +111,8 @@ public class SAXHandler extends DefaultHandler {
 			isIntroMsg = false;
 		}
 		if (isAnswer) {
-			dialog.add(new String(ch, start, length));
+			dialog.add(author + ": " +new String(ch, start, length));
+			author = "";
 			isAnswer = false;
 		}
 	}

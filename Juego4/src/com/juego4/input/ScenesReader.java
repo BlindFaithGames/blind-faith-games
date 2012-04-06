@@ -1,6 +1,6 @@
 package com.juego4.input;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -21,10 +21,10 @@ public class ScenesReader {
 	
 	/**
 	 * Loads a keyboard from XML file.
-	 * @param fis XML file
+	 * @param is XML file
 	 * @return The new keyboard
 	 */
-	public SceneManager loadEditedKeyboard(FileInputStream fis) {
+	public SceneManager loadAdventure(InputStream is) {
 		try {
 			
 			/** Handling XML */
@@ -33,7 +33,7 @@ public class ScenesReader {
 
 			/** Create handler to handle XML Tags ( extends DefaultHandler ) */
 			SAXHandler saxHandler = new SAXHandler();
-			sp.parse(fis, saxHandler);
+			sp.parse(is, saxHandler);
 			
 			return saxHandler.getSceneManager();
 			
