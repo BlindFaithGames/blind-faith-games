@@ -111,7 +111,10 @@ public class SAXHandler extends DefaultHandler {
 			isIntroMsg = false;
 		}
 		if (isAnswer) {
-			dialog.add(author + ": " +new String(ch, start, length));
+			if(author != null)
+				dialog.add(author + ": " +new String(ch, start, length));
+			else
+				dialog.add(new String(ch, start, length));
 			author = "";
 			isAnswer = false;
 		}

@@ -3,7 +3,6 @@ package com.juego4.activities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Map;
 
 import android.app.Activity;
@@ -33,8 +32,6 @@ import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.juego4.R;
 import com.juego4.game.Juego4MusicSources;
-import com.juego4.game.SceneManager;
-import com.juego4.input.ScenesReader;
 
 /**
  * @author Gloria Pozuelo and Javier Álvarez
@@ -68,8 +65,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
 	private boolean blindInteraction;
-	private ScenesReader scenesReader;
-	private SceneManager sceneManager;
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -86,8 +82,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
 		checkFirstExecution();
-		
-		checkXMLAdventure();
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 	}	
@@ -267,13 +261,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				this.fillXMLKeyboard();
 			}
 		}
-	}
-	
-	private void checkXMLAdventure() {
-		InputStream is = getResources().openRawResource(R.raw.scenemanager);
-		if (scenesReader == null)
-			scenesReader = new ScenesReader();
-		sceneManager = scenesReader.loadAdventure(is);
 	}
 
 	public void onClick(View v) {
@@ -518,7 +505,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 		@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_SEARCH)
+		if(keyCode == keyboard.getKeyByAction(KeyConfActivity.ACTION_BLIND_MODE))
 			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
 		
 		if (RuntimeConfig.blindMode)	

@@ -113,7 +113,7 @@ public class Juego4GameActivity extends Activity {
             public void onLongPress(MotionEvent e) {
             	 Input.getInput().addEvent("onLongPress", e, null, -1, -1);
             }
-}
+    }
     /*---------------------------------------------------------------------
      *  FIN GESTURE DETECTOR
      ----------------------------------------------------------------------*/

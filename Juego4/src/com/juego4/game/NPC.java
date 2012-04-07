@@ -37,9 +37,9 @@ public class NPC {
 	public String getName(){
 		return name;
 	}
-	
+
 	public String nextDialog(){
-		String speech = "";
+		String speech = null;
 		if(nextDialog < dialog.size()){
 			speech = dialog.get(nextDialog);
 			nextDialog++;
@@ -47,4 +47,11 @@ public class NPC {
 		return speech;
 	}
 
+	public String getDialog() {
+		String result = "";
+		for(String s:dialog){
+			result += " " + s; 
+		}
+		return result;
+	}
 }

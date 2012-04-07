@@ -1,5 +1,6 @@
 package com.juego4.game;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class SceneManager {
@@ -14,6 +15,10 @@ public class SceneManager {
 			currentScene = sceneBuffer.get(0);
 	}
 
+	public Scene getScene(int i){
+		return findScene(i);
+	}
+	
 	public void changeNPC(int selectedNPC){
 		if(currentScene.getNPCS().size() > 1 ){
 			if(currentScene != null && selectedNPC < currentScene.getNPCS().size())
@@ -30,21 +35,22 @@ public class SceneManager {
 		
 		// Check if currentScene has already finished checking its finished condition
 		if(isFinished(currentScene)){
-			currentScene.setFinished(true);
+			sceneBuffer.remove(currentScene);
 		}
 		
 		// If there is more than one option the player chooses
 		if(currentScene.getNextScenes().size() > 1){
-			if(currentScene.isInNextScene(selectedScene)){
+			if(selectedScene < currentScene.getNextScenes().size()){
 				 nextScene = currentScene.getNextScenes().get(selectedScene);
-				 currentScene = sceneBuffer.get(nextScene);
+				 currentScene.getNextScenes().remove(selectedScene);
+				 currentScene = findScene(nextScene);
 			}
 			else{
 				success = false;
 			}		
 		}else{
 			nextScene = currentScene.getNextScenes().get(0);
-			currentScene = sceneBuffer.get(nextScene);
+			currentScene = findScene(nextScene);
 		}
 			
 		return success;
@@ -53,8 +59,10 @@ public class SceneManager {
 	private boolean isFinished(Scene currentScene) {
 		List<Integer> conditionEnd = currentScene.getEndCondition();
 		boolean found = true;
+		Scene scene;
 		for(Integer sc : conditionEnd){
-			found &= sceneBuffer.get(sc).isFinished();
+			scene = findScene(sc);
+			found &= (scene == null);
 		}
 		return found;
 	}
@@ -80,8 +88,10 @@ public class SceneManager {
 			return null;
 	}
 
-	public void showIntro(Text text) {
-		text.setText(currentScene.getintroMsg());
+	public void setIntro(Text text) {
+		String intro = currentScene.getintroMsg();
+		if(intro != null)
+			text.setText(intro);
 	}
 
 	public int showNPCOptions(Text text) {
@@ -91,9 +101,11 @@ public class SceneManager {
 	public int showSceneOptions(Text text) {
 		String options = "";
 		int counter = 0;
+		Scene scene;
 		for(Integer sc: currentScene.getNextScenes()){
-			if(isAccessible(sc)){
-				options += counter + "- " + sceneBuffer.get(sc).getDescription() + "\n";
+			scene = findScene(sc);
+			if(isAccessible(sc) &&  (scene != null)){
+				options += counter + " - " + scene.getDescription() + " ñ ";
 				counter++;
 			}
 		}
@@ -102,10 +114,38 @@ public class SceneManager {
 	}
 
 	private boolean isAccessible(Integer sc) {
-		boolean found = true;
-		for(Integer s: sceneBuffer.get(sc).getTransitionCondition()){
-			found &= sceneBuffer.get(s).isFinished();
+		boolean found = false;
+		Scene sceneChecked = findScene(sc);
+		Scene scene;
+		if(sceneChecked != null){
+			for(Integer s: sceneChecked.getTransitionCondition()){
+				scene = findScene(s);
+				found |= (scene == null);
+			}
 		}
-		return found;
+		return !found;
+	}
+
+	public String getCurrentDialog() {
+		String result = null;
+		
+		if(currentScene != null)
+			result = currentScene.getCurrentDialog();
+		
+		return result;
+	}
+	
+	private Scene findScene(int id){
+		boolean found = false;
+		Scene scene = null;
+		Iterator<Scene> it = sceneBuffer.iterator();
+		while(it.hasNext() && !found){
+			scene = it.next();
+			found = scene.getID() == id;
+		}
+		if(found)
+			return scene;
+		else
+			return null;
 	}
 }

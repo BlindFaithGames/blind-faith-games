@@ -12,8 +12,6 @@ public class Scene {
 	private List<Integer> nextScenes;		/* Scene ids of the next possible scenes */
 	private String introMsg, description;
 	
-	private boolean finished;
-	
 	private List<Integer> transitionCondition;
 	private List<Integer> endCondition;
 	
@@ -28,8 +26,10 @@ public class Scene {
 		this.nextScenes = nextScenes;
 		this.transitionCondition = transitionCondition;
 		this.endCondition = endCondition;
-		
-		finished = false;
+	}
+
+	public int getID() {
+		return id;
 	}
 	
 	public String getintroMsg() {
@@ -56,16 +56,9 @@ public class Scene {
 		return description;
 	}
 	
-	public boolean isFinished() {
-		return finished;
-	}
-	
-	public void setFinished(boolean finished) {
-		this.finished = finished;
-	}
-	
 	public void changeNPC(int selectedNPC) {
 		currentNPC = npcs.get(selectedNPC);
+		npcs.remove(selectedNPC);
 	}
 	
 	public boolean equals(Object o){
@@ -75,7 +68,8 @@ public class Scene {
 
 	public boolean updateDialog(Text text) {
 		String speech = currentNPC.nextDialog();
-		text.setText(speech);
+		if(speech != null)
+			text.concatText(speech);
 		return speech != null;
 	}
 
@@ -100,10 +94,18 @@ public class Scene {
 		String options = "";
 		int counter = 0;
 		for(NPC npc:npcs){
-			options += counter + "- " + npc.getName() + "\n";
-			counter++;
+				options += counter + " - " + npc.getName() + " ñ ";
+				counter++;
 		}
 		text.setText(options);
 		return counter;
+	}
+
+	public String getCurrentDialog() {
+		String result = null;
+		if(currentNPC!= null){
+			result = currentNPC.getDialog();
+		}
+		return result;
 	}
 }

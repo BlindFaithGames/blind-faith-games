@@ -34,7 +34,6 @@ public class ScenesReader {
 			/** Create handler to handle XML Tags ( extends DefaultHandler ) */
 			SAXHandler saxHandler = new SAXHandler();
 			sp.parse(is, saxHandler);
-			
 			return saxHandler.getSceneManager();
 			
 		} catch (Exception e) {

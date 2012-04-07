@@ -5,20 +5,20 @@
     <string name="interactionMode_select_TTS">Select an interaction mode. To select make a long press on the option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
-    <string name="app_name">Zarodnik Game</string>
+    <string name="app_name">Juego4 Game</string>
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Main menu Zarodnik Game, you can navigate through the menu by making simple taps in the different options
+    <string name="introMainMenu">Main menu Juego4 Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
-    <string name="zarodnik_activity">Zarodnik game</string>
+    <string name="zarodnik_activity">Juego4 game</string>
     <string name="exitButton">Exit</string>
-    <string name="main_title">Zarodnik</string>
+    <string name="main_title">Juego4</string>
     <string name="continue_label">Continue</string>
     <string name="new_game_label">New Game</string>
     <string name="keyConf_label">Key Configuration</string>
     <string name="about_label">About</string>
     <string name="exit_label">Exit</string>
-    <string name="about_title">Zarodnik About </string>
+    <string name="about_title">Juego4 About </string>
     <string name="about_text">           Music by www.SoundJay.com \n
            and www.freesound.org \n
            Insertar nombre grupo UCM, 2011-2012.</string>
@@ -40,8 +40,8 @@
     <string name="flags_title">Flags settings</string>
     <string name="flags_shortcut">f</string>
     <string name="instructions_label">Instructions</string>
-    <string name="instructions_title">Instructions Zarodnik</string>
-    <string name="controls_title">Controls Zarodnik</string>
+    <string name="instructions_title">Instructions Juego4</string>
+    <string name="controls_title">Controls Juego4</string>
     <string name="instructions_general_label">Instructions</string>
     <string name="instructions_controls_label">Controls</string>
     <string name="instructions_general_text">		</string>
@@ -77,17 +77,5 @@
 
     <!-- Onomatopeias strings -->
     <string name="appear_ono">bing bing!</string>
-    <string name="apple_bite_ono">crap!</string>
-    <string name="barn_beat_ono">Playing Barn Beat</string>
-    <string name="bip_ono">bip!!</string>
-    <string name="bubble_ono">run run</string>
-    <string name="die_ono">qua qua qua!</string>
-    <string name="frost_walz_ono">Playing frost walz</string>
-    <string name="predator_ono">arg!!</string>
-    <string name="prey_ono">miau!</string>
-    <string name="prey_dead_ono">ayyy!!</string>
-    <string name="radio_ono">tunning?!</string>
-    <string name="start_ono">Piii!</string>
-    <string name="the_path_of_the_goblin_ono">Playing path of the goblin</string>
 
 </resources>

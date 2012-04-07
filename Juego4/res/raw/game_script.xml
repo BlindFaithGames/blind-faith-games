@@ -1,0 +1,351 @@
+<sceneManager>
+	<scene type="normal" id = "0">
+		<npc name = "Old Man">
+			<dialog>
+				<answer author = "Guybrush">Hello!</answer>
+				<answer author = "Old Man">Yikes! Don't sneak up on me like that!</answer>
+				<answer author = "Guybrush">Er... I'm over this way.</answer>
+				<answer author = "Old Man">Ah! Well, then, Triftweed--</answer>
+				<answer author = "Guybrush">THREEPWOOD. Guybrush THREEPWOOD.</answer>
+				<answer author = "Old Man">I see. So, you want to be a pirate, eh? You look more like a flooring inspector. But if you're serious about pirating, go talk to the pirate leaders. You'll find them in the Scumm Bar.</answer>
+				<answer author = "Guybrush">Gosh, thanks! I'll do that! Bye, now. I'm off to seek my fortune.</answer>
+				<answer author = "Old Man">Good luck.</answer>
+				<answer author = "Guybrush">(walks away, but suddenly stops) Um... Where did you say those pirate leaders were?</answer>
+				<answer author = "Old Man">The SCUMM BAR.</answer>
+				<answer author = "Guybrush">Right. Thanks.(leaves the screen)</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>Our hero, Guybrush Threepwood, appears on the screen and greets and old man.</introMessage>
+		
+		<description>Melee</description>
+		
+		<nextScenes>
+			<idNextScenes id = "1"/>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "1">
+		<npc name = "Unknown Pirate">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+				<answer author="Guybrush">My name's Guybrush Threepwood. I'm new in town.</answer>
+				<answer author="Pirate">Guybrush Threepwood? Ha ha ha!!! That's the stupidest name I've ever heard!</answer>
+				<answer author="Guybrush"></answer>
+				<answer author="Pirate">But it's not even a name!</answer>
+				<answer author="Guybrush"> Well, what's YOUR name?</answer>
+				<answer author="Mancomb">My name is Mancomb Seepgood. So, what brings you to M?l?e Island anyway?</answer>
+				<answer author="Guybrush">I want to be a pirate!</answer>
+				<answer author="Mancomb">Oh, really? You should go talk to the important-looking pirates inthe next room. They're pretty much in charge around here. They can tell you where to go and what to do.</answer>
+				<answer author="Guybrush">Where can I find the Governor?</answer>
+				<answer author="Mancomb">Governor Marley? Her mansion is on the other side of town. But pirates aren't as welcome around her place as they used to be.</answer>
+				<answer author="Guybrush">Why not?</answer>
+				<answer author="Mancomb"> Well, the last time she had a pirate over for dinner, he fell in love with her. It's made things rather uncomfortable for everybody.</answer>
+				<answer author="Guybrush">How's that?</answer>
+				<answer author="Mancomb">Well, there's a whole big story about what happened next... But I don't believe a word of it. Estevan over there at the other table might tell you about it. He takes the whole thing seriously. VERY seriously. Uh-oh, it looks like my grog is going flat, so you'll have to excuse me. Nice talking to you. Have fun on M?l?e Island.</answer>
+			</dialog>
+		</npc>
+		<npc name="Esteva">
+			<dialog>
+				<answer>Guybrush walks off and talks to Estevan, who has a scar on his face.</answer>
+				<answer author="Esteva">What are you looking at me for?</answer>
+				<answer author="Guybrush">I'd like to introduce myself... my name's Guybrush.</answer>
+				<answer author="Esteva">Yeah, so what?</answer>
+				<answer author="Guybrush">Who's this pirate that's bugging the Governor?</answer>
+				<answer author="Esteva">LeChuck? He's the guy that went to the Governor's for dinner and never wanted to leave. He fell for her in a big way, but she told him to drop dead. So he did. Then things really got ugly.</answer>
+				<answer author="Guybrush">What's so scary about this LeChuck guy?</answer>
+				<answer author="Esteva">LeChuck was a fearsome pirate. He tried to impress the Governor by sailing off to find the Secret of Monkey Island?. But a mysterious came up and sank his ship, leaving no survivors. We thought that was the end of the fearsome pirate LeChuck. We were wrong.</answer>
+				<answer author="Guybrush"> What happened then?</answer>
+				<answer author="Esteva">He still sails the waters between here and Monkey Island?. His ghost ship is an unholy terror upon the sea. That's why we're all in here and not out pirating.</answer>
+				<answer author="Guybrush">What happened to your eye?</answer>
+				<answer author="Esteva">Well, I was putting in my contact lens when--Hey, wait a second! That's none of your business!</answer>
+				<answer author="Guybrush">Excuse me, but I'm looking for the dart board.</answer>
+				<answer author="Esteva">Dart board? We don't have one anymore. There was a horrible accident. Drinking and darts don't mix.</answer>
+				<answer author="Guybrush">Where can I get a drink?</answer>
+				<answer author="Esteva">A drink? You could wait for the cook to notice you... but that could take all day. Just find a mug and sneak into the kitchen. That's what we all do. Look, this whole LeChuck thing has me pretty shaken up. So if you don't mind...</answer>
+			</dialog>
+		</npc>
+		<npc name = "Pirate">
+			<dialog>
+				<answer>Guybrush talks to another pirate, a bald one with funny hat. The pirate has an "Ask me about LOOM" badge on his clothes.</answer>
+				<answer author="Pirate">Aye!</answer>
+				<answer author="Guybrush">Aye, yourself.</answer>
+				<answer author="Pirate">Aye.</answer>
+				<answer author="Guybrush">Nice hat.</answer>
+				<answer author="Pirate">Aye.</answer>
+				<answer author="Guybrush">So, tell me about LOOM.</answer>
+				<answer author="Pirate">(Face brightens) ("ADVERTISEMENT" text blinks down the screen) You mean the latest masterpiece of fantasy storytelling from Lucasfilm's? Brian Moriarty?? Why it's an extraordinary adventure with an interface on magic... stunning, high-resolution, 3D landscapes... sophisticated score and musical effects. Not to mention the detailed animation and special effects, elegant point 'n' click control of characters, objects, and magic spells. Beat the rush! Go out and buy Loom? today!
+				</answer>
+				<answer author="Guybrush">Geeze, what an obvious sales pitch.</answer>
+				<answer author="Pirate">Sorry, but on some topics I just get carried away.</answer>
+				<answer author="Guybrush">Nice talking to you.</answer>
+				<answer author="Pirate"> Aye.</answer>
+			</dialog>
+		</npc>
+		<npc name = "Dog">
+			<dialog>
+				<answer>Guybrush approaches a dog and, whew, talks to it too.</answer>
+				<answer author="Dog">Grrrrrrrr.</answer>
+				<answer author="Guybrush">Woof.</answer>
+				<answer author="Dog">WOOF? Aruff roof! Woof-woof arf woof... ...warroof, M?l?e
+							Island?! ...a-roof wuf: ...LeChuck! Grrrrrrr!</answer>
+				<answer author="Guybrush">Wuf, 'LeChuck?'</answer>
+				<answer author="Dog">Worf woof woof ruff-ruff... Wor-roof wuf? Ruff arf-arf, bow-ruff......Governor Marley! A-OOOOOOO! A-OOOOOOO! (ruff ruff ruff) Bow-roo wuf rowwf-- --Arrooof-- --LeChuck! GRRRRRRRRR! Arf, oof-oof, Monkey Island?! *sniff* *sniff*</answer>
+			</dialog>
+		</npc>
+		<npc name = "Three important-looking pirates">
+			<dialog>
+				<answer>Guybrush leaves to the next screen and talks to the important-looking pirates.</answer>
+				<answer author="Green P."> What be ye wantin' boy?</answer>
+				<answer author="Guybrush">I want to be a fireman.</answer>
+				<answer author="Blue P.">Get lost, boy, you bother us.</answer>
+				<answer author="Guybrush">I mean to kill you all!</answer>
+				<answer author="Blue P.">Get lost, boy, you bother us.</answer>
+				<answer author="Guybrush">I want to be a pirate.</answer>
+				<answer author="Blue P.">So what?</answer>
+				<answer author="Green P.">Why bother us?</answer>
+				<answer author="Black P.">Hey, don't forget we're short on help because of this whole LeChuck thing.</answer>
+				<answer author="Blue P.">So?</answer>
+				<answer author="Black P.">So, no pirates means no swag, and no swag means no grog, and we're getting dangerously low on grog...</answer>
+				<answer author="Blue P.">Hmm... Do you have any special skills?</answer>
+				<answer author="Guybrush">I can hold my breath for ten minutes!</answer>
+				<answer author="Blue P.">Well... All right, but you don't become a pirate just by ASKING.</answer>
+				<answer author="Black P.">You'll have to go through...</answer>
+				<answer author="All">The three trials!</answer>
+				<answer author="Guybrush">Er... What three trials are those?</answer>
+				<answer author="Green P.">There are three trials every pirate must pass.</answer>
+				<answer author="Blue P.">You must master the sword...</answer>
+				<answer author="Green P.">...and the art of thievery...</answer>
+				<answer author="Black P.">...and the quest.</answer>
+				<answer author="Green P.">The what?</answer>
+				<answer author="Black P.">Treasure huntin', ya sea urchin!</answer>
+				<answer author="Green P.">Right. You must prove yourself in each of these three areas: swordplay, thievery, and, er, treasure huntery; then return with proof that you've done it.</answer>
+				<answer author="Blue P.">And then ye must drink grog with us!!</answer>
+				<answer author="All">GROG!!!</answer>
+				<answer author="Guybrush">Tell me more about mastering the sword.</answer>
+				<answer author="Blue P.">First, get ye a sword. You must seek out and defeat the Sword Master. Someone in town can probably direct you. Oh! You'll want to find someone to train you first.</answer>
+				<answer author="Black P.">Ha ha. Imagine trying to take on the Sword Master without any training!</answer>
+				<answer author="All">Har Har Har</answer>
+				<answer author="Guybrush">Tell me more about mastering the art of thievery.</answer>
+				<answer author="Green P.">We want you to procure a small item for us...</answer>
+				<answer author="Blue P.">The Idol of Many Hands...</answer>
+				<answer author="Black P.">In the Governor's Mansion!</answer>
+				<answer author="Green P.">The Governor keeps the Idol o' Many Hands in a display case in the mansion outside the town.</answer>
+				<answer author="Blue P.">You'll have to get past the guards, naturally.</answer>
+				<answer author="Black P.">The tricky part will be getting past the dogs outside.</answer>
+				<answer author="Blue P.">They're a particularly vicious breed... ...you might be able to drug them or something.</answer>
+				<answer author="Guybrush">Tell me more about treasure hunting.</answer>
+				<answer author="Black P.">Legend has it that there's a treasure buried here on the island...</answer>
+				<answer author="Blue P.">All you must do is find the Legendary Lost Treasure of Melee Island and bring it back here.</answer>
+				<answer author="Guybrush">Should I have a map or something?</answer>
+				<answer author="Blue P.">Ye can hardly expect to find a treasure without a map!</answer>
+				<answer author="Green P.">...and don't forget: X marks the spot!</answer>
+				<answer author="All">Har Har Har</answer>
+				<answer author="Guybrush">You're a bunch of foul-smelling, grog-swilling pigs!</answer>
+				<answer author="Blue P.">To be a pirate ye must also be a foul-smelling, grog-swilling pig.</answer>
+				<answer author="Guybrush">What's in that grog stuff, anyway?</answer>
+				<answer author="Green P.">Grog is a secret mixture which contains one or more of the following:</answer>
+				<answer author="Blue P.">kerosene</answer>
+				<answer author="Green P.">propylene glycol</answer>
+				<answer author="Black P.">artificial sweeteners</answer>
+				<answer author="Blue P.">sulphuric acid</answer>
+				<answer author="Green P.">rum</answer>
+				<answer author="Black P.">acetone</answer>
+				<answer author="Blue P.">red dye #2</answer>
+				<answer author="Green P.">scumm</answer>
+				<answer author="Black P.">axle grease</answer>
+				<answer author="Blue P.">battery acid</answer>
+				<answer author="Green P.">and/or pepperoni As you can probably imagine, it's one of the most caustic, volatile substances known to man.</answer>
+				<answer author="Blue P.">The stuff eats right through these mugs and the cook is losing a fortune replacing them.</answer>
+				<answer author="All">Har Har Har</answer>
+				<answer author="Guybrush">I'll just be running along now.</answer>
+				<answer author="Blue P.">Leave us to our grog.</answer>
+				<answer author="Green P.">Come back later and tell us how ye're doing.</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>Guybrush walks down the dock. Will he enter in the Bar? Eventually, he finds the Scumm Bar and enters.Who will he speak in the Bar? Mancomb, Esteva, pirate, dog or the three important captains</introMessage>
+		
+		<description>Scumm Bar</description>
+		
+		<nextScenes>
+			<idNextScenes id = "2"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	<scene type="normal" id = "2">
+		<npc name = "LeChuck">
+			<dialog>
+				<answer author="Bone">Captain LeChuck...sir...I...</answer>
+				<answer author="LeChuck"> : Ah... There's nothin' like the hot winds of hell blowin' in your face.</answer>
+				<answer author="Bone">No sir... Nothing like it... Ah... Sir... I...</answer>
+				<answer author="LeChuck">(turns around) It's days like this that makes you glad to be dead.</answer>
+				<answer author="Bone">Oh yes sir...glad to be dead...</answer>
+				<answer author="LeChuck">Ye are glad to be dead, RIGHT?</answer>
+				<answer author="Bone">Oh yes sir. I feel so lucky that you happened to capture my ship,then murdered me and everyone on board... ...yes sir... lucky.</answer>
+				<answer author="LeChuck">Glad to hear it. Now what was it you disturbed me for?</answer>
+				<answer author="Bone"> Ah...yes sir...well, you see, we might have a problem on M�l�e Island.</answer>
+				<answer author="LeChuck">PROBLEM?!? What possible problem could there be!? I've got those sissy pirates so scared of the sea they're afraid to take a bath!</answer>
+				<answer author="Bone">Well... There seems to be a new pirate in town. Actually, he's a pirate wannabe. Young. Inexperienced. Probably nothing to worry'bout. Don't know why I bothered you with it. I'll have him taken care of myself.(about to leave)</answer>
+				<answer author="LeChuck">Wait! I'll handle this personally. My plans are too important to be messed up by amateurs.</answer>
+				<answer author="Bone">Yes sir.The screen switches back to Guybrush</answer>
+			</dialog>
+		</npc>
+	
+		<introMessage>Meanwhile...Deep beneath Monkey Island, the ghost pirate LeChuck's ship lies anchored in a river of lava. LeChuck is standing on his room while a bone pirate approaches.</introMessage>
+		
+		<description>Monkey Island</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	<scene type="normal" id = "3">
+		
+		<introMessage>Guybrush walks down the dock. Guybrush walks through the archway and enters in the city</introMessage>
+		
+		<description>Melee City</description>
+		
+		
+		<nextScenes>
+			<idNextScenes id = "4"/>
+			<idNextScenes id = "5"/>
+			<idNextScenes id = "1"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition>
+			<idEndCondition id = "1"/>
+			<idEndCondition id = "3"/>
+			<idEndCondition id = "4"/>
+		</endCondition>
+	</scene>
+	<scene type="normal" id = "4">
+		<npc name = "Citizen">
+			<dialog>
+				<answer>Guybrush walks through the archway and talks to the Citizen of Mêlée.</answer>
+				<answer author="Citizen">Excuse me, but do you have a cousing named Sven?</answer>
+				<answer author="Guybrush">No, but I once had a barber named Dominique.</answer>
+				<answer author="Citizen">Close enough. Let's talk business. You want to buy a map to the Legendary Lost Treasure of M�l�e Island�? Only one in existence. Rare. Very rare. Only 100 pieces of eight...</answer>
+				<answer author="Guybrush">No thanks. I don't have enough money.</answer>
+				<answer author="Citizen">Well then, buzz off kid, it's bad for business.</answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Pirates">
+			<dialog>
+				<answer>Guybrush then approaches the gang of pirates on the other corner. They are the pirate sitting on a barrel, a fat one, and a tall one. There's a rat in front of them.</answer>
+				<answer author="Guybrush">Hey, nice rat!</answer>
+				<answer author="Barrel P.">Do you like rats?</answer>
+				<answer author="Guybrush">Yes, I love rats!</answer>
+				<answer author="Barrel P.">They're very intelligent creatures!</answer>
+				<answer author="Fat P.">Ha ha ha ha!!</answer>
+				<answer author="Tall P.">(hits Fat P. on the head)</answer>
+				<answer author="Fat P.">-- dpk --</answer>
+				<answer author="Barrel P.">More intelligent than HIM. Why, there's a story around these parts that a bunch of rats actually crewed a ship here from fabled Monkey Island.</answer>
+				<answer author="Tall P.">No, that's not right. It was actually a group of monkeys.</answer>
+				<answer author="Guybrush">That's amazing!</answer>
+				<answer author="Tall P.">But true. When they arrived, they sold the ship for a pretty penny. Only time I've seen anyone get the better of ol' Stan in a deal.</answer>
+				<answer author="Barrel P.">I thought it was rats...</answer>
+				<answer author="Guybrush">Do you guys know the sneaky-looking man on the opposite corner?</answer>
+				<answer author="Tall P.">Wanna buy a map, eh? OUR maps are top quality, not like the birdcage liners you get from that clown across the street. (looks around)</answer>
+				<answer author="Fat P.">(laughs)</answer>
+				<answer author="Tall P.">No, just kidding. These are actually copies of the minutes of the last meeting of the Melee Island PTA. Can't even GIVE them away. (hits Fat Pirate on the head)</answer>
+				<answer author="Fat P.">-- tdk --</answer>
+				<answer author="Tall P.">Want one?</answer>
+				<answer author="Guybrush">No, but I'll take one if you give me two pieces of eight.</answer>
+				<answer author="Tall P.">OK, that's fair.</answer>
+				<answer>Guybrush receives the minutes and 2 pieces of eight.</answer>
+				<answer author="Guybrush">Say, are you guys pirates?</answer>
+				<answer author="Tall P.">No, we're a wandering circus troupe.</answer>
+				<answer author="Fat P.">(Laughs)</answer>
+				<answer author="Barrel P.">But this rat scared away the elephant.</answer>
+				<answer author="Tall P.">Shut up! (hits Fat Pirate on the head)</answer>
+				<answer author="Fat P.">-- yqk --</answer>
+				<answer author="Tall P.">Of course we're pirates! You can't buy clothes like these off the rack!</answer>
+				<answer author="Barrel P.">What do you want?</answer>
+				<answer author="Guybrush">What's in the keg?</answer>
+				<answer author="Tall P.">Jam</answer>
+				<answer author="Barrel P.">Rum</answer>
+				<answer author="Tall P.">Rum</answer>
+				<answer author="Barrel P.">Jam</answer>
+				<answer author="Tall P.">Er... rum and jam. It's an old pirate favorite, everybody knows that.</answer>
+				<answer author="Guybrush">I'm really interested in this pirating thing.</answer>
+				<answer author="Barrel P.">What do you want?</answer>
+				<answer author="Guybrush">How come you're on this street corner and not on a ship, looting, pillaging, sacking, that sort of thing?</answer>
+				<answer author="Tall P.">Well, pirating hasn't been panning out so well for us...</answer>
+				<answer author="Barrel P.">There are some UNNATURALLY talented pirates in the area right now...</answer>
+				<answer author="Tall P.">Operating out of Monkey Island.</answer>
+				<answer author="Barrel P.">So we've been pursuing alternate means of self-support. We're trying to start up a circus.</answer>
+				<answer author="Tall P.">It was working out well, until the rat scared off the elephant. (looking around, nobody laughs) Now you've depressed us. Go home.</answer>
+			</dialog>
+		</npc>
+	
+		<introMessage>Guybrush explores the city</introMessage>
+		
+		<description>Meele Citizens</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	<scene type="normal" id = "5">
+		<npc name = "Lady">
+			<dialog>
+				<answer author="Guybrush">Maybe no one will miss just this one thing. Then, he goes in and meets with the Voodoo Lady.</answer>
+				<answer author="Lady">What may I help you with, son?</answer>
+				<answer author="Guybrush">(How much for this keen-looking chicken?)</answer>
+				<answer author="Lady">Aah... I sense the guilt of stealing my chicken grows. Take it. It's yours.</answer>
+				<answer author="Guybrush">Why don't you want it? Is it jinxed with an ancient voodoo curse?</answer>
+				<answer author="Lady">No... the pulley squeaks.</answer>
+				<answer author="Guybrush">(My name is Guybrush Threepwood and I'm a mighty pirate.)</answer>
+				<answer author="Lady">Wait... ...don't say anything. I can sense your name is... ...is......Guybrush... ...Guybrush Nosehair. No... ...Threepwood. Guybrush Threepwood. Am I not right?</answer>
+				<answer author="Guybrush">Lucky guess. Half the people I know are named Guybrush.</answer>
+				<answer author="Lady">I suggest you open your mind. It will help you in your coming journey.</answer>
+				<answer author="Guybrush">Journey? What can you tell me about my journey?</answer>
+				<answer author="Lady">I am getting a vision...  ...I see you taking a voyage, a long voyage. I see you captaining a ship.</answer>
+				<answer author="Guybrush"> Yeah!</answer>
+				<answer author="Lady">I see...</answer>
+				<answer author="Guybrush">What? See what?</answer>
+				<answer author="Lady">I see a giant monkey.</answer>
+				<answer author="Guybrush">Yikes!</answer>
+				<answer author="Lady">I see you inside the giant monkey.</answer>
+				<answer author="Guybrush">Gross.</answer>
+				<answer author="Lady"> Wait... it is all becoming clear. Your journey will have many parts. You will see things better left unseen. You will hear things better left unheard. You will learn things better left unlearned.</answer>
+				<answer author="Guybrush">What kind of things? I hate surprises.</answer>
+				<answer author="Lady">NO! The time is not right to know. When you know your purpose, come see me... ...I will let you know then.(suddenly disappears)</answer>
+				<answer author="Guybrush">Yikes!</answer>
+			</dialog>
+		</npc>
+	
+		<introMessage>As Guybrush enters a house, he picks up a chicken thing from the table.</introMessage>
+		
+		<description>Casa Vodoo</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+</sceneManager>

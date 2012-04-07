@@ -37,7 +37,7 @@ public class Text extends Entity {
 		
 		this.text = text;
 		nextWord = 0;
-		
+		steps = 0;
 		
 		this.stepsPerWord = stepsPerWord;
 		
@@ -63,6 +63,10 @@ public class Text extends Entity {
 		return nTokens;
 	}
 
+	public String getText() {
+		return text;
+	}
+	
 	@Override
 	public void onDraw(Canvas canvas) {
 		introTextEffect(canvas);
@@ -79,12 +83,18 @@ public class Text extends Entity {
         int lineSize = 0;
         while(i < nextWord && stk.hasMoreTokens()){
                 aux  = stk.nextToken();
-                if(this.x +  (lineSize) + brush.measureText(aux) > GameState.SCREEN_WIDTH){
+                if(this.x +  (lineSize) + brush.measureText(aux) > GameState.SCREEN_WIDTH || aux.equals("ñ")){
                         row++;
                         lineSize = 0;
+                        if(this.y + (row+1)*fontSize > GameState.SCREEN_HEIGHT){
+                        	row = 1;
+                        	clearText();
+                        }
                 }
-                canvas.drawText(aux, this.x + lineSize, this.y + row*fontSize, brush);
-                lineSize += brush.measureText(aux) + WHITE_SPACE_SIZE;
+                if(!aux.equals("ñ")){
+                	canvas.drawText(aux, this.x + lineSize, this.y + row*fontSize, brush);
+                	lineSize += brush.measureText(aux) + WHITE_SPACE_SIZE;
+                }
                 i++;
         }
 		if (steps == stepsPerWord){
@@ -94,6 +104,19 @@ public class Text extends Entity {
 		}
 	}
 	
+	private void clearText() {
+		StringTokenizer stk = new StringTokenizer(text, "ñ");
+		String aux;
+		while(stk.hasMoreTokens()){
+			aux = stk.nextToken();
+			if(!stk.hasMoreTokens()){
+				text = aux;
+				nextWord = 0;
+				steps = 0;
+			}
+		}
+	}
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -124,5 +147,17 @@ public class Text extends Entity {
 
 	public void setText(String text) {
 		this.text = text;
+		nextWord = 0;
+		steps = 0;
 	}
+
+	public boolean isWriting() {
+		StringTokenizer stk = new StringTokenizer(text);
+		return nextWord <= stk.countTokens();
+	}
+
+	public void concatText(String speech) {
+		this.text += " ñ " + speech;
+	}
+
 }

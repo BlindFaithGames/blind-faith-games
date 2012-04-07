@@ -13,9 +13,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.accgames.input.Input;
-import com.accgames.input.Input.EventType;
-import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 
 /**
@@ -231,10 +228,6 @@ public abstract class GameState {
 		collidables.clear();
 		removables.clear();
 		
-		EventType event = Input.getInput().removeEvent("onKeySearch");
-		if(event != null){
-			RuntimeConfig.IS_DEBUG_MODE = !RuntimeConfig.IS_DEBUG_MODE;
-		}
 	}
 	
 	/**
