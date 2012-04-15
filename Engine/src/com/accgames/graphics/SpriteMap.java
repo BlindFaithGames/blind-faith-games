@@ -224,4 +224,10 @@ public class SpriteMap {
 	private int XYToNum(int x, int y) {
 		return x*nCol+y;
 	}
+
+	public void delete() {
+		if(bitmap != null){
+			bitmap.recycle();
+		}
+	}
 }

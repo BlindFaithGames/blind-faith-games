@@ -418,6 +418,9 @@ public abstract class Entity {
 		}
 		if(img != null)
 			img.recycle();
+		
+		if(animations != null)
+			animations.delete();
 	}
 	
 	/**
