@@ -15,13 +15,13 @@ public class ZarodnikMusicSources {
 	private static final int bip = R.raw.bip;
 	private static final int bubble = R.raw.bubble;
 	private static final int die = R.raw.die;
-	private static final int frost_walz = R.raw.frost_walz;
+	private static final int frost_walz = R.raw.intro;
 	private static final int predator = R.raw.predator;
 	private static final int prey = R.raw.prey;
 	private static final int prey_dead = R.raw.prey_dead;
 	private static final int radio = R.raw.radio;
 	private static final int start = R.raw.start;
-	private static final int the_path_of_the_goblin = R.raw.the_path_of_the_goblin_king;
+	private static final int the_path_of_the_goblin = R.raw.main;
 	
 	public static Map<Integer, String> getMap(Context c) {
 		Map<Integer, String> result = new HashMap<Integer, String>();

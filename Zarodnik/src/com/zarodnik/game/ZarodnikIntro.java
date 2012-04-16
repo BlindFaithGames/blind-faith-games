@@ -64,7 +64,7 @@ public class ZarodnikIntro extends GameState {
 	@Override
 	public void onInit() {
 		super.onInit();
-		Music.getInstanceMusic().play(this.getContext(), R.raw.frost_walz, true);
+		Music.getInstanceMusic().play(this.getContext(), R.raw.intro, true);
 		
 		getTTS().speak(this.context.getString(R.string.intro_game_tts));
 	}
@@ -90,7 +90,7 @@ public class ZarodnikIntro extends GameState {
 		
 		e = Input.getInput().removeEvent("onLongPress");
 		if(e != null && text.isFinished()){
-			Music.getInstanceMusic().stop(R.raw.frost_walz);
+			Music.getInstanceMusic().stop(R.raw.intro);
 			this.stop();
 		}
 		else{

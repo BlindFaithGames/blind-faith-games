@@ -464,7 +464,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 		
 		if(SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.the_path_of_the_goblin_king, true);
+			Music.getInstanceMusic().play(this, R.raw.main, true);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
@@ -488,7 +488,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.getInstanceMusic().stop(R.raw.the_path_of_the_goblin_king);
+		Music.getInstanceMusic().stop(R.raw.main);
 	}
 
 	/**
