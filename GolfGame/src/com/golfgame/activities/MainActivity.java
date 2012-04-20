@@ -94,8 +94,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		checkFirstExecution();
 		
-		Display display = ((WindowManager) this
-				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		Display display = ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		int width = display.getWidth();
 		int height = display.getHeight();
 		

@@ -171,6 +171,13 @@ public class Game {
 		}
 		stateChangedLastStep = false;
 	}
+	
+	/**
+	 * It deletes every game state.
+	 */
+	public void clear(){
+		this.gameStates.clear();
+	}
 }
 
 	

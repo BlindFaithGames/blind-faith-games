@@ -25,25 +25,16 @@ import android.view.View;
  */
 public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 
-	private static final String TAG = "Synthesizer"; // Debug
-
-	private static final String appname = "IVONA Text-to-Speech HQ"; //
-
-	private static final String SYSTEM_TTS = "com.svox.pico"; //
-	
-	public static final int QUEUE_FLUSH = TextToSpeech.QUEUE_FLUSH; // Mapping 
-
-	public static final int QUEUE_ADD = TextToSpeech.QUEUE_ADD; // Mapping
-
-	private TextToSpeech mTts; // Reference to TextToSpeech class
-
-	private int queueMode; // Determines if the sound will be accumulated or flushed.
-	
-	private SubtitleManager subs; // References to be able to transcribe the text
-
-	private boolean enabled; // to disable the speech synthesis
-	
-	private String initialSpeech; // speech read at the creation of a class instance.
+	private static final String TAG = "Synthesizer"; 						// Debug
+	private static final String appname = "IVONA Text-to-Speech HQ"; 		//
+	private static final String SYSTEM_TTS = "com.svox.pico"; 				//
+	public static final int QUEUE_FLUSH = TextToSpeech.QUEUE_FLUSH; 		// Mapping 
+	public static final int QUEUE_ADD = TextToSpeech.QUEUE_ADD; 			// Mapping
+	private TextToSpeech mTts; 												// Reference to TextToSpeech class
+	private int queueMode; 													// Determines if the sound will be accumulated or flushed.
+	private SubtitleManager subs; 											// References to be able to transcribe the text
+	private boolean enabled;												// to disable the speech synthesis
+	private String initialSpeech; 											// speech read at the creation of a class instance.
 
 	/**
 	 * Creator for Parcelable interface.

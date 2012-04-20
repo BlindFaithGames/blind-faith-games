@@ -3,13 +3,19 @@ package com.zarodnik.activities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -58,7 +64,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private TTS textToSpeech;
 	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
-	private Dialog instructionsDialog, interactionModeDialog;
+	private Dialog instructionsDialog, interactionModeDialog, ttsDialog;
 	private View focusedView;
 	private Typeface font;
 	
@@ -83,7 +89,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		checkFirstExecution();
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
-	}	
+	}		    
+
 	
 	private void checkFirstExecution() {
 		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -208,6 +215,28 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 	}
 	
+	private void createTTSDialog() {
+		Button b; 
+		
+		ttsDialog = new Dialog(this);
+		ttsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		ttsDialog.setContentView(R.layout.tts_dialog);
+		
+		b = (Button) ttsDialog.findViewById(R.id.yes_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+	
+		b = (Button) ttsDialog.findViewById(R.id.no_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		
+	}
+	
 	private void setTTS(){
 		Button newButton = (Button) findViewById(R.id.new_button);
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
@@ -324,6 +353,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				blindInteraction = true;
 				interactionModeDialog.dismiss();
 				setTTS();
+				checkIvona();
 				break;
 			case R.id.noBlindMode_button:
 				editor.putBoolean(SettingsActivity.OPT_BLIND_INTERACTION, false);
@@ -331,12 +361,39 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				blindInteraction = false;
 				interactionModeDialog.dismiss();
 				setTTS();
+				checkIvona();
+				break;
+			case R.id.yes_button:
+				installTTS();
+				ttsDialog.dismiss();
+				break;
+			case R.id.no_button:
+				ttsDialog.dismiss();
 				break;
 			case R.id.exit_button:
 				finish();
 				break;
 		}
 	}
+
+	private void installTTS() {
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=com.ivona.tts"));
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Cannot find Google Play",Toast.LENGTH_LONG).show();
+        } 
+	}
+
+
+	private void checkIvona() {
+ 		if (!TTS.isBestTTSInstalled(this)){
+			this.createTTSDialog();
+			this.openTTSDialog();
+		}
+	}
+
 
 	/**
 	 * OnFocusChangeListener Interface
@@ -380,15 +437,41 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
-		if(SettingsActivity.getTranscription(this)){
+		if (SettingsActivity.getTranscription(this)){
 			textToSpeech.enableTranscription(s);
 			Music.getInstanceMusic().enableTranscription(this, s);
-		}else{
+		} else{
 			textToSpeech.disableTranscription();
 			Music.getInstanceMusic().disableTranscription();
-		}
-
+		}		
+	}
+	
+	/** Ask the user what interaction mode wants */
+	private void openTTSDialog() {
+		ttsDialog.show();
 		
+		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, this
+				.getString(R.string.tts_select)
+				+ ","
+				+ this.getString(R.string.yes_label)
+				+ ","
+				+ this.getString(R.string.no_label), TTS.QUEUE_FLUSH, s);
+
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+		
+		if (SettingsActivity.getTranscription(this)){
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		} else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}		
 	}
 
 	/** Start a new game with the given difficulty level 
@@ -448,7 +531,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 		blindInteraction = SettingsActivity.getBlindInteraction(this);
 		
-		if(SettingsActivity.getTranscription(this)){
+		if (SettingsActivity.getTranscription(this)){
 			
 			Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
 			
@@ -463,7 +546,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			Music.getInstanceMusic().disableTranscription();
 		}
 		
-		if(SettingsActivity.getMusic(this))
+		if (SettingsActivity.getMusic(this))
 			Music.getInstanceMusic().play(this, R.raw.main, true);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
@@ -474,12 +557,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			setScreenContent(R.layout.blind_main);
 		else
 			setScreenContent(R.layout.main);
-		
- 		if (!TTS.isBestTTSInstalled(this)){
-			Toast toast = Toast.makeText(this, getString(R.string.synthesizer_suggestion), Toast.LENGTH_LONG);
-			toast.show();
-			textToSpeech.speak(getString(R.string.synthesizer_suggestion));
-		}
 		
 		// Removes all events
 		Input.getInput().clean();

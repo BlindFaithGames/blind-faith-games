@@ -8,8 +8,12 @@
     <string name="interactionMode_select_TTS">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
         sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación</string>
+   	<string name="tts_select">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
+   	    que hemos encontrado. ¿Desea instarlo?</string>
     <string name="blindMode_label">Interacción para ciegos</string>
     <string name="noBlindMode_label">Interacción estándar</string>
+        <string name="yes_label">Sí</string>
+    <string name="no_label">No</string>
     <string name="app_name">Zarodnik</string>
     <string name="introMessage">Welcome, select a difficulty</string>
     <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
@@ -53,7 +57,6 @@
 	    Cuantas más presas coma, mejor será la partida.</string>
     <string name="instructions_controls_text">	    Tiene que realizar eventos de pulsación y arrastre en pantalla para mover al personaje. Escuchará distintos sonidos. Para saber más, diríjase al tutorial del juego.</string>
     <string name="synthetizer_title">Sintetizador</string>
-    <string name="synthesizer_suggestion">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ"</string>
     <string name="onup_title">Evento tirachinas</string>
     <string name="onup_summary">Habilita el lanzamiento mediante eventos de arrastre (como si de un tirachinas se tratase)</string>
     <string name="volume_up">Subir volumen</string>
