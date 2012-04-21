@@ -9,7 +9,7 @@ public class GolfGameAnalytics {
 	public static final String INSTRUCTIONS_GENERAL_ACTIVITY = "InstructionsGeneralActivity";
 	public static final String KEY_CONF_ACTIVITY = "KeyConfActivity";
 	public static final String GAME_ACTIVITY = "GolfGameActivity";
-	public static final String PREFS_ACTIVITY = "PrefsActivity";
+	public static final String PREFS_ACTIVITY = "SettingsActivity";
 	public static final String TUTORIAL_ACTIVITY = "TutorialActivity";
 	public static final String RANKING_ACTIVITY = "RankingActivity";
 	public static final String FORM_ACTIVITY = "FormActivity";
@@ -43,7 +43,5 @@ public class GolfGameAnalytics {
 	public static final String KEY_CONFIGURATION_SUCCESS = "New configuration:";
 	public static final String KEY_CONFIGURATION_FAILS = "Invalid new configuration";
 
-	
-	
 	// Values
 }

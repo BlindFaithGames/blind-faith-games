@@ -4,7 +4,9 @@
     android:layout_height="fill_parent"
     android:stretchColumns="1">
 
-    <TableRow>
+    <TableRow 
+    	android:id="@+id/zoom_row"
+    	android:contentDescription="@string/action_zoom">
         <TextView
             android:layout_column="1"
             android:text="@string/action_zoom"
@@ -21,7 +23,9 @@
         android:layout_height="2dip"
         android:background="#FF909090" />
 
-    <TableRow>
+    <TableRow
+    	android:id="@+id/exploration_row"
+    	android:contentDescription="@string/action_exploration">
         <TextView
             android:layout_column="1"
             android:text="@string/action_exploration"
@@ -38,7 +42,9 @@
         android:layout_height="2dip"
         android:background="#FF909090" />
 
-    <TableRow>
+    <TableRow
+    	android:id="@+id/instructions_row"
+    	android:contentDescription="@string/action_instructions">
         <TextView
             android:layout_column="1"
             android:text="@string/action_instructions"
@@ -55,7 +61,9 @@
 	     android:layout_height="2dip"
 	     android:background="#FF909090" />
     
-     <TableRow>
+     <TableRow 	
+     	android:id="@+id/coordinates_row"
+    	android:contentDescription="@string/action_coordinates">
         <TextView
             android:layout_column="1"
             android:text="@string/action_coordinates"
@@ -72,7 +80,9 @@
 	     android:layout_height="2dip"
 	     android:background="#FF909090" />
     
-     <TableRow>
+     <TableRow
+    	android:id="@+id/context_row"
+    	android:contentDescription="@string/action_context">
         <TextView
             android:layout_column="1"
             android:text="@string/action_context"
@@ -84,21 +94,24 @@
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_context" />
     </TableRow>
-        <View
+    
+     <View
 	     android:layout_height="2dip"
 	     android:background="#FF909090" />
     
-     <TableRow>
+     <TableRow    	
+     	android:id="@+id/repeat_row"
+    	android:contentDescription="@string/action_repeat">
         <TextView
             android:layout_column="1"
-            android:text="@string/action_blind_mode"
+            android:text="@string/action_repeat"
             android:padding="3dip" />
 	    <Button
-	        android:id="@+id/buttonBlindMode"
+	        android:id="@+id/buttonRepeat"
 	        android:layout_width="fill_parent"
-	        android:text="@string/action_blind_mode"
+	        android:text="@string/action_repeat"
 	        android:layout_height="wrap_content"
-	        android:contentDescription="@string/button_blind_mode" />
+	        android:contentDescription="@string/button_repeat" />
     </TableRow>
     
 

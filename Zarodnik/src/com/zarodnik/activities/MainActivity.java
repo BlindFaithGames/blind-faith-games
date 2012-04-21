@@ -3,17 +3,15 @@ package com.zarodnik.activities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,11 +38,11 @@ import com.zarodnik.R;
 import com.zarodnik.game.ZarodnikMusicSources;
 
 /**
- * @author Gloria Pozuelo and Javier Álvarez
+ * @author Gloria Pozuelo and Javier ï¿½lvarez
  * This class implements the music manager of the game
  */
 
-public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener {
+public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener, OnKeyListener {
 	
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
@@ -77,9 +75,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		setScreenContent(R.layout.main);
-
-		keyboard = Input.getKeyboard();
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
@@ -89,7 +86,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		checkFirstExecution();
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
-	}		    
+	}		 
 
 	
 	private void checkFirstExecution() {
@@ -151,6 +148,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		aboutButton.setOnFocusChangeListener(this);
 		aboutButton.setTextSize(fontSize);
 		aboutButton.setTypeface(font);
+		Button formButton = (Button) findViewById(R.id.form_button);
+		formButton.setOnClickListener(this);
+		formButton.setOnLongClickListener(this);
+		formButton.setOnFocusChangeListener(this);
+		formButton.setTextSize(fontSize);
+		formButton.setTypeface(font);
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnLongClickListener(this);
@@ -159,8 +162,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		exitButton.setTypeface(font);
 		
 		createInstructionsDialog();
-
-		checkFolderApp(getString(R.string.app_name)+".xml");
 	}
 
 	
@@ -171,7 +172,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
-		if (RuntimeConfig.blindMode)
+		if (SettingsActivity.getBlindMode(this))
 			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
 		else
 			instructionsDialog.setContentView(R.layout.instructions_dialog);
@@ -191,6 +192,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
+		
+		instructionsDialog.setOnKeyListener(this);
 	}
 	
 	private void createInteractionModeDialog() {
@@ -213,6 +216,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		
+		interactionModeDialog.setOnKeyListener(this);
 	}
 	
 	private void createTTSDialog() {
@@ -235,6 +239,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		
+		ttsDialog.setOnKeyListener(this);
 	}
 	
 	private void setTTS(){
@@ -268,9 +273,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	 * Default keyboard config
 	 */
 	private void fillXMLKeyboard(){
-		keyboard.addObject(22, KeyConfActivity.ACTION_RECORD);
-		keyboard.addObject(84, KeyConfActivity.ACTION_BLIND_MODE);
-		keyboard.setNum(2);
+		keyboard.addObject(82, KeyConfActivity.ACTION_RECORD);
+		keyboard.addObject(84, KeyConfActivity.ACTION_REPEAT);
+		keyboard.setNum(3);
 	}
 
 	private void checkFolderApp(String file) {
@@ -370,6 +375,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			case R.id.no_button:
 				ttsDialog.dismiss();
 				break;
+			case R.id.form_button:
+				i = new Intent(this, FormActivity.class);
+				i.putExtra(KEY_TTS, textToSpeech);
+				startActivity(i);
+				break;
 			case R.id.exit_button:
 				finish();
 				break;
@@ -388,10 +398,10 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 
 	private void checkIvona() {
- 		if (!TTS.isBestTTSInstalled(this)){
+ 		//if (!TTS.isBestTTSInstalled(this)){
 			this.createTTSDialog();
 			this.openTTSDialog();
-		}
+		//}
 	}
 
 
@@ -531,6 +541,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 		blindInteraction = SettingsActivity.getBlindInteraction(this);
 		
+		if (SettingsActivity.getBlindMode(this))	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+		
 		if (SettingsActivity.getTranscription(this)){
 			
 			Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
@@ -553,10 +568,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
-		if (RuntimeConfig.blindMode)	
+		if (SettingsActivity.getBlindMode(this))	
 			setScreenContent(R.layout.blind_main);
 		else
 			setScreenContent(R.layout.main);
+		
+		checkFolderApp(getString(R.string.app_name)+".xml");
 		
 		// Removes all events
 		Input.getInput().clean();
@@ -577,15 +594,28 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.stop();
 	}
 	
-		@Override
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == keyboard.getKeyByAction(KeyConfActivity.ACTION_BLIND_MODE))
-			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
-		
-		if (RuntimeConfig.blindMode)	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (KeyEvent.KEYCODE_BACK == keyCode)
+			return false;
+		
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}	
+		return true;
 	}
 }

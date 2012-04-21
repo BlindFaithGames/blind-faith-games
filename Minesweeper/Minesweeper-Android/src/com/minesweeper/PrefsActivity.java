@@ -10,23 +10,25 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.Log;
+import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.SubtitleInfo;
 import com.minesweeper.game.TTS;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier ¡lvarez
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier √Ålvarez
  * This class implements the preferences activity, where you can choose whether disable or enable sounds
  */
 
 public class PrefsActivity extends PreferenceActivity implements OnPreferenceClickListener {
 	private static String TAG = "SettingsMenu";
 	
-	private CheckBoxPreference music, tts, contextCell, transcription, blindInteraction;
+	private CheckBoxPreference music, tts, contextCell, transcription, blindInteraction, blindMode;
 	
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
@@ -41,10 +43,11 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 	public static final boolean FIRSTRUN_DEF = true;
 	public static final String OPT_BLIND_INTERACTION = "interaction";
 	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
+	public static final String OPT_BLIND_MODE = "blind_mode";
+	private static final boolean OPT_BLIND_MODE_DEF = false;
 
 	private TTS textToSpeech;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,10 +68,19 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 		blindInteraction = (CheckBoxPreference) findPreference(OPT_BLIND_INTERACTION);
 		blindInteraction.setOnPreferenceClickListener(this);
 		
+		blindMode = (CheckBoxPreference) findPreference(OPT_BLIND_MODE);
+		blindMode.setOnPreferenceClickListener(this);
+		
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(getString(R.string.settings_menu_initial_TTStext));
+		textToSpeech.setInitialSpeech(getString(R.string.settings_menu_initial_TTStext) + ", "
+				+ findPreference(OPT_MUSIC).toString() + ", "
+				+ findPreference(OPT_TTS).toString() + ", "
+				+ findPreference(OPT_COORDINATES).toString() + ", "
+				+ findPreference(OPT_TRANSCRIPTION).toString() + ", "
+				+ findPreference(OPT_BLIND_INTERACTION).toString() + ", "
+				+ findPreference(OPT_BLIND_MODE).toString());
 	
 		Log.getLog().addEntry(PrefsActivity.TAG,
 				configurationToString(this),
@@ -113,6 +125,13 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				.getBoolean(OPT_BLIND_INTERACTION, OPT_BLIND_INTERACTION_DEF);
 	}
 	
+	/** Get the current value of the blind interaction option */
+	public static boolean getBlindMode(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_BLIND_MODE, OPT_BLIND_MODE_DEF);
+	}
+	
+	
 	/** Get the current value of the context option */
 	public static boolean getCoordinates(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
@@ -137,21 +156,36 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				" Context Coordinates: "+ PrefsActivity.getCoordinates(context) + "/" +
 				" Transcription " + PrefsActivity.getTranscription(context);
 	}
-
+	
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		if (OPT_MUSIC.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " "
-					+ music.isChecked());
+			if(music.isChecked())
+				textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " " + getString(R.string.disabled));
 		} else if (OPT_TTS.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_TTS).toString() + " "
-					+ tts.isChecked());
+			if(tts.isChecked())
+				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.disabled));
 		} else if (OPT_COORDINATES.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " "
-					+ contextCell.isChecked());
+			if(tts.isChecked())
+				textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " " + getString(R.string.disabled));
 		}else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
-			textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " "
-					+ blindInteraction.isChecked());
+			if(blindInteraction.isChecked())
+				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.disabled));
+			
+		}else if (OPT_BLIND_MODE.equals(preference.getKey())){
+			if(blindInteraction.isChecked())
+				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.disabled));
+			
 		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())){
 			if(transcription.isChecked()){
 				SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
@@ -164,5 +198,17 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 					+ transcription.isChecked());
 		}
 		return true;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

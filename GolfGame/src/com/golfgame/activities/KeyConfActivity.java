@@ -8,12 +8,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TableRow;
 
 import com.accgames.input.Input;
 import com.accgames.input.KeyboardWriter;
@@ -24,12 +26,12 @@ import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
 
-public class KeyConfActivity extends Activity implements OnFocusChangeListener, OnClickListener {
+public class KeyConfActivity extends Activity implements OnFocusChangeListener, OnClickListener, OnLongClickListener {
 	
 	public static final int KEY_PRESSED = 1;
 
 	public static final String ACTION_RECORD = "speakRecord";
-	public static final String ACTION_BLIND_MODE = "blindMode";
+	public static final String ACTION_REPEAT = "repeat";
 	
 	private KeyboardWriter writer;
 	private XMLKeyboard keyboard;
@@ -39,7 +41,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	private String action;
 	private int key;
 	
-	private Button buttonRecord, buttonBlindMode;
+	private Button buttonRecord, buttonRepeat;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,21 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		
 		keyboard = Input.getKeyboard();
 		
+		TableRow tr;
+		
+		tr = (TableRow) findViewById(R.id.speak_row);
+		tr.setOnClickListener(this);
+		
+		tr = (TableRow) findViewById(R.id.repeat_row);
+		tr.setOnClickListener(this);
+		
 		buttonRecord = (Button) findViewById(R.id.buttonRecord);
 		buttonRecord.setOnFocusChangeListener(this);
 		buttonRecord.setOnClickListener(this);
 		
-		buttonBlindMode = (Button) findViewById(R.id.buttonBlindMode);
-		buttonBlindMode.setOnFocusChangeListener(this);
-		buttonBlindMode.setOnClickListener(this);
+		buttonRepeat = (Button) findViewById(R.id.buttonRepeat);
+		buttonRepeat.setOnFocusChangeListener(this);
+		buttonRepeat.setOnClickListener(this);
 		
 		this.buttonsUpdate();
 
@@ -63,8 +73,8 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
-										+ buttonRecord.getContentDescription() + " "
-										+ buttonBlindMode.getContentDescription() + " ");
+										+ buttonRecord.getContentDescription() + ", "
+										+ buttonRepeat.getContentDescription());
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.KEY_CONF_ACTIVITY);
 	}
 	
@@ -79,7 +89,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	
 	private void buttonsUpdate(){
 		buttonRecord.setText(keyboard.searchButtonByAction(ACTION_RECORD));
-		buttonBlindMode.setText(keyboard.searchButtonByAction(ACTION_BLIND_MODE));
+		buttonRepeat.setText(keyboard.searchButtonByAction(ACTION_REPEAT));
 	}
 	
 	/**
@@ -87,7 +97,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	 * @throws ParserConfigurationException 
 	 */
 	public void saveEditedKeyboard(String file){
-		// Si el writer no ha sido aún creado, lo creamos
+		// Si el writer no ha sido aï¿½n creado, lo creamos
 		if (writer == null) writer = new KeyboardWriter();
 		try {
 			FileOutputStream fos = openFileOutput(file, 3);
@@ -98,22 +108,57 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 			e.printStackTrace();
 		}
 	}
+	
+	public void onClick(View v) {
+		if(!SettingsActivity.getBlindInteraction(this)){
+			menuAction(v);
+		}else{
+			if(v != null){
+				if(v instanceof Button){
+					String res = null;
+					Button b = (Button) v;
+					Integer s = keyboard.getKeyByButton(b.getText().toString());
+					if(s != null)
+						res = keyboard.toString(s);
+					if(res != null)
+						textToSpeech.speak(v.getContentDescription().toString() + " " + getString(R.string.infoKeyConf) + " " + res);
+					else
+						textToSpeech.speak(v.getContentDescription().toString() + " " + getString(R.string.infoKeyConffail));
+					}
+				else
+					textToSpeech.speak(v);
+			}
+		}
+	}
 
-	public void onClick(View view) {
+	private void menuAction(View v) {
 		Intent intent = new Intent(this, CheckKeyActivity.class);
 		intent.putExtra(MainActivity.KEY_TTS, textToSpeech);
-		switch (view.getId()) {
+		switch (v.getId()) {
 		case R.id.buttonRecord:
 			action = ACTION_RECORD;
 			break;
-		case R.id.buttonBlindMode:
-			action = ACTION_BLIND_MODE;
+		case R.id.buttonRepeat:
+			action = ACTION_REPEAT;
 			break;
+		default:
+			textToSpeech.speak(v);
+			return;
 		}
 		AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.CONFIGURATION_CHANGED,
 				GolfGameAnalytics.KEY_CONFIGURATION_CHANGED, "Action-Key Changed: " + action, 0);
 		startActivityForResult(intent, KEY_PRESSED);
 	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		if(SettingsActivity.getBlindInteraction(this)){
+			menuAction(v);
+			return true;
+		}else
+			return false;
+	}
+	
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -125,20 +170,19 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 				if (action.equals(ACTION_RECORD)){;
 					keyboard.addButtonAction(key, ACTION_RECORD);
 				}
-				if (action.equals(ACTION_BLIND_MODE)){;
-					keyboard.addButtonAction(key, ACTION_BLIND_MODE);
+				if (action.equals(ACTION_REPEAT)){;
+					keyboard.addButtonAction(key, ACTION_REPEAT);
 				}
 				break;
 			}
 			buttonsUpdate();
 			this.saveEditedKeyboard(getString(R.string.app_name)+".xml");
+			textToSpeech.speak(getString(R.string.key_conf_success) + " " + keyboard.searchButtonByAction(action));
 			AnalyticsManager.getAnalyticsManager(this).registerAction(GolfGameAnalytics.CONFIGURATION_CHANGED,
 					GolfGameAnalytics.KEY_CONFIGURATION_CHANGED,  GolfGameAnalytics.KEY_CONFIGURATION_SUCCESS + keyConfigurationtoString(), 0);
 		}
 		else{
-			Toast toast = Toast.makeText(this, getString(R.string.key_conf_fail), Toast.LENGTH_SHORT);
 			textToSpeech.speak(getString(R.string.key_conf_fail));
-			toast.show();
 			AnalyticsManager.getAnalyticsManager(this).registerAction(GolfGameAnalytics.CONFIGURATION_CHANGED, 
 					GolfGameAnalytics.KEY_CONFIGURATION_CHANGED, GolfGameAnalytics.KEY_CONFIGURATION_FAILS, 0);
 		}
@@ -147,7 +191,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	private String keyConfigurationtoString() {
 		String aux;
 		aux = ACTION_RECORD + ": " + keyboard.getKeyByAction(ACTION_RECORD);
-		aux += ACTION_BLIND_MODE + ": " + keyboard.getKeyByAction(ACTION_BLIND_MODE);
+		aux += ACTION_REPEAT + ": " + keyboard.getKeyByAction(ACTION_REPEAT);
 		return aux;
 	}
 
@@ -158,8 +202,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	 * @return
 	 */
 	private boolean isValid(int key) {	
-		return key != keyboard.getKeyByButton("Search") &&
-			   key != keyboard.getKeyByButton("Volume Up") &&
+		return key != keyboard.getKeyByButton("Volume Up") &&
 			   key != keyboard.getKeyByButton("Volume Down") &&
 			   key != keyboard.getKeyByButton("BACK");
 	}
@@ -171,6 +214,18 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		if (hasFocus) {
 			textToSpeech.speak(v);
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 }

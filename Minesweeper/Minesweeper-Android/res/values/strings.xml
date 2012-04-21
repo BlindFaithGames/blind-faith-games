@@ -65,7 +65,7 @@
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
     <string name="find">Find</string>
-    <string name="intro_main_menu">Main Menu minesweeper, you can navigate through the menu by making simple taps in the different options
+    <string name="intro_main_menu">This application works on portrait mode. Main Menu minesweeper, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="create">Create new log</string>
     <string name="introMessage">Welcome, select a difficulty</string>
@@ -92,6 +92,8 @@
     <string name="transcription_summary">It shows text that contains the TTS speech</string>
     <string name="blind_interaction_title">Blind Interaction Mode</string>
     <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
+    <string name="blind_mode_title">Blind Mode</string>
+    <string name="blind_mode_summary">Allows to use the application without any visual reference in the game and main menu.</string>
     <string name="new_game_title">Difficulty</string>
     <string name="easy_label">Easy</string>
     <string name="medium_label">Medium</string>
@@ -161,19 +163,27 @@
     <string name="alert_dialog_difficulty_TTStext">Dialog difficulty</string>
     <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
-    <string name="settings_menu_initial_TTStext">Menu settings</string>
+    <string name="settings_menu_initial_TTStext">Menu settings. 
+			   Clicking on each element on this menu changes and reads an option. 
+			    You have the next options on this menu\: 
+   </string>
     <string name=" accounts_menu_initial_TTStext">accounts</string>
     <string name="game_initial_TTStext">Game started!</string>
     <string name="exploration_mode_TTStext">Exploration mode</string>
     <string name="zoom_mode_TTStext">Zoom mode</string>
     <string name="coordinates_information_button_TTStext">Position</string>
-    <string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
+    <string name="key_configuration_menu_initial_TTStext">
+			    Key Configuration. Clicking on your left you can listen action descriptions
+			     and on your right you can change the key related 
+			    with an action. If you are in blind interaction mode you have to do a long click
+			     to be able to change the configuration You have the next options\: 
+    </string>
     <string name="button_coord">Coordinates Button</string>
     <string name="button_instr">Instructions Button</string>
     <string name="button_zoom">Zoom Button</string>
     <string name="button_exploration">Exploration Button</string>
     <string name="button_context">Reading cell context</string>
-    <string name="button_blind_mode">To enable blind mode</string>
+    <string name="button_repeat">To repeat last sinthetizer voice message</string>
     <string name="context_coordinates_title">Cells context</string>
     <string name="context_coordinates_summary">Reads cells around the selected</string>
     <string name="keydialog">Action configuration</string>
@@ -181,14 +191,23 @@
     <string name="form_label">Form</string>
     <string name="on_back_pressed">You have to complete the form</string>
     <string name="key_conf_fail">Not a valid key</string>
+    <string name="key_conf_success">You have changed the key associated with</string>
     <!-- Forms -->
+    <string name= "form_instructions1">You can navigate through this form menu by making 
+		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button
+		its text will be read and, important!! if it\'s a answer button will be selected.
+	</string>
+	<string name= "form_instructions2">In this case, if you want, you can write in a field your opinion about the application. </string>
+	<string name= "form_instructions3">From now on, making taps, you can choose between different answers to respond questions.</string>
+    <string name= "form_instructions4">You can fill this field with your opinion.</string>
     <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
-devices and how developers could make games that are not only accessible, but also enjoyable
-for them. To fulfill these goals, we would like to know some details about you and how you
-interact with technologies in general and games in particular. This will help us to interpret your
-answers to this questionnaire. All the information collected through this questionnaire will be
-anonymous, untraceable and will be treated confidentially and only used for the purpose of the
-study. \n</string>
+					devices and how developers could make games that are not only accessible, but also enjoyable
+					for them. To fulfill these goals, we would like to know some details about you and how you
+					interact with technologies in general and games in particular. This will help us to interpret your
+					answers to this questionnaire. All the information collected through this questionnaire will be
+					anonymous, untraceable and will be treated confidentially and only used for the purpose of the
+					study. \n
+	</string>
     <string name="q1_context">Mark the option that better describes your current visual level</string>
     <string name="q2_context">Rate how often you play games in your computer or game console. Where 1 means "Never" and 5 "very often"</string>
     <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>
@@ -210,7 +229,10 @@ study. \n</string>
     <string name="five_context">5</string>
     <string name="na">NA</string>
     <string name="next_context">Next</string>
+    <string name="previous_context">Previous</string>
     <string name="finish_context">Finish</string>
+    <string name="action_form">You have selected</string>
+    
     <string name="load_text">Sending information... Please wait</string>
     <string name="instructions_dialog_select">Select controls or instructions</string>
     <string name="game_dialog_select">Select difficulty</string>
@@ -239,11 +261,21 @@ study. \n</string>
     <string name="tut_read_context_text">It\'s an additional option that reads the cell states around the focused cell. Check it out!.</string>
 
     <!-- Game Actions -->
-    <string name="action_exploration">Exploration mode on/off</string>
+    <string name="action_exploration">Exploration mode</string>
     <string name="action_coordinates">Coordinates</string>
-    <string name="action_zoom">Zoom mode on/off </string>
+    <string name="action_zoom">Zoom mode</string>
     <string name="action_context">Reading cell context</string>
     <string name="action_blind_mode">Blind mode</string>
     <string name="action_instructions">Instructions</string>
+    <string name="action_repeat">To repeat sinthetizer voice message</string>
 
+    <string name="disabled">Disabled</string>
+    <string name="enabled">Enabled</string>
+    <string name="state">cells. State</string>
+    
+    <string name="pushCellSuccess">Great! you have digged various cells.</string>
+    <string name="transition_zoom">There is a cell change. Current cell</string>
+    
+    <string name="infoKeyConf">associtated to</string>
+    <string name="infoKeyConffail">associtated to any key.</string>
 </resources>

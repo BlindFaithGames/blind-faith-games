@@ -15,10 +15,11 @@ import android.view.View;
 import com.accgames.XML.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.Log;
-import com.accgames.others.RuntimeConfig;
+import com.minesweeper.KeyConfActivity;
 import com.minesweeper.Minesweeper;
 import com.minesweeper.PrefsActivity;
 import com.minesweeper.R;
+import com.minesweeper.game.Cell.CellStates;
 
 public class MinesweeperView extends View {
 	private static final String TAG = "MinesweeperGame";
@@ -127,7 +128,7 @@ public class MinesweeperView extends View {
 		
 		zoomMode = false;
 		
-		blindMode = RuntimeConfig.blindMode;
+		blindMode = PrefsActivity.getBlindMode(this.getContext());
 		
 		this.keyboard = Input.getInstance();
 	
@@ -164,6 +165,8 @@ public class MinesweeperView extends View {
 			
 			if(drawTransitionMode){
 				drawTransitionMode = false;
+				
+			//	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, this.game.getString(R.string.transition_zoom));
 				
 				drawMinefieldZoom(selRow,selCol,canvas);
 				
@@ -398,12 +401,21 @@ public class MinesweeperView extends View {
 	 * 
 	 * */
 	private void selectCell(int col, int row) {
-		// pinta la secci�n que ha sido deseleccionada
 		invalidate(selRect);
 		selCol = Math.min(Math.max(col, 0), colN);
 		selRow = Math.min(Math.max(row, 0), rowN);
-		this.game.pushCell(selRow,selCol);
-		this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, Minesweeper.cellToString(game.getCell(selRow, selCol)));
+		boolean speech = this.game.pushCell(selRow,selCol);
+		if(speech){
+			if(game.getCounter() > 5)
+				this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.getContext().getString(R.string.pushCellSuccess) 
+								    + this.getContext().getString(R.string.state)
+									+ game.getCell(selRow, selCol).cellToString(this.getContext()));
+			else{
+				if(!game.getCell(selRow, selCol).getState().equals(CellStates.MINE) && !game.isFinished())
+					this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, game.getCell(selRow, selCol).cellToString(this.getContext()));
+			}
+		}
+
 		setSelectedRect(selCol, selRow, selRect);
 	}
 	
@@ -418,13 +430,15 @@ public class MinesweeperView extends View {
 			onDragAction(event);
 			return true;
 		}else{
-	    	timeTaps[tapsN] = System.currentTimeMillis();
-	    	eventTaps[tapsN] = event;
-	    	if(tapsN < 2)
-	    		tapsN++;
-	    	Handler myHandler = new Handler();
-	    	myHandler.postDelayed(RunnableEvent, TIME_TO_DO_TAP);
-	    	return true;
+			if(event.getAction() == MotionEvent.ACTION_DOWN){
+		    	timeTaps[tapsN] = System.currentTimeMillis();
+		    	eventTaps[tapsN] = event;
+		    	if(tapsN < 2)
+		    		tapsN++;
+		    	Handler myHandler = new Handler();
+		    	myHandler.postDelayed(RunnableEvent, TIME_TO_DO_TAP);
+			}
+			return true;
 		}
 	}
 	
@@ -443,7 +457,7 @@ public class MinesweeperView extends View {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			dragging = START_DRAGGING;
 			if(selCol != col || selRow != row){
-	        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,Minesweeper.cellToString(this.game.getCell(row, col)));
+	        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.game.getCell(row, col).cellToString(this.getContext()));
 	        		selCol = col;
 	        		selRow = row;
 	    			invalidate(selRect);
@@ -462,7 +476,7 @@ public class MinesweeperView extends View {
 		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 			if (dragging == START_DRAGGING) {
 				if(selCol != col || selRow != row){
-		        		this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,Minesweeper.cellToString(this.game.getCell(row, col)));
+		        		this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.game.getCell(row, col).cellToString(this.getContext()));
 		        		selCol = col;
 		        		selRow = row;
 		    			invalidate(selRect);
@@ -539,23 +553,38 @@ public class MinesweeperView extends View {
 			selectCell(selCol,selRow);
 		else{
 			// Left
-			if(x < ARROW_SIZE && y > ARROW_SIZE && y < getHeight() - ARROW_SIZE && selCol-1 >= 0)
+			if(x < ARROW_SIZE && y > ARROW_SIZE && y < getHeight() - ARROW_SIZE && selCol-1 >= 0){
 				selCol -= 1;
+				drawTransitionMode = true;
+				this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,  this.game.getString(R.string.transition_zoom) +
+						this.game.getCell(selRow, selCol).cellToString(this.getContext()));
+			}
+		
 			// Right
-			if(x > getWidth() - ARROW_SIZE && y > ARROW_SIZE && y < getHeight() - ARROW_SIZE && selCol+1 < rowN)
+			if(x > getWidth() - ARROW_SIZE && y > ARROW_SIZE && y < getHeight() - ARROW_SIZE && selCol+1 < rowN){
 				selCol += 1;
+				drawTransitionMode = true;
+				this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,  this.game.getString(R.string.transition_zoom) +
+						this.game.getCell(selRow, selCol).cellToString(this.getContext()));
+			}
+			
 			// Up
-			if(x > ARROW_SIZE && x < getWidth() - ARROW_SIZE && y < ARROW_SIZE && selRow-1 >= 0)
+			if(x > ARROW_SIZE && x < getWidth() - ARROW_SIZE && y < ARROW_SIZE && selRow-1 >= 0){
 				selRow -= 1;
-			// Down
-			if(x > ARROW_SIZE && x < getWidth() - ARROW_SIZE && y > getHeight() - ARROW_SIZE && selRow+1 < colN)
+				drawTransitionMode = true;
+				this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,  this.game.getString(R.string.transition_zoom) +
+						this.game.getCell(selRow, selCol).cellToString(this.getContext()));
+			}
+			
+			 // Down
+			if(x > ARROW_SIZE && x < getWidth() - ARROW_SIZE && y > getHeight() - ARROW_SIZE && selRow+1 < colN){
 				selRow += 1;
-			drawTransitionMode = true;
+				drawTransitionMode = true;
+				this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,  this.game.getString(R.string.transition_zoom) +
+						this.game.getCell(selRow, selCol).cellToString(this.getContext()));
+			}
 		}
-		this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,Minesweeper.cellToString(this
-																.game
-																.getCell(selRow, selCol))
-																);
+		
         setSelectedRect(selCol, selRow, selRect);
 	}
 	/**
@@ -595,10 +624,7 @@ public class MinesweeperView extends View {
 		    	else if (keyboard.getAction(keyCode).equals("coordinates")){
 		        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, this.game.getString(R.string.coordinates_information_button_TTStext) + " " 
 							+ selCol + " " + selRow + " State " 
-						+ Minesweeper.cellToString(this
-							.game
-							.getCell(selRow, selCol)
-							));
+						+ this.game.getCell(selRow, selCol).cellToString(this.getContext()));
 		    	}
 		    	else if (keyboard.getAction(keyCode).equals("instructions")){
 		        	this.game.mTtsActionControls();
@@ -610,42 +636,38 @@ public class MinesweeperView extends View {
 		        	blindMode = !blindMode;
 		        	invalidate();
 		    	}
+		    	else if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_REPEAT)){
+		        	this.game.mTtsAction(Minesweeper.REPEAT_CODE, null);
+		    	}
 		    }
 		    // Teclas siempre fijas
 		    else{
 		        switch(keyCode){
 			        case KeyEvent.KEYCODE_DPAD_UP:
 			        	selRow = MinesweeperMath.mod(selRow - 1, rowN);
-			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,Minesweeper.cellToString(this
-																				.game
-																				.getCell(selRow, selCol)));
+			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.game.getCell(selRow, selCol)
+			        								.cellToString(this.getContext()));
 			        	setSelectedRect(selCol, selRow, selRect);
 			        	if(zoomMode)
 			        		drawTransitionMode = true;
 			        	break;
 			        case KeyEvent.KEYCODE_DPAD_DOWN:
 			        	selRow = MinesweeperMath.mod(selRow + 1, rowN);
-			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,Minesweeper.cellToString(this
-			        															.game
-			        															.getCell(selRow, selCol)));
+			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.game.getCell(selRow, selCol).cellToString(this.getContext()));
 			        	setSelectedRect(selCol, selRow, selRect);
 			        	if(zoomMode)
 			        		drawTransitionMode = true;
 			            break;
 			        case KeyEvent.KEYCODE_DPAD_LEFT:
 			        	selCol = MinesweeperMath.mod(selCol - 1, colN);
-			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,Minesweeper.cellToString(this
-																				.game
-																				.getCell(selRow, selCol)));
+			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.game.getCell(selRow, selCol).cellToString(this.getContext()));
 			        	setSelectedRect(selCol, selRow, selRect);
 			        	if(zoomMode)
 			        		drawTransitionMode = true;
 			        	break;
 			        case KeyEvent.KEYCODE_DPAD_RIGHT:
 			        	selCol = MinesweeperMath.mod(selCol + 1, colN);
-			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,Minesweeper.cellToString(this
-																				.game
-																				.getCell(selRow, selCol)));
+			        	this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.game.getCell(selRow, selCol).cellToString(this.getContext()));
 			        	setSelectedRect(selCol, selRow, selRect);
 			        	if(zoomMode)
 			        		drawTransitionMode = true;

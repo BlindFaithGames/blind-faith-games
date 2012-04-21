@@ -15,12 +15,6 @@
  */
 package com.minesweeper;
 
-import com.google.web.bindery.event.shared.SimpleEventBus;
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
-import com.google.web.bindery.requestfactory.vm.RequestFactorySource;
-import com.minesweeper.R;
-import com.minesweeper.R.drawable;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,6 +33,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.util.Log;
+
+import com.google.web.bindery.event.shared.SimpleEventBus;
+import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.google.web.bindery.requestfactory.vm.RequestFactorySource;
 
 /**
  * Utility methods for getting the base URL for client-server communication and

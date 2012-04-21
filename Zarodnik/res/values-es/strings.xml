@@ -16,7 +16,7 @@
     <string name="no_label">No</string>
     <string name="app_name">Zarodnik</string>
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    <string name="introMainMenu">Antes de todo esta aplicación funciona en modo horizontal. Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee</string>
     <string name="buttonMessage">¡Adelante!</string>
     <string name="zarodnik_activity">Zarodnik Accesible</string>
@@ -26,6 +26,7 @@
     <string name="new_game_label">Nuevo juego</string>
     <string name="keyConf_label">Configuración de teclado</string>
     <string name="about_label">Acerca de</string>
+    <string name="form_label">Formulario</string>
     <string name="exit_label">Salir</string>
     <string name="about_title">Acerca de Zarodnik Accesible </string>
     <string name="about_text">           Music by www.SoundJay.com \n
@@ -45,6 +46,8 @@
     <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
     <string name="blind_interaction_title">Modo de interacción para ciegos</string>
     <string name="blind_interaction_summary">Añade una pulsación más a todos los eventos táctiles en pantalla</string>
+    <string name="blind_mode_title">Modo ciego</string>
+    <string name="blind_mode_summary">Permite usar la aplicación sin ninguna referencia visual en el menú principal y en el juego.</string>
     <string name="game_title">Juego</string>
     <string name="flags_title">Ajutes de bandera</string>
     <string name="flags_shortcut">f</string>
@@ -67,14 +70,25 @@
     <string name="search">Buscar</string>
     <string name="alert_dialog_instructions_TTStext">Diálogo de alerta</string>
     <string name="main_menu_initial_TTStext">Menú principal</string>
-    <string name="settings_menu_initial_TTStext">Menú de ajustes</string>
+    <string name="settings_menu_initial_TTStext">Menu de ajustes. 
+    			Pulsando en cualquiera de las opciones mostradas a lo largo de la pantalla puede activar o desactivar 
+			    una configuración. Al tiempo que activa o desactiva puede leer su descripción para conocer la función que
+			    lleva a cabo en la aplicación.
+			    Tiene las siguientes opciones dentro de este menu\: 
+	</string>
     <string name="game_play_initial_TTStext">¡El juego ha comenzado! Empieza en el centro en la parte de abajo de la pantalla.</string>
     <string name="coordinates_information_button_TTStext">Posición</string>
-    <string name="key_configuration_menu_initial_TTStext">Configuración de teclado</string>
+    <string name="key_configuration_menu_initial_TTStext">
+				Configuración de teclado. Mediante taps a tu izquierda puedes escuchar
+			    las descripciones de las acciones y a tu derecha puedes cambiar la tecla relacionada
+				con la acción de la izquierda. Si estás en modo de interacción para ciegos el cambio de configuración asociada a una tecla
+				será mediante un long tap sino mediante tap simple.  En total se tienen las siguiente opciones\: 
+    </string> 
     <string name="keydialog">Configuración de acción</string>
     <string name="keydialog_text">Pulse cualquier tecla</string>
     <string name="button_speak_record">Mostrar record durante el juego</string>
     <string name="button_blind_mode">Para habilitar el modo ciego</string>
+    <string name="button_repeat">Repite el último mensaje reproducido por el sintetizador de voz</string>
     <string name="recordSpeech">Su record actual es</string>
     <string name="counterSpeech">Su contador actual es</string>
     <string name="newRecordSpeech">¡Nuevo record!</string>
@@ -96,7 +110,7 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
     <string name="screen_change">Se está realizando un cambio de pantalla</string>
     <string name="instruction_speech">Pulsación larga para regresar al menú principal</string>
     <string name="key_conf_fail">No es una tecla válida</string>
-
+    <string name="key_conf_success">Has cambiado la tecla asociada a</string>
     <!-- Tutorial strings -->
     <string name="tutorial_warning">Si quiere salir de esta pantalla simplemente haga una pulsación larga en pantalla.</string>
     <string name="tutorial_intro">En esta pantalla aprenderá los conceptos básicos para aprender a jugar. Para interactuar realice una doble pulsación en pantalla. 
@@ -123,4 +137,52 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
     <string name="start_ono">Piii!</string>
     <string name="the_path_of_the_goblin_ono">Está sonando \'Path of the Goblin\'</string>
 
+    <string name="disabled">Activada</string>
+    <string name="enabled">Desactivada</string>
+    
+    <!-- form -->
+	<string name= "form_instructions1"> Puedes navegar a través de este menú haciendo long click sobre los botones siguiente y anterior situados debajo
+    		de cada conjunto de posibles respuestas o cada texto. Si haces un click simple la opción será leída. Y importante, la opción que se clickee la última vez será la seleccionada. 
+	</string>
+	<string name= "form_instructions2">En este caso, si quieres, puedes rellenar un campo de texto
+	 con tu opinión sobre la aplicación. 
+	</string>
+	<string name= "form_instructions3">De ahora en adelante, tienes varias opciones para responder
+	a cada pregunta. Haz click sobre cada opcion para seleccionarla.
+	</string>
+	<string name= "form_instructions4"> Tienes que rellenar este campo con tu opinión sobre la aplicación.</string>
+    <string name="form_intro">        Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
+        jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
+        sino también agradables para ellos. Para cumplir estos objetivos, nos gustaría conocer algunos detalles acerca de usted 
+        y de cómo interactúa con las tecnologías en general y los juegos en particular. Esto nos ayudará a interpretar sus respuestas
+        a este cuestionario. Toda la información recopilada a través de este cuestionario será anónima, serán tratados de forma 
+        confidencial y sólo se utilizarán con el único propósito del estudio. \n</string>
+    <string name="q1_context">Marque la opción que mejor describe su nivel visual actual</string>
+    <string name="q2_context">¿Cuánto tiempo suele dedicar a jugar con ordenador o consola?. Donde 1 significa "Nunca" y 5 "Muy amenudo"</string>
+    <string name="q3_context">¿Cuánto tiempo suele dedicar a jugar con dispositivos móviles (móvil o tableta)?. Donde 1 significa "Nunca" y 5 "Muy amenudo"</string>
+    <string name="q4_context">¿Cuánto le ha costado aprender a jugar?. Donde 1 significa "Muy difícil" y 5 "Muy fácil".</string>
+    <string name="q5_context">¿Cómo de divertida le ha parecido la experiencia de juego?. Donde 1 significa "Muy aburrido" y 5 "Muy divertido".</string>
+    <string name="q6_context">¿Cómo de entretenida le ha resultado el juego?. Donde 1 significa "poco entretenido" y 5 "muy entretenido".</string>
+    <string name="q7_context">¿Le parece cómoda la interacción con el dispositivo?. Donde 1 significa "incómodo" y 5 "muy cómodo".</string>
+    <string name="q8_context">Evalúe la historia (si es aplicable). Donde 1 significa "No me ha gustado mucho" y 5 "Me ha gustado mucho".</string>
+    <string name="q9_context">Evalúe la accesibilidad y los ajustes de control. Donde 1 significa "No me ha gustado mucho" y 5 "Me ha gustado mucho".</string>
+    <string name="q10_context">Evalúe la retroalimentación proporcionada en el juego.Donde 1 significa "No me ha gustado mucho" y 5 "Me ha gustado mucho".</string>
+    <string name="q11_context">Finalmente, proporcione algunos comentarios o sugerencias para mejorar el juego. Después pulse el botón finalizar
+        para mandarnos las respuestas y ¡esto es todo!.</string>
+    <string name="radio11">Soy ciego</string>
+    <string name="radio12">Mi visión está limitada</string>
+    <string name="radio13">No tengo discapacidad visual</string>
+    <string name="one_context">1</string>
+    <string name="two_context">2</string>
+    <string name="three_context">3</string>
+    <string name="four_context">4</string>
+    <string name="five_context">5</string>
+    <string name="na">NA</string>
+    <string name="next_context">Siguiente</string>
+    <string name="previous_context">Previa</string>
+    <string name="finish_context">Finalizar</string>
+    <string name="action_form">Has seleccionado</string>
+
+    <string name="infoKeyConf">asociada a</string>
+    <string name="infoKeyConffail">asociada a ninguna tecla.</string>
 </resources>

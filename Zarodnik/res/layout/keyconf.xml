@@ -4,7 +4,9 @@
     android:layout_height="fill_parent"
     android:stretchColumns="1">
 
-    <TableRow>
+    <TableRow 
+    	android:id="@+id/speak_row"
+    	android:contentDescription="@string/button_speak_record">
         <TextView
             android:layout_column="1"
             android:text="@string/button_speak_record"
@@ -16,22 +18,25 @@
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_speak_record"/>
     </TableRow>
-
-    <View
+    
+   <View
         android:layout_height="2dip"
         android:background="#FF909090" />
 
-    <TableRow>
+    <TableRow
+    	android:id="@+id/repeat_row"
+    	android:contentDescription="@string/button_repeat">
         <TextView
             android:layout_column="1"
-            android:text="@string/button_blind_mode"
+            android:text="@string/button_repeat"
             android:padding="3dip" />
 	    <Button 
-	        android:id="@+id/buttonBlindMode"
+	        android:id="@+id/buttonRepeat"
 	        android:layout_width="fill_parent"
-	        android:text="@string/button_blind_mode"
+	        android:text="@string/button_repeat"
 	        android:layout_height="wrap_content"
-	        android:contentDescription="@string/button_blind_mode"/>
+	        android:contentDescription="@string/button_repeat"/>
     </TableRow>
+    
     
 </TableLayout>

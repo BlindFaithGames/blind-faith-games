@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
+	android:orientation="horizontal"
+	android:id="@+id/main_root" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/q"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/form_intro"
+            android:text="@string/form_intro" >
+        </TextView>
+        
+        <MultiAutoCompleteTextView 
+        	android:id="@+id/textfield"
+	        android:layout_width="match_parent" 
+	        android:layout_height="wrap_content" 
+	        android:contentDescription="@string/form_instructions4"
+	        android:visibility="gone">
+        </MultiAutoCompleteTextView>
+
+        <RadioGroup
+            android:id="@+id/ans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radio0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/radio11"
+                android:text="@string/radio11"
+                android:visibility="gone">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/radio12"
+                android:text="@string/radio12" 
+                android:visibility="gone">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/radio13"
+                android:text="@string/radio13"
+                android:visibility="gone">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/radio3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="@string/na"
+                android:text="@string/na"
+                android:visibility="gone" >
+            </RadioButton>
+            
+           <RadioButton
+                android:id="@+id/radio4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="@string/na"
+                android:text="@string/na"
+                android:visibility="gone">
+            </RadioButton>
+            
+           <RadioButton
+                android:id="@+id/radio5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="@string/na"
+                android:text="@string/na" 
+                android:visibility="gone">
+            </RadioButton>
+        </RadioGroup>
+        
+      <RelativeLayout 
+	      	android:layout_width="match_parent" 
+	     	android:id="@+id/relativeLayout1"
+	       	android:layout_height="wrap_content" 
+	       	android:gravity="center">
+       
+       <Button 
+       		android:layout_height="wrap_content" 
+	        android:id="@+id/buttonPrevious" 
+	        android:text="@string/previous_context" 
+	        android:contentDescription="@string/previous_context" 
+	        android:layout_width="wrap_content" 
+	        android:layout_alignParentTop="true" 
+	        android:layout_alignParentRight="true" 
+	        android:layout_alignParentLeft="true"
+	        android:visibility="gone">
+      </Button>
+      
+      </RelativeLayout>
+    
+      <Button 
+      		android:id="@+id/buttonNext" 
+      		android:text="@string/next_context" 
+      		android:contentDescription="@string/next_context" 
+     		android:layout_width="match_parent" 
+      		android:layout_height="wrap_content">
+      </Button>
+      
+   </LinearLayout>
+
+
+</LinearLayout>

@@ -5,35 +5,43 @@ package com.minesweeper;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.Log;
-import com.minesweeper.R;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.TTS;
 
 public class FormActivity extends Activity implements OnClickListener,
-		OnFocusChangeListener {
-
+		OnFocusChangeListener, OnLongClickListener{
+	
+	private static int N_QUESTIONS = 12;
+	
 	private TTS textToSpeech;
 
-	private Button buttonNext1, buttonFinish;
-	private MultiAutoCompleteTextView ans11;
+	private int nQuestion; // Indicates the question currently enabled.
+	private TextView t; // Current label question
+	private RadioGroup ans; // Current radio group answer
+	private RadioButton op0, op1, op2, op3, op4, op5;
+	private int[] ansFocus;
+	
+	private Button buttonNext, buttonPrevious;
+	private MultiAutoCompleteTextView textField;
+	
+	private Log l;
 
-	private RadioGroup ans1, ans2, ans3, ans4, ans5, ans6, ans7, ans8, ans9,
-			ans10;
-	private RadioButton r1Selected, r2Selected, r3Selected, r4Selected,
-			r5Selected, r6Selected, r7Selected, r8Selected, r9Selected,
-			r10Selected;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -44,18 +52,77 @@ public class FormActivity extends Activity implements OnClickListener,
 		// If the user wants to send another form, firstly we remove the old
 		// information
 		Log.getLog().clearAnswers();
+		l = Log.getLog();
+		
+		setContentView(R.layout.form);
 
-		setScreenContent(R.layout.form1);
+		t = (TextView) findViewById(R.id.q);
+		t.setOnClickListener(this);
+		t.setOnFocusChangeListener(this);
+		t.setOnLongClickListener(this);
+		
+		buttonNext = (Button) findViewById(R.id.buttonNext);
+		buttonNext.setOnClickListener(this);
+		buttonNext.setOnFocusChangeListener(this);
+		buttonNext.setOnLongClickListener(this);
+		buttonPrevious = (Button) findViewById(R.id.buttonPrevious);
+		buttonPrevious.setOnClickListener(this);
+		buttonPrevious.setOnFocusChangeListener(this);
+		buttonPrevious.setOnLongClickListener(this);
+		
+		ans = (RadioGroup) findViewById(R.id.ans);
+		ans.setOnFocusChangeListener(this);
+		
+		op0 = (RadioButton) findViewById(R.id.radio0);
+		op0.setOnFocusChangeListener(this);
+		op0.setOnClickListener(this);
+		op1 = (RadioButton) findViewById(R.id.radio1);
+		op1.setOnFocusChangeListener(this);
+		op1.setOnClickListener(this);
+		op2 = (RadioButton) findViewById(R.id.radio2);
+		op2.setOnFocusChangeListener(this);
+		op2.setOnClickListener(this);
+		op3 = (RadioButton) findViewById(R.id.radio3);
+		op3.setOnFocusChangeListener(this);
+		op3.setOnClickListener(this);
+		op4 = (RadioButton) findViewById(R.id.radio4);
+		op4.setOnFocusChangeListener(this);
+		op4.setOnClickListener(this);
+		op5 = (RadioButton) findViewById(R.id.radio5);
+		op5.setOnFocusChangeListener(this);
+		op5.setOnClickListener(this);
+		
+		textField = (MultiAutoCompleteTextView) findViewById(R.id.textfield);
+		textField.setOnFocusChangeListener(this);
+		textField.setOnEditorActionListener(new OnEditorActionListener() {
 
-		buttonNext1 = (Button) findViewById(R.id.buttonNext1);
-		buttonNext1.setOnClickListener(this);
-		buttonNext1.setOnFocusChangeListener(this);
+	        @Override
+	        public boolean onEditorAction(TextView v, int actionId,
+	                KeyEvent event) {
+	            if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+	                InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	                in.hideSoftInputFromWindow(textField
+	                        .getApplicationWindowToken(),
+	                        InputMethodManager.HIDE_NOT_ALWAYS);
+	            }
+	            return false;
+	        }
+	    });
+		
+		nQuestion = 0;
+		ansFocus = new int[N_QUESTIONS];
+		for(int i = 0; i < 11; i++){
+			ansFocus[i] = 5;
+		}
+		ansFocus[1] = 3;
 
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(
 				MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(getString(R.string.form_label) + "," + getString(R.string.form_intro));
+		textToSpeech.setInitialSpeech(getString(R.string.form_label) + ", " 
+									+ getString(R.string.form_intro) 
+									+ getString(R.string.form_instructions1));
 
 		AnalyticsManager.getAnalyticsManager(this).registerPage(
 				MinesweeperAnalytics.FORM_ACTIVITY);
@@ -63,184 +130,229 @@ public class FormActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		boolean done = false;
+		if(v != null){
+			if(v instanceof RadioButton){
+				RadioButton r = (RadioButton) v;
+				textToSpeech.speak(getString(R.string.action_form) + " " + r.getText().toString());
+			}else{
+				if(PrefsActivity.getBlindInteraction(this)){
+					textToSpeech.speak(v);
+				}
+				else{
+					menuAction(v);
+				}
+			}
+		}
+	}
 
+	private boolean menuAction(View v) {
+		boolean res = false;
 		switch (v.getId()) {
-		case (R.id.buttonNext1):
-			saveResults(R.layout.form1);
-			setScreenContent(R.layout.form2);
-			InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-			// only will trigger it if no physical keyboard is open
-			mgr.showSoftInput(ans11, InputMethodManager.SHOW_IMPLICIT);
-			buttonFinish = (Button) findViewById(R.id.button_finish);
-			buttonFinish.setOnClickListener(this);
-			buttonFinish.setOnFocusChangeListener(this);
-			done = true;
+		case (R.id.buttonNext):
+			saveQuestion();
+			
+			nQuestion++;
+			
+			if(nQuestion == N_QUESTIONS){
+				System.out.println(l);
+				this.finish();
+				return true;
+			}
+			if(nQuestion == N_QUESTIONS-1)
+				buttonNext.setText("Finish");
+			
+			nextQuestion();
+			
+			res = true;
+			
 			AnalyticsManager.getAnalyticsManager().registerAction(
 					MinesweeperAnalytics.FORM_EVENTS,
 					MinesweeperAnalytics.CLICK, "Next Button", 0);
 			break;
-		case (R.id.button_finish):
-			saveResults(R.layout.form2);
-			done = true;
+		case (R.id.buttonPrevious):
+			saveQuestion();
+			
+			nQuestion--;
+			
+			nextQuestion();
+			
+			res = true;
+		
 			AnalyticsManager.getAnalyticsManager().registerAction(
 					MinesweeperAnalytics.FORM_EVENTS,
-					MinesweeperAnalytics.CLICK, "Finish button", 0);
+					MinesweeperAnalytics.CLICK, "Previous button", 0);
 			break;
 		}
-		if (!done) {
-			textToSpeech.speak(v);
-			textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-			if (groupContainId(ans1, v.getId()))
-				textToSpeech.speak(getString(R.string.q1_context));
-			else if (groupContainId(ans2, v.getId()))
-				textToSpeech.speak(getString(R.string.q2_context));
-			else if (ans3 != null && groupContainId(ans3, v.getId()))
-				textToSpeech.speak(getString(R.string.q3_context));
-			else if (ans4 != null && groupContainId(ans4, v.getId()))
-				textToSpeech.speak(getString(R.string.q4_context));
-			else if (ans5 != null && groupContainId(ans5, v.getId()))
-				textToSpeech.speak(getString(R.string.q5_context));
-			else if (ans6 != null && groupContainId(ans6, v.getId()))
-				textToSpeech.speak(getString(R.string.q6_context));
-			else if (ans7 != null && groupContainId(ans7, v.getId()))
-				textToSpeech.speak(getString(R.string.q7_context));
-			else if (ans8 != null && groupContainId(ans8, v.getId()))
-				textToSpeech.speak(getString(R.string.q8_context));
-			else if (ans9 != null && groupContainId(ans9, v.getId()))
-				textToSpeech.speak(getString(R.string.instructions_label));
-			else if (ans10 != null && groupContainId(ans10, v.getId()))
-				textToSpeech.speak(getString(R.string.q10_context));
-
-			textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-		}
+		return res;
 	}
 
-	/**
-	 * Sets the screen content based on the screen id.
-	 */
-	private void setScreenContent(int screenId) {
-		setContentView(screenId);
-		switch (screenId) {
-		case R.layout.form1:
-			setForm1ScreenContent();
-			break;
-		case R.layout.form2:
-			setForm2ScreenContent();
-			break;
-		}
-	}
-
-	private void setForm2ScreenContent() {
-		ans5 = (RadioGroup) findViewById(R.id.ans5);
-		ans5.setOnFocusChangeListener(this);
-		ans5.requestFocus();
-
-		ans6 = (RadioGroup) findViewById(R.id.ans6);
-		ans6.setOnFocusChangeListener(this);
-		ans6.requestFocus();
-
-		ans7 = (RadioGroup) findViewById(R.id.ans7);
-		ans7.setOnFocusChangeListener(this);
-		ans7.requestFocus();
-
-		ans8 = (RadioGroup) findViewById(R.id.ans8);
-		ans8.setOnFocusChangeListener(this);
-		ans8.requestFocus();
-
-		ans9 = (RadioGroup) findViewById(R.id.ans9);
-		ans9.setOnFocusChangeListener(this);
-		ans9.requestFocus();
-
-		ans10 = (RadioGroup) findViewById(R.id.ans10);
-		ans10.setOnFocusChangeListener(this);
-		ans10.requestFocus();
-
-		ans11 = (MultiAutoCompleteTextView) findViewById(R.id.ans11);
-		// ans11.setOnClickListener(this);
-
-		r5Selected = (RadioButton) findViewById(ans5.getCheckedRadioButtonId());
-		setRadioContent(ans5);
-		r6Selected = (RadioButton) findViewById(ans6.getCheckedRadioButtonId());
-		setRadioContent(ans6);
-		r7Selected = (RadioButton) findViewById(ans7.getCheckedRadioButtonId());
-		setRadioContent(ans7);
-		r8Selected = (RadioButton) findViewById(ans8.getCheckedRadioButtonId());
-		setRadioContent(ans8);
-		r9Selected = (RadioButton) findViewById(ans9.getCheckedRadioButtonId());
-		setRadioContent(ans9);
-		r10Selected = (RadioButton) findViewById(ans10
-				.getCheckedRadioButtonId());
-		setRadioContent(ans10);
-
-	}
-
-	private void setForm1ScreenContent() {
-		ans1 = (RadioGroup) findViewById(R.id.ans1);
-		ans1.setOnFocusChangeListener(this);
-		ans1.requestFocus();
-
-		ans2 = (RadioGroup) findViewById(R.id.ans2);
-		ans2.setOnFocusChangeListener(this);
-		ans2.requestFocus();
-
-		ans3 = (RadioGroup) findViewById(R.id.ans3);
-		ans3.setOnFocusChangeListener(this);
-		ans3.requestFocus();
-
-		ans4 = (RadioGroup) findViewById(R.id.ans4);
-		ans4.setOnFocusChangeListener(this);
-		ans4.requestFocus();
-
-		r1Selected = (RadioButton) findViewById(ans1.getCheckedRadioButtonId());
-		setRadioContent(ans1);
-		r2Selected = (RadioButton) findViewById(ans2.getCheckedRadioButtonId());
-		setRadioContent(ans2);
-		r3Selected = (RadioButton) findViewById(ans3.getCheckedRadioButtonId());
-		setRadioContent(ans3);
-		r4Selected = (RadioButton) findViewById(ans4.getCheckedRadioButtonId());
-		setRadioContent(ans4);
-	}
-
-	private void setRadioContent(RadioGroup group) {
+	private void saveQuestion() {
+		RadioButton r; 
+		boolean found  = false;
 		int i = 0;
-		while (i < group.getChildCount()) {
-			group.getChildAt(i).setOnFocusChangeListener(this);
-			group.getChildAt(i).setOnClickListener(this);
+		while(!found && i < ans.getChildCount()){
+			if(ans.getChildAt(i) instanceof RadioButton){
+				r = (RadioButton) ans.getChildAt(i);
+				found = r.isChecked();
+			}
 			i++;
 		}
-	}
-
-	private void saveResults(int form) {
-		switch (form) {
-		case (R.layout.form1):
-			manageForm1();
-			break;
-		case (R.layout.form2):
-			manageForm2();
-			break;
+		if(nQuestion == 11){
+			l.addAnswer(nQuestion, textField.getText().toString());
+		}else{
+			if(found){
+				if(ans.getChildAt(i-1) instanceof RadioButton){
+					r = (RadioButton) ans.getChildAt(i-1);
+					ansFocus[nQuestion] = i-1;
+					l.addAnswer(nQuestion, r.getText().toString());
+				}
+			}
 		}
 	}
 
-	private void manageForm1() {
-		Log l = Log.getLog();
-		l.addAnswer(r1Selected.getText().toString());
-		l.addAnswer(r2Selected.getText().toString());
-		l.addAnswer(r3Selected.getText().toString());
-		l.addAnswer(r4Selected.getText().toString());
+	private void nextQuestion() {
+		ans.requestFocus();
+		nextFocus();
+		switch(nQuestion){
+			case 0:
+				t.setText(R.string.form_intro);
+				t.setContentDescription(getString(R.string.form_intro));
+				textToSpeech.speak(getString(R.string.form_label) + ". " 
+									+ getString(R.string.form_intro) 
+									+ getString(R.string.form_instructions1));
+				op0.setVisibility(View.GONE);
+				op1.setVisibility(View.GONE);
+				op2.setVisibility(View.GONE);
+				op3.setVisibility(View.GONE);
+				op4.setVisibility(View.GONE);
+				op5.setVisibility(View.GONE);
+				buttonPrevious.setVisibility(View.GONE);
+				nextAnswer();
+			break;
+			case 1:
+				buttonPrevious.setVisibility(View.VISIBLE);
+				op0.setVisibility(View.VISIBLE);
+				op1.setVisibility(View.VISIBLE);
+				op2.setVisibility(View.VISIBLE);
+				op3.setVisibility(View.VISIBLE);
+				op4.setVisibility(View.GONE);
+				op5.setVisibility(View.GONE);
+				t.setText(R.string.q1_context);
+				t.setContentDescription(getString(R.string.q1_context));
+				textToSpeech.speak(getString(R.string.form_instructions3) + " " + t.getContentDescription().toString());
+				op0.setText(R.string.radio11);
+				op0.setContentDescription(getString(R.string.radio11));
+				op1.setText(R.string.radio12);
+				op1.setContentDescription(getString(R.string.radio12));
+				op2.setText(R.string.radio13);
+				op2.setContentDescription(getString(R.string.radio13));
+				op3.setText(R.string.na);
+				op3.setContentDescription(getString(R.string.na));
+				op3.setSelected(true);
+				break;
+			case 2:
+				op4.setVisibility(View.VISIBLE);
+				op5.setVisibility(View.VISIBLE);
+				t.setText(R.string.q2_context);
+				t.setContentDescription(getString(R.string.q2_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 3:
+				t.setText(R.string.q3_context);
+				t.setContentDescription(getString(R.string.q3_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 4:
+				t.setText(R.string.q4_context);
+				t.setContentDescription(getString(R.string.q4_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 5:
+				t.setText(R.string.q5_context);
+				t.setContentDescription(getString(R.string.q5_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 6:
+				t.setText(R.string.q6_context);
+				t.setContentDescription(getString(R.string.q6_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 7:
+				t.setText(R.string.q7_context);
+				t.setContentDescription(getString(R.string.q7_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 8:
+				t.setText(R.string.q8_context);
+				t.setContentDescription(getString(R.string.q8_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 9:
+				t.setText(R.string.q9_context);
+				t.setContentDescription(getString(R.string.q9_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 10:
+				t.setText(R.string.q10_context);
+				t.setContentDescription(getString(R.string.q10_context));
+				textToSpeech.speak(t);
+				nextAnswer();
+				break;
+			case 11:
+				op0.setVisibility(View.GONE);
+				op1.setVisibility(View.GONE);
+				op2.setVisibility(View.GONE);
+				op3.setVisibility(View.GONE);
+				op4.setVisibility(View.GONE);
+				op5.setVisibility(View.GONE);
+				textField.setVisibility(View.VISIBLE);
+				t.setText(R.string.q11_context);
+				t.setContentDescription(getString(R.string.q11_context));
+				textField.setContentDescription(getString(R.string.form_instructions4));
+				textToSpeech.speak(getString(R.string.form_instructions2) + ". " + t.getContentDescription().toString());
+				break;
+		}
+		
 	}
 
-	private void manageForm2() {
-		Log l = Log.getLog();
-		l.addAnswer(r5Selected.getText().toString());
-		l.addAnswer(r6Selected.getText().toString());
-		l.addAnswer(r7Selected.getText().toString());
-		l.addAnswer(r8Selected.getText().toString());
-		l.addAnswer(r9Selected.getText().toString());
-		l.addAnswer(r10Selected.getText().toString());
-		l.addAnswer(ans11.getText().toString());
+	private void nextFocus() {
+		View v;
+		if(ans.getChildCount() < ansFocus[nQuestion]){
+			v = ans.getChildAt(ans.getChildCount()-1);
+		}else{
+			v = ans.getChildAt(ansFocus[nQuestion]);
+		}
+		
+		if(v instanceof RadioButton){
+			RadioButton r = (RadioButton) v;
+			r.setChecked(true);
+		}
+	}
 
-		finish();
+	private void nextAnswer() {
+		op4.setEnabled(true);
+		op5.setEnabled(true);
+		op0.setText(R.string.one_context);
+		op0.setContentDescription(getString(R.string.one_context));
+		op1.setText(R.string.two_context);
+		op1.setContentDescription(getString(R.string.two_context));
+		op2.setText(R.string.three_context);
+		op2.setContentDescription(getString(R.string.three_context));
+		op3.setText(R.string.four_context);
+		op3.setContentDescription(getString(R.string.four_context));
+		op4.setText(R.string.five_context);
+		op4.setContentDescription(getString(R.string.five_context));
+		op5.setText(R.string.na);
+		op5.setContentDescription(getString(R.string.na));
+		op5.setSelected(true);
 	}
 
 	/**
@@ -249,62 +361,19 @@ public class FormActivity extends Activity implements OnClickListener,
 	public void onFocusChange(View v, boolean hasFocus) {
 		int ans = -1;
 		if (hasFocus) {
-			textToSpeech.speak(v);
-			textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-			if (groupContainId(ans1, v.getId())) {
-				textToSpeech.speak(getString(R.string.q1_context));
-				ans = 1;
-			} else if (groupContainId(ans2, v.getId())) {
-				textToSpeech.speak(getString(R.string.q2_context));
-				ans = 2;
-			} else if (groupContainId(ans3, v.getId())) {
-				textToSpeech.speak(getString(R.string.q3_context));
-				ans = 3;
-			} else if (ans4 != null && groupContainId(ans4, v.getId())) {
-				textToSpeech.speak(getString(R.string.q4_context));
-				ans = 4;
-			} else if (ans5 != null && groupContainId(ans5, v.getId())) {
-				textToSpeech.speak(getString(R.string.q5_context));
-				ans = 5;
-			} else if (ans6 != null && groupContainId(ans6, v.getId())) {
-				textToSpeech.speak(getString(R.string.q6_context));
-				ans = 6;
-			}else if (ans7 != null && groupContainId(ans7, v.getId())) {
-				textToSpeech.speak(getString(R.string.q7_context));
-				ans = 7;
-			} else if (ans8 != null && groupContainId(ans8, v.getId())) {
-				textToSpeech.speak(getString(R.string.q8_context));
-				ans = 8;
-			} else if (ans9 != null && groupContainId(ans9, v.getId())) {
-				textToSpeech.speak(getString(R.string.instructions_label));
-				ans = 9;
-			} else if (ans10 != null && groupContainId(ans10, v.getId())) {
-				textToSpeech.speak(getString(R.string.q10_context));
-				ans = 10;
-			}
-			textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-
-			AnalyticsManager.getAnalyticsManager().registerAction(
-					MinesweeperAnalytics.FORM_EVENTS,
-					MinesweeperAnalytics.CLICK, "Ans " + ans, 0);
+			if(v != null && v.getContentDescription() != null)
+				textToSpeech.speak(v);
 		}
+		AnalyticsManager.getAnalyticsManager().registerAction(
+				MinesweeperAnalytics.FORM_EVENTS,
+				MinesweeperAnalytics.CLICK, "Ans " + ans, 0);
 	}
 
-	private boolean groupContainId(RadioGroup group, int id) {
-		int i = 0;
-		boolean found = false;
-		while (!found && i < group.getChildCount()) {
-			found = group.getChildAt(i).getId() == id;
-			i++;
-		}
-		return found;
-	}
 
-//	public void onBackPressed() {
-//		Toast toast = Toast.makeText(this, R.string.on_back_pressed,
-//				Toast.LENGTH_SHORT);
-//		toast.show();
-//		textToSpeech.speak(this.getString(R.string.on_back_pressed));
-//	}
+	@Override
+	public boolean onLongClick(View v) {
+		return menuAction(v);
+		 
+	}
 
 }

@@ -7,9 +7,13 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -34,11 +38,11 @@ import com.juego4.R;
 import com.juego4.game.Juego4MusicSources;
 
 /**
- * @author Gloria Pozuelo and Javier Álvarez
+ * @author Gloria Pozuelo and Javier ï¿½lvarez
  * This class implements the music manager of the game
  */
 
-public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener {
+public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener, OnKeyListener {
 	
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
@@ -58,23 +62,21 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private TTS textToSpeech;
 	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
-	private Dialog instructionsDialog, interactionModeDialog;
+	private Dialog instructionsDialog, interactionModeDialog, ttsDialog;
 	private View focusedView;
 	private Typeface font;
 	
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
 	private boolean blindInteraction;
-	
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		setScreenContent(R.layout.main);
-
-		keyboard = Input.getKeyboard();
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
@@ -84,7 +86,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		checkFirstExecution();
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
-	}	
+	}		 
+
 	
 	private void checkFirstExecution() {
 		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -154,7 +157,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		createInstructionsDialog();
 
-		checkFolderApp(getString(R.string.app_name)+".xml");
+		
 	}
 
 	
@@ -164,8 +167,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		if (RuntimeConfig.blindMode)
+
+		if (SettingsActivity.getBlindMode(this))
 			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
 		else
 			instructionsDialog.setContentView(R.layout.instructions_dialog);
@@ -185,31 +188,54 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
+		
+		instructionsDialog.setOnKeyListener(this);
 	}
 	
 	private void createInteractionModeDialog() {
-		Button b; TextView t;
+		Button b; 
 		
 		interactionModeDialog = new Dialog(this);
 		interactionModeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		interactionModeDialog.setContentView(R.layout.interaction_mode_dialog);
 		
-		t = (TextView) interactionModeDialog.findViewById(R.id.interactionMode_textView);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);	
 		b = (Button) interactionModeDialog.findViewById(R.id.blindMode_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
-		b.setTypeface(font);	
+	
 		b = (Button) interactionModeDialog.findViewById(R.id.noBlindMode_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
-		b.setTypeface(font);		
+		
+		interactionModeDialog.setOnKeyListener(this);
+	}
+	
+	private void createTTSDialog() {
+		Button b; 
+		
+		ttsDialog = new Dialog(this);
+		ttsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		ttsDialog.setContentView(R.layout.tts_dialog);
+		
+		b = (Button) ttsDialog.findViewById(R.id.yes_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+	
+		b = (Button) ttsDialog.findViewById(R.id.no_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		
+		ttsDialog.setOnKeyListener(this);
 	}
 	
 	private void setTTS(){
@@ -243,7 +269,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	 * Default keyboard config
 	 */
 	private void fillXMLKeyboard(){
-		keyboard.addObject(84, KeyConfActivity.ACTION_BLIND_MODE);
+		keyboard.addObject(82, KeyConfActivity.ACTION_BLIND_MODE);
+		keyboard.addObject(84, KeyConfActivity.ACTION_REPEAT);
 		keyboard.setNum(2);
 	}
 
@@ -327,6 +354,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				blindInteraction = true;
 				interactionModeDialog.dismiss();
 				setTTS();
+				checkIvona();
 				break;
 			case R.id.noBlindMode_button:
 				editor.putBoolean(SettingsActivity.OPT_BLIND_INTERACTION, false);
@@ -334,12 +362,39 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				blindInteraction = false;
 				interactionModeDialog.dismiss();
 				setTTS();
+				checkIvona();
+				break;
+			case R.id.yes_button:
+				installTTS();
+				ttsDialog.dismiss();
+				break;
+			case R.id.no_button:
+				ttsDialog.dismiss();
 				break;
 			case R.id.exit_button:
 				finish();
 				break;
 		}
 	}
+
+	private void installTTS() {
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=com.ivona.tts"));
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Cannot find Google Play",Toast.LENGTH_LONG).show();
+        } 
+	}
+
+
+	private void checkIvona() {
+ 		//if (!TTS.isBestTTSInstalled(this)){
+			this.createTTSDialog();
+			this.openTTSDialog();
+		//}
+	}
+
 
 	/**
 	 * OnFocusChangeListener Interface
@@ -383,15 +438,41 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
-		if(SettingsActivity.getTranscription(this)){
+		if (SettingsActivity.getTranscription(this)){
 			textToSpeech.enableTranscription(s);
 			Music.getInstanceMusic().enableTranscription(this, s);
-		}else{
+		} else{
 			textToSpeech.disableTranscription();
 			Music.getInstanceMusic().disableTranscription();
-		}
-
+		}		
+	}
+	
+	/** Ask the user what interaction mode wants */
+	private void openTTSDialog() {
+		ttsDialog.show();
 		
+		Map<Integer, String> onomatopeias = Juego4MusicSources.getMap(this);
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, this
+				.getString(R.string.tts_select)
+				+ ","
+				+ this.getString(R.string.yes_label)
+				+ ","
+				+ this.getString(R.string.no_label), TTS.QUEUE_FLUSH, s);
+
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+		
+		if (SettingsActivity.getTranscription(this)){
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		} else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}		
 	}
 
 	/** Start a new game with the given difficulty level 
@@ -451,7 +532,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 		blindInteraction = SettingsActivity.getBlindInteraction(this);
 		
-		if(SettingsActivity.getTranscription(this)){
+		if (SettingsActivity.getBlindMode(this))	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+		
+		if (SettingsActivity.getTranscription(this)){
 			
 			Map<Integer, String> onomatopeias = Juego4MusicSources.getMap(this);
 			
@@ -466,23 +552,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			Music.getInstanceMusic().disableTranscription();
 		}
 		
-		if(SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.the_path_of_the_goblin_king, true);
+		if (SettingsActivity.getMusic(this))
+			Music.getInstanceMusic().play(this, R.raw.main, true);
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
-		if (RuntimeConfig.blindMode)	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
-		
- 		if (!TTS.isBestTTSInstalled(this)){
-			Toast toast = Toast.makeText(this, getString(R.string.synthesizer_suggestion), Toast.LENGTH_LONG);
-			toast.show();
-			textToSpeech.speak(getString(R.string.synthesizer_suggestion));
-		}
+		checkFolderApp(getString(R.string.app_name)+".xml");
 		
 		// Removes all events
 		Input.getInput().clean();
@@ -491,7 +568,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.getInstanceMusic().stop(R.raw.the_path_of_the_goblin_king);
+		Music.getInstanceMusic().stop(R.raw.main);
 	}
 
 	/**
@@ -503,15 +580,28 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.stop();
 	}
 	
-		@Override
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == keyboard.getKeyByAction(KeyConfActivity.ACTION_BLIND_MODE))
-			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
-		
-		if (RuntimeConfig.blindMode)	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (KeyEvent.KEYCODE_BACK == keyCode)
+			return false;
+		
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}	
+		return true;
 	}
 }

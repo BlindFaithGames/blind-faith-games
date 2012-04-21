@@ -81,7 +81,8 @@ public class GolfGameActivity extends Activity {
         
         createGame(mode,golfView);
 		
-		if (RuntimeConfig.blindMode)game.setDisabled(true);
+		if (SettingsActivity.getBlindMode(this))
+			game.setDisabled(true);
         
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.GAME_ACTIVITY);
 		
@@ -191,9 +192,6 @@ public class GolfGameActivity extends Activity {
         
 		private void manageDefaultConfigurationKeys(int keyCode, KeyEvent event) {
         	switch(keyCode){
-	        	case KeyEvent.KEYCODE_SEARCH:
-	        		Input.getInput().addEvent("onKeySearch", event, -1, -1);
-	            break;
 	        	case KeyEvent.KEYCODE_BACK:
 	        		finish();
 	            break;
@@ -218,11 +216,10 @@ public class GolfGameActivity extends Activity {
 				    	if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_RECORD)){
 				    		Input.getInput().addEvent(KeyConfActivity.ACTION_RECORD, e, -1, -1);
 				    	}
-				    	else 
-				    		if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_BLIND_MODE)){
-				    			game.setDisabled(!game.getDisabled());
-								RuntimeConfig.blindMode = !RuntimeConfig.blindMode;
-				    		}
+				    	else
+				    		if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_REPEAT)){
+				    			textToSpeech.repeatSpeak();
+				    		}	
 				    }
 			}
 			AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.GAME_EVENTS, GolfGameAnalytics.KEY_PUSHED, 

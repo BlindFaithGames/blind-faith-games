@@ -68,7 +68,7 @@ public class Juego4GameActivity extends Activity {
 		
 		createGame(zarodnikView);
 		
-		if (RuntimeConfig.blindMode) 
+		if (SettingsActivity.getBlindMode(this)) 
 			game.setDisabled(true);
     }
     
@@ -182,9 +182,6 @@ public class Juego4GameActivity extends Activity {
         
 		private void manageDefaultConfigurationKeys(int keyCode, KeyEvent event) {
         	switch(keyCode){
-	        	case KeyEvent.KEYCODE_SEARCH:
-	        		Input.getInput().addEvent("onKeySearch", event, -1, -1);
-	            break;
 	        	case KeyEvent.KEYCODE_BACK:
 	        		finish();
 	            break;
@@ -205,11 +202,11 @@ public class Juego4GameActivity extends Activity {
 				    	found = keyboard.getAction(keyCode) != null;   
 				    	i++;
 				    }
-				    if (found){
+				    if (found){/*
 				    	if (keyboard.getAction(keyCode).equals(KeyConfActivity.ACTION_BLIND_MODE)){
 				    		game.setDisabled(!game.getDisabled());
 							RuntimeConfig.blindMode = !RuntimeConfig.blindMode;
-				    	}
+				    	}*/
 				    }
 			}
 			return found;

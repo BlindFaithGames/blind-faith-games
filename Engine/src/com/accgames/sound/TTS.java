@@ -19,7 +19,7 @@ import android.view.View;
  * This class allows use the default voice synthesizer in the system to transcribe a string, 
  * and checks what is the synthesis engine installed in a device.
  * 
- * @author Gloria Pozuelo & Javier Álvarez 
+ * @author Gloria Pozuelo & Javier ï¿½lvarez 
  * @implements OnInitListener, Parcelable
  * 
  */
@@ -35,7 +35,8 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	private SubtitleManager subs; 											// References to be able to transcribe the text
 	private boolean enabled;												// to disable the speech synthesis
 	private String initialSpeech; 											// speech read at the creation of a class instance.
-
+	private String lastSpeech;												// saves the last message read by TTS
+	
 	/**
 	 * Creator for Parcelable interface.
 	 * 
@@ -59,6 +60,8 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		queueMode = in.readInt();
 		
 		subs = new SubtitleManager((SubtitleInfo)in.readParcelable(SubtitleInfo.class.getClassLoader()));
+		
+		lastSpeech = in.readString();
 	}
 
 	/**
@@ -78,6 +81,8 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		this.queueMode = queueMode;	
 		
 		subs = new SubtitleManager(ctxt);
+		
+		lastSpeech = "";
 	}
 
 	/**
@@ -96,6 +101,8 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		this.queueMode = queueMode;
 		
 		subs = new SubtitleManager(ctxt);
+		
+		lastSpeech = "";
 	}
 	
 	/**
@@ -116,6 +123,8 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		this.queueMode = queueMode;
 		
 		subs = new SubtitleManager(ctxt, sInfo);
+		
+		lastSpeech = "";
 	}
 // ----------------------------------------------------------- Getters -----------------------------------------------------------
 
@@ -160,7 +169,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 			// Set preferred language to US english.
 			// Note that a language may not be available, and the result will
 			// indicate this.
-			int result = mTts.setLanguage(Locale.US);
+			int result = mTts.setLanguage(Locale.getDefault());
 			// Try this someday for some interesting results.
 			if (result == TextToSpeech.LANG_MISSING_DATA
 					|| result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -169,6 +178,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 			} else {
 				// The TTS engine has been successfully initialized.
 				if (initialSpeech != null && enabled){
+					lastSpeech = initialSpeech;
 					mTts.speak(initialSpeech, TextToSpeech.QUEUE_FLUSH, null);
 					subs.showSubtitle("TTS:" + initialSpeech);
 				}
@@ -236,6 +246,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	 * */
 	public void speak(String msg) {
 		if (enabled){
+			lastSpeech = msg;
 			mTts.speak(msg, queueMode, null);
 			subs.showSubtitle("TTS:" + msg);
 		}
@@ -248,6 +259,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	 * */
 	public void speak(View v) {
 		if (enabled){
+			lastSpeech = v.getContentDescription().toString();
 			mTts.speak(v.getContentDescription().toString(), queueMode, null);
 			subs.showSubtitle("TTS:" + v.getContentDescription().toString());
 		}
@@ -259,12 +271,26 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	 * @param msg the message list that will be read.
 	 * */
 	public void speak(List<String> msg) {
+		String s;
 		if (enabled) {
 			Iterator<String> it = msg.iterator();
 			while (it.hasNext()){
-				mTts.speak(" " + it.next() + " ", QUEUE_ADD, null);
+				s = it.next();
+				lastSpeech = " " + s + " ";
+				mTts.speak(" " +  s + " ", QUEUE_ADD, null);
 				subs.showSubtitle(" " + "TTS:" +  it.next() + " ");
 			}
+		}
+	}
+	
+	/**
+	 * Reads again the last message that has been spoken by TTS.
+	 *
+	 * */
+	public void repeatSpeak(){
+		if (enabled && lastSpeech != null){
+			mTts.speak(lastSpeech, queueMode, null);
+			subs.showSubtitle("TTS:" + lastSpeech);
 		}
 	}
 
@@ -309,5 +335,6 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		dest.writeInt(enabled ? 1 : 0);
 		dest.writeInt(queueMode);
 		dest.writeParcelable(subs.getsInfo(), flags);
+		dest.writeString(lastSpeech);
 	}
 }

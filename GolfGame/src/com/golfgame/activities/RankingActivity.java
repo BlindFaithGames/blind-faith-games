@@ -14,9 +14,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
@@ -25,12 +27,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.accgames.input.Input;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
-public class RankingActivity extends Activity implements OnTouchListener, OnFocusChangeListener{
+public class RankingActivity extends Activity implements  OnFocusChangeListener, OnLongClickListener{
 	
 	private TTS textToSpeech;
 	
@@ -174,7 +177,7 @@ public class RankingActivity extends Activity implements OnTouchListener, OnFocu
 	        	b.setGravity(Gravity.CENTER);
 	        	b.setPadding(4, 4, 4, 4);
 	        	b.setOnFocusChangeListener(this);
-	        	b.setOnTouchListener(this);
+	        	b.setOnLongClickListener(this);
 	        	b.setBackgroundColor(Color.BLACK);
    	
 	        	border.addView(b);
@@ -216,11 +219,23 @@ public class RankingActivity extends Activity implements OnTouchListener, OnFocu
 	}
 
 	@Override
-	public boolean onTouch(View v, MotionEvent event) {
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
 		textToSpeech.speak(getString(R.string.ranking_speech));
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		textToSpeech.speak(((Button) v).getText().toString());
 		textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 		return true;
-	}	
+	}
 }

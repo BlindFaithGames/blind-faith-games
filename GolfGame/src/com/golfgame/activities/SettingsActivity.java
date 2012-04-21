@@ -12,8 +12,10 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.accgames.input.Input;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
 import com.accgames.sound.Music;
@@ -26,7 +28,9 @@ public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
 
 	private CheckBoxPreference music, tts, infoTarget, on_up_event,
-			vibration_feedback, sound_feedback, profileA, profileB, doppler_effect_feedback, transcription,blindInteraction;
+								vibration_feedback, sound_feedback, 
+								profileA, profileB, doppler_effect_feedback, 
+								transcription, blindInteraction, blindMode;
 
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
@@ -49,6 +53,8 @@ public class SettingsActivity extends PreferenceActivity implements
 	public static final boolean FIRSTRUN_DEF = true;
 	public static final String OPT_BLIND_INTERACTION = "interaction";
 	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
+	public static final String OPT_BLIND_MODE = "blind_mode";
+	private static final boolean OPT_BLIND_MODE_DEF = false;
 	private static final String OPT_PROFILEA = "profile A";
 	private static final String OPT_PROFILEB = "profile B";
 	private TTS textToSpeech;
@@ -90,14 +96,28 @@ public class SettingsActivity extends PreferenceActivity implements
 		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
 		transcription.setOnPreferenceClickListener(this);
 		
+		blindMode = (CheckBoxPreference) findPreference(OPT_BLIND_MODE);
+		blindMode.setOnPreferenceClickListener(this);
+		
 		blindInteraction = (CheckBoxPreference) findPreference(OPT_BLIND_INTERACTION);
 		blindInteraction.setOnPreferenceClickListener(this);
 		
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(this.getString(R.string.initial_settings));
-		
+		textToSpeech.setInitialSpeech(getString(R.string.settings_menu_initial_TTStext) + ", "
+											+ findPreference(OPT_MUSIC).toString() + ", "
+											+ findPreference(OPT_TTS).toString() + ", "
+											+ findPreference(OPT_TRANSCRIPTION).toString() + ", "
+											+ findPreference(OPT_BLIND_INTERACTION).toString() + ", "
+											+ findPreference(OPT_BLIND_MODE).toString() + ", "
+											+ findPreference(OPT_PROFILEA).toString() + ", "
+											+ findPreference(OPT_PROFILEB).toString() + ", "
+											+ findPreference(OPT_INFO_TARGET).toString() + ", "
+											+ findPreference(OPT_UP).toString() + ", "
+											+ findPreference(OPT_VIBRATION_FEEDBACK).toString() + ", "
+											+ findPreference(OPT_SOUND_FEEDBACK).toString() + ", "
+											+ findPreference(OPT_SOUND_DOPPLER_EFFECT).toString());
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.PREFS_ACTIVITY);
 	}
 
@@ -152,6 +172,12 @@ public class SettingsActivity extends PreferenceActivity implements
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_BLIND_INTERACTION, OPT_BLIND_INTERACTION_DEF);
 	}
+	
+	/** Get the current value of the blind interaction option */
+	public static boolean getBlindMode(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_BLIND_MODE, OPT_BLIND_MODE_DEF);
+	}
 
 	/** Get the current value of the info target option */
 	public static boolean getNotifyTarget(Context context) {
@@ -186,44 +212,68 @@ public class SettingsActivity extends PreferenceActivity implements
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		if (OPT_MUSIC.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " "
-					+ music.isChecked());
+			if(music.isChecked())
+				textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " " + getString(R.string.disabled));
 		} else if (OPT_TTS.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_TTS).toString() + " "
-					+ tts.isChecked());
-			
+			if(tts.isChecked())
+				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.disabled));
 		} else if (OPT_INFO_TARGET.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_INFO_TARGET).toString() + " "
-					+ infoTarget.isChecked());
+			if(infoTarget.isChecked())
+				textToSpeech.speak(findPreference(OPT_INFO_TARGET).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_INFO_TARGET).toString() + " " + getString(R.string.disabled));
 			manageCustomProfile();
 		} else if (OPT_UP.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_UP).toString() + " "
-					+ on_up_event.isChecked());
+			if(on_up_event.isChecked())
+				textToSpeech.speak(findPreference(OPT_UP).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_UP).toString() + " " + getString(R.string.disabled));
 			manageCustomProfile();
 		} else if (OPT_VIBRATION_FEEDBACK.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_VIBRATION_FEEDBACK)
-					.toString() + " " + vibration_feedback.isChecked());
+			if(vibration_feedback.isChecked())
+				textToSpeech.speak(findPreference(OPT_VIBRATION_FEEDBACK).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_VIBRATION_FEEDBACK).toString() + " " + getString(R.string.disabled));
 			manageCustomProfile();
 		} else if (OPT_SOUND_FEEDBACK.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_SOUND_FEEDBACK).toString() + " "
-					+ sound_feedback.isChecked());
+			if(sound_feedback.isChecked())
+				textToSpeech.speak(findPreference(OPT_SOUND_FEEDBACK).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_SOUND_FEEDBACK).toString() + " " + getString(R.string.disabled));
 			manageCustomProfile();
 		} else if (OPT_SOUND_DOPPLER_EFFECT.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_SOUND_DOPPLER_EFFECT).toString() + " "
-					+ doppler_effect_feedback.isChecked());
+			if(doppler_effect_feedback.isChecked())
+				textToSpeech.speak(findPreference(OPT_SOUND_DOPPLER_EFFECT).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_SOUND_DOPPLER_EFFECT).toString() + " " + getString(R.string.disabled));
 			manageCustomProfile();
 		} else if (OPT_PROFILEA.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_PROFILEA).toString() + " "
-					+ profileA.isChecked());
+			if(profileA.isChecked())
+				textToSpeech.speak(findPreference(OPT_PROFILEA).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_PROFILEA).toString() + " " + getString(R.string.disabled));
 			manageProfileA();
 		} else if (OPT_PROFILEB.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_PROFILEB).toString() + " "
-					+ profileB.isChecked());
+			if(profileB.isChecked())
+				textToSpeech.speak(findPreference(OPT_PROFILEB).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_PROFILEB).toString() + " " + getString(R.string.disabled));
 			manageProfileB();
 		}else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
-				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " "
-						+ blindInteraction.isChecked());
-		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
+			if(blindInteraction.isChecked())
+				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.disabled));
+		}else if (OPT_BLIND_MODE.equals(preference.getKey())){
+			if(blindInteraction.isChecked())
+				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.disabled));
+		}  else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
 			if(transcription.isChecked()){
 				Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
 				
@@ -232,14 +282,15 @@ public class SettingsActivity extends PreferenceActivity implements
 				
 				Music.getInstanceMusic().enableTranscription(this, s);
 				textToSpeech.enableTranscription(s);
+				
+				textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString()+ " " + getString(R.string.enabled));
 			}
 			else{
 				Music.getInstanceMusic().disableTranscription();
 				textToSpeech.disableTranscription();
+				
+				textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " " + getString(R.string.disabled));
 			}
-			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " "
-					+ transcription.isChecked());
-
 		}
 		return true;
 	}
@@ -301,5 +352,17 @@ public class SettingsActivity extends PreferenceActivity implements
 		setOnUp(false);
 		setSoundFeedback(false);
 		setVibration(false);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

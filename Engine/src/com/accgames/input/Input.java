@@ -15,7 +15,7 @@ import android.view.MotionEvent;
  * view the game stores it in the buffers of this class t
  * that will be consulted by its own onUpdate.  
  * 
- * @author Javier Álvarez & Gloria Pozuelo.
+ * @author Javier ï¿½lvarez & Gloria Pozuelo.
  * 
  * */
 
@@ -29,7 +29,7 @@ public class Input {
 	/**
 	 * Encapsulates information about a generic event.
 	 * 
-	 * @author Javier Álvarez & Gloria Pozuelo.
+	 * @author Javier ï¿½lvarez & Gloria Pozuelo.
 	 * 
 	 * */	
 	public class EventType{

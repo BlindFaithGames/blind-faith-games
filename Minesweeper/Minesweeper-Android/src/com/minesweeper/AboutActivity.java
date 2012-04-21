@@ -4,15 +4,18 @@ package com.minesweeper;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Window;
 
 import com.accgames.others.AnalyticsManager;
+import com.accgames.others.CustomView;
 import com.accgames.others.Log;
-import com.minesweeper.R;
+import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.TTS;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier ¡lvarez
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier √Ålvarez
  * This class implements the about activity, where is shown a description of minesweeper
  */
 
@@ -26,14 +29,21 @@ public class AboutActivity extends Activity{
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.about);	
-		
+	
+		if(!PrefsActivity.getBlindMode(this)){
+			setTheme(android.R.style.Theme_Dialog);
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.about);
+		}else{
+			super.onCreate(savedInstanceState);
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setContentView(new CustomView(this));
+		}
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setInitialSpeech(getString(R.string.about_title) + " " + getString(R.string.about_text));
-	
+
 		Log.getLog().addEntry(AboutActivity.TAG,
 				PrefsActivity.configurationToString(this),
 				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"");
@@ -48,5 +58,17 @@ public class AboutActivity extends Activity{
 	protected void onDestroy() {
 		 super.onDestroy();
 	     textToSpeech.stop();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

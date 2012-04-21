@@ -16,7 +16,7 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="no_label">No</string>
     <string name="app_name">Zarodnik Game</string>
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Main menu Zarodnik Game, you can navigate through the menu by making simple taps in the different options
+    <string name="introMainMenu">This application works on landscape mode. Main menu Zarodnik Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     <string name="zarodnik_activity">Zarodnik game</string>
@@ -26,6 +26,7 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="new_game_label">New Game</string>
     <string name="keyConf_label">Key Configuration</string>
     <string name="about_label">About</string>
+    <string name="form_label">Form</string>
     <string name="exit_label">Exit</string>
     <string name="about_title">Zarodnik About </string>
     <string name="about_text">           Music by www.SoundJay.com \n
@@ -42,9 +43,11 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="tts_title">Default TTS</string>
     <string name="tts_summary">Enables voice synthesizer</string>
     <string name="transcription_title">Transcription mode</string>
-    <string name="transcription_summary">It shows text that contains the TTS speech</string>
+    <string name="transcription_summary">It shows text that contains the sinthetizer speech</string>
     <string name="blind_interaction_title">Blind Interaction Mode</string>
     <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
+    <string name="blind_mode_title">Blind Mode</string>
+    <string name="blind_mode_summary">Allows to use the application without any visual reference in the game and main menu.</string>
     <string name="game_title">Game</string>
     <string name="flags_title">Flags settings</string>
     <string name="flags_shortcut">f</string>
@@ -68,14 +71,23 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="search">Search</string>
     <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
-    <string name="settings_menu_initial_TTStext">Menu settings</string>
+    <string name="settings_menu_initial_TTStext">Menu settings. 
+			    Clicking on each element on this menu changes and reads an option. 
+			    You have the next options on this menu\: 
+	</string>
     <string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen</string>
     <string name="coordinates_information_button_TTStext">Position</string>
-    <string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
+    <string name="key_configuration_menu_initial_TTStext">
+			    Key Configuration. Clicking on your left you can listen action descriptions
+			     and on your right you can change the key related 
+			    with an action. If you are in blind interaction mode you have to do a long click
+			     to be able to change the configuration .You have the next options\: 
+    </string>
     <string name="keydialog">Action configuration</string>
     <string name="keydialog_text">Press any key</string>
     <string name="button_speak_record">Play record in game</string>
     <string name="button_blind_mode">To enable blind mode</string>
+    <string name="button_repeat">To repeat the last sinthetizer voice message</string>
     <string name="recordSpeech">Your actual record is</string>
     <string name="counterSpeech">Your actual count is</string>
     <string name="newRecordSpeech">New record!</string>
@@ -94,16 +106,17 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="screen_change">there is a screen change</string>
     <string name="instruction_speech">Long click to back to the main menu</string>
     <string name="key_conf_fail">Not a valid key</string>
-
+    <string name="key_conf_success">You have changed the key associated with</string>
+    
     <!-- Tutorial strings -->
     <string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
     <string name="tutorial_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 
 	When you want to leave this info page do an a long touch on the screen.</string>
     <string name="tutorial00_predator">That sounds represents the predator that you have to avoid.</string>
-    <string name="tutorial00_prey">That sounds represents the prey that you have to find in the screen.</string>
-    <string name="tutorial01_radio">That sounds represents the radio that you can find in the screen. It helps you to find the prey.</string>
-    <string name="tutorial02_seaweed">That sounds represents the seaweed that you can find in the screen. If you eat it you become invulnerable.</string>
-    <string name="tutorial03_capsule">That sounds represents the capsule that you can find in the screen. Randomly increments/decrements your size.</string>
+    <string name="tutorial00_prey">That sound represents the prey that you have to find in the screen.</string>
+    <string name="tutorial01_radio">That sound represents the radio that you can find in the screen. It helps you to find the prey.</string>
+    <string name="tutorial02_seaweed">That sound represents the seaweed that you can find in the screen. If you eat it you become invulnerable.</string>
+    <string name="tutorial03_capsule">That sound represents the capsule that you can find in the screen. Randomly increments/decrements your size.</string>
 
     <!-- Onomatopeias strings -->
     <string name="appear_ono">bing bing!</string>
@@ -118,6 +131,52 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="prey_dead_ono">ayyy!!</string>
     <string name="radio_ono">tuning</string>
     <string name="start_ono">Piii!</string>
-    <string name="the_path_of_the_goblin_ono">Playing \'Path of the Goblin\'</string>
+    <string name="the_path_of_the_goblin_ono">Playing \'Background Music\'</string>
 
+    <string name="disabled">Disabled</string>
+    <string name="enabled">Enabled</string>
+    
+    <!-- form -->
+    <string name= "form_instructions1">You can navigate through this form menu by making 
+		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button
+		its text will be read and, important!! if it\'s a answer button will be selected.
+	</string>
+	<string name= "form_instructions2">In this case, if you want, you can write in a field your opinion about the application. </string>
+	<string name= "form_instructions3">From now on, making taps, you can choose between different answers to respond questions.</string>
+    <string name= "form_instructions4">You can fill this field with your opinion.</string>
+    <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
+					devices and how developers could make games that are not only accessible, but also enjoyable
+					for them. To fulfill these goals, we would like to know some details about you and how you
+					interact with technologies in general and games in particular. This will help us to interpret your
+					answers to this questionnaire. All the information collected through this questionnaire will be
+					anonymous, untraceable and will be treated confidentially and only used for the purpose of the
+					study. \n
+	</string>
+    <string name="q1_context">Mark the option that better describes your current visual level</string>
+    <string name="q2_context">Rate how often you play games in your computer or game console. Where 1 means "Never" and 5 "very often"</string>
+    <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>
+    <string name="q4_context">Please rate how easy/difficult it was to learn to play. Where 1 means "very difficult" and 5 "very easy".</string>
+    <string name="q5_context">Rate how fun it was to play. Where 1 means "very boring" and 5 "very fun".</string>
+    <string name="q6_context">Rate how engaging was the game. Where 1 means "not engaging" and 5 "very engaging".</string>
+    <string name="q7_context">Rate how pleasant or frustrating was the interaction with the game. Where 1 means "very frustrating" and 5 "very pleasant".</string>
+    <string name="q8_context">Rate how you liked the story and narrative atmosphere (if applicable). Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q9_context">Rate how you liked the accessibility and control settings. Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q10_context">Rate how you liked the feedback provide by the game. Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q11_context">Finally, please provide any comments or suggestions to improve the game. Then tap on "Finish" to send the responses to us, and that\'s all!</string>
+    <string name="radio11">I am legally blind</string>
+    <string name="radio12">My vision is limited</string>
+    <string name="radio13">I have no visual disability</string>
+    <string name="one_context">1</string>
+    <string name="two_context">2</string>
+    <string name="three_context">3</string>
+    <string name="four_context">4</string>
+    <string name="five_context">5</string>
+    <string name="na">NA</string>
+    <string name="next_context">Next</string>
+    <string name="previous_context">Previous</string>
+    <string name="finish_context">Finish</string>
+    <string name="action_form">You have selected</string> 
+    
+    <string name="infoKeyConf">associtated to</string>
+    <string name="infoKeyConffail">associtated to any key.</string>
 </resources>

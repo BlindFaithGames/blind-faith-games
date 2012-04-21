@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * This class represents a XML keyboard.
  * 
- * @author Gloria Pozuelo and Javier Álvarez.
+ * @author Gloria Pozuelo and Javier ï¿½lvarez.
  */
 
 @SuppressWarnings("rawtypes")

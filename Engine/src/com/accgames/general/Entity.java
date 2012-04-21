@@ -85,6 +85,7 @@ public abstract class Entity {
 		if(soundName != null) {
 			Sound3DManager sm = Sound3DManager.getSoundManager(gameState.getContext());
 			Source s = sm.addSource(soundName);
+			s.stop();
 			Sound2D sound = new Sound2D(soundOffset, s);
 			if(s != null){
 				sources = new ArrayList<Sound2D>();

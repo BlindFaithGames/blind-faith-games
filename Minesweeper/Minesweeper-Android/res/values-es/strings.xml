@@ -71,7 +71,7 @@
 	<string name="cellStateFlagged">Bandera</string>
 	<string name="cellStateUnknown">Estado desconocido</string>
     <string name="find">Encontrar</string>
-    <string name="intro_main_menu">Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    <string name="intro_main_menu">Antes de todo esta aplicación funciona en modo vertical.Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee</string>
     <string name="create">Crear nuevo Log</string>
     <string name="introMessage">Bienvenido, seleccione una dificultad</string>
@@ -98,6 +98,8 @@
     <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
     <string name="blind_interaction_title">Modo de interacción para ciegos</string>
     <string name="blind_interaction_summary">Añade una pulsación más a todos los eventos táctiles en pantalla</string>
+    <string name="blind_mode_title">Modo ciego</string>
+    <string name="blind_mode_summary">Permite usar la aplicación sin ninguna referencia visual en el menú principal y en el juego.</string>
     <string name="new_game_title">Dificultad</string>
     <string name="easy_label">Fácil</string>
     <string name="medium_label">Medio</string>
@@ -165,19 +167,30 @@
     <string name="alert_dialog_difficulty_TTStext">Diálogo de dificultad</string>
     <string name="alert_dialog_instructions_TTStext">Diálogo</string>
     <string name="main_menu_initial_TTStext">Menú principal</string>
-    <string name="settings_menu_initial_TTStext">Menú de configuración</string>
+    <string name="settings_menu_initial_TTStext">Menu de ajustes. 
+				Pulsando en cualquiera de las opciones mostradas a lo largo de la pantalla puede activar o desactivar 
+			    una configuración. Al tiempo que activa o desactiva puede leer su descripción para conocer la función que
+			    lleva a cabo en la aplicación.
+			    Tiene las siguientes opciones dentro de este menu\: 
+	</string>
     <string name=" accounts_menu_initial_TTStext">Cuentas</string>
     <string name="game_initial_TTStext">¡El juego ha comenzado!</string>
     <string name="exploration_mode_TTStext">Modo exploración</string>
     <string name="zoom_mode_TTStext">Modo zoom</string>
     <string name="coordinates_information_button_TTStext">Posición</string>
-    <string name="key_configuration_menu_initial_TTStext">Configuración de teclado</string>
+    <string name="key_configuration_menu_initial_TTStext">
+				Configuración de teclado. Mediante taps a tu izquierda puedes escuchar
+			    las descripciones de las acciones y a tu derecha puedes cambiar la tecla relacionada
+				con la acción de la izquierda. Si estás en modo de interacción para ciegos el cambio de configuración asociada a una tecla
+				será mediante un long tap sino mediante tap simple. En total se tienen las siguiente opciones\: 
+    </string> 
     <string name="button_coord">Botón de coordenadas</string>
     <string name="button_instr">Botón de instrucciones</string>
     <string name="button_zoom">Botón de zoom</string>
     <string name="button_exploration">Botón de exploración</string>
     <string name="button_context">Lectura de información de contexto</string>
     <string name="button_blind_mode">Habilita el modo ciego</string>
+    <string name="button_repeat">Repite el último mensaje reporducido por el sintetizador de voz</string>
     <string name="context_coordinates_title">Información de contexto</string>
     <string name="context_coordinates_summary">Lee las casillas situadas alrededor de la seleccionada</string>
     <string name="keydialog">Configuración de acción</string>
@@ -185,7 +198,18 @@
     <string name="form_label">Formulario</string>
     <string name="on_back_pressed">Tiene que completar el formulario</string>
     <string name="key_conf_fail">No es una tecla válida</string>
+    <string name="key_conf_success">Has cambiado la tecla asociada a</string>
     <!-- Forms -->
+    <string name= "form_instructions1"> Puedes navegar a través de este menú haciendo long click sobre los botones siguiente y anterior situados debajo
+    		de cada conjunto de posibles respuestas o cada texto. Si haces un click simple la opción será leída. Y importante, la opción que se clickee la última vez será la seleccionada. 
+	</string>
+	<string name= "form_instructions2">En este caso, si quieres, puedes rellenar un campo de texto
+	 con tu opinión sobre la aplicación. 
+	</string>
+	<string name= "form_instructions3">De ahora en adelante, tienes varias opciones para responder
+	a cada pregunta. Haz click sobre cada opcion para seleccionarla.
+	</string>
+	<string name= "form_instructions4"> Tienes que rellenar este campo con tu opinión sobre la aplicación.</string>
     <string name="form_intro">        Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
         sino también agradables para ellos. Para cumplir estos objetivos, nos gustaría conocer algunos detalles acerca de usted 
@@ -214,7 +238,10 @@
     <string name="five_context">5</string>
     <string name="na">NA</string>
     <string name="next_context">Siguiente</string>
+    <string name="previous_context">Previa</string>
     <string name="finish_context">Finalizar</string>
+     <string name="action_form">Has seleccionado</string>
+     
     <string name="load_text">Enviando información... Por favor espere</string>
     <string name="instructions_dialog_select">Seleccione controles o instrucciones</string>
     <string name="game_dialog_select">Seleccione una dificultad</string>
@@ -247,5 +274,15 @@
     <string name="action_context">Lectura de información de contexto de las casillas</string>
     <string name="action_blind_mode">Modo ciego</string>
     <string name="action_instructions">Instrucciones</string>
-
+    <string name="action_repeat">Repetir mensaje del sintetizador</string>
+    
+    <string name="disabled">Desactivada</string>
+    <string name="enabled">Activada</string>
+    <string name="state">celdas. Estado seleccionada</string>
+    
+    <string name="pushCellSuccess">Genial!. Has conseguido destapar varias celdas.</string>
+    <string name="transition_zoom">Hay un cambio de celda. Celda actual</string>
+    
+    <string name="infoKeyConf">asociada a</string>
+    <string name="infoKeyConffail">asociada a ninguna tecla.</string>
 </resources>

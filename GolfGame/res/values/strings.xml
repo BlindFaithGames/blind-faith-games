@@ -5,7 +5,7 @@
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    <string name="introMainMenu">This application works on portrait mode. Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     <string name="golfGamerActivity">Golf game</string>
@@ -18,6 +18,7 @@
     <string name="about_label">About</string>
     <string name="exit_label">Exit</string>
     <string name="tutorial_label">Game Tutorial</string>
+	<string name="form_label">Form</string>
     <string name="about_title">About GolfGame</string>
     <string name="about_text">		   Music by www.SoundJay.com \n
            Gloria E. Pozuelo Fernández, 2011-2012.</string>
@@ -47,6 +48,8 @@
     <string name="transcription_summary">It shows text that contains the TTS speech</string>
     <string name="blind_interaction_title">Blind Interaction Mode</string>
     <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
+    <string name="blind_mode_title">Blind Mode</string>
+    <string name="blind_mode_summary">Allows to use the application without any visual reference in the game and main menu.</string>
     <string name="game_title">Game</string>
     <string name="flags_title">Flags settings</string>
     <string name="flags_shortcut">f</string>
@@ -54,7 +57,7 @@
     <string name="instructions_title">Instructions GolfGame</string>
     <string name="instructions_general_label">Instructions</string>
     <string name="instructions_controls_label">Controls</string>
-    <string name="instructions_general_text">		Only you have to point and shoot!</string>
+    <string name="instructions_general_text">		Only you have to point and shoot!</string>
     <string name="instructions_controls_text">		Within settings you can choose between the next options:\n
 		1 - UpMode defines the way of shoot\n
 		2 - Info target allows to find the hole through touch on the screen\n
@@ -73,15 +76,25 @@
     <string name="alert_dialog_modes_TTStext">Dialog select mode</string>
     <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
-    <string name="settings_menu_initial_TTStext">Menu settings</string>
+    <string name="settings_menu_initial_TTStext">Menu settings. 
+			    Clicking on each element on this menu changes and reads an option. Particular in thsi menu you can
+			    find two options profile A and profile B whose activation enables another options on the menu. Of course, 
+			    you can continue enabling independently all option on the menu.You have the next options on this menu\: 
+   </string>
     <string name="game_initial_TTStext">Game started!</string>
     <string name="game_initial_stage_TTStext">Game started! Stage 1</string>
     <string name="coordinates_information_button_TTStext">Position</string>
-    <string name="key_configuration_menu_initial_TTStext">Key Configuration</string>
+    <string name="key_configuration_menu_initial_TTStext">
+			  	Key Configuration. Clicking on your left you can listen action descriptions
+			     and on your right you can change the key related 
+			    with an action. If you are in blind interaction mode you have to do a long click
+			     to be able to change the configuration You have the next options\: 
+    </string>
     <string name="keydialog">Action configuration</string>
     <string name="keydialog_text">Press any key</string>
     <string name="button_speak_record">Play record in game</string>
     <string name="button_blind_mode">To enable blind mode</string>
+    <string name="button_repeat">To repeat the last sinthetizer voice message</string>
     <string name="StageMode">Stage Mode</string>
     <string name="FreeMode">Free Mode</string>
     <string name="Yes">Yes</string>
@@ -95,11 +108,12 @@
     <string name="EndingPositiveButtonLabelSpeech">Press ok to back to the main menu</string>
     <string name="alertOutsideShotArea">You are outside of the shot area</string>
     <string name="ranking_title">Previous games ranking</string>
-    <string name="ranking_speech">Time  Date  Record</string>
+    <string name="ranking_speech">Time,  Date and  Record. You can listen this ranking clicking on each cell.</string>
     <string name="instructions_dialog_select">Select controls or instructions</string>
     <string name="game_dialog_select">Select difficulty</string>
     <string name="initial_settings">Click any option</string>
     <string name="key_conf_fail">Not a valid key</string>  
+    <string name="key_conf_success">You have changed the key associated with</string>
     <string name="stage_speech">Stage number</string>  
    
     <!-- TUTORIAL -->
@@ -127,4 +141,51 @@
     <string name="storm_ono"> - Storm - </string>    
     <string name="water_bubbles_ono">Bubbles</string>    
     <string name="win_sound_ono">Applause</string> 
+    
+    <string name="disabled">Disabled</string>
+    <string name="enabled">Enabled</string>
+    
+    <string name="infoKeyConf">associtated to</string>
+    <string name="infoKeyConffail">associtated to any key.</string>
+    
+    <!-- Forms -->
+    <string name= "form_instructions1">You can navigate through this form menu by making 
+		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button
+		its text will be read and, important!! if it\'s a answer button will be selected.
+	</string>
+	<string name= "form_instructions2">In this case, if you want, you can write in a field your opinion about the application. </string>
+	<string name= "form_instructions3">From now on, making taps, you can choose between different answers to respond questions.</string>
+    <string name= "form_instructions4">You can fill this field with your opinion.</string>
+    <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
+					devices and how developers could make games that are not only accessible, but also enjoyable
+					for them. To fulfill these goals, we would like to know some details about you and how you
+					interact with technologies in general and games in particular. This will help us to interpret your
+					answers to this questionnaire. All the information collected through this questionnaire will be
+					anonymous, untraceable and will be treated confidentially and only used for the purpose of the
+					study. \n
+	</string>
+    <string name="q1_context">Mark the option that better describes your current visual level</string>
+    <string name="q2_context">Rate how often you play games in your computer or game console. Where 1 means "Never" and 5 "very often"</string>
+    <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>
+    <string name="q4_context">Please rate how easy/difficult it was to learn to play. Where 1 means "very difficult" and 5 "very easy".</string>
+    <string name="q5_context">Rate how fun it was to play. Where 1 means "very boring" and 5 "very fun".</string>
+    <string name="q6_context">Rate how engaging was the game. Where 1 means "not engaging" and 5 "very engaging".</string>
+    <string name="q7_context">Rate how pleasant or frustrating was the interaction with the game. Where 1 means "very frustrating" and 5 "very pleasant".</string>
+    <string name="q8_context">Rate how you liked the story and narrative atmosphere (if applicable). Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q9_context">Rate how you liked the accessibility and control settings. Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q10_context">Rate how you liked the feedback provide by the game. Where 1 means "I didn\'t like it at all" and 5 "I liked it very much".</string>
+    <string name="q11_context">Finally, please provide any comments or suggestions to improve the game. Then tap on "Finish" to send the responses to us, and that\'s all!</string>
+    <string name="radio11">I am legally blind</string>
+    <string name="radio12">My vision is limited</string>
+    <string name="radio13">I have no visual disability</string>
+    <string name="one_context">1</string>
+    <string name="two_context">2</string>
+    <string name="three_context">3</string>
+    <string name="four_context">4</string>
+    <string name="five_context">5</string>
+    <string name="na">NA</string>
+    <string name="next_context">Next</string>
+    <string name="previous_context">Previous</string>
+    <string name="finish_context">Finish</string>
+    <string name="action_form">You have selected</string>
 </resources>

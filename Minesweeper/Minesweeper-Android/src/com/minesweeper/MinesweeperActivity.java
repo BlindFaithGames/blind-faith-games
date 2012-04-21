@@ -13,6 +13,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -48,7 +50,8 @@ import com.minesweeper.game.TTS;
  * Main activity - messages from the server and provides
  * a menu item to invoke the accounts activity.
  */
-public class MinesweeperActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener {
+public class MinesweeperActivity extends Activity implements OnClickListener, OnFocusChangeListener,
+															  OnLongClickListener, OnKeyListener {
 	/**
 	 * Tag for logging.
 	 */
@@ -59,7 +62,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	public static final String KEY_TTS = "org.example.game.TTS";
 	public static final String KEY_DIFFICULTY = "org.example.game.difficulty";
 	private static final String FILE_NAME_ID = ".info";
-	public static final String KEY_INTERACTION = "interaction";
 
 	private int difficult;
 	private TTS textToSpeech;
@@ -81,7 +83,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private SharedPreferences.Editor editor;
 	
 	// By default interaction is set to blind mode
-	private boolean blindInteraction = true; 
+	private boolean blindInteraction; 
+	
+	private boolean reset;
 
 //	private AsyncTask<Void, Void, String> task;
 
@@ -179,7 +183,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
 				+ " " + Build.BRAND + " " + Build.HARDWARE + " "
 				+ width + " " + height, 3);
-
+		
+		blindInteraction = true;
+		reset = false;
 	}
 	
 	private void checkFirstExecution() {
@@ -243,6 +249,11 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
 		
+		if (PrefsActivity.getBlindMode(this))	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+		
 		blindInteraction = PrefsActivity.getBlindInteraction(this);
 		
 		if(PrefsActivity.getTranscription(this)){
@@ -251,8 +262,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			textToSpeech.enableTranscription(s);
 		}else
 			textToSpeech.disableTranscription();
-
-		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
+		
+		if(!reset)
+			textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
  		if (!TTS.isBestTTSInstalled(this)){
 			Toast toast = Toast.makeText(this, getString(R.string.synthesizer_suggestion), Toast.LENGTH_LONG);
@@ -392,12 +404,11 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 */
 	private void fillXMLKeyboard() {
 		keyboard.addObject(24, "zoom");
-		keyboard.addObject(25, "exploration");
-		keyboard.addObject(82, "instructions");
 		keyboard.addObject(84, "coordinates");
 		keyboard.addObject(5, "context");
-		keyboard.addObject(10, "blind_mode");
-		keyboard.setNum(6);
+		keyboard.addObject(25, "blind_mode");
+		keyboard.addObject(82, "repeat");
+		keyboard.setNum(7);
 	}
 
 	private void checkFolderApp(String file) {
@@ -420,10 +431,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		
 		gameDialog = new Dialog(this);
 		gameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		if (RuntimeConfig.blindMode)
+		if (PrefsActivity.getBlindMode(this))
 			gameDialog.setContentView(R.layout.blind_game_dialog);
 		else 
 			gameDialog.setContentView(R.layout.game_dialog);
+		
+		gameDialog.setOnKeyListener(this);
 		
 		t = (TextView) gameDialog.findViewById(R.id.game_textView);
 		t.setTextSize(fontSize);
@@ -454,10 +467,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		if (RuntimeConfig.blindMode)
+		if (PrefsActivity.getBlindMode(this))
 			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
 		else
 			instructionsDialog.setContentView(R.layout.instructions_dialog);
+		
+		instructionsDialog.setOnKeyListener(this);
 		
 		t = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
 		t.setTextSize(fontSize);
@@ -483,6 +498,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		interactionModeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		interactionModeDialog.setContentView(R.layout.interaction_mode_dialog);
+		
+		interactionModeDialog.setOnKeyListener(this);
 		
 		t = (TextView) interactionModeDialog.findViewById(R.id.interactionMode_textView);
 		t.setTextSize(fontSize);
@@ -692,7 +709,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		Intent intent = new Intent(mContext, Minesweeper.class);
 		intent.putExtra(KEY_TTS, textToSpeech);
 		intent.putExtra(KEY_DIFFICULTY, i);
-		intent.putExtra(KEY_INTERACTION, blindInteraction);
 		difficult = i;
 		startActivityForResult(intent, RESET_CODE);
 	}
@@ -716,8 +732,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Intent nextIntent;
+		reset = false;
 		switch (resultCode) {
 		case (RESET_CODE):
+			reset = true;
 			nextIntent = new Intent(getApplicationContext(), Minesweeper.class);
 			nextIntent.putExtra(KEY_TTS, textToSpeech);
 			nextIntent.putExtra(KEY_DIFFICULTY, difficult);
@@ -733,16 +751,28 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		}
 	}
 	
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == keyboard.getKeyByAction("blind_mode"))
-			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
-		
-		if(RuntimeConfig.blindMode)	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (KeyEvent.KEYCODE_BACK == keyCode)
+			return false;
+		
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}	
+		return true;
 	}
 }

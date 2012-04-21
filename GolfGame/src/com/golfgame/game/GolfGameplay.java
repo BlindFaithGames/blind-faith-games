@@ -67,6 +67,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 
 		tutorial = (mode == 2);
 
+		
+		
 		if (!stageMode) {
 			textToSpeech.setInitialSpeech(this.context
 					.getString(R.string.game_initial_TTStext));
@@ -86,13 +88,15 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler = new Handler();
 			createDialogs(c);
 			step[0].show();
-			this.textToSpeech.setInitialSpeech(res.getString(R.string.tutorial_step1_dialog_select));
-			this.textToSpeech.disableTranscription();
+			textToSpeech.setInitialSpeech(res.getString(R.string.tutorial_step1_dialog_select));
+			textToSpeech.disableTranscription();
 			record = -1;
 		}
 
 		createEntities(record);
 
+		this.textToSpeech = textToSpeech;
+		
 		// Set background image
 		numberGenerator = new Random();
 		Bitmap field;

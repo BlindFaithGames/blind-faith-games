@@ -62,8 +62,8 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name=".activities.RankingActivity"
-            android:label="@string/ranking_title"
+            android:name=".activities.FormActivity"
+            android:label="@string/form_label"
             android:screenOrientation="landscape" >
         </activity>
     </application>

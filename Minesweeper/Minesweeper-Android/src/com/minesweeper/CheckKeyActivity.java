@@ -1,8 +1,5 @@
 package com.minesweeper;
 
-import com.minesweeper.R;
-import com.minesweeper.game.TTS;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +8,8 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.widget.EditText;
+
+import com.minesweeper.game.TTS;
 
 public class CheckKeyActivity extends Activity implements OnKeyListener{
 	public static final String KEY_NAME = "KeyName";

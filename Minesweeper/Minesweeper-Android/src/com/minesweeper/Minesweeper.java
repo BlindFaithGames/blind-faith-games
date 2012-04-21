@@ -7,10 +7,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -25,12 +26,13 @@ import com.accgames.others.RuntimeConfig;
 import com.minesweeper.game.Board;
 import com.minesweeper.game.Cell;
 import com.minesweeper.game.Cell.CellStates;
+import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.MinesweeperView;
 import com.minesweeper.game.Music;
 import com.minesweeper.game.TTS;
 
-public class Minesweeper extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
+public class Minesweeper extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener, OnKeyListener {
 
 	private static final String TAG = "Minesweeper";
 
@@ -38,10 +40,11 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	public static final int DIFFICULTY_MEDIUM = 1;
 	public static final int DIFFICULTY_HARD = 2;
 
-	private Dialog loseDialog,winDialog;
+	private Dialog loseDialog, winDialog;
 
 	public static final int SPEECH_READ_CODE = 0;
 	public static final int VIEW_READ_CODE = 1;
+	public static final int REPEAT_CODE = 2;
 	
 	private Board mineField;
 	private int rowN;
@@ -61,7 +64,9 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	private static float scale;
 	private static Typeface font;
 	
-	private static Resources res;
+	private int counter;
+
+	private boolean finished;
 	
 	/* Game states */
 	public enum FINAL_STATE {
@@ -84,7 +89,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         
 		int difficulty = getIntent().getIntExtra(MinesweeperActivity.KEY_DIFFICULTY, DIFFICULTY_EASY);
-		blindInteraction = getIntent().getBooleanExtra(MinesweeperActivity.KEY_INTERACTION, true);
+		blindInteraction =  PrefsActivity.getBlindInteraction(this);
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
@@ -97,6 +102,9 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		rowN = mineField.getNRow();
 		colN = mineField.getNCol();
 		
+		counter = 0;
+		finished = false;
+		
 		minesweeperView = new MinesweeperView(this, rowN, colN);
 		setContentView(minesweeperView);
 		minesweeperView.requestFocus();
@@ -104,8 +112,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		buildWinDialog();
 
 		buildEndingDialog();	
-		
-		res = getResources();
 	
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
@@ -120,25 +126,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		AnalyticsManager.getAnalyticsManager(this).registerAction(MinesweeperAnalytics.MISCELLANEOUS, MinesweeperAnalytics.BOARD, 
 					mineField.getMines(), 0);
 	}
-	
-	public static String cellToString(Cell c){
-		switch (c.getState()){
-		case PUSHED:
-			return res.getString(R.string.cellStatePushed) + c.getValue();
-		case NOTPUSHED :
-			return res.getString(R.string.cellStateNotPushed);
-		case FLAGGED:
-			return res.getString(R.string.cellStateFlagged);
-		case MINE:
-			if(!c.isVisible())
-				return res.getString(R.string.cellStateNotPushed);
-			else
-				return res.getString(R.string.cellStateMine);
-		}
-		
-		return res.getString(R.string.cellStateUnknown);		
-	}
-
 
 	/**
 	 * onFocusChange Interface
@@ -155,10 +142,9 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	 * */
 	public void showLoseDialog() {
 		loseDialog.show();
-		mTtsAction(SPEECH_READ_CODE, "Dialog: A mine!! " 
-											+ getString(R.string.LoseDialogTitle) + " "
-											+ getString(R.string.LosePositiveButtonLabel) + " "
-											+ getString(R.string.LoseNegativeButtonLabel));
+		mTtsAction(SPEECH_READ_CODE, getString(R.string.LoseDialogTitle) + ", "
+									+ getString(R.string.LosePositiveButtonLabel) + ", "
+									+ getString(R.string.LoseNegativeButtonLabel));
 		Log.getLog().addEntry(Minesweeper.TAG,PrefsActivity.configurationToString(this),
 				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User lose " + mineField.getDifficulty());
 		
@@ -171,9 +157,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	 * */
 	public void showWinDialog() {
 		winDialog.show();
-		mTtsAction(SPEECH_READ_CODE, "Dialog " 
-								+ getString(R.string.WinDialogTitle) 
-								+ getString(R.string.WinDialogMessage)  
+		mTtsAction(SPEECH_READ_CODE, getString(R.string.WinDialogTitle) + "... "
+								+ getString(R.string.WinDialogMessage) + " " 
 								+ getString(R.string.WinPositiveButtonLabel));
 		Log.getLog().addEntry(Minesweeper.TAG,PrefsActivity.configurationToString(this),
 				Log.NONE,Thread.currentThread().getStackTrace()[2].getMethodName(),"User win " + mineField.getDifficulty());
@@ -194,6 +179,9 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		case SPEECH_READ_CODE:
 			textToSpeech.speak((String)speech);
 			break;
+		case REPEAT_CODE:
+			textToSpeech.repeatSpeak();
+			break;
 		}
 	}
 	/** 
@@ -210,7 +198,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		
 		winDialog = new Dialog(this);
 		winDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		if (RuntimeConfig.blindMode)
+		if (PrefsActivity.getBlindMode(this))
 			winDialog.setContentView(R.layout.blind_win_dialog);
 		else
 			winDialog.setContentView(R.layout.win_dialog);
@@ -225,6 +213,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
 		
+		winDialog.setOnKeyListener(this);
+		
 		winDialog.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
@@ -233,7 +223,6 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		});
 	}
 
-	
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is negative
 	 */
@@ -242,7 +231,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		
 		loseDialog = new Dialog(this);
 		loseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		if (RuntimeConfig.blindMode)
+		if (PrefsActivity.getBlindMode(this))
 			loseDialog.setContentView(R.layout.blind_lose_dialog);
 		else
 			loseDialog.setContentView(R.layout.lose_dialog);
@@ -263,6 +252,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		b.setTextSize(fontSize);
 		b.setTypeface(font);
 		
+		loseDialog.setOnKeyListener(this);
+		
 		loseDialog.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
@@ -272,12 +263,14 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	}
 	
 	private void expandCell(int row, int col) {
+		counter++;
 		if (mineField.getCellValue(row, col) != 0) {
 			mineField.setCellVisibility(row, col);
 			if (mineField.getCellState(row, col) != CellStates.PUSHED && 
 				mineField.getCellState(row, col) != CellStates.MINE &&
 				mineField.getCellState(row, col) != CellStates.FLAGGED)
 				mineField.setCellStatePushed(row, col);
+			
 		/*if not 0 and not visible*/
 		} else if (mineField.getCellState(row, col) != CellStates.PUSHED
 				&& mineField.getCellState(row, col) != CellStates.MINE
@@ -323,7 +316,8 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		return mineField.getCell(row, col);
 	}
 
-	public void pushCell(int selRow, int selCol) {
+	public boolean pushCell(int selRow, int selCol) {
+		counter = 0;
 		if(flagMode){
 			if(mineField.getCellState(selRow, selCol) == CellStates.FLAGGED)
 				if(mineField.getCellValue(selRow, selCol) != -1)
@@ -338,6 +332,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 			if(mineField.getCellState(selRow, selCol) == CellStates.MINE){
 					showMines();
 					endGame(FINAL_STATE.LOSE);
+					return false;
 			}
 			else{
 				if(mineField.getCellState(selRow, selCol) != CellStates.FLAGGED)
@@ -345,8 +340,10 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 			}
 			if(mineField.isFinished()){
 				endGame(FINAL_STATE.WIN);
+				return false;
 			}	
 		}
+		return true;
 
 	}
 	
@@ -379,21 +376,21 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 			List<String> msg = new ArrayList<String>();
 			
 			if(selRow - 1 >= 0)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol)));
+				msg.add(mineField.getCell(selRow - 1, selCol).cellToString(this));
 			if(selRow - 1 >= 0 && selCol + 1 <= colN)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol + 1)));		
+				msg.add(mineField.getCell(selRow - 1, selCol + 1).cellToString(this));		
 			if(selCol + 1 <= colN)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow, selCol + 1)));	
+				msg.add(mineField.getCell(selRow, selCol + 1).cellToString(this));	
 			if(selRow + 1 <= rowN && selCol + 1 <= colN)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol + 1)));	
+				msg.add(mineField.getCell(selRow + 1, selCol + 1).cellToString(this));	
 			if(selRow + 1 <= rowN)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol)));	
+				msg.add(mineField.getCell(selRow + 1, selCol).cellToString(this));	
 			if(selRow + 1 <= rowN && selCol - 1 >= 0)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow + 1, selCol - 1)));	
+				msg.add(mineField.getCell(selRow + 1, selCol - 1).cellToString(this));	
 			if(selCol - 1 >= 0)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow, selCol - 1)));	
+				msg.add(mineField.getCell(selRow, selCol - 1).cellToString(this));	
 			if(selCol - 1 >= 0 && selRow - 1 >= 0)
-				msg.add(Minesweeper.cellToString(mineField.getCell(selRow - 1, selCol - 1)));
+				msg.add(mineField.getCell(selRow - 1, selCol - 1).cellToString(this));
 			
 			textToSpeech.speak(msg);
 		}
@@ -483,4 +480,27 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		Minesweeper.this.finish();
 	}
 	
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (KeyEvent.KEYCODE_BACK == keyCode)
+			return false;
+		
+		Integer k = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}	
+		return true;
+	}
+
+	public int getCounter() {
+		int aux = counter;
+		counter = 0;
+		return aux;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
 }

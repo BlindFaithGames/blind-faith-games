@@ -7,7 +7,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.minesweeper.game.Input;
 /**
  * Clase para manejar los eventos enviados por el parser SAX.
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier ï¿½lvarez
  */
 public class SAXHandler extends DefaultHandler {
 	private XMLKeyboard k;
@@ -33,7 +33,7 @@ public class SAXHandler extends DefaultHandler {
 	
 	public void startElement(String uri, String localName, String qName, Attributes att){
 		if (qName.equals("keyboard")){			
-			k =  Input.getInstance();
+			k = Input.getInstance();
 			k.setNum(Integer.parseInt(att.getValue("num")));
 		}
 		else if (qName.equals("rowmap")){

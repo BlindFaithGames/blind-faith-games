@@ -3,8 +3,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:stretchColumns="1">
-
-    <TableRow>
+    <TableRow
+    	android:id="@+id/blind_mode_row"
+    	android:contentDescription="@string/button_blind_mode">
         <TextView
             android:layout_column="1"
             android:text="@string/button_blind_mode"
@@ -16,11 +17,25 @@
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_blind_mode"/>
     </TableRow>
-
-    <View
+    
+   <View
         android:layout_height="2dip"
         android:background="#FF909090" />
 
-
+    <TableRow
+    	android:id="@+id/repeat_row"
+    	android:contentDescription="@string/button_repeat">
+        <TextView
+            android:layout_column="1"
+            android:text="@string/button_repeat"
+            android:padding="3dip" />
+	    <Button 
+	        android:id="@+id/buttonRepeat"
+	        android:layout_width="fill_parent"
+	        android:text="@string/button_repeat"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/button_repeat"/>
+    </TableRow>
+    
     
 </TableLayout>

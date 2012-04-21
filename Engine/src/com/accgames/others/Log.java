@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Used to store every meaningful event in the games that we want to send to our remote server.
  * 
- * @author Javier Álvarez & Gloria Pozuelo.
+ * @author Javier ï¿½lvarez & Gloria Pozuelo.
  * 
  * */
 @SuppressWarnings("unused")
@@ -46,7 +46,7 @@ public class Log {
 	 * @return An instance of Input.
 	 * 
 	 * */
-	public Log getLog(){
+	public static Log getLog(){
 		if(log == null)
 			return log = new Log();
 		else
@@ -134,5 +134,10 @@ public class Log {
 	 * */
 	public String removeAnswer(int question){
 		return formAnswers.remove(question);
+	}
+
+	public void clearAnswers() {
+		if(formAnswers != null)
+			formAnswers.clear();
 	}
 }

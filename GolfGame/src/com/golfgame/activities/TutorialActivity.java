@@ -178,9 +178,6 @@ public class TutorialActivity extends Activity {
 
 		private void manageDefaultConfigurationKeys(int keyCode, KeyEvent event) {
 			switch (keyCode) {
-			case KeyEvent.KEYCODE_SEARCH:
-				Input.getInput().addEvent("onKeySearch", event, -1, -1);
-				break;
 			case KeyEvent.KEYCODE_BACK:
 				finish();
 				break;
@@ -206,11 +203,9 @@ public class TutorialActivity extends Activity {
 							KeyConfActivity.ACTION_RECORD)) {
 						Input.getInput().addEvent(
 								KeyConfActivity.ACTION_RECORD, e, -1, -1);
-					}
-					if (keyboard.getAction(keyCode).equals(
-							KeyConfActivity.ACTION_BLIND_MODE)) {
-						Input.getInput().addEvent(
-								KeyConfActivity.ACTION_BLIND_MODE, e, -1, -1);
+					}if (keyboard.getAction(keyCode).equals(
+							KeyConfActivity.ACTION_REPEAT)) {
+						textToSpeech.repeatSpeak();
 					}
 				}
 			}

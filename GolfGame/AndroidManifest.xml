@@ -48,8 +48,8 @@
                   android:label="@string/keyConf_label"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activities.RankingActivity"
-                  android:label="@string/ranking_title"
+        <activity android:name=".activities.FormActivity"
+                  android:label="@string/form_label"
                   android:screenOrientation="portrait">
         </activity>
     </application>

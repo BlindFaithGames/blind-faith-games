@@ -18,31 +18,23 @@ import android.view.View;
 /**
  * 
  * 
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez 
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier Alvarez 
  * This class implements OnInitListener Interface
  * 
  */
 public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 
 	private static final String TAG = "Synthesizer";
-
 	private static final String appname = "IVONA Text-to-Speech HQ";
-
 	private static final String SYSTEM_TTS = "com.svox.pico";
-	
 	public static final int QUEUE_FLUSH = TextToSpeech.QUEUE_FLUSH;
-
 	public static final int QUEUE_ADD = TextToSpeech.QUEUE_ADD;
-
 	private TextToSpeech mTts;
-
 	private int queueMode;
-	
 	private SubtitleManager subs;
-
 	private boolean enabled;
-	
 	private String initialSpeech;
+	private String lastSpeech;		
 
 	public static final Parcelable.Creator<TTS> CREATOR = new Parcelable.Creator<TTS>() {
 		public TTS createFromParcel(Parcel in) {
@@ -133,12 +125,13 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 	}
 	
 	public void onInit(int status) {
+		lastSpeech = initialSpeech;
 		// status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
 		if (status == TextToSpeech.SUCCESS) {
 			// Set preferred language to US english.
 			// Note that a language may not be available, and the result will
 			// indicate this.
-			int result = mTts.setLanguage(Locale.US);
+			int result = mTts.setLanguage(Locale.getDefault());
 			// Try this someday for some interesting results.
 			if (result == TextToSpeech.LANG_MISSING_DATA
 					|| result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -199,6 +192,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 
 	public void speak(String msg) {
 		if (enabled){
+			lastSpeech = msg;
 			mTts.speak(msg, queueMode, null);
 			subs.showSubtitle(msg);
 		}
@@ -206,21 +200,36 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 
 	public void speak(View v) {
 		if (enabled){
+			lastSpeech = v.getContentDescription().toString();
 			mTts.speak(v.getContentDescription().toString(), queueMode, null);
 			subs.showSubtitle(v.getContentDescription().toString());
 		}
 	}
 
 	public void speak(List<String> msg) {
+		String s;
 		if (enabled) {
 			Iterator<String> it = msg.iterator();
 			while (it.hasNext()){
-				mTts.speak(" " + it.next() + " ", QUEUE_ADD, null);
+				s = " " + it.next() + " ";
+				lastSpeech = s;
+				mTts.speak(s, QUEUE_ADD, null);
 				subs.showSubtitle(" " + it.next() + " ");
 			}
+			
 		}
 	}
-
+	
+	/**
+	 * Reads again the last message that has been spoken by TTS.
+	 *
+	 * */
+	public void repeatSpeak(){
+		if (enabled && lastSpeech != null){
+			mTts.speak(lastSpeech, queueMode, null);
+			subs.showSubtitle("TTS:" + lastSpeech);
+		}
+	}
 	public void stop() {
 		mTts.stop();
 		mTts.shutdown();
@@ -234,5 +243,6 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 		dest.writeInt(enabled ? 1 : 0);
 		dest.writeInt(queueMode);
 		dest.writeParcelable(subs.getsInfo(), flags);
+		dest.writeString(lastSpeech);
 	}
 }

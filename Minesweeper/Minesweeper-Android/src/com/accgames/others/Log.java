@@ -19,6 +19,8 @@ public class Log {
 	public static final String TAP_EVENT = "TapEvent";
 	public static final String DOUBLE_TAP_EVENT = "DoubleTapEvent";
 	public static final String TRIPLE_TAP_EVENT = "TripleTapEvent";
+
+	private static final int N_QUESTIONS = 12;
 	
 	private String tag; // game name
 	private Date date;
@@ -26,7 +28,7 @@ public class Log {
 	private String comment;
 	private int logCounter;
 	
-	private ArrayList<String> formAnswers;
+	private String[] formAnswers;
 	
 	public static  Log  getLog(){
 		if(log == null)
@@ -39,7 +41,7 @@ public class Log {
 		logEntries = new HashMap<Integer,Entry>();
 		logCounter = 0;
 		
-		formAnswers = new ArrayList<String>();
+		formAnswers = new String[N_QUESTIONS];
 		
 		tag = "DEFAULT";
 		
@@ -68,7 +70,7 @@ public class Log {
 		return comment;
 	}
 
-	public ArrayList<String> getFormAnswers() {
+	public String[] getFormAnswers() {
 		return formAnswers;
 	}
 
@@ -104,28 +106,34 @@ public class Log {
 	
 	// Form methods
 	
-	public void addAnswer(String answer){
-		formAnswers.add(answer);
+	public void addAnswer(int question, String answer){
+		formAnswers[question] = answer;
 	} 
 	
 	public String getAnswer(int question){
-		return formAnswers.get(question);
+		return formAnswers[question];
 	}
 	
 	public String removeAnswer(int question){
-		return formAnswers.remove(question);
+		return formAnswers[question] = null;
 	}
 	
 	public void clearAnswers(){
-		formAnswers.clear();
-	}
-	
-	public void toXML(){
-		// TODO 
+		for(int i = 0; i < formAnswers.length; i++){
+			formAnswers[i] = null; 
+		}
 	}
 
 	public void clear() {
 		logEntries.clear();
+	}
+	
+	public String toString(){
+		String res = new String();
+		for(int i = 0; i < N_QUESTIONS; i++){
+			res += formAnswers[i] + " ";
+		}
+		return res;
 	}
 
 }

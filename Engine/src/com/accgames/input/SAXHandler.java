@@ -7,7 +7,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * 
  * Class to manage events sent by a parser SAX.
  * 
- * @author Gloria Pozuelo and Javier Álvarez.
+ * @author Gloria Pozuelo and Javier ï¿½lvarez.
  */
 public class SAXHandler extends DefaultHandler {
 	private XMLKeyboard k;
@@ -33,7 +33,7 @@ public class SAXHandler extends DefaultHandler {
 	
 	public void startElement(String uri, String localName, String qName, Attributes att){
 		if (qName.equals("keyboard")){			
-			k = new XMLKeyboard();
+			k = Input.getKeyboard();
 			k.setNum(Integer.parseInt(att.getValue("num")));
 		}
 		else if (qName.equals("rowmap")){

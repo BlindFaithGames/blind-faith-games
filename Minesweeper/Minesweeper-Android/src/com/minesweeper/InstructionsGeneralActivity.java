@@ -4,11 +4,13 @@ package com.minesweeper;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 
 import com.accgames.others.AnalyticsManager;
+import com.accgames.others.CustomView;
 import com.accgames.others.Log;
-import com.minesweeper.R;
+import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.TTS;
 
@@ -19,10 +21,17 @@ public class InstructionsGeneralActivity extends Activity{
 	private TTS textToSpeech;
 	
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
-		setContentView(R.layout.instructions_general);
+
+		if(!PrefsActivity.getBlindMode(this)){
+			setTheme(android.R.style.Theme_Dialog);
+			super.onCreate(savedInstanceState);
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setContentView(R.layout.instructions_general);
+		}else{
+			super.onCreate(savedInstanceState);
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setContentView(new CustomView(this));
+		}
 		
 		// This initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MinesweeperActivity.KEY_TTS);
@@ -42,5 +51,17 @@ public class InstructionsGeneralActivity extends Activity{
 	protected void onDestroy() {
 		 super.onDestroy();
 		 textToSpeech.stop();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

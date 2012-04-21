@@ -11,8 +11,10 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.accgames.input.Input;
 import com.accgames.sound.Music;
 import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
@@ -22,7 +24,7 @@ import com.juego4.game.Juego4MusicSources;
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
 
-	private CheckBoxPreference music, tts, transcription, blindInteraction;
+	private CheckBoxPreference music, tts, transcription, blindInteraction, blindMode;
 
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
@@ -35,6 +37,9 @@ public class SettingsActivity extends PreferenceActivity implements
 	public static final boolean FIRSTRUN_DEF = true;
 	public static final String OPT_BLIND_INTERACTION = "interaction";
 	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
+	public static final String OPT_BLIND_MODE = "blind_mode";
+	private static final boolean OPT_BLIND_MODE_DEF = false;
+	
 	private TTS textToSpeech;
 
 	@Override
@@ -55,10 +60,17 @@ public class SettingsActivity extends PreferenceActivity implements
 		blindInteraction = (CheckBoxPreference) findPreference(OPT_BLIND_INTERACTION);
 		blindInteraction.setOnPreferenceClickListener(this);
 		
+		blindMode = (CheckBoxPreference) findPreference(OPT_BLIND_MODE);
+		blindMode.setOnPreferenceClickListener(this);
+		
 		// Initialize TTS engine
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(this.getString(R.string.settingsInitialSpeech));
+		textToSpeech.setInitialSpeech(getString(R.string.settings_menu_initial_TTStext) + ", "
+				+ findPreference(OPT_MUSIC).toString() + ", "
+				+ findPreference(OPT_TTS).toString() + ", "
+				+ findPreference(OPT_TRANSCRIPTION).toString() + ", "
+				+ findPreference(OPT_BLIND_INTERACTION).toString());
 	}
 
 	/**
@@ -89,22 +101,40 @@ public class SettingsActivity extends PreferenceActivity implements
 	}
 	
 	/** Get the current value of the blind interaction option */
+	public static boolean getBlindMode(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getBoolean(OPT_BLIND_MODE, OPT_BLIND_MODE_DEF);
+	}
+	
+	/** Get the current value of the blind interaction option */
 	public static boolean getBlindInteraction(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(OPT_BLIND_INTERACTION, OPT_BLIND_INTERACTION_DEF);
 	}
-
+	
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		if (OPT_MUSIC.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_MUSIC).toString()+ " "
-					+ music.isChecked());
+			if(music.isChecked())
+				textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_MUSIC).toString() + " " + getString(R.string.disabled));
 		} else if (OPT_TTS.equals(preference.getKey())) {
-			textToSpeech.speak(findPreference(OPT_TTS).toString() + " "
-					+ tts.isChecked());
+			if(tts.isChecked())
+				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.disabled));
+			
 		}else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
-			textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " "
-					+ blindInteraction.isChecked());
+			if(blindInteraction.isChecked())
+				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.disabled));
+		}else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
+			if(blindMode.isChecked())
+				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.enabled));
+			else
+				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.disabled));
 		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
 			if(transcription.isChecked()){
 				Map<Integer, String> onomatopeias = Juego4MusicSources.getMap(this);
@@ -114,14 +144,28 @@ public class SettingsActivity extends PreferenceActivity implements
 				
 				Music.getInstanceMusic().enableTranscription(this, s);
 				textToSpeech.enableTranscription(s);
+				
+				textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " " +  getString(R.string.enabled));
 			}else{
 				Music.getInstanceMusic().disableTranscription();
 				textToSpeech.disableTranscription();
+				
+				textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString() + " " + getString(R.string.disabled));
 			}
-			textToSpeech.speak(findPreference(OPT_TRANSCRIPTION).toString()+ " "
-					+ transcription.isChecked());
 		}
 		return true;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 }

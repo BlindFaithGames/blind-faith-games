@@ -4,12 +4,14 @@ package com.juego4.activities;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.accgames.input.Input;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 import com.juego4.R;
@@ -55,5 +57,17 @@ public class ControlsActivity extends Activity implements OnTouchListener{
 	public boolean onTouch(View v, MotionEvent event) {
 		this.finish();
 		return false;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(key != null){
+			if (keyCode == key) {
+				textToSpeech.repeatSpeak();
+				return true;
+			} 
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

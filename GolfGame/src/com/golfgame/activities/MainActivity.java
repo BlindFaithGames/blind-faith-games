@@ -8,6 +8,8 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -40,11 +42,11 @@ import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier ï¿½lvarez
  * This class implements the music manager of the game
  */
 
-public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener{
+public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnLongClickListener, OnKeyListener{
 	
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
@@ -79,8 +81,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		keyboard = Input.getKeyboard();
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		
@@ -121,7 +121,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 	}
 	
-		/**
+	/**
 	 * Sets the screen content based on the screen id.
 	 */
 	private void setScreenContent(int screenId) {
@@ -172,6 +172,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		instructionsButton.setTextSize(fontSize);
 		instructionsButton.setTypeface(font);
 		
+		Button formButton = (Button) findViewById(R.id.form_button);
+		formButton.setOnClickListener(this);
+		formButton.setOnFocusChangeListener(this);
+		formButton.setOnLongClickListener(this);
+		formButton.setTextSize(fontSize);
+		formButton.setTypeface(font);
+		
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
 		exitButton.setOnFocusChangeListener(this);
@@ -182,15 +189,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		createGameDialog();
 		
 		createInstructionsDialog();
-		
 	}
 
 	/**
 	 * Default keyboard config
 	 */
 	private void fillXMLKeyboard(){
-		keyboard.addObject(22, KeyConfActivity.ACTION_RECORD);
-		keyboard.addObject(84, KeyConfActivity.ACTION_BLIND_MODE);
+		keyboard.addObject(82, KeyConfActivity.ACTION_RECORD);
+		keyboard.addObject(84, KeyConfActivity.ACTION_REPEAT);
 		keyboard.setNum(2);
 	}
 
@@ -332,6 +338,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			interactionModeDialog.dismiss();
 			setTTS();
 			break;
+		case R.id.form_button:
+			i = new Intent(this, FormActivity.class);
+			i.putExtra(KEY_TTS, textToSpeech);
+			startActivity(i);
+			break;
 		case R.id.exit_button:
 			if (!gamed) {
 				AnalyticsManager.getAnalyticsManager(this).registerAction(GolfGameAnalytics.MISCELLANEOUS, 
@@ -357,7 +368,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		gameDialog = new Dialog(this);
 		gameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
-		if (RuntimeConfig.blindMode)	
+		if (SettingsActivity.getBlindMode(this))	
 			gameDialog.setContentView(R.layout.blind_game_dialog);
 		else
 			gameDialog.setContentView(R.layout.game_dialog);
@@ -377,6 +388,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);	
+		
+		gameDialog.setOnKeyListener(this);
 
 	}
 	
@@ -386,7 +399,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		instructionsDialog = new Dialog(this);
 		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
-		if (RuntimeConfig.blindMode)	
+		if (SettingsActivity.getBlindMode(this))	
 			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
 		else
 			instructionsDialog.setContentView(R.layout.instructions_dialog);
@@ -406,6 +419,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
 		b.setTypeface(font);	
+		
+		instructionsDialog.setOnKeyListener(this);
 	}
 	
 	private void createInteractionModeDialog() {
@@ -430,7 +445,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
 		b.setTextSize(fontSize);
-		b.setTypeface(font);		
+		b.setTypeface(font);	
+		
+		interactionModeDialog.setOnKeyListener(this);
 	}
 	
 	
@@ -561,12 +578,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	protected void onResume() {
 		super.onResume();
 		
-		blindInteraction = SettingsActivity.getBlindInteraction(this);
+		checkFolderApp(getString(R.string.app_name)+".xml");
 		
-		if (RuntimeConfig.blindMode)	
+		if (SettingsActivity.getBlindMode(this))	
 			setScreenContent(R.layout.blind_main);
 		else
 			setScreenContent(R.layout.main);
+		
+		blindInteraction = SettingsActivity.getBlindInteraction(this);
 		
 		if(SettingsActivity.getMusic(this))
 			Music.getInstanceMusic().play(this, R.raw.main, true);
@@ -599,7 +618,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 		
 		Music.getInstanceMusic().stop(R.raw.storm);
-		
+	
 		// Removes all events
 		Input.getInput().clean();
 	}
@@ -623,14 +642,26 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 		@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == keyboard.getKeyByAction(KeyConfActivity.ACTION_BLIND_MODE))
-			RuntimeConfig.blindMode = !RuntimeConfig.blindMode; 
-		
-		if (RuntimeConfig.blindMode)	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (KeyEvent.KEYCODE_BACK == keyCode)
+			return false;
+		
+		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		if(k != null){
+			if(keyCode == k){
+				textToSpeech.repeatSpeak();
+			}
+		}	
+		return true;
+	}
 }

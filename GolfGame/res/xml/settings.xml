@@ -22,6 +22,11 @@
             android:key="interaction"
             android:summary="@string/blind_interaction_summary"
             android:title="@string/blind_interaction_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="blind_mode"
+            android:summary="@string/blind_mode_summary"
+            android:title="@string/blind_mode_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/profiles_category" >
         <CheckBoxPreference

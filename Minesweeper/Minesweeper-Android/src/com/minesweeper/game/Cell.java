@@ -1,5 +1,9 @@
 package com.minesweeper.game;
 
+import android.content.Context;
+
+import com.minesweeper.R;
+
 
 
 public class Cell {
@@ -47,4 +51,22 @@ public class Cell {
 		this.visible = visible;
 	}
 
+	public String cellToString(Context c) {
+		switch (state){
+		case PUSHED:
+			return c.getString(R.string.cellStatePushed) + " "  + value;
+		case NOTPUSHED :
+			return c.getString(R.string.cellStateNotPushed);
+		case FLAGGED:
+			return c.getString(R.string.cellStateFlagged);
+		case MINE:
+			if(!visible)
+				return c.getString(R.string.cellStateNotPushed);
+			else
+				return c.getString(R.string.cellStateMine);
+		}
+		
+		return c.getString(R.string.cellStateUnknown);	
+	}
+	
 }
