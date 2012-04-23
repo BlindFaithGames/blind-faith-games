@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="group_name">Game made by, Blind Faith Games</string>
+    <string name="mode">This application works on portrait mode.</string>
     <string name="interactionMode_select">Select an interaction mode</string>
     <string name="interactionMode_select_TTS">Select an interaction mode. To select make a long press on the option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">This application works on portrait mode. Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     <string name="golfGamerActivity">Golf game</string>
@@ -106,9 +108,9 @@
     <string name="EndingDialogTitle">Round completed</string>
     <string name="EndingPositiveButtonLabel">Ok</string>
     <string name="EndingPositiveButtonLabelSpeech">Press ok to back to the main menu</string>
-    <string name="alertOutsideShotArea">You are outside of the shot area</string>
-    <string name="ranking_title">Previous games ranking</string>
-    <string name="ranking_speech">Time,  Date and  Record. You can listen this ranking clicking on each cell.</string>
+    <string name="alertOutsideShotArea">You are outside of the shot area. To be able to shot you have to make a scroll gesture on the bottom of the screen.</string>
+    <string name="ranking_title">Time,  Date and  Record. </string>
+    <string name="ranking_speech">Previous games ranking. You can listen this ranking clicking on each cell.</string>
     <string name="instructions_dialog_select">Select controls or instructions</string>
     <string name="game_dialog_select">Select difficulty</string>
     <string name="initial_settings">Click any option</string>
@@ -145,8 +147,12 @@
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
     
-    <string name="infoKeyConf">associtated to</string>
-    <string name="infoKeyConffail">associtated to any key.</string>
+    <string name="infoKeyConf">associated to</string>
+    <string name="infoKeyConffail">associated to any key.</string>
+    
+    <string name="scoreboard_success">Your punctuaction have been incremented to </string>
+    <string name="scoreboard_fail">Your punctuaction have been decremented to </string>
+    <string name="scoreboard_reset">Your number of consecutive shots is zero.</string>
     
     <!-- Forms -->
     <string name= "form_instructions1">You can navigate through this form menu by making 
@@ -188,4 +194,7 @@
     <string name="previous_context">Previous</string>
     <string name="finish_context">Finish</string>
     <string name="action_form">You have selected</string>
+    
+    <string name="screen_off_message">Your screen has turned off.</string>
+    <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
 </resources>

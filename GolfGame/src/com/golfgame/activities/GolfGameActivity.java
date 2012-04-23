@@ -23,7 +23,6 @@ import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
-import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
 import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
@@ -153,8 +152,12 @@ public class GolfGameActivity extends Activity {
     
     class GolfGamePanel extends DrawablePanel{
     	private GestureDetector mGestureDetector;
+    	
+    	private boolean dragging;
+    	
         @Override
         public boolean onTouchEvent(MotionEvent event) {
+        	onDrag(event);
         	if (mGestureDetector.onTouchEvent(event)){
         		return true;
         	}
@@ -180,6 +183,22 @@ public class GolfGameActivity extends Activity {
             }
             return false;
         }
+        
+		private void onDrag(MotionEvent event) {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				dragging = true;
+				Input.getInput().addEvent("onDrag", MotionEvent.obtain(event),
+						null, -1, -1);
+			}
+			if (event.getAction() == MotionEvent.ACTION_UP) {
+				dragging = false;
+			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+				if (dragging) {
+					Input.getInput().addEvent("onDrag",
+							MotionEvent.obtain(event), null, -1, -1);
+				}
+			}
+		}
         
         @Override
         public boolean onKeyDown(int keyCode, KeyEvent event){

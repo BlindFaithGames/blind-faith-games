@@ -285,4 +285,7 @@
     
     <string name="infoKeyConf">asociada a</string>
     <string name="infoKeyConffail">asociada a ninguna tecla.</string>
+    
+    <string name="screen_off_message">Tú pantalla se ha apagado.</string>
+    <string name="screen_on_message">Tú pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
 </resources>

@@ -60,10 +60,12 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		buttonRecord = (Button) findViewById(R.id.buttonRecord);
 		buttonRecord.setOnFocusChangeListener(this);
 		buttonRecord.setOnClickListener(this);
+		buttonRecord.setOnLongClickListener(this);
 		
 		buttonRepeat = (Button) findViewById(R.id.buttonRepeat);
 		buttonRepeat.setOnFocusChangeListener(this);
 		buttonRepeat.setOnClickListener(this);
+		buttonRecord.setOnLongClickListener(this);
 		
 		this.buttonsUpdate();
 

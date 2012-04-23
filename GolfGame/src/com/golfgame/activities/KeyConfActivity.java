@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer.OnVideoSizeChangedListener;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +25,6 @@ import com.accgames.others.AnalyticsManager;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
-
 
 public class KeyConfActivity extends Activity implements OnFocusChangeListener, OnClickListener, OnLongClickListener {
 	
@@ -62,10 +62,12 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		buttonRecord = (Button) findViewById(R.id.buttonRecord);
 		buttonRecord.setOnFocusChangeListener(this);
 		buttonRecord.setOnClickListener(this);
+		buttonRecord.setOnLongClickListener(this);
 		
 		buttonRepeat = (Button) findViewById(R.id.buttonRepeat);
 		buttonRepeat.setOnFocusChangeListener(this);
 		buttonRepeat.setOnClickListener(this);
+		buttonRecord.setOnLongClickListener(this);
 		
 		this.buttonsUpdate();
 
@@ -159,7 +161,6 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 			return false;
 	}
 	
-	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Bundle extras = data.getExtras();
@@ -194,7 +195,6 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		aux += ACTION_REPEAT + ": " + keyboard.getKeyByAction(ACTION_REPEAT);
 		return aux;
 	}
-
 	
 	/**
 	 * DPAD keys always have the same action

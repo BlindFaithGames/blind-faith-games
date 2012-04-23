@@ -177,6 +177,9 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="finish_context">Finish</string>
     <string name="action_form">You have selected</string> 
     
-    <string name="infoKeyConf">associtated to</string>
-    <string name="infoKeyConffail">associtated to any key.</string>
+    <string name="infoKeyConf">associated to</string>
+    <string name="infoKeyConffail">associated to any key.</string>
+    
+    <string name="screen_off_message">Your screen has turned off.</string>
+    <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
 </resources>

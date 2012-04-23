@@ -21,6 +21,7 @@ import com.accgames.input.Input;
 import com.accgames.input.Input.EventType;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.RuntimeConfig;
+import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.activities.MainActivity;
 
@@ -79,26 +80,42 @@ public class ScoreBoard extends Entity {
 		super.onUpdate();
 		EventType e = Input.getInput().removeEvent("speakRecord");
 		if(e != null){
-			if(this.game.isStageMode()){
-			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.counterSpeech)
-									+ " " + counter);
-			}
-			else{
-				this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.recordSpeech)
-						+ " " + record );
-				this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.counterSpeech)
-						+ " " + counter);
+			speakRecord();
+		}
+		
+		onTouch();
+		
+	}
+	
+	private void speakRecord() {
+		this.game.getTTS().setQueueMode(TTS.QUEUE_FLUSH);
+		if(this.game.isStageMode()){
+			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.counterSpeech) + " " + counter);
+		}
+		else{
+			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.recordSpeech) + " " + record
+										+ ". " + this.game.getContext().getResources().getString(R.string.counterSpeech)  + " " + counter);
+		}
+	}
+
+	private void onTouch() {
+		EventType drag = Input.getInput().removeEvent("onDrag");
+		if(drag != null){
+			double ex = drag.getMotionEventE1().getX();
+			double ey = drag.getMotionEventE1().getY();
+			if(this.x < ex && this.y < ey && ex < (this.x + (int) 2 * fontSize) && ey < (this.y + fontSize * 2.3)){
+				speakRecord();
 			}
 		}
 	}
-	
+
 	public void incrementCounter(){
 		counter++;
 		if(counter > record){
 			record = counter;
 			if(!game.isStageMode())
 				save();
-			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.newRecordSpeech) + counter);
+			game.getTTS().speak(this.game.getContext().getResources().getString(R.string.newRecordSpeech) + counter);
 		}
 	}
 	
@@ -119,6 +136,7 @@ public class ScoreBoard extends Entity {
 	}
 
 	public void resetCounter(){
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_reset) + counter);
 		counter = 0;
 	}
 	
@@ -141,10 +159,12 @@ public class ScoreBoard extends Entity {
 	
 	public void incrementCounter(int i) {
 		counter += i;
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_success) + " " + counter);
 	}
 
 	public void decrementCounter(int i) {
 		counter -= i;
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_success) + " " + counter);
 	}
 
 	@Override

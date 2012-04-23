@@ -18,7 +18,7 @@ import com.accgames.sound.TTS;
 /**
  * This class represents a game state, a part of a game for example, the introduction, gameplay and game over.
  * 
- * @author Javier Álvarez & Gloria Pozuelo.
+ * @author Javier Alvarez & Gloria Pozuelo.
  * 
  * */
 

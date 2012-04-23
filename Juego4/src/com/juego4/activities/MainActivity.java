@@ -8,7 +8,9 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,9 +38,10 @@ import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.juego4.R;
 import com.juego4.game.Juego4MusicSources;
+import com.juego4.others.ScreenReceiver;
 
 /**
- * @author Gloria Pozuelo and Javier �lvarez
+ * @author Gloria Pozuelo and Javier Álvarez
  * This class implements the music manager of the game
  */
 
@@ -78,8 +81,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		setScreenContent(R.layout.main);
 		
-		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
+		initializeReceiver();
 		
+		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
@@ -87,7 +91,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 	}		 
-
+	
+	private void initializeReceiver() {
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        BroadcastReceiver mReceiver = new ScreenReceiver();
+        registerReceiver(mReceiver, filter);
+	}
 	
 	private void checkFirstExecution() {
 		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -529,14 +539,35 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onResume() {
 		super.onResume();
+	    if(!ScreenReceiver.wasScreenOn) {
+	        // this is when onResume() is called due to a screen state change
+	        textToSpeech.speak(getString(R.string.screen_on_message));
+	    } else {
+			blindInteraction = SettingsActivity.getBlindInteraction(this);
+			
+			blindMode();
+			
+			soundManagement();
+			
+			transcriptionMode();
+			
+			checkFolderApp(getString(R.string.app_name)+".xml");
+			
+			// Removes all events
+			Input.getInput().clean();
+	    }
+	}
 
-		blindInteraction = SettingsActivity.getBlindInteraction(this);
+	private void soundManagement(){
+		if (SettingsActivity.getMusic(this))
+			Music.getInstanceMusic().play(this, R.raw.main, true);
 		
-		if (SettingsActivity.getBlindMode(this))	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
+		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
+	}
+
+	private void transcriptionMode(){
 		if (SettingsActivity.getTranscription(this)){
 			
 			Map<Integer, String> onomatopeias = Juego4MusicSources.getMap(this);
@@ -551,24 +582,25 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			textToSpeech.disableTranscription();
 			Music.getInstanceMusic().disableTranscription();
 		}
-		
-		if (SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.main, true);
-		
-		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
-		
-		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
-		
-		checkFolderApp(getString(R.string.app_name)+".xml");
-		
-		// Removes all events
-		Input.getInput().clean();
 	}
 
+	private void blindMode(){
+		if (SettingsActivity.getBlindMode(this))	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.getInstanceMusic().stop(R.raw.main);
+        if (ScreenReceiver.wasScreenOn && !isFinishing()) {
+            // this is the case when onPause() is called by the system due to a screen state change
+        	textToSpeech.speak(getString(R.string.screen_off_message));
+        } else {
+            // this is when onPause() is called when the screen state has not changed
+    		Music.getInstanceMusic().stop(R.raw.main);
+        }
 	}
 
 	/**

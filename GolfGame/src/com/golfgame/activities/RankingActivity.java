@@ -15,11 +15,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -33,7 +32,7 @@ import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
-public class RankingActivity extends Activity implements  OnFocusChangeListener, OnLongClickListener{
+public class RankingActivity extends Activity implements  OnFocusChangeListener, OnClickListener{
 	
 	private TTS textToSpeech;
 	
@@ -64,7 +63,7 @@ public class RankingActivity extends Activity implements  OnFocusChangeListener,
 			data[data.length-1] = sdf.format(c.getTime()) + "      " + newEntry;
 		}
 			
-		createTable(getString(R.string.ranking_speech), 2, data.length, 1, "#0055AA",data);
+		createTable(getString(R.string.ranking_title), 2, data.length, 1, "#0055AA", data);
 
 		saveNewData(data);
 		
@@ -72,7 +71,7 @@ public class RankingActivity extends Activity implements  OnFocusChangeListener,
 		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 		textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-		textToSpeech.setInitialSpeech(getString(R.string.ranking_title));
+		textToSpeech.setInitialSpeech(getString(R.string.ranking_speech));
 		
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.RANKING_ACTIVITY);
 		
@@ -177,7 +176,7 @@ public class RankingActivity extends Activity implements  OnFocusChangeListener,
 	        	b.setGravity(Gravity.CENTER);
 	        	b.setPadding(4, 4, 4, 4);
 	        	b.setOnFocusChangeListener(this);
-	        	b.setOnLongClickListener(this);
+	        	b.setOnClickListener(this);
 	        	b.setBackgroundColor(Color.BLACK);
    	
 	        	border.addView(b);
@@ -231,11 +230,7 @@ public class RankingActivity extends Activity implements  OnFocusChangeListener,
 	}
 
 	@Override
-	public boolean onLongClick(View v) {
-		textToSpeech.speak(getString(R.string.ranking_speech));
-		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		textToSpeech.speak(((Button) v).getText().toString());
-		textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
-		return true;
+	public void onClick(View v) {
+		textToSpeech.speak(getString(R.string.ranking_speech) + ((Button) v).getText().toString());
 	}
 }

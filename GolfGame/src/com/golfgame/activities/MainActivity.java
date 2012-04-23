@@ -7,10 +7,12 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -35,6 +37,7 @@ import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
 import com.accgames.others.RuntimeConfig;
+import com.accgames.others.ScreenReceiver;
 import com.accgames.sound.Music;
 import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
@@ -42,7 +45,7 @@ import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier �lvarez
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier Alvarez
  * This class implements the music manager of the game
  */
 
@@ -83,12 +86,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
-		
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
-		
 		setScreenContent(R.layout.main);
+		
+		initializeReceiver();
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 		
@@ -104,6 +107,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				+ " " + Build.BRAND + " " + Build.HARDWARE + " " + width + " " + height, 3);
 	}	
 	
+	private void initializeReceiver() {
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        BroadcastReceiver mReceiver = new ScreenReceiver();
+        registerReceiver(mReceiver, filter);
+	}
+
 	private void checkFirstExecution() {
 		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean isFirstRun = wmbPreference.getBoolean(SettingsActivity.FIRSTRUN, SettingsActivity.FIRSTRUN_DEF);
@@ -577,34 +587,32 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		checkFolderApp(getString(R.string.app_name)+".xml");
-		
-		if (SettingsActivity.getBlindMode(this))	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
-		
-		blindInteraction = SettingsActivity.getBlindInteraction(this);
-		
+
+        if(!ScreenReceiver.wasScreenOn) {
+            // this is when onResume() is called due to a screen state change
+        	textToSpeech.speak(getString(R.string.screen_on_message));
+        } else {
+    		checkFolderApp(getString(R.string.app_name)+".xml");
+    		
+    		blindMode();
+    		
+    		transcriptionMode();
+    		
+    		soundManagement();
+    		
+    		blindInteraction = SettingsActivity.getBlindInteraction(this);
+    		
+    		// Removes all events
+    		Input.getInput().clean();
+        }
+
+	}
+
+	private void soundManagement() {
 		if(SettingsActivity.getMusic(this))
 			Music.getInstanceMusic().play(this, R.raw.main, true);
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
-		
-		if(SettingsActivity.getTranscription(this)){
-			
-			Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
-			
-			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
-			
-			textToSpeech.enableTranscription(s);
-			Music.getInstanceMusic().enableTranscription(this, s);
-		}else{
-			textToSpeech.disableTranscription();
-			Music.getInstanceMusic().disableTranscription();
-		}
 		
 		if(SettingsActivity.getMusic(this))
 			Music.getInstanceMusic().play(this, R.raw.main, true);
@@ -618,15 +626,41 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 		
 		Music.getInstanceMusic().stop(R.raw.storm);
-	
-		// Removes all events
-		Input.getInput().clean();
+	}
+
+	private void transcriptionMode() {
+		if(SettingsActivity.getTranscription(this)){
+			
+			Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
+			
+			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+			
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		}else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}
+	}
+
+	private void blindMode() {
+		if (SettingsActivity.getBlindMode(this))	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.getInstanceMusic().stop(R.raw.main);
+        if (ScreenReceiver.wasScreenOn && !isFinishing()) {
+            // this is the case when onPause() is called by the system due to a screen state change
+        	textToSpeech.speak(getString(R.string.screen_off_message));
+        } else {
+            // this is when onPause() is called when the screen state has not changed
+    		Music.getInstanceMusic().stop(R.raw.main);
+        }
 	}
 
 	/**

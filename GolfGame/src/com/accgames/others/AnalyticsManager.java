@@ -5,7 +5,7 @@ import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import android.content.Context;
 
 public class AnalyticsManager {
-	 private static final String TRACK_ID = "UA-29119973-1";
+	 private static final String TRACK_ID = "UA-31096469-1";
 
 	 private static AnalyticsManager analyticsManager = null;
 

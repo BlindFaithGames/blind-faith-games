@@ -67,8 +67,6 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 
 		tutorial = (mode == 2);
 
-		
-		
 		if (!stageMode) {
 			textToSpeech.setInitialSpeech(this.context
 					.getString(R.string.game_initial_TTStext));
@@ -222,15 +220,30 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 	@Override
 	public void onDraw(Canvas canvas) {
 		Paint brush = new Paint();
-		super.onDraw(canvas);
+		brush.setARGB(250, 210, 180, 140);
+		canvas.drawRect(0, GameState.SCREEN_HEIGHT - GameState.SCREEN_HEIGHT/3, 
+							GameState.SCREEN_WIDTH, GameState.SCREEN_HEIGHT-5, brush);
+		
 		if (stageMode) {
 			brush = new Paint();
 			brush.setTextSize(30);
 			canvas.drawText(Integer.toString(stage), SCREEN_WIDTH / 2, 30,
 					brush);
 		}
+		
+		super.onDraw(canvas);
 	}
 
+	/**
+	 * Checks if y is in the shot area. It's supposed that x is out of there
+	 * 
+	 * */
+	public boolean inShotArea(float y) {
+		int height = getView().getHeight(); 
+		return (y < height-5) && (y > (height - height/3));
+	}
+
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();

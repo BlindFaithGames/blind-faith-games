@@ -40,6 +40,7 @@ import com.accgames.XML.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.Log;
 import com.accgames.others.RuntimeConfig;
+import com.accgames.others.ScreenReceiver;
 import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.Music;
@@ -85,8 +86,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	// By default interaction is set to blind mode
 	private boolean blindInteraction; 
 	
-	private boolean reset;
-
 //	private AsyncTask<Void, Void, String> task;
 
 	// User id
@@ -96,6 +95,8 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 * The current context.
 	 */
 	private Context mContext = this;
+	
+	private boolean reset;
 
 	/**
 	 * A {@link BroadcastReceiver} to receive the response from a register or
@@ -143,9 +144,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		checkId();
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
-		
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
+		
+		initializeReceiver();
 		
 		// Register a receiver to provide register/unregister notifications
 		registerReceiver(mUpdateUIReceiver, new IntentFilter(
@@ -159,6 +161,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		
 		checkFirstExecution();
 
+		logManagement();
+
+		blindInteraction = true;
+		reset = true;
+	}
+	
+	private void logManagement(){
 		Display display = ((WindowManager) this
 				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		// Screen size
@@ -166,7 +175,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		int height;
 		width = display.getWidth();
 		height = display.getHeight();
-
 		Log.getLog().setTag("Minesweeper");
 		// Device information
 		Log.getLog().addEntry(
@@ -183,9 +191,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
 				+ " " + Build.BRAND + " " + Build.HARDWARE + " "
 				+ width + " " + height, 3);
-		
-		blindInteraction = true;
-		reset = false;
+	}
+	
+	private void initializeReceiver() {
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        BroadcastReceiver mReceiver = new ScreenReceiver();
+        registerReceiver(mReceiver, filter);
 	}
 	
 	private void checkFirstExecution() {
@@ -245,24 +257,27 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	public void onResume() {
 		super.onResume();
 
-		Music.play(this, R.raw.main);
+        if(!ScreenReceiver.wasScreenOn) {
+            // this is when onResume() is called due to a screen state change
+        	textToSpeech.speak(getString(R.string.screen_on_message));
+        } else {
+    		blindMode();
+    		
+    		soundManagement();
+    		
+    		transcriptionMode();
 
+    		blindInteraction = PrefsActivity.getBlindInteraction(this);
+    		
+    		Log.getLog().addEntry(MinesweeperActivity.TAG,
+    				PrefsActivity.configurationToString(this), Log.NONE,
+    				Thread.currentThread().getStackTrace()[2].getMethodName(), "");
+        }
+	}
+
+	private void soundManagement() {
+		Music.play(this, R.raw.main);
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
-		
-		if (PrefsActivity.getBlindMode(this))	
-			setScreenContent(R.layout.blind_main);
-		else
-			setScreenContent(R.layout.main);
-		
-		blindInteraction = PrefsActivity.getBlindInteraction(this);
-		
-		if(PrefsActivity.getTranscription(this)){
-			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
-			textToSpeech.enableTranscription(s);
-		}else
-			textToSpeech.disableTranscription();
-		
 		if(!reset)
 			textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
@@ -271,12 +286,24 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			toast.show();
 			textToSpeech.speak(getString(R.string.synthesizer_suggestion));
 		}
-
-		Log.getLog().addEntry(MinesweeperActivity.TAG,
-				PrefsActivity.configurationToString(this), Log.NONE,
-				Thread.currentThread().getStackTrace()[2].getMethodName(), "");
 	}
 
+	private void transcriptionMode() {
+		if(PrefsActivity.getTranscription(this)){
+			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
+			textToSpeech.enableTranscription(s);
+		}else
+			textToSpeech.disableTranscription();
+	}
+
+	private void blindMode() {
+		if (PrefsActivity.getBlindMode(this))	
+			setScreenContent(R.layout.blind_main);
+		else
+			setScreenContent(R.layout.main);
+	}
+	
 	/**
 	 * Shuts down the activity and turns off TTS engine
 	 */
@@ -292,7 +319,14 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.stop(this);
+        if (ScreenReceiver.wasScreenOn && !isFinishing()) {
+            // this is the case when onPause() is called by the system due to a screen state change
+        	textToSpeech.speak(getString(R.string.screen_off_message));
+        } else {
+            // this is when onPause() is called when the screen state has not changed
+    		Music.stop(this);
+        }
+
 	}
 	// Manage UI Screens
 
