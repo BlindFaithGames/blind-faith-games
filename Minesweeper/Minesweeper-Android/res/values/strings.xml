@@ -67,6 +67,10 @@
     <string name="find">Find</string>
     <string name="intro_main_menu">This application works on portrait mode. Main Menu minesweeper, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
+    <string name="tts_select">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer, because it has a goog quality. We are not colaborating with IVONA project but is the best
+	synthetizer we have found. Would you like to install it?</string>
+    <string name="yes_label">Yes</string>
+    <string name="no_label">No</string>    							 
     <string name="create">Create new log</string>
     <string name="introMessage">Welcome, select a difficulty</string>
     <string name="buttonMessage">Go!</string>

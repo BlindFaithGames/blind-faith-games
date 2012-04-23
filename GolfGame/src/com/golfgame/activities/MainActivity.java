@@ -8,6 +8,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -66,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
 	
-	private Dialog gameDialog, instructionsDialog, interactionModeDialog;
+	private Dialog gameDialog, instructionsDialog, interactionModeDialog, ttsDialog;
 	
 	private View focusedView;
 	private boolean gamed;
@@ -340,6 +342,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			blindInteraction = true;
 			interactionModeDialog.dismiss();
 			setTTS();
+			checkIvona();
 			break;
 		case R.id.noBlindMode_button:
 			editor.putBoolean(SettingsActivity.OPT_BLIND_INTERACTION, false);
@@ -347,6 +350,14 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			blindInteraction = false;
 			interactionModeDialog.dismiss();
 			setTTS();
+			checkIvona();
+			break;
+		case R.id.yes_button:
+			installTTS();
+			ttsDialog.dismiss();
+			break;
+		case R.id.no_button:
+			ttsDialog.dismiss();
 			break;
 		case R.id.form_button:
 			i = new Intent(this, FormActivity.class);
@@ -360,6 +371,24 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			}
 			finish();
 			break;
+		}
+	}
+	
+	private void installTTS() {
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=com.ivona.tts"));
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Cannot find Google Play",Toast.LENGTH_LONG).show();
+        } 
+	}
+
+
+	private void checkIvona() {
+ 		if (!TTS.isBestTTSInstalled(this)){
+			this.createTTSDialog();
+			this.openTTSDialog();
 		}
 	}
 	
@@ -460,6 +489,29 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		interactionModeDialog.setOnKeyListener(this);
 	}
 	
+	private void createTTSDialog() {
+		Button b; 
+		
+		ttsDialog = new Dialog(this);
+		ttsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		ttsDialog.setContentView(R.layout.tts_dialog);
+		
+		b = (Button) ttsDialog.findViewById(R.id.yes_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+	
+		b = (Button) ttsDialog.findViewById(R.id.no_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		
+		ttsDialog.setOnKeyListener(this);
+	}
+	
 	
 	/** Ask the user what type of instructions */
 	private void openInstructionsDialog() {
@@ -499,6 +551,34 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+	}
+	
+	/** Ask the user to install IVONA TTS */
+	private void openTTSDialog() {
+		ttsDialog.show();
+		
+		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);	
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, this
+				.getString(R.string.tts_select)
+				+ ","
+				+ this.getString(R.string.yes_label)
+				+ ","
+				+ this.getString(R.string.no_label), TTS.QUEUE_FLUSH, s);
+
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
+		
+		if (SettingsActivity.getTranscription(this)){
+			textToSpeech.enableTranscription(s);
+			Music.getInstanceMusic().enableTranscription(this, s);
+		} else{
+			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}		
 	}
 
 
