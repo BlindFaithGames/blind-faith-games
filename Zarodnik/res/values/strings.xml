@@ -3,17 +3,20 @@
 
     <string name="settingsInitialSpeech">Click any option</string>
     <string name="interactionMode_select">This is a research project that tries to gather insight on how blind people play games on mobile
-devices and how developers could make games that are not only accessible, but also enjoyable
-for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
-	<string name="tts_select">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer, because it has a goog quality. We are not colaborating with IVONA project but is the best
-	    synthetizer we have found. Would you like to install it?</string>
-    <string name="interactionMode_select_TTS">This is a research project that tries to gather insight on how blind people play games on mobile
-devices and how developers could make games that are not only accessible, but also enjoyable
-for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
-    <string name="blindMode_label">Blind interaction</string>
-    <string name="noBlindMode_label">Standard interaction</string>
+	devices and how developers could make games that are not only accessible, but also enjoyable
+	for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
+    <string name="tts_select">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer, because it has a goog quality. We are not colaborating with IVONA project but is the best
+	synthetizer we have found. Would you like to install it?</string>
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>
+    <string name="interactionMode_select_TTS">This is a research project that tries to gather insight on how blind people play games on mobile
+	devices and how developers could make games that are not only accessible, but also enjoyable
+	for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
+    <string name="blindMode_label">Blind interaction</string>
+    <string name="noBlindMode_label">Standard interaction</string>
+    
+    <string name="earphoneAdvice">We advice you to playing with headphones to enjoy 3D sound.</string>
+    
     <string name="app_name">Zarodnik Game</string>
     <string name="introMessage">Welcome, select a difficulty</string>
     <string name="introMainMenu">This application works on landscape mode. Main menu Zarodnik Game, you can navigate through the menu by making simple taps in the different options
@@ -73,16 +76,13 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="main_menu_initial_TTStext">Main menu</string>
     <string name="settings_menu_initial_TTStext">Menu settings. 
 			    Clicking on each element on this menu changes and reads an option. 
-			    You have the next options on this menu\: 
-	</string>
+			    You have the next options on this menu\: </string>
     <string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen</string>
     <string name="coordinates_information_button_TTStext">Position</string>
-    <string name="key_configuration_menu_initial_TTStext">
-			    Key Configuration. Clicking on your left you can listen action descriptions
+    <string name="key_configuration_menu_initial_TTStext">			    Key Configuration. Clicking on your left you can listen action descriptions
 			     and on your right you can change the key related 
 			    with an action. If you are in blind interaction mode you have to do a long click
-			     to be able to change the configuration .You have the next options\: 
-    </string>
+			     to be able to change the configuration .You have the next options\: </string>
     <string name="keydialog">Action configuration</string>
     <string name="keydialog_text">Press any key</string>
     <string name="button_speak_record">Play record in game</string>
@@ -107,7 +107,7 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="instruction_speech">Long click to back to the main menu</string>
     <string name="key_conf_fail">Not a valid key</string>
     <string name="key_conf_success">You have changed the key associated with</string>
-    
+
     <!-- Tutorial strings -->
     <string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
     <string name="tutorial_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 
@@ -132,26 +132,23 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="radio_ono">tuning</string>
     <string name="start_ono">Piii!</string>
     <string name="the_path_of_the_goblin_ono">Playing \'Background Music\'</string>
-
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
-    
+
     <!-- form -->
-    <string name= "form_instructions1">You can navigate through this form menu by making 
+    <string name="form_instructions1">You can navigate through this form menu by making 
 		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button
-		its text will be read and, important!! if it\'s a answer button will be selected.
-	</string>
-	<string name= "form_instructions2">In this case, if you want, you can write in a field your opinion about the application. </string>
-	<string name= "form_instructions3">From now on, making taps, you can choose between different answers to respond questions.</string>
-    <string name= "form_instructions4">You can fill this field with your opinion.</string>
+		its text will be read and, important!! if it\'s a answer button will be selected.</string>
+    <string name="form_instructions2">In this case, if you want, you can write in a field your opinion about the application. </string>
+    <string name="form_instructions3">From now on, making taps, you can choose between different answers to respond questions.</string>
+    <string name="form_instructions4">You can fill this field with your opinion.</string>
     <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
 					devices and how developers could make games that are not only accessible, but also enjoyable
 					for them. To fulfill these goals, we would like to know some details about you and how you
 					interact with technologies in general and games in particular. This will help us to interpret your
 					answers to this questionnaire. All the information collected through this questionnaire will be
 					anonymous, untraceable and will be treated confidentially and only used for the purpose of the
-					study. \n
-	</string>
+					study. \n</string>
     <string name="q1_context">Mark the option that better describes your current visual level</string>
     <string name="q2_context">Rate how often you play games in your computer or game console. Where 1 means "Never" and 5 "very often"</string>
     <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>
@@ -175,8 +172,8 @@ for them. Select an interaction mode depending on if you have visual discapacity
     <string name="next_context">Next</string>
     <string name="previous_context">Previous</string>
     <string name="finish_context">Finish</string>
-    <string name="action_form">You have selected</string> 
-    
+    <string name="action_form">You have selected</string>
     <string name="infoKeyConf">associtated to</string>
     <string name="infoKeyConffail">associtated to any key.</string>
+
 </resources>

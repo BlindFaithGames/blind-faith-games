@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
-	private boolean blindInteraction;
+	private boolean blindInteraction,isFirstRun;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -91,7 +91,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 	private void checkFirstExecution() {
 		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean isFirstRun = wmbPreference.getBoolean(SettingsActivity.FIRSTRUN, SettingsActivity.FIRSTRUN_DEF);
+		isFirstRun = wmbPreference.getBoolean(SettingsActivity.FIRSTRUN, SettingsActivity.FIRSTRUN_DEF);
 		if (isFirstRun)	{
 		    // Code to run once
 			this.createInteractionModeDialog();
@@ -257,14 +257,29 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		Music.getInstanceMusic().enableTranscription(this, s);
 		
-		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
-				+ newButton.getContentDescription() + ","
-				+ settingsButton.getContentDescription() + ","
-				+ keyConfButton.getContentDescription() + ","
-				+ instructionsButton.getContentDescription() + ","
-				+ aboutButton.getContentDescription() + ","
-				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
+		if (isFirstRun){
+			Toast.makeText(this, getString(R.string.earphoneAdvice),Toast.LENGTH_LONG).show();
+			// Checking if TTS is installed on device
+			textToSpeech = new TTS(this, getString(R.string.introMainMenu)
+					+ newButton.getContentDescription() + ","
+					+ settingsButton.getContentDescription() + ","
+					+ keyConfButton.getContentDescription() + ","
+					+ instructionsButton.getContentDescription() + ","
+					+ aboutButton.getContentDescription() + ","
+					+ exitButton.getContentDescription() + ","
+					+ getString(R.string.earphoneAdvice), TTS.QUEUE_FLUSH,s);
+
+		}
+		else{
+			// Checking if TTS is installed on device
+			textToSpeech = new TTS(this, getString(R.string.introMainMenu)
+					+ newButton.getContentDescription() + ","
+					+ settingsButton.getContentDescription() + ","
+					+ keyConfButton.getContentDescription() + ","
+					+ instructionsButton.getContentDescription() + ","
+					+ aboutButton.getContentDescription() + ","
+					+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
+		}
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 	}
@@ -398,10 +413,10 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 
 	private void checkIvona() {
- 		//if (!TTS.isBestTTSInstalled(this)){
+ 		if (!TTS.isBestTTSInstalled(this)){
 			this.createTTSDialog();
 			this.openTTSDialog();
-		//}
+		}
 	}
 
 
@@ -456,7 +471,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		}		
 	}
 	
-	/** Ask the user what interaction mode wants */
+	/** Ask the user to install IVONA TTS */
 	private void openTTSDialog() {
 		ttsDialog.show();
 		

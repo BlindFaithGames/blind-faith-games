@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +20,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -68,7 +70,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
 
-	private Dialog gameDialog, instructionsDialog, interactionModeDialog;
+	private Dialog gameDialog, instructionsDialog, interactionModeDialog, ttsDialog;
 	
 	private View focusedView;
 	
@@ -517,6 +519,30 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		b.setTextSize(fontSize);
 		b.setTypeface(font);		
 	}
+	
+	private void createTTSDialog() {
+		Button b; 
+		
+		ttsDialog = new Dialog(this);
+		ttsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		ttsDialog.setContentView(R.layout.tts_dialog);
+		
+		b = (Button) ttsDialog.findViewById(R.id.yes_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+	
+		b = (Button) ttsDialog.findViewById(R.id.no_button);
+		b.setOnClickListener(this);
+		b.setOnFocusChangeListener(this);
+		b.setOnLongClickListener(this);
+		b.setTextSize(fontSize);
+		
+		ttsDialog.setOnKeyListener(this);
+	}
+	
 
 	/**
 	 * onClick manager
@@ -627,6 +653,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			blindInteraction = true;
 			interactionModeDialog.dismiss();
 			setTTS();
+			checkIvona();
 			break;
 		case R.id.noBlindMode_button:
 			editor.putBoolean(PrefsActivity.OPT_BLIND_INTERACTION, false);
@@ -634,6 +661,14 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			blindInteraction = false;
 			interactionModeDialog.dismiss();
 			setTTS();
+			checkIvona();
+			break;
+		case R.id.yes_button:
+			installTTS();
+			ttsDialog.dismiss();
+			break;
+		case R.id.no_button:
+			ttsDialog.dismiss();
 			break;
 		case R.id.exit_button:
 			if (!gamed) {
@@ -648,6 +683,24 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			}
 			finish();
 			break;
+		}
+	}
+	
+	private void installTTS() {
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=com.ivona.tts"));
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Cannot find Google Play",Toast.LENGTH_LONG).show();
+        } 
+	}
+
+
+	private void checkIvona() {
+ 		if (!TTS.isBestTTSInstalled(this)){
+			this.createTTSDialog();
+			this.openTTSDialog();
 		}
 	}
 
@@ -701,6 +754,24 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				+ this.getString(R.string.noBlindMode_label), TTS.QUEUE_FLUSH, s);
 
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
+	}
+	
+	/** Ask the user to install IVONA TTS */
+	private void openTTSDialog() {
+		ttsDialog.show();
+		
+		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
+		
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, this
+				.getString(R.string.tts_select)
+				+ ","
+				+ this.getString(R.string.yes_label)
+				+ ","
+				+ this.getString(R.string.no_label), TTS.QUEUE_FLUSH, s);
+
+		textToSpeech.setEnabled(PrefsActivity.getTTS(this));	
 	}
 
 	/** Start a new game with the given difficulty level */

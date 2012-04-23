@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/tts_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/tts_select"
+        android:text="@string/tts_select" >
+    </TextView>
+
+    <Button
+        android:id="@+id/yes_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tts_textView"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_button"
+        android:contentDescription="@string/yes_label"
+        android:text="@string/yes_label"
+        android:textColor="@color/button" >
+    </Button>
+
+    <Button
+        android:id="@+id/no_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/yes_button"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_button"
+        android:contentDescription="@string/no_label"
+        android:text="@string/no_label"
+        android:textColor="@color/button" >
+    </Button>
+
+</RelativeLayout>

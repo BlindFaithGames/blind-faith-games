@@ -71,8 +71,12 @@
 	<string name="cellStateFlagged">Bandera</string>
 	<string name="cellStateUnknown">Estado desconocido</string>
     <string name="find">Encontrar</string>
-    <string name="intro_main_menu">Antes de todo esta aplicación funciona en modo vertical.Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    <string name="intro_main_menu">Esta aplicación funciona con el dispositivo móvil en posición vertical. Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee</string>
+    <string name="tts_select">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
+   	que hemos encontrado. ¿Desea instalarlo?</string>
+   	<string name="yes_label">Sí</string>
+    <string name="no_label">No</string>
     <string name="create">Crear nuevo Log</string>
     <string name="introMessage">Bienvenido, seleccione una dificultad</string>
     <string name="buttonMessage">¡Adelante!</string>
@@ -207,7 +211,7 @@
 	 con tu opinión sobre la aplicación. 
 	</string>
 	<string name= "form_instructions3">De ahora en adelante, tienes varias opciones para responder
-	a cada pregunta. Haz click sobre cada opcion para seleccionarla.
+	a cada pregunta. Haz click sobre cada opción para seleccionarla.
 	</string>
 	<string name= "form_instructions4"> Tienes que rellenar este campo con tu opinión sobre la aplicación.</string>
     <string name="form_intro">        Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
