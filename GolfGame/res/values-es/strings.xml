@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
+	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical</string>
     <string name="interactionMode_select">Seleccione un modo de interacción</string>
     <string name="interactionMode_select_TTS">Seleccione un modo de interacción. Para seleccionar una opción mantenga la pulsación</string>
     <string name="blindMode_label">Interacción para ciegos</string>
@@ -10,7 +11,7 @@
    	<string name="yes_label">Sí</string>
     <string name="no_label">No</string>    
     <string name="introMessage">Bienvenido, seleccione una dificultad</string>
-    <string name="introMainMenu">Esta aplicación funciona con el dispositivo móvil en posición vertical. Menú principal del Golf Accesible. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    <string name="introMainMenu">Menú principal del Golf Accesible. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee.</string>
     <string name="buttonMessage">¡Adelante!</string>
     <string name="golfGamerActivity">Golf Accesible</string>
@@ -209,7 +210,7 @@
     <string name="finish_context">Finalizar</string>
     <string name="action_form">Has seleccionado</string>
     
-	<string name="screen_off_message">Tú pantalla se ha apagado.</string>
-    <string name="screen_on_message">Tú pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
+	<string name="screen_off_message">Tu pantalla se ha apagado.</string>
+    <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
     
 </resources>

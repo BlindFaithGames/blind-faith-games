@@ -1,6 +1,7 @@
-package com.golfgame.activities;
+package com.zarodnik.activities;
 
 import java.util.Map;
+
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,10 +11,10 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.accgames.others.GolfMusicSources;
 import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
-import com.golfgame.R;
+import com.zarodnik.R;
+import com.zarodnik.game.ZarodnikMusicSources;
 
 public class SplashScreen extends Activity {
     protected boolean _active = true;
@@ -27,7 +28,7 @@ public class SplashScreen extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash);
         
-		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
+		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
 		
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
@@ -51,7 +52,7 @@ public class SplashScreen extends Activity {
                     // do nothing
                 } finally {
                     finish();
-                    startActivity(new Intent("com.golfgame.activities.MainActivity"));
+                    startActivity(new Intent("com.zarodnik.activities.MainActivity"));
                     stop();
                 }
             }

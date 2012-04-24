@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="lib/requestfactory-client.jar"/>
-	<classpathentry kind="lib" path="lib/c2dm.jar"/>
-	<classpathentry kind="lib" path="lib/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="SHARED"/>
 	<classpathentry kind="src" path="gen"/>
@@ -12,6 +9,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="lib/libGoogleAnalytics.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="libs/c2dm-sources.jar"/>
+	<classpathentry kind="lib" path="libs/c2dm.jar"/>
+	<classpathentry kind="lib" path="libs/libGoogleAnalytics.jar"/>
+	<classpathentry kind="lib" path="libs/requestfactory-client-src.jar"/>
+	<classpathentry kind="lib" path="libs/requestfactory-client.jar"/>
+	<classpathentry kind="lib" path="libs/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

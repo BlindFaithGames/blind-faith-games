@@ -1,6 +1,4 @@
-package com.golfgame.activities;
-
-import java.util.Map;
+package com.minesweeper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,10 +8,8 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.accgames.others.GolfMusicSources;
-import com.accgames.sound.SubtitleInfo;
-import com.accgames.sound.TTS;
-import com.golfgame.R;
+import com.minesweeper.game.SubtitleInfo;
+import com.minesweeper.game.TTS;
 
 public class SplashScreen extends Activity {
     protected boolean _active = true;
@@ -26,11 +22,9 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash);
-        
-		Map<Integer, String> onomatopeias = GolfMusicSources.getMap(this);
-		
+      
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
+				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
        
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.mode) + "," + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
@@ -51,7 +45,7 @@ public class SplashScreen extends Activity {
                     // do nothing
                 } finally {
                     finish();
-                    startActivity(new Intent("com.golfgame.activities.MainActivity"));
+                    startActivity(new Intent("com.minesweeper.MinesweeperActivity"));
                     stop();
                 }
             }

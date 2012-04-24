@@ -61,6 +61,8 @@
     <!-- Notification message [CHAR LIMIT=NONE] -->
     <string name="unregistration_succeeded">No registrado %1$s para mensajería C2DM.</string>
     
+    <string name="group_name">Juego hecho por, Blind Faith Games</string>	
+	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical</string>
     <string name="interactionMode_select">Seleccione un modo de interacción</string>
     <string name="interactionMode_select_TTS">Seleccione un modo de interacción. Para seleccionar una opción mantenga la pulsación</string>
     <string name="blindMode_label">Interacción para ciegos</string>
@@ -71,7 +73,7 @@
 	<string name="cellStateFlagged">Bandera</string>
 	<string name="cellStateUnknown">Estado desconocido</string>
     <string name="find">Encontrar</string>
-    <string name="intro_main_menu">Esta aplicación funciona con el dispositivo móvil en posición vertical. Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    <string name="intro_main_menu">Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee</string>
     <string name="tts_select">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
    	que hemos encontrado. ¿Desea instalarlo?</string>
@@ -290,6 +292,6 @@
     <string name="infoKeyConf">asociada a</string>
     <string name="infoKeyConffail">asociada a ninguna tecla.</string>
     
-    <string name="screen_off_message">Tú pantalla se ha apagado.</string>
-    <string name="screen_on_message">Tú pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
+    <string name="screen_off_message">Tu pantalla se ha apagado.</string>
+    <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
 </resources>

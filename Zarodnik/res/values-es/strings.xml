@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
+	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición horizontal</string>
     <string name="settingsInitialSpeech">Seleccione la opción que desee</string>
     <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
@@ -19,7 +20,7 @@
 
     <string name="app_name">Zarodnik</string>
     <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Esta aplicación funciona con el dispositivo móvil en posición horizontal. Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
+    <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee, en caso de haber seleccionado interacción para ciegos.</string>
     <string name="buttonMessage">¡Adelante!</string>
     <string name="zarodnik_activity">Zarodnik Accesible</string>
@@ -189,6 +190,6 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
     <string name="infoKeyConf">asociada a</string>
     <string name="infoKeyConffail">asociada a ninguna tecla.</string>
 
-	<string name="screen_off_message">Tú pantalla se ha apagado.</string>
-    <string name="screen_on_message">Tú pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
+	<string name="screen_off_message">Tu pantalla se ha apagado.</string>
+    <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
 </resources>
