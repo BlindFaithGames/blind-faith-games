@@ -7,7 +7,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer.OnVideoSizeChangedListener;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -77,6 +76,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
 										+ buttonRecord.getContentDescription() + ", "
 										+ buttonRepeat.getContentDescription());
+		
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.KEY_CONF_ACTIVITY);
 	}
 	
@@ -99,7 +99,6 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	 * @throws ParserConfigurationException 
 	 */
 	public void saveEditedKeyboard(String file){
-		// Si el writer no ha sido a�n creado, lo creamos
 		if (writer == null) writer = new KeyboardWriter();
 		try {
 			FileOutputStream fos = openFileOutput(file, 3);

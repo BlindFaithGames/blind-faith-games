@@ -57,8 +57,6 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		
 		keyboard = Input.getInstance();
 		
-
-		
 		TableRow tr;
 		
 		tr = (TableRow) findViewById(R.id.zoom_row);
@@ -238,8 +236,8 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 				else if (action.equals(ACTION_EXPLORATION)){
 					keyboard.addButtonAction(key, ACTION_EXPLORATION);
 				}
-				else if (action.equals(ACTION_EXPLORATION)){
-					keyboard.addButtonAction(key, ACTION_EXPLORATION);
+				else if (action.equals(ACTION_INSTRUCTIONS)){
+					keyboard.addButtonAction(key, ACTION_INSTRUCTIONS);
 				}
 				else if (action.equals(ACTION_COORDINATES)){
 					keyboard.addButtonAction(key, ACTION_COORDINATES);

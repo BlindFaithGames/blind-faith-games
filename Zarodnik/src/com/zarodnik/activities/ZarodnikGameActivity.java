@@ -31,6 +31,7 @@ import com.zarodnik.game.ZarodnikIntro;
 import com.zarodnik.game.ZarodnikMusicSources;
 import com.zarodnik.game.ZarodnikTutorial;
 import com.zarodnik.game.ZarodnikTutorial.TutorialID;
+import com.zarodnik.others.ScreenReceiver;
 
 public class ZarodnikGameActivity extends Activity {
 	private TTS textToSpeech;
@@ -96,13 +97,13 @@ public class ZarodnikGameActivity extends Activity {
 		game = new Game();
 
 		ArrayList<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(INTRO_ID, new ZarodnikIntro(zarodnikView, textToSpeech,this, game));
-		gameStates.add(TUTORIAL0_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL0, game));
-		gameStates.add(TUTORIAL1_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL1, game));
-		gameStates.add(TUTORIAL2_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL2, game));
-		gameStates.add(TUTORIAL3_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL3, game));
-		gameStates.add(GAMEPLAY_ID, new ZarodnikGameplay(zarodnikView,textToSpeech, this, game));
-		gameStates.add(GAME_OVER_ID, new ZarodnikGameOver(zarodnikView,textToSpeech, this, game));
+		gameStates.add(INTRO_ID, new ZarodnikIntro(zarodnikView, textToSpeech, this, game));
+		gameStates.add(TUTORIAL0_ID, new ZarodnikTutorial(zarodnikView, textToSpeech, this, TutorialID.TUTORIAL0, game));
+		gameStates.add(TUTORIAL1_ID, new ZarodnikTutorial(zarodnikView, textToSpeech, this, TutorialID.TUTORIAL1, game));
+		gameStates.add(TUTORIAL2_ID, new ZarodnikTutorial(zarodnikView, textToSpeech, this, TutorialID.TUTORIAL2, game));
+		gameStates.add(TUTORIAL3_ID, new ZarodnikTutorial(zarodnikView, textToSpeech, this, TutorialID.TUTORIAL3, game));
+		gameStates.add(GAMEPLAY_ID, new ZarodnikGameplay(zarodnikView, textToSpeech, this, game));
+		gameStates.add(GAME_OVER_ID, new ZarodnikGameOver(zarodnikView, textToSpeech, this, game));
 
 		game.initialize(gameStates, order);
 	}
@@ -134,6 +135,10 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		 if (!ScreenReceiver.wasScreenOn) {
+	        	textToSpeech.speak(getString(R.string.screen_on_message));
+	        }
+
 	}
 
 	/**
@@ -148,9 +153,13 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		textToSpeech.stop();
-		Sound3DManager.getSoundManager(this).stopAllSources();
-		game.clear();
+        if (ScreenReceiver.wasScreenOn) {
+       	 	textToSpeech.speak(getString(R.string.screen_off_message));
+        }else{
+    		textToSpeech.stop();
+    		Sound3DManager.getSoundManager(this).stopAllSources();
+    		game.clear();
+        }
 	}
 
 	/**

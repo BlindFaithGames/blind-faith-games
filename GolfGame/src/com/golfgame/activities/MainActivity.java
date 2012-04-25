@@ -7,8 +7,8 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
@@ -39,7 +39,6 @@ import com.accgames.input.XMLKeyboard;
 import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
 import com.accgames.others.RuntimeConfig;
-import com.accgames.others.ScreenReceiver;
 import com.accgames.sound.Music;
 import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
@@ -92,9 +91,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
 		setScreenContent(R.layout.main);
-		
-		initializeReceiver();
-		
+	
 		checkFolderApp(getString(R.string.app_name)+".xml");
 		
 		checkFirstExecution();
@@ -108,13 +105,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER
 				+ " " + Build.BRAND + " " + Build.HARDWARE + " " + width + " " + height, 3);
 	}	
-	
-	private void initializeReceiver() {
-        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        BroadcastReceiver mReceiver = new ScreenReceiver();
-        registerReceiver(mReceiver, filter);
-	}
 
 	private void checkFirstExecution() {
 		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -660,32 +650,22 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 	}		
 	
-	/**
-	 * ------------------------------------------------------------ Music
-	 * ---------------------------------------------------------------
-	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-        if(!ScreenReceiver.wasScreenOn) {
-            // this is when onResume() is called due to a screen state change
-        	textToSpeech.speak(getString(R.string.screen_on_message));
-        } else {
-    		checkFolderApp(getString(R.string.app_name)+".xml");
-    		
-    		blindMode();
-    		
-    		transcriptionMode();
-    		
-    		soundManagement();
-    		
-    		blindInteraction = SettingsActivity.getBlindInteraction(this);
-    		
-    		// Removes all events
-    		Input.getInput().clean();
-        }
-
+		checkFolderApp(getString(R.string.app_name)+".xml");
+		
+		blindMode();
+		
+		transcriptionMode();
+		
+		soundManagement();
+		
+		blindInteraction = SettingsActivity.getBlindInteraction(this);
+		
+		// Removes all events
+		Input.getInput().clean();
 	}
 
 	private void soundManagement() {
@@ -698,12 +678,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			Music.getInstanceMusic().play(this, R.raw.main, true);
 		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
-		
- 		if (!TTS.isBestTTSInstalled(this)){
-			Toast toast = Toast.makeText(this, getString(R.string.synthesizer_suggestion), Toast.LENGTH_LONG);
-			toast.show();
-			textToSpeech.speak(getString(R.string.synthesizer_suggestion));
-		}
 		
 		Music.getInstanceMusic().stop(R.raw.storm);
 	}
@@ -734,13 +708,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onPause() {
 		super.onPause();
-        if (ScreenReceiver.wasScreenOn && !isFinishing()) {
-            // this is the case when onPause() is called by the system due to a screen state change
-        	textToSpeech.speak(getString(R.string.screen_off_message));
-        } else {
-            // this is when onPause() is called when the screen state has not changed
-    		Music.getInstanceMusic().stop(R.raw.main);
-        }
+    	Music.getInstanceMusic().stop(R.raw.main);
 	}
 
 	/**

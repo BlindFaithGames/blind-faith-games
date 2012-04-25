@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
+	<string name="advice">Aconsejamos utilizar auriculares para jugar a este juego.</string>
+	<string name="advice">Juego hecho por, Blind Faith Games</string>	
 	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición horizontal</string>
     <string name="settingsInitialSpeech">Seleccione la opción que desee</string>
     <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
@@ -15,8 +16,6 @@
     <string name="no_label">No</string>
     <string name="blindMode_label">Interacción para ciegos</string>
     <string name="noBlindMode_label">Interacción estándar</string>
-    
-    <string name="earphoneAdvice">Te recomendamos jugar con auriculares para poder disfrutar del sonido 3D.</string>
 
     <string name="app_name">Zarodnik</string>
     <string name="introMessage">Welcome, select a difficulty</string>

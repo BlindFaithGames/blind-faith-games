@@ -15,6 +15,7 @@ import com.accgames.input.Input;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
+import com.zarodnik.others.ScreenReceiver;
 
 public class AboutActivity extends Activity implements OnTouchListener{
 
@@ -61,6 +62,23 @@ public class AboutActivity extends Activity implements OnTouchListener{
 		
 		v = findViewById(R.id.about_root);
 		v.setOnTouchListener(this);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		 if (!ScreenReceiver.wasScreenOn) {
+	        	textToSpeech.speak(getString(R.string.screen_on_message));
+	        }
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+        if (ScreenReceiver.wasScreenOn) {
+       	 	textToSpeech.speak(getString(R.string.screen_off_message));
+        }
 	}
 	
 	/**

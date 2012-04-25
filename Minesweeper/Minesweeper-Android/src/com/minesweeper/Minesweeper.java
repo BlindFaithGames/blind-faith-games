@@ -190,6 +190,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	public void mTtsActionControls(){
 		textToSpeech.speak(getString(R.string.instructions_controls_text));
 	}
+	
 	/**
 	 * Builds the dialog shown at the end of the game, when the result is positive
 	 */

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="advice">We recommend use headphones to play this game.</string>
     <string name="group_name">Game made by, Blind Faith Games</string>
     <string name="mode">This application works on landscape mode</string>
     <string name="settingsInitialSpeech">Click any option</string>
@@ -15,8 +16,6 @@
 	for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
-    
-    <string name="earphoneAdvice">We advice you to playing with headphones to enjoy 3D sound.</string>
     
     <string name="app_name">Zarodnik Game</string>
     <string name="introMessage">Welcome, select a difficulty</string>

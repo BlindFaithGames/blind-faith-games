@@ -20,6 +20,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.accgames.others.Log;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
+import com.zarodnik.others.ScreenReceiver;
 
 public class FormActivity extends Activity implements OnClickListener,
 		OnFocusChangeListener, OnLongClickListener{
@@ -120,6 +121,23 @@ public class FormActivity extends Activity implements OnClickListener,
 		textToSpeech.setInitialSpeech(getString(R.string.form_label) + ", " 
 									+ getString(R.string.form_intro) 
 									+ getString(R.string.form_instructions1));
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		 if (!ScreenReceiver.wasScreenOn) {
+	        	textToSpeech.speak(getString(R.string.screen_on_message));
+	        }
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+        if (ScreenReceiver.wasScreenOn) {
+       	 	textToSpeech.speak(getString(R.string.screen_off_message));
+        }
 	}
 
 	@Override

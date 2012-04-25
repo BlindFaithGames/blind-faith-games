@@ -68,6 +68,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private Dialog instructionsDialog, interactionModeDialog, ttsDialog;
 	private View focusedView;
 	private Typeface font;
+	private boolean startNewActivity;
 	
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
@@ -93,7 +94,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	}		 
 
 	private void initializeReceiver() {
-        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         BroadcastReceiver mReceiver = new ScreenReceiver();
         registerReceiver(mReceiver, filter);
@@ -268,7 +269,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		Music.getInstanceMusic().enableTranscription(this, s);
 		
 		if (isFirstRun){
-			Toast.makeText(this, getString(R.string.earphoneAdvice),Toast.LENGTH_LONG).show();
 			// Checking if TTS is installed on device
 			textToSpeech = new TTS(this, getString(R.string.introMainMenu)
 					+ newButton.getContentDescription() + ","
@@ -276,8 +276,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 					+ keyConfButton.getContentDescription() + ","
 					+ instructionsButton.getContentDescription() + ","
 					+ aboutButton.getContentDescription() + ","
-					+ exitButton.getContentDescription() + ","
-					+ getString(R.string.earphoneAdvice), TTS.QUEUE_FLUSH,s);
+					+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
 
 		}
 		else{
@@ -345,6 +344,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 	private void menuAction(View v) {
 		Intent i;
+		startNewActivity = true;
 		switch (v.getId()) {
 			case R.id.settings_button:
 				i = new Intent(this, SettingsActivity.class);
@@ -542,6 +542,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Intent nextIntent;
+		startNewActivity = true;
 		switch (resultCode) {
 		case (RESET_CODE):
 			nextIntent = new Intent(getApplicationContext(),ZarodnikGameActivity.class);
@@ -559,23 +560,25 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onResume() {
 		super.onResume();
-	    if(!ScreenReceiver.wasScreenOn) {
-	        // this is when onResume() is called due to a screen state change
-	        textToSpeech.speak(getString(R.string.screen_on_message));
-	    } else {
-			blindInteraction = SettingsActivity.getBlindInteraction(this);
-			
-			blindMode();
-			
-			soundManagement();
-			
-			transcriptionMode();
-			
-			checkFolderApp(getString(R.string.app_name)+".xml");
-			
-			// Removes all events
-			Input.getInput().clean();
-	    }
+		
+		// only when screen turns on
+        if (!ScreenReceiver.wasScreenOn) {
+        	textToSpeech.speak(getString(R.string.screen_on_message));
+        } else {
+      		blindInteraction = SettingsActivity.getBlindInteraction(this);
+      		
+      		blindMode();
+      		
+      		soundManagement();
+      		
+      		transcriptionMode();
+      		
+      		checkFolderApp(getString(R.string.app_name)+".xml");
+      		
+      		// Removes all events
+      		Input.getInput().clean();
+        }
+      
 	}
 	
 	private void soundManagement(){
@@ -613,14 +616,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 	@Override
 	protected void onPause() {
-		super.onPause();
-        if (ScreenReceiver.wasScreenOn && !isFinishing()) {
-            // this is the case when onPause() is called by the system due to a screen state change
-        	textToSpeech.speak(getString(R.string.screen_off_message));
+        if (ScreenReceiver.wasScreenOn && !isFinishing() && !startNewActivity) {
+            textToSpeech.speak(getString(R.string.screen_off_message));
         } else {
-            // this is when onPause() is called when the screen state has not changed
-    		Music.getInstanceMusic().stop(R.raw.main);
+        	Music.getInstanceMusic().stop(R.raw.main);
+        	startNewActivity = false;
         }
+        super.onPause();
 	}
 
 	/**

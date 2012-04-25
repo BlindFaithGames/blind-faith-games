@@ -20,6 +20,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+              <intent-filter>
+                <action android:name="com.zarodnik.activities.SplashScreen" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.MainActivity"
@@ -32,7 +37,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
+        <activity 	
             android:name=".activities.SettingsActivity"
             android:label="@string/settings_title"
             android:screenOrientation="landscape" >
