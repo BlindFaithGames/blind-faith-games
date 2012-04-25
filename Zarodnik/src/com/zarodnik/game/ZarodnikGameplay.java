@@ -43,7 +43,6 @@ import com.accgames.sound.VolumeManager;
 import com.zarodnik.R;
 import com.zarodnik.activities.MainActivity;
 import com.zarodnik.activities.SettingsActivity;
-import com.zarodnik.activities.ZarodnikGameActivity;
 
 public class ZarodnikGameplay extends GameState {
 	
@@ -644,28 +643,8 @@ public class ZarodnikGameplay extends GameState {
 			i = createItem(n);
 		
 		// Only if it's the first time that we instantiate the Item
-		if(i != null){
-			
+		if(i != null){		
 			tempEntities.add(i);
-			
-			if(i.isFirstInstance()){
-				List<Integer> order = this.game.getOrder();
-				switch(n){
-					case(Item.RADIO):
-						order.add(this.game.getNext() + 1, ZarodnikGameActivity.TUTORIAL1_ID);
-						break;
-					case(Item.SEAWEED):
-						order.add(this.game.getNext() + 1, ZarodnikGameActivity.TUTORIAL2_ID);
-						break;
-					case(Item.CAPSULE):
-						order.add(this.game.getNext() + 1, ZarodnikGameActivity.TUTORIAL3_ID);
-						break;
-				}
-				order.add(this.game.getNext() + 2, ZarodnikGameActivity.GAMEPLAY_ID);
-				tutorial = true;
-			}
-			else
-				tutorial = false;
 		}
 	}
 

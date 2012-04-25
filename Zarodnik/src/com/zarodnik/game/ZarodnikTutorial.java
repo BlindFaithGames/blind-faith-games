@@ -29,7 +29,7 @@ import com.zarodnik.R;
 
 public class ZarodnikTutorial extends  GameState{
 	
-	public enum TutorialID { TUTORIAL0, TUTORIAL1, TUTORIAL2, TUTORIAL3};
+	public enum TutorialID {TUTORIAL0, TUTORIAL1, TUTORIAL2, TUTORIAL3, TUTORIAL4, TUTORIAL5, TUTORIAL6};
 	
 	private TutorialID tutorialN;
 
@@ -57,7 +57,26 @@ public class ZarodnikTutorial extends  GameState{
 	public void onInit() {
 		super.onInit();
 		this.getTTS().setQueueMode(TextToSpeech.QUEUE_FLUSH);
-		this.getTTS().speak(this.getContext().getString(R.string.tutorial_intro));
+		switch(tutorialN){
+		case TUTORIAL1:
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial01_radio));
+			break;
+		case TUTORIAL2:
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial02_seaweed));
+			break;
+		case TUTORIAL3:
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial03_capsule));
+			break;
+		case TUTORIAL4:
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial04_instructions));
+			break;
+		case TUTORIAL5:
+			this.getTTS().speak(this.getContext().getString(R.string.instructions_general_text));
+			break;
+		case TUTORIAL6:
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial_intro));
+			break;
+		}
 	}
 	
 	private void initializeStage(TutorialID tutorialN) {
@@ -77,6 +96,15 @@ public class ZarodnikTutorial extends  GameState{
 				break;
 			case TUTORIAL3:
 				createItem(Item.CAPSULE);
+				createText(tutorialN);
+				break;
+			case TUTORIAL4:
+				createText(tutorialN);
+				break;
+			case TUTORIAL5:
+				createText(tutorialN);
+				break;
+			case TUTORIAL6:
 				createText(tutorialN);
 				break;
 		}
@@ -144,9 +172,9 @@ public class ZarodnikTutorial extends  GameState{
 		float fontSize;
 		Typeface font;
 		Paint brush;
-		Text preyText, predatorText, radioText, seaweedText, capsuleText;
+		Text preyText, predatorText, radioText, seaweedText, capsuleText, instructionsText;
 		int stepsPerWord;
-		String preySpeech, predatorSpeech, seaweedSpeech, radioSpeech, capsuleSpeech;
+		String preySpeech, predatorSpeech, seaweedSpeech, radioSpeech, capsuleSpeech, instructions;
 		fontSize =  (this.getContext().getResources().getDimension(R.dimen.font_size_intro)/GameState.scale);
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		brush = new Paint();
@@ -185,6 +213,24 @@ public class ZarodnikTutorial extends  GameState{
 				capsuleText = new Text(0, SCREEN_HEIGHT/3, null, this,null, null, null,
 						null, false, brush, stepsPerWord, capsuleSpeech);
 				this.addEntity(capsuleText);
+				break;
+			case TUTORIAL4:
+				instructions = this.getContext().getString(R.string.tutorial04_instructions);
+				instructionsText = new Text(0, 0, null, this,null, null, null,
+						null, false, brush, stepsPerWord, instructions);
+				this.addEntity(instructionsText);
+				break;
+			case TUTORIAL5:
+				instructions = this.getContext().getString(R.string.instructions_general_text);
+				instructionsText = new Text(0, 0, null, this,null, null, null,
+						null, false, brush, stepsPerWord, instructions);
+				this.addEntity(instructionsText);
+				break;
+			case TUTORIAL6:
+				instructions = this.getContext().getString(R.string.tutorial_intro);
+				instructionsText = new Text(0, 0, null, this,null, null, null,
+						null, false, brush, stepsPerWord, instructions);
+				this.addEntity(instructionsText);
 				break;
 		}
 	}
@@ -314,12 +360,6 @@ public class ZarodnikTutorial extends  GameState{
 				predatorY = SCREEN_HEIGHT/2;
 				predatorAnimation.onDraw(predatorX, predatorY, canvas);
 				break;
-			case TUTORIAL1:
-				break;
-			case TUTORIAL2:
-				break;
-			case TUTORIAL3:
-				break;
 		}
 
 		super.onDraw(canvas);
@@ -382,23 +422,31 @@ public class ZarodnikTutorial extends  GameState{
 					explainCapsule();
 				}
 				break;
+			case TUTORIAL4:
+				e = Input.getInput().removeEvent("onDoubleTap");
+				if(e != null){
+					nTouches++;
+					explainHero();
+				}
+				break;
 		}
 
 	}
 	
+	private void explainHero() {
+		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.bubble, false);
+	}
+
 	private void explainSeaweed() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
-		this.getTTS().speak(this.getContext().getString(R.string.tutorial02_seaweed));
 	}
 	
 	private void explainCapsule() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
-		this.getTTS().speak(this.getContext().getString(R.string.tutorial03_capsule));
 	}
 	
 	private void explainRadio() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
-		this.getTTS().speak(this.getContext().getString(R.string.tutorial01_radio));
 	}
 
 	private void explainPredator() {

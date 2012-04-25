@@ -38,18 +38,13 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name=".activities.TutorialActivity"
+            android:label="@string/game_title"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name=".activities.AboutActivity"
             android:label="@string/about_title"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name=".activities.InstructionsActivity"
-            android:label="@string/instructions_title"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name=".activities.ControlsActivity"
-            android:label="@string/controls_title"
             android:screenOrientation="landscape" >
         </activity>
         <activity

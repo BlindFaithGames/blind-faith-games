@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
+	<string name="group_name">Juego hecho por Blind Faith Games</string>	
 	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición horizontal</string>
     <string name="settingsInitialSpeech">Seleccione la opción que desee</string>
     <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
@@ -55,14 +55,6 @@
     <string name="game_title">Juego</string>
     <string name="flags_title">Ajutes de bandera</string>
     <string name="flags_shortcut">f</string>
-    <string name="instructions_label">Instrucciones</string>
-    <string name="instructions_title">Instrucciones de Zarodnik Accesible</string>
-    <string name="controls_title">Controles de Zarodnik Accesible</string>
-    <string name="instructions_general_label">Instrucciones</string>
-    <string name="instructions_controls_label">Controles</string>
-    <string name="instructions_general_text">	    El objetivo del juego es comer tantas presas como pueda, evitando a los depredadores que pueda escuchar.
-	    Cuantas más presas coma, mejor será la partida.</string>
-    <string name="instructions_controls_text">	    Tiene que realizar eventos de pulsación y arrastre en pantalla para mover al personaje. Escuchará distintos sonidos. Para saber más, diríjase al tutorial del juego.</string>
     <string name="synthetizer_title">Sintetizador</string>
     <string name="onup_title">Evento tirachinas</string>
     <string name="onup_summary">Habilita el lanzamiento mediante eventos de arrastre (como si de un tirachinas se tratase)</string>
@@ -117,14 +109,19 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
     <string name="key_conf_success">Has cambiado la tecla asociada a</string>
     <!-- Tutorial strings -->
     <string name="tutorial_warning">Si quiere salir de esta pantalla simplemente haga una pulsación larga en pantalla.</string>
-    <string name="tutorial_intro">En esta pantalla aprenderá los conceptos básicos para aprender a jugar. Para interactuar realice una doble pulsación en pantalla. 
-	Cuando quiera salir de esta pantalla realice una pulsación larga.</string>
+    <string name="tutorial_intro">Aquí podrá aprender los conceptos básicos para jugar. Para escuchar los sonidos que representan los objetos realice doble click. 
+	Para salir realice una pulsación larga.</string>
     <string name="tutorial00_predator">Ese sonido representa el depredador que debe de evitar.</string>
     <string name="tutorial00_prey">Ese sonido representa la presa que tiene que encontrar por la pantalla.</string>
     <string name="tutorial01_radio">Ese sonido representa la radio que encontrará en algunas pantallas. Le ayudará a encontrar la presa.</string>
     <string name="tutorial02_seaweed">Ese sonido representa el alga marina que encontrará en algunas pantallas. Si la encuentra se volverá invulnerable.</string>
-    <string name="tutorial03_capsule">Ese sonido representa la cápsula que encontrará en algunas pantallas.Incrementará o decrementará de manera aleatoria el tamaño
+    <string name="tutorial03_capsule">Ese sonido representa la cápsula que encontrará en algunas pantallas. Incrementará o decrementará de manera aleatoria el tamaño
 	    del protagonista dificultando o facilitando respectivamente la movilidad por pantalla.</string>
+    <string name="tutorial04_instructions">Para moverse simplemente desplace la pulsación sobre la pantalla y cuando la suelte todo lo que se muestra en pantalla quedará pausado hasta la siguiente pulsación. Para escuchar el sonido
+        que emite el protagonista cuando se mueve haga doble click. Para continuar realice una pulsación larga.</string>
+    <string name="instructions_general_text">El objetivo del juego es comer tantas presas como pueda, evitando a los depredadores que pueda escuchar.
+	    Cuantas más presas coma, mejor será la partida. Una vez devoradas las presas localizadas en pantalla, tiene que acercarse a uno de los bordes de la pantalla para pasar al siguiente nivel y continuar con el juego. 
+	</string>        	    
 
     <!-- Onomatopeias strings -->
     <string name="appear_ono">bing bing!</string>

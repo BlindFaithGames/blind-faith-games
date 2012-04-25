@@ -18,7 +18,7 @@ import com.zarodnik.game.ZarodnikMusicSources;
 
 public class SplashScreen extends Activity {
     protected boolean _active = true;
-    protected int _splashTime = 5000;
+    protected int _splashTime = 6000;
 	private TTS textToSpeech;
     
     /** Called when the activity is first created. */
@@ -34,7 +34,8 @@ public class SplashScreen extends Activity {
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
        
 		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, getString(R.string.mode) + "," + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
+		textToSpeech = new TTS(this, getString(R.string.mode) + "," + getString(R.string.group_name)
+				+ "," + getString(R.string.earphoneAdvice), TTS.QUEUE_FLUSH, s);
 		
         // thread for displaying the SplashScreen
         Thread splashTread = new Thread() {
@@ -43,7 +44,7 @@ public class SplashScreen extends Activity {
                 try {
                     int waited = 0;
                     while(_active && (waited < _splashTime)) {
-                        sleep(100);
+                        sleep(220);
                         if(_active) {
                             waited += 100;
                         }
@@ -64,6 +65,7 @@ public class SplashScreen extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             _active = false;
+            textToSpeech.stop();
         }
         return true;
     }
