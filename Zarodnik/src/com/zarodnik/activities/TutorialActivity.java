@@ -25,40 +25,39 @@ import com.accgames.sound.Sound3DManager;
 import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
-import com.zarodnik.game.ZarodnikGameOver;
-import com.zarodnik.game.ZarodnikGameplay;
-import com.zarodnik.game.ZarodnikIntro;
 import com.zarodnik.game.ZarodnikMusicSources;
-import com.zarodnik.others.ScreenReceiver;
+import com.zarodnik.game.ZarodnikTutorial;
+import com.zarodnik.game.ZarodnikTutorial.TutorialID;
 
-public class ZarodnikGameActivity extends Activity {
+public class TutorialActivity extends Activity {
 	private TTS textToSpeech;
 	private Game game;
 
 	// Keyboard configuration
 	private XMLKeyboard keyboard;
 
-	public static final int INTRO_ID = 0;
-	public static final int GAMEPLAY_ID = 1;
-	public static final int GAME_OVER_ID = 2;
+	public static final int TUTORIAL6_ID = 0;
+	public static final int TUTORIAL0_ID = 1;
+	public static final int TUTORIAL5_ID = 2;
+	public static final int TUTORIAL4_ID = 3;
+	public static final int TUTORIAL1_ID = 4;
+	public static final int TUTORIAL2_ID = 5;
+	public static final int TUTORIAL3_ID = 6;
 
-
-	/*---------------------------------------------------------------------
-	 *  LIFECYCLE METHODS
-	 ----------------------------------------------------------------------*/
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		// Initialize TTS engine
-		textToSpeech = (TTS) getIntent().getParcelableExtra(MainActivity.KEY_TTS);
+		textToSpeech = (TTS) getIntent().getParcelableExtra(
+				MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
 
 		if (SettingsActivity.getTranscription(this)) {
 
-			Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
+			Map<Integer, String> onomatopeias = ZarodnikMusicSources
+					.getMap(this);
 
 			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom,
 					R.id.toast_layout_root, R.id.toast_text, 0, 0,
@@ -77,23 +76,31 @@ public class ZarodnikGameActivity extends Activity {
 		setContentView(zarodnikView);
 
 		createGame(zarodnikView);
-		
+
 		if (SettingsActivity.getBlindMode(this))
 			game.setDisabled(true);
 	}
 
 	private void createGame(DrawablePanel zarodnikView) {
 		ArrayList<Integer> order = new ArrayList<Integer>();
-		order.add(INTRO_ID);
-		order.add(GAMEPLAY_ID);
-		order.add(GAME_OVER_ID);
+		order.add(TUTORIAL6_ID);
+		order.add(TUTORIAL0_ID);
+		order.add(TUTORIAL5_ID);
+		order.add(TUTORIAL4_ID);
+		order.add(TUTORIAL1_ID);
+		order.add(TUTORIAL2_ID);
+		order.add(TUTORIAL3_ID);
 
 		game = new Game();
 
 		ArrayList<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(INTRO_ID, new ZarodnikIntro(zarodnikView, textToSpeech,this, game));
-		gameStates.add(GAMEPLAY_ID, new ZarodnikGameplay(zarodnikView,textToSpeech, this, game));
-		gameStates.add(GAME_OVER_ID, new ZarodnikGameOver(zarodnikView,textToSpeech, this, game));
+		gameStates.add(TUTORIAL6_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL6, game));
+		gameStates.add(TUTORIAL0_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL0, game));
+		gameStates.add(TUTORIAL5_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL5, game));
+		gameStates.add(TUTORIAL4_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL4, game));
+		gameStates.add(TUTORIAL1_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL1, game));
+		gameStates.add(TUTORIAL2_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL2, game));
+		gameStates.add(TUTORIAL3_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL3, game));
 
 		game.initialize(gameStates, order);
 	}
@@ -125,10 +132,6 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		 if (!ScreenReceiver.wasScreenOn) {
-	        	textToSpeech.speak(getString(R.string.screen_on_message));
-	        }
-
 	}
 
 	/**
@@ -143,13 +146,9 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-        if (ScreenReceiver.wasScreenOn) {
-       	 	textToSpeech.speak(getString(R.string.screen_off_message));
-        }else{
-    		textToSpeech.stop();
-    		Sound3DManager.getSoundManager(this).stopAllSources();
-    		game.clear();
-        }
+		textToSpeech.stop();
+		Sound3DManager.getSoundManager(this).stopAllSources();
+		game.clear();
 	}
 
 	/**
@@ -177,7 +176,6 @@ public class ZarodnikGameActivity extends Activity {
 		super.onDestroy();
 		textToSpeech.stop();
 		Sound3DManager.getSoundManager(this).stopAllSources();
-		Music.getInstanceMusic().stopAllResources();
 	}
 
 	/*---------------------------------------------------------------------
@@ -310,4 +308,5 @@ public class ZarodnikGameActivity extends Activity {
 			return found;
 		}
 	}
+
 }

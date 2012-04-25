@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="advice">We recommend use headphones to play this game.</string>
-    <string name="group_name">Game made by, Blind Faith Games</string>
+    <string name="group_name">Game made by Blind Faith Games</string>
     <string name="mode">This application works on landscape mode</string>
     <string name="settingsInitialSpeech">Click any option</string>
     <string name="interactionMode_select">This is a research project that tries to gather insight on how blind people play games on mobile
@@ -16,7 +16,6 @@
 	for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
-    
     <string name="app_name">Zarodnik Game</string>
     <string name="introMessage">Welcome, select a difficulty</string>
     <string name="introMainMenu">Main menu Zarodnik Game, you can navigate through the menu by making simple taps in the different options
@@ -27,6 +26,7 @@
     <string name="main_title">Zarodnik</string>
     <string name="continue_label">Continue</string>
     <string name="new_game_label">New Game</string>
+    <string name="tutorial_label">Game Tutorial</string>
     <string name="keyConf_label">Key Configuration</string>
     <string name="about_label">About</string>
     <string name="form_label">Form</string>
@@ -54,15 +54,6 @@
     <string name="game_title">Game</string>
     <string name="flags_title">Flags settings</string>
     <string name="flags_shortcut">f</string>
-    <string name="instructions_label">Instructions</string>
-    <string name="instructions_title">Instructions Zarodnik</string>
-    <string name="controls_title">Controls Zarodnik</string>
-    <string name="instructions_general_label">Instructions</string>
-    <string name="instructions_controls_label">Controls</string>
-    <string name="instructions_general_text">		The game objetive is to eat as many preys as you can, avoiding every predator that you can listen around the screen.
-		The more preys eat, the better the game.</string>
-    <string name="instructions_controls_text">		You have to touch and drag the screen in order to move the player. You will listen different sounds around the screen. 
-		To know more, go to the game tutorial.</string>
     <string name="synthetizer_title">Synthesizer</string>
     <string name="onup_title">On Up event</string>
     <string name="onup_summary">Enables to shoot when a on up event occurs</string>
@@ -112,13 +103,19 @@
 
     <!-- Tutorial strings -->
     <string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
-    <string name="tutorial_intro">In this screen you will learn the basics of the game. To interact you have to do a double touch on the screen. 
-	When you want to leave this info page do an a long touch on the screen.</string>
+    <string name="tutorial_intro">Here you can learn the basics to play. To listen the entities sounds you have to do double click on the screen. Long press to exit.</string>
     <string name="tutorial00_predator">That sounds represents the predator that you have to avoid.</string>
     <string name="tutorial00_prey">That sound represents the prey that you have to find in the screen.</string>
     <string name="tutorial01_radio">That sound represents the radio that you can find in the screen. It helps you to find the prey.</string>
     <string name="tutorial02_seaweed">That sound represents the seaweed that you can find in the screen. If you eat it you become invulnerable.</string>
     <string name="tutorial03_capsule">That sound represents the capsule that you can find in the screen. Randomly increments/decrements your size.</string>
+    <string name="tutorial04_instructions">To move simply you have to drag your finger on the screen and when you release the touch, everything on the screen will be paused until 
+        the next touch. Double click to listen the sound emitted by the hero when it\'s moving. Long press to continue.
+    </string>
+    <string name="instructions_general_text">The game objetive is to eat as many preys as you can, avoiding every predator that you can listen around the screen.
+		The more preys eat, the better the game. Once devoured the prey, you have to go to one of the edges of the screen to move to the next level 
+        and continue the game.
+	</string>
 
     <!-- Onomatopeias strings -->
     <string name="appear_ono">bing bing!</string>
@@ -179,7 +176,6 @@
     <string name="action_form">You have selected</string>
     <string name="infoKeyConf">associated to</string>
     <string name="infoKeyConffail">associated to any key.</string>
-    
     <string name="screen_off_message">Your screen has turned off.</string>
     <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
 

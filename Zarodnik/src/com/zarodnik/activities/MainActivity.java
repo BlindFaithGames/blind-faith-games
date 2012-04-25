@@ -26,7 +26,6 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.accgames.input.Input;
@@ -65,7 +64,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private TTS textToSpeech;
 	private KeyboardReader reader;
 	private XMLKeyboard keyboard;
-	private Dialog instructionsDialog, interactionModeDialog, ttsDialog;
+	private Dialog interactionModeDialog, ttsDialog;
 	private View focusedView;
 	private Typeface font;
 	private boolean startNewActivity;
@@ -135,6 +134,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		newButton.setOnLongClickListener(this);
 		newButton.setTextSize(fontSize);
 		newButton.setTypeface(font);	
+		Button tutorialButton = (Button) findViewById(R.id.tutorial_button);
+		tutorialButton.setOnClickListener(this);
+		tutorialButton.setOnFocusChangeListener(this);
+		tutorialButton.setOnLongClickListener(this);
+		tutorialButton.setTextSize(fontSize);
+		tutorialButton.setTypeface(font);		
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		settingsButton.setOnClickListener(this);
 		settingsButton.setOnFocusChangeListener(this);
@@ -147,12 +152,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		keyConfButton.setOnLongClickListener(this);
 		keyConfButton.setTextSize(fontSize);
 		keyConfButton.setTypeface(font);
-		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
-		instructionsButton.setOnClickListener(this);
-		instructionsButton.setOnFocusChangeListener(this);
-		instructionsButton.setOnLongClickListener(this);
-		instructionsButton.setTextSize(fontSize);
-		instructionsButton.setTypeface(font);
 		Button aboutButton = (Button) findViewById(R.id.about_button);
 		aboutButton.setOnClickListener(this);
 		aboutButton.setOnLongClickListener(this);
@@ -171,40 +170,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		exitButton.setOnFocusChangeListener(this);
 		exitButton.setTextSize(fontSize);
 		exitButton.setTypeface(font);
-		
-		createInstructionsDialog();
-	}
-
-	
-	private void createInstructionsDialog() {
-		Typeface font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
-		TextView text; Button b;
-		
-		instructionsDialog = new Dialog(this);
-		instructionsDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		if (SettingsActivity.getBlindMode(this))
-			instructionsDialog.setContentView(R.layout.blind_instructions_dialog);
-		else
-			instructionsDialog.setContentView(R.layout.instructions_dialog);
-		
-		text = (TextView) instructionsDialog.findViewById(R.id.instructions_textView);
-		text.setTextSize(fontSize);
-		text.setTypeface(font);
-		b = (Button) instructionsDialog.findViewById(R.id.Button01main);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b = (Button) instructionsDialog.findViewById(R.id.Button02main);
-		b.setOnClickListener(this);
-		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);
-		
-		instructionsDialog.setOnKeyListener(this);
 	}
 	
 	private void createInteractionModeDialog() {
@@ -255,10 +220,11 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 	private void setTTS(){
 		Button newButton = (Button) findViewById(R.id.new_button);
+        Button tutorialButton = (Button) findViewById(R.id.tutorial_button);
 		Button settingsButton = (Button) findViewById(R.id.settings_button);
 		Button keyConfButton = (Button) findViewById(R.id.keyConf_button);
-		Button instructionsButton = (Button) findViewById(R.id.instructions_button);
 		Button aboutButton = (Button) findViewById(R.id.about_button);
+		Button formButton = (Button) findViewById(R.id.form_button);
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 		
 		Map<Integer, String> onomatopeias = ZarodnikMusicSources.getMap(this);
@@ -267,28 +233,17 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
 		
 		Music.getInstanceMusic().enableTranscription(this, s);
-		
-		if (isFirstRun){
-			// Checking if TTS is installed on device
-			textToSpeech = new TTS(this, getString(R.string.introMainMenu)
-					+ newButton.getContentDescription() + ","
-					+ settingsButton.getContentDescription() + ","
-					+ keyConfButton.getContentDescription() + ","
-					+ instructionsButton.getContentDescription() + ","
-					+ aboutButton.getContentDescription() + ","
-					+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
 
-		}
-		else{
-			// Checking if TTS is installed on device
-			textToSpeech = new TTS(this, getString(R.string.introMainMenu)
-					+ newButton.getContentDescription() + ","
-					+ settingsButton.getContentDescription() + ","
-					+ keyConfButton.getContentDescription() + ","
-					+ instructionsButton.getContentDescription() + ","
-					+ aboutButton.getContentDescription() + ","
-					+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
-		}
+		// Checking if TTS is installed on device
+		textToSpeech = new TTS(this, getString(R.string.introMainMenu)
+				+ newButton.getContentDescription() + ","
+				+ tutorialButton.getContentDescription() + ","
+				+ settingsButton.getContentDescription() + ","
+				+ keyConfButton.getContentDescription() + ","
+				+ aboutButton.getContentDescription() + ","
+				+ formButton.getContentDescription() + ","
+				+ exitButton.getContentDescription(), TTS.QUEUE_FLUSH,s);
+		
 		
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 	}
@@ -356,24 +311,18 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 				i.putExtra(KEY_TTS, textToSpeech);
 				startActivity(i);
 				break;
-			case R.id.instructions_button:
-				openInstructionsDialog();
-				break;
 			case R.id.new_button:
 				startGame();
+				break;
+			case R.id.tutorial_button:
+				i = new Intent(this, TutorialActivity.class);
+				i.putExtra(KEY_TTS, textToSpeech);
+				startActivity(i);
 				break;
 			case R.id.about_button:
 				i = new Intent(this, AboutActivity.class);
 				i.putExtra(KEY_TTS, textToSpeech);
 				startActivity(i);
-				break;
-			case R.id.Button01main: // controls
-				startInstructions(0);
-				instructionsDialog.dismiss();
-				break;
-			case R.id.Button02main: // instructions
-				startInstructions(1);
-				instructionsDialog.dismiss();
 				break;
 				// Interaction mode dialog
 			case R.id.blindMode_button:
@@ -439,19 +388,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 			focusedView = v;
 		}
 	}
-
-	/** Ask the user what type of instructions */
-	private void openInstructionsDialog() {
-		textToSpeech.speak(this
-				.getString(R.string.alert_dialog_instructions_TTStext)
-				+ " " 
-				+ this.getString(R.string.instructions_general_label)
-				+ " "
-				+ this.getString(R.string.instructions_controls_label));
-		
-		instructionsDialog.show();
-		
-	}
 	
 	/** Ask the user what interaction mode wants */
 	private void openInteractionModeDialog() {
@@ -515,25 +451,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		Intent intent = new Intent(this, ZarodnikGameActivity.class);
 		intent.putExtra(KEY_TTS, textToSpeech);
 		startActivityForResult(intent, RESET_CODE);
-	}
-
-	/** Start an Instructions screen, with the option given: controls or general **/
-	private void startInstructions(int i) {
-		Intent intent;
-		
-		if (i == 0){
-			intent = new Intent(this, ControlsActivity.class);
-			intent.putExtra(KEY_INSTRUCTIONS_CONTROLS, getString(R.id.instructions_controls_content));
-		}
-		else{
-			intent = new Intent(this, InstructionsActivity.class);
-			intent.putExtra(KEY_INSTRUCTIONS_GENERAL, getString(R.id.instructions_general_content));
-			
-		}	
-		intent.putExtra(KEY_TYPE_INSTRUCTIONS, i);		
-		intent.putExtra(KEY_TTS, textToSpeech);
-
-		startActivity(intent);
 	}
 
 	/**

@@ -43,7 +43,6 @@ import com.accgames.sound.VolumeManager;
 import com.zarodnik.R;
 import com.zarodnik.activities.MainActivity;
 import com.zarodnik.activities.SettingsActivity;
-import com.zarodnik.activities.ZarodnikGameActivity;
 
 public class ZarodnikGameplay extends GameState {
 	
@@ -95,16 +94,14 @@ public class ZarodnikGameplay extends GameState {
 	public ZarodnikGameplay(View v, TTS textToSpeech, Context c, Game game) {
 		super(v,c,textToSpeech, game);
 		
-		int sheetSize;
+
 		
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		textToSpeech.setInitialSpeech("");
 
 		record = loadRecord();
 		
-		sheetSize = 400;
-		tempEntities = new ArrayList<Entity>();
-		createEntities(record,sheetSize);
+
 		
 		// Set background image
 		backgroundImage = BitmapFactory.decodeResource(v.getResources(), R.drawable.background);
@@ -476,6 +473,10 @@ public class ZarodnikGameplay extends GameState {
 		this.getTTS().setQueueMode(TextToSpeech.QUEUE_FLUSH);
 		this.getTTS().speak(this.getContext().getString(R.string.game_play_initial_TTStext));
 		Input.getInput().clean();
+				
+		int sheetSize = 400;
+		tempEntities = new ArrayList<Entity>();
+		createEntities(record,sheetSize);
 	}
 
 	@Override
@@ -491,10 +492,11 @@ public class ZarodnikGameplay extends GameState {
         	    canvas.drawText(this.getContext().getString(R.string.initial_message), GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
             	flag = false;
             }
-            
-            if(player.isRemovable()){
-            	brush.setARGB(255, 0, 0, 51);
-            	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
+            if(player != null){
+	            if(player.isRemovable()){
+	            	brush.setARGB(255, 0, 0, 51);
+	            	canvas.drawText(this.getContext().getString(R.string.ending_lose_message), GameState.SCREEN_WIDTH/3, GameState.SCREEN_HEIGHT/2, brush);
+	            }
             }
         }
         super.onDraw(canvas);
@@ -644,28 +646,8 @@ public class ZarodnikGameplay extends GameState {
 			i = createItem(n);
 		
 		// Only if it's the first time that we instantiate the Item
-		if(i != null){
-			
+		if(i != null){		
 			tempEntities.add(i);
-			
-			if(i.isFirstInstance()){
-				List<Integer> order = this.game.getOrder();
-				switch(n){
-					case(Item.RADIO):
-						order.add(this.game.getNext() + 1, ZarodnikGameActivity.TUTORIAL1_ID);
-						break;
-					case(Item.SEAWEED):
-						order.add(this.game.getNext() + 1, ZarodnikGameActivity.TUTORIAL2_ID);
-						break;
-					case(Item.CAPSULE):
-						order.add(this.game.getNext() + 1, ZarodnikGameActivity.TUTORIAL3_ID);
-						break;
-				}
-				order.add(this.game.getNext() + 2, ZarodnikGameActivity.GAMEPLAY_ID);
-				tutorial = true;
-			}
-			else
-				tutorial = false;
 		}
 	}
 

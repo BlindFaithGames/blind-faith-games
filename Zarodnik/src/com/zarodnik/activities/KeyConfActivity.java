@@ -66,7 +66,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		buttonRepeat = (Button) findViewById(R.id.buttonRepeat);
 		buttonRepeat.setOnFocusChangeListener(this);
 		buttonRepeat.setOnClickListener(this);
-		buttonRecord.setOnLongClickListener(this);
+		buttonRepeat.setOnLongClickListener(this);
 		
 		this.buttonsUpdate();
 
@@ -90,7 +90,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	@Override
 	protected void onPause() {
 		super.onPause();
-        if (ScreenReceiver.wasScreenOn) {
+        if (ScreenReceiver.wasScreenOn && !isFinishing()) {
        	 	textToSpeech.speak(getString(R.string.screen_off_message));
         }
 	}
@@ -138,9 +138,9 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 					if(s != null)
 						res = keyboard.toString(s);
 					if(res != null)
-						textToSpeech.speak(v.getContentDescription().toString() + getString(R.string.infoKeyConf) +" " + res);
+						textToSpeech.speak(v.getContentDescription().toString() + " " +  getString(R.string.infoKeyConf) +" " + res);
 					else
-						textToSpeech.speak(v.getContentDescription().toString() + getString(R.string.infoKeyConffail));
+						textToSpeech.speak(v.getContentDescription().toString() + " " + getString(R.string.infoKeyConffail));
 					}
 				else
 					textToSpeech.speak(v);

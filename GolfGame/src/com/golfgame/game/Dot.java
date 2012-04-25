@@ -72,7 +72,7 @@ public class Dot extends Entity{
 	
 	private MotionEvent shotEvent; // Event that generate a shot
 
-	public enum Sense{ LEFT, RIGHT, DIAGONAL_LEFT, DIAGONAL_RIGHT };
+	public enum Sense{ LEFT, RIGHT, UP, DIAGONAL_LEFT, DIAGONAL_RIGHT };
 	private Sense s;
 	private Handler handler;
 	private Bitmap windArrow;
@@ -125,32 +125,38 @@ public class Dot extends Entity{
 		Random r = new Random();
 		windHits = 0;
 		nextWindHit = r.nextInt(MAX_WIND_HITS) + MIN_WIND_HITS;
-		switch(r.nextInt(4)){
+		switch(r.nextInt(5)){
 			case 0:
 				s = Sense.LEFT;
 				break;
 			case 1:
-				s = Sense.RIGHT;
+				s = Sense.DIAGONAL_LEFT;
 				break;
 			case 2:
-				s = Sense.DIAGONAL_LEFT;
+				s = Sense.UP;
 				break;
 			case 3:
 				s = Sense.DIAGONAL_RIGHT;
+				break;
+			case 4:
+				s = Sense.RIGHT;
 				break;
 		} 
 		switch(s){
 			case LEFT:
 				windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.left);
 				break;
-			case RIGHT:
-				windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.right);
-				break;
 			case DIAGONAL_LEFT:
+				windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.dl);
+				break;
+			case UP:
 				windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.up);
 				break;
 			case DIAGONAL_RIGHT:
-				windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.down);
+				windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.dr);
+				break;
+			case RIGHT:
+				windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.right);
 				break;
 		}
 	}
@@ -159,34 +165,41 @@ public class Dot extends Entity{
 	    public void run(){
 	    	handler.postDelayed(r, 30000);
 	    	Random r = new Random();
-			switch(r.nextInt(4)){
+	    	nextWindHit = r.nextInt(MAX_WIND_HITS) + MIN_WIND_HITS;
+			switch(r.nextInt(5)){
 				case 0:
 					s = Sense.LEFT;
 					break;
 				case 1:
-					s = Sense.RIGHT;
+					s = Sense.DIAGONAL_LEFT;
 					break;
 				case 2:
-					s = Sense.DIAGONAL_LEFT;
+					s = Sense.UP;
 					break;
 				case 3:
 					s = Sense.DIAGONAL_RIGHT;
 					break;
-			}
+				case 4:
+					s = Sense.RIGHT;
+					break;
+			} 
 			switch(s){
 				case LEFT:
 					windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.left);
 					break;
-				case RIGHT:
-					windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.right);
-					break;
 				case DIAGONAL_LEFT:
+					windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.dl);
+					break;
+				case UP:
 					windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.up);
 					break;
 				case DIAGONAL_RIGHT:
-					windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.down);
+					windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.dr);
 					break;
-		}
+				case RIGHT:
+					windArrow = BitmapFactory.decodeResource(game.getContext().getResources(), R.drawable.right);
+					break;
+			}
 	    }
 	};
 
@@ -242,23 +255,21 @@ public class Dot extends Entity{
 
 	private void windEffect(){
 		if(launched){
-			s = Sense.LEFT;
 			switch(s){
 				case LEFT:
-					v.y = v.y - 1;					
-					v.x = v.x - 3;
+					v.x  = v.x - 3;
 					break;
-				case RIGHT:
-					v.y = v.y + 1;
+				case RIGHT:			
 					v.x = v.x + 3;
 					break;
 				case DIAGONAL_LEFT:
-					v.y = v.y + 1;
-					v.x = v.x - 3;
+					v.x = v.x - 1;
+					break;
+				case UP:
+					v.y = v.y - 3;
 					break;
 				case DIAGONAL_RIGHT:
-					v.y = v.y - 1;
-					v.x = v.x - 3;
+					v.x = v.x + 1;
 					break;
 			}
 
@@ -289,8 +300,6 @@ public class Dot extends Entity{
 	private void onScrollManagement() {
 		EventType e  = Input.getInput().removeEvent("onScroll");
 		if(!launched && e != null){
-		
-			
 			if(game.inShotArea(e.getMotionEventE2().getY()))
 				feedBackManagement(e.getMotionEventE2().getX(),e.getMotionEventE2().getY());
 			else{
