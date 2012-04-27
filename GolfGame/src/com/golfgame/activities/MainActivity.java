@@ -252,7 +252,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void openNewGameDialog() {
 		gameDialog.show();
 	
-		Music.getInstanceMusic().stop(R.raw.main);
+		Music.getInstanceMusic().stop(R.raw.deliberate_thought);
 		
 		textToSpeech.speak(this
 				.getString(R.string.alert_dialog_modes_TTStext)
@@ -670,13 +670,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 	private void soundManagement() {
 		if(SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.main, true);
+			Music.getInstanceMusic().play(this, R.raw.deliberate_thought, true);
 
-		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
-		
-		if(SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.main, true);
-		
+		textToSpeech.setEnabled(SettingsActivity.getTTS(this));		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
 		Music.getInstanceMusic().stop(R.raw.storm);
@@ -708,7 +704,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onPause() {
 		super.onPause();
-    	Music.getInstanceMusic().stop(R.raw.main);
+    	Music.getInstanceMusic().stop(R.raw.deliberate_thought);
 	}
 
 	/**
