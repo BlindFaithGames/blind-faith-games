@@ -8,12 +8,10 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -33,10 +31,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Id;
+import com.accgames.feedback.Log;
 import com.accgames.input.Input;
 import com.accgames.input.KeyboardReader;
 import com.accgames.input.XMLKeyboard;
-import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
@@ -60,6 +60,10 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public static final String KEY_MODE = "org.example.mainActivity.Mode";
 	public static final String KEY_RESULTS = "org.example.mainActivity.record";
 	
+	private static final String FILE_NAME_ID = ".info";
+	
+	private static final String GOLF_TRACK_ID = "UA-31096469-1";
+	
 	public static String FILENAMEFREEMODE = "GolfRecords1.data";
 	public static String FILENAMESTAGEMODE = "GolfRecords2.data";
 	
@@ -78,13 +82,18 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
+	
 	private boolean blindInteraction;
+	
+	private Id id;
 	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
+		AnalyticsManager.TRACK_ID  = GOLF_TRACK_ID;
 		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		scale = this.getResources().getDisplayMetrics().density;
@@ -95,6 +104,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		checkFolderApp(getString(R.string.app_name)+".xml");
 		
 		checkFirstExecution();
+		
+		id = new Id(this);
+		Log.getLog().setID(id.checkId(MainActivity.FILE_NAME_ID));
 		
 		Display display = ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		int width = display.getWidth();
@@ -674,12 +686,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 		textToSpeech.setEnabled(SettingsActivity.getTTS(this));
 		
-		if(SettingsActivity.getMusic(this))
-			Music.getInstanceMusic().play(this, R.raw.main, true);
-		
 		textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
 		
-		Music.getInstanceMusic().stop(R.raw.storm);
 	}
 
 	private void transcriptionMode() {

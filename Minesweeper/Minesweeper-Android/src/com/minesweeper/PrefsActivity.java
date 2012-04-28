@@ -13,12 +13,12 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Log;
-import com.minesweeper.game.Input;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
+import com.accgames.input.Input;
+import com.accgames.sound.SubtitleInfo;
+import com.accgames.sound.TTS;
 import com.minesweeper.game.MinesweeperAnalytics;
-import com.minesweeper.game.SubtitleInfo;
-import com.minesweeper.game.TTS;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
@@ -28,15 +28,13 @@ import com.minesweeper.game.TTS;
 public class PrefsActivity extends PreferenceActivity implements OnPreferenceClickListener {
 	private static String TAG = "SettingsMenu";
 	
-	private CheckBoxPreference music, tts, contextCell, transcription, blindInteraction, blindMode;
+	private CheckBoxPreference music, tts, transcription, blindInteraction, blindMode;
 	
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
 	private static final boolean OPT_MUSIC_DEF = false;
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
-	private static final String OPT_COORDINATES = "context";
-	private static final boolean OPT_COORDINATES_DEF = true;
 	private static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = false;
 	public static final String FIRSTRUN = "first";
@@ -59,8 +57,6 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 		tts = (CheckBoxPreference) findPreference(OPT_TTS);
 		tts.setOnPreferenceClickListener(this);
 
-		contextCell = (CheckBoxPreference) findPreference(OPT_COORDINATES);
-		contextCell.setOnPreferenceClickListener(this);
 		
 		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
 		transcription.setOnPreferenceClickListener(this);
@@ -77,7 +73,6 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 		textToSpeech.setInitialSpeech(getString(R.string.settings_menu_initial_TTStext) + ", "
 				+ findPreference(OPT_MUSIC).toString() + ", "
 				+ findPreference(OPT_TTS).toString() + ", "
-				+ findPreference(OPT_COORDINATES).toString() + ", "
 				+ findPreference(OPT_TRANSCRIPTION).toString() + ", "
 				+ findPreference(OPT_BLIND_INTERACTION).toString() + ", "
 				+ findPreference(OPT_BLIND_MODE).toString());
@@ -131,13 +126,6 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				.getBoolean(OPT_BLIND_MODE, OPT_BLIND_MODE_DEF);
 	}
 	
-	
-	/** Get the current value of the context option */
-	public static boolean getCoordinates(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getBoolean(OPT_COORDINATES, OPT_COORDINATES_DEF);
-	}
-	
 	/** Get the current value of the transcription option */
 	public static boolean getTranscription(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
@@ -153,7 +141,6 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 	public static String configurationToString(Context context){
 		return	"Music: " + PrefsActivity.getMusic(context) + "/" +
 				" TTS: " + PrefsActivity.getTTS(context) + "/" +
-				" Context Coordinates: "+ PrefsActivity.getCoordinates(context) + "/" +
 				" Transcription " + PrefsActivity.getTranscription(context);
 	}
 	
@@ -169,18 +156,13 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.enabled));
 			else
 				textToSpeech.speak(findPreference(OPT_TTS).toString() + " " + getString(R.string.disabled));
-		} else if (OPT_COORDINATES.equals(preference.getKey())) {
-			if(tts.isChecked())
-				textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " " + getString(R.string.enabled));
-			else
-				textToSpeech.speak(findPreference(OPT_COORDINATES).toString() + " " + getString(R.string.disabled));
-		}else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
+		} else if (OPT_BLIND_INTERACTION.equals(preference.getKey())){
 			if(blindInteraction.isChecked())
 				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.enabled));
 			else
 				textToSpeech.speak(findPreference(OPT_BLIND_INTERACTION).toString() + " " + getString(R.string.disabled));
 			
-		}else if (OPT_BLIND_MODE.equals(preference.getKey())){
+		} else if (OPT_BLIND_MODE.equals(preference.getKey())){
 			if(blindInteraction.isChecked())
 				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.enabled));
 			else
@@ -202,7 +184,7 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Integer key = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
 		if(key != null){
 			if (keyCode == key) {
 				textToSpeech.repeatSpeak();

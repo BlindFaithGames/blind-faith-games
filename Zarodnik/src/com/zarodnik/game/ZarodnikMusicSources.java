@@ -15,7 +15,7 @@ public class ZarodnikMusicSources {
 	private static final int bip = R.raw.bip;
 	private static final int bubble = R.raw.bubble;
 	private static final int die = R.raw.die;
-	private static final int frost_walz = R.raw.intro;
+	private static final int mysterioso_march = R.raw.intro;
 	private static final int predator = R.raw.predator;
 	private static final int prey = R.raw.prey;
 	private static final int prey_dead = R.raw.prey_dead;
@@ -32,7 +32,7 @@ public class ZarodnikMusicSources {
 		result.put(bip, c.getString(R.string.bip_ono));
 		result.put(bubble, c.getString(R.string.bubble_ono));
 		result.put(die, c.getString(R.string.die_ono));
-		result.put(frost_walz, c.getString(R.string.frost_walz_ono));
+		result.put(mysterioso_march, c.getString(R.string.frost_walkz_ono));
 		result.put(predator, c.getString(R.string.predator_ono));
 		result.put(prey, c.getString(R.string.prey_ono));
 		result.put(prey_dead, c.getString(R.string.prey_dead_ono));

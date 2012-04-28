@@ -16,8 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Log;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
@@ -152,7 +152,7 @@ public class FormActivity extends Activity implements OnClickListener,
 			nQuestion++;
 			
 			if(nQuestion == N_QUESTIONS){
-				System.out.println(l);
+				textToSpeech.speak(getString(R.string.load_text));
 				this.finish();
 				return true;
 			}
@@ -373,5 +373,4 @@ public class FormActivity extends Activity implements OnClickListener,
 		return menuAction(v);
 		 
 	}
-
 }

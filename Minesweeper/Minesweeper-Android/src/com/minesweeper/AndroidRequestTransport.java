@@ -15,8 +15,11 @@
  */
 package com.minesweeper;
 
-import com.google.web.bindery.requestfactory.shared.RequestTransport;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -25,11 +28,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
+import com.google.web.bindery.requestfactory.shared.RequestTransport;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 /**
  * An implementation of RequestTransport for use between an Android client and a

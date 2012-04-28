@@ -15,20 +15,18 @@
  */
 package com.minesweeper;
 
-import com.google.web.bindery.requestfactory.shared.Receiver;
-
-import com.google.web.bindery.requestfactory.shared.Request;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
-
-import com.minesweeper.client.MyRequestFactory;
-import com.minesweeper.client.MyRequestFactory.RegistrationInfoRequest;
-import com.minesweeper.shared.RegistrationInfoProxy;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.provider.Settings.Secure;
 import android.util.Log;
+
+import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.Request;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
+import com.minesweeper.client.MyRequestFactory;
+import com.minesweeper.client.MyRequestFactory.RegistrationInfoRequest;
+import com.minesweeper.shared.RegistrationInfoProxy;
 
 /**
  * Register/unregister with the third-party App Engine server using

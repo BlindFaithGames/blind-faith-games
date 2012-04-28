@@ -32,9 +32,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Engine_src</name>
+			<name>ENGINE</name>
 			<type>2</type>
-			<locationURI>_android_Engine_7bfce662/src</locationURI>
+			<locationURI>ENGINE</locationURI>
 		</link>
 		<link>
 			<name>OpenAL4Android_src</name>
@@ -42,4 +42,14 @@
 			<locationURI>_android_OpenAL4Android_64b3b6b0/src</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>ENGINE</name>
+			<value>$%7BWORKSPACE_LOC%7D/si-project/engine/src</value>
+		</variable>
+		<variable>
+			<name>OPEN_AL</name>
+			<value>$%7BWORKSPACE_LOC%7D/si-project/OpenAL4Android/src</value>
+		</variable>
+	</variableList>
 </projectDescription>

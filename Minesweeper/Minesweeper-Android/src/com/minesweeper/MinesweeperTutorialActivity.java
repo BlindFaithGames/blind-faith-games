@@ -3,7 +3,6 @@ package com.minesweeper;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,15 +12,14 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
 
-import com.accgames.others.AnalyticsManager;
-import com.minesweeper.R;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
 import com.minesweeper.game.Board;
 import com.minesweeper.game.Cell;
 import com.minesweeper.game.Cell.CellStates;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.MinesweeperTutorialView;
-import com.minesweeper.game.Music;
-import com.minesweeper.game.TTS;
 
 public class MinesweeperTutorialActivity extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
 
@@ -212,45 +210,43 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 	}
 
 	public void speakContextFocusedCell(int selRow, int selCol) {
-		if (PrefsActivity.getCoordinates(this)){
-			List<String> msg = new ArrayList<String>();
-			
-			if(selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol).cellToString(this));
-			if(selRow - 1 >= 0 && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow - 1, selCol + 1).cellToString(this));		
-			if(selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow, selCol + 1).cellToString(this));	
-			if(selRow + 1 <= rowN && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow + 1, selCol + 1).cellToString(this));	
-			if(selRow + 1 <= rowN)
-				msg.add(mineField.getCell(selRow + 1, selCol).cellToString(this));	
-			if(selRow + 1 <= rowN && selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow + 1, selCol - 1).cellToString(this));	
-			if(selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow, selCol - 1).cellToString(this));	
-			if(selCol - 1 >= 0 && selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol - 1).cellToString(this));
-			
-			textToSpeech.speak(msg);
-		}
+		List<String> msg = new ArrayList<String>();
+		
+		if(selRow - 1 >= 0)
+			msg.add(mineField.getCell(selRow - 1, selCol).cellToString(this));
+		if(selRow - 1 >= 0 && selCol + 1 <= colN)
+			msg.add(mineField.getCell(selRow - 1, selCol + 1).cellToString(this));		
+		if(selCol + 1 <= colN)
+			msg.add(mineField.getCell(selRow, selCol + 1).cellToString(this));	
+		if(selRow + 1 <= rowN && selCol + 1 <= colN)
+			msg.add(mineField.getCell(selRow + 1, selCol + 1).cellToString(this));	
+		if(selRow + 1 <= rowN)
+			msg.add(mineField.getCell(selRow + 1, selCol).cellToString(this));	
+		if(selRow + 1 <= rowN && selCol - 1 >= 0)
+			msg.add(mineField.getCell(selRow + 1, selCol - 1).cellToString(this));	
+		if(selCol - 1 >= 0)
+			msg.add(mineField.getCell(selRow, selCol - 1).cellToString(this));	
+		if(selCol - 1 >= 0 && selRow - 1 >= 0)
+			msg.add(mineField.getCell(selRow - 1, selCol - 1).cellToString(this));
+		
+		textToSpeech.speak(msg);
 	}
 	
 	/**
 	 * ------------------------------------------------------------ 
-	 * Musica
+	 * Music
 	 * ---------------------------------------------------------------
 	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Music.play(this, R.raw.game);
+		Music.getInstanceMusic().play(this, R.raw.game, true);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.stop(this);
+		Music.getInstanceMusic().stop(R.raw.game);
 	}
 
 	/**

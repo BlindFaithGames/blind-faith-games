@@ -3,6 +3,7 @@ package com.accgames.sound;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -177,11 +178,9 @@ public class Music {
 	 * */
 	public void stopAllResources() {
 		if(sounds != null){
-			Integer n;
 			Set<Integer> keys = sounds.keySet();
-			Iterator<Integer> it = keys.iterator();
-			while(it.hasNext()){
-				n = it.next();
+			Set<Integer> keysAux = new CopyOnWriteArraySet<Integer>(keys);
+			for(Integer n : keysAux){
 				MediaPlayer mp = sounds.get(n);
 				if (mp != null) {
 						mp.stop();

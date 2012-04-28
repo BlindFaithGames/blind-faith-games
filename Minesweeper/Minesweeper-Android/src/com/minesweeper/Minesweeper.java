@@ -20,17 +20,17 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Log;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
+import com.accgames.input.Input;
 import com.accgames.others.RuntimeConfig;
+import com.accgames.sound.Music;
+import com.accgames.sound.TTS;
 import com.minesweeper.game.Board;
 import com.minesweeper.game.Cell;
 import com.minesweeper.game.Cell.CellStates;
-import com.minesweeper.game.Input;
 import com.minesweeper.game.MinesweeperAnalytics;
 import com.minesweeper.game.MinesweeperView;
-import com.minesweeper.game.Music;
-import com.minesweeper.game.TTS;
 
 public class Minesweeper extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener, OnKeyListener {
 
@@ -373,28 +373,26 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	}
 
 	public void speakContextFocusedCell(int selRow, int selCol) {
-		if (PrefsActivity.getCoordinates(this)){
-			List<String> msg = new ArrayList<String>();
-			
-			if(selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol).cellToString(this));
-			if(selRow - 1 >= 0 && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow - 1, selCol + 1).cellToString(this));		
-			if(selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow, selCol + 1).cellToString(this));	
-			if(selRow + 1 <= rowN && selCol + 1 <= colN)
-				msg.add(mineField.getCell(selRow + 1, selCol + 1).cellToString(this));	
-			if(selRow + 1 <= rowN)
-				msg.add(mineField.getCell(selRow + 1, selCol).cellToString(this));	
-			if(selRow + 1 <= rowN && selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow + 1, selCol - 1).cellToString(this));	
-			if(selCol - 1 >= 0)
-				msg.add(mineField.getCell(selRow, selCol - 1).cellToString(this));	
-			if(selCol - 1 >= 0 && selRow - 1 >= 0)
-				msg.add(mineField.getCell(selRow - 1, selCol - 1).cellToString(this));
-			
-			textToSpeech.speak(msg);
-		}
+		List<String> msg = new ArrayList<String>();
+		
+		if(selRow - 1 >= 0)
+			msg.add(mineField.getCell(selRow - 1, selCol).cellToString(this));
+		if(selRow - 1 >= 0 && selCol + 1 <= colN)
+			msg.add(mineField.getCell(selRow - 1, selCol + 1).cellToString(this));		
+		if(selCol + 1 <= colN)
+			msg.add(mineField.getCell(selRow, selCol + 1).cellToString(this));	
+		if(selRow + 1 <= rowN && selCol + 1 <= colN)
+			msg.add(mineField.getCell(selRow + 1, selCol + 1).cellToString(this));	
+		if(selRow + 1 <= rowN)
+			msg.add(mineField.getCell(selRow + 1, selCol).cellToString(this));	
+		if(selRow + 1 <= rowN && selCol - 1 >= 0)
+			msg.add(mineField.getCell(selRow + 1, selCol - 1).cellToString(this));	
+		if(selCol - 1 >= 0)
+			msg.add(mineField.getCell(selRow, selCol - 1).cellToString(this));	
+		if(selCol - 1 >= 0 && selRow - 1 >= 0)
+			msg.add(mineField.getCell(selRow - 1, selCol - 1).cellToString(this));
+		
+		textToSpeech.speak(msg);
 	}
 	
 	/**
@@ -405,7 +403,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Music.play(this, R.raw.game);
+		Music.getInstanceMusic().play(this, R.raw.game, true);
 	}
 
 	@Override
@@ -413,7 +411,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		super.onPause();
 		loseDialog.dismiss();
 		winDialog.dismiss();
-		Music.stop(this);
+		Music.getInstanceMusic().stop(R.raw.game);
 	}
 
 	/**
@@ -486,7 +484,7 @@ public class Minesweeper extends Activity implements OnFocusChangeListener, OnLo
 		if (KeyEvent.KEYCODE_BACK == keyCode)
 			return false;
 		
-		Integer k = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		Integer k = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
 		if(k != null){
 			if(keyCode == k){
 				textToSpeech.repeatSpeak();

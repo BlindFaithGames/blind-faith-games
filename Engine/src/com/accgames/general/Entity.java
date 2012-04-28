@@ -19,7 +19,7 @@ import com.accgames.sound.Sound3DManager;
  * The higher abstraction in a game. Every element within a game it's a entity.
  * 
  * 
- *  @author Javier ¡lvarez & Gloria Pozuelo. 
+ *  @author Javier √Ålvarez & Gloria Pozuelo. 
  * 
  * */
 

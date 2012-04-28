@@ -71,7 +71,7 @@
 </string>
     <string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen</string>
     <string name="coordinates_information_button_TTStext">Position</string>
-    <string name="key_configuration_menu_initial_TTStext">			    Key Configuration. Clicking on your left you can listen action descriptions
+    <string name="key_configuration_menu_initial_TTStext">Key Configuration. Clicking on your left you can listen action descriptions
 			     and on your right you can change the key related 
 			    with an action. If you are in blind interaction mode you have to do a long click
 			     to be able to change the configuration .You have the next options\: 
@@ -84,6 +84,9 @@
     <string name="recordSpeech">Your actual record is</string>
     <string name="counterSpeech">Your actual count is</string>
     <string name="newRecordSpeech">New record!</string>
+    <string name="scoreboard_success">Your punctuaction have been incremented to </string>
+    <string name="scoreboard_fail">Your punctuaction have been decremented to </string>
+    <string name="scoreboard_reset">Your number of consecutive shots is zero.</string>
     <string name="ranking_title">Previous games ranking</string>
     <string name="ranking_speech">Time, date and record</string>
     <string name="dialog_select">Select controls or general instructions</string>
@@ -124,13 +127,13 @@
     <string name="bip_ono">bip!!</string>
     <string name="bubble_ono">run run</string>
     <string name="die_ono">qua qua qua!</string>
-    <string name="frost_walz_ono">Playing \'Frost Walz\'</string>
+    <string name="frost_walkz_ono">Playing \'Frost Walkz\'</string>
     <string name="predator_ono">arg!!</string>
     <string name="prey_ono">miau!</string>
     <string name="prey_dead_ono">ayyy!!</string>
     <string name="radio_ono">tuning</string>
     <string name="start_ono">Piii!</string>
-    <string name="the_path_of_the_goblin_ono">Playing \'Background Music\'</string>
+    <string name="the_path_of_the_goblin_ono">Playing \'The path of the goblin\'</string>
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
 
@@ -178,5 +181,5 @@
     <string name="infoKeyConffail">associated to any key.</string>
     <string name="screen_off_message">Your screen has turned off.</string>
     <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
-
+    <string name="load_text">Sending information... Please wait</string>
 </resources>

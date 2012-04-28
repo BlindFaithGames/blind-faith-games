@@ -82,7 +82,7 @@ public class Player extends Entity{
 		
 		incNo = 1;
 		
-		scoreBoard = new ScoreBoard(ZarodnikGameplay.SCREEN_WIDTH - 200, 30, record, null, game, null, null, null, null);
+		scoreBoard = new ScoreBoard(ZarodnikGameplay.SCREEN_WIDTH - 200, 20, record, null, game, null, null, null, null);
 		this.gameState.addEntity(scoreBoard);
 	}
 	
@@ -101,8 +101,8 @@ public class Player extends Entity{
 	}
 	
 	public void initMovementParameters(){
-		speed = 0.01f;
-		incr = 0.03f;
+		speed = 0.05f;
+		incr = 0.05f;
 		vx = 0;
 		vy = 0;
 		initialX = this.x;

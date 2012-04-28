@@ -15,8 +15,8 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.accgames.feedback.AnalyticsManager;
 import com.accgames.input.Input;
-import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
 import com.accgames.sound.Music;
 import com.accgames.sound.SubtitleInfo;
@@ -38,19 +38,19 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
 	public static final String OPT_INFO_TARGET = "infoTarget";
-	private static final boolean OPT_INFO_TARGET_DEF = false;
+	private static final boolean OPT_INFO_TARGET_DEF = true;
 	public static final String OPT_UP = "On up event";
-	private static final boolean OPT_UP_DEF = false;
+	private static final boolean OPT_UP_DEF = true;
 	public static final String OPT_VIBRATION_FEEDBACK = "vibration feedback";
 	private static final boolean OPT_VIBRATION_FEEDBACK_DEF = false;
 	public static final String OPT_SOUND_FEEDBACK = "sound feedback";
-	private static final boolean OPT_SOUND_FEEDBACK_DEF = false;
+	private static final boolean OPT_SOUND_FEEDBACK_DEF = true;
 	public static final String OPT_SOUND_DOPPLER_EFFECT = "doppler effect";
 	private static final boolean OPT_SOUND_DOPPLER_EFFECT_DEF = false;
 	public static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = true;
 	public static final String FIRSTRUN = "first";
-	public static final boolean FIRSTRUN_DEF = true;
+	public static final boolean FIRSTRUN_DEF = false;
 	public static final String OPT_BLIND_INTERACTION = "interaction";
 	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
 	public static final String OPT_BLIND_MODE = "blind_mode";
@@ -297,22 +297,22 @@ public class SettingsActivity extends PreferenceActivity implements
 
 	private void manageProfileA() {
 		 infoTarget.setChecked(profileA.isChecked()); 
-		 sound_feedback.setChecked(profileA.isChecked());
+		 vibration_feedback.setChecked(profileA.isChecked());
 		 doppler_effect_feedback.setChecked(profileA.isChecked());
 		 
 	     profileB.setChecked(false);;
 		 on_up_event.setChecked(profileB.isChecked());
-		 vibration_feedback.setChecked(profileB.isChecked());
+		 sound_feedback.setChecked(profileB.isChecked());
 	}
 	
 	private void manageProfileB() {
 		 infoTarget.setChecked(profileB.isChecked());
 		 on_up_event.setChecked(profileB.isChecked());
-		 vibration_feedback.setChecked(profileB.isChecked());
+		 sound_feedback.setChecked(profileB.isChecked());
 		 doppler_effect_feedback.setChecked(profileB.isChecked());
 
 		 profileA.setChecked(false);
-		 sound_feedback.setChecked(profileA.isChecked());
+		 vibration_feedback.setChecked(profileA.isChecked());
 	}
 	
 	private void manageCustomProfile() {

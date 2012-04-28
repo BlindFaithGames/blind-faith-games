@@ -141,6 +141,7 @@
                 <category android:name="com.minesweeper" />
             </intent-filter>
         </receiver>
+        
     </application>
 
 </manifest>

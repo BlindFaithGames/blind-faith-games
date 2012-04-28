@@ -288,4 +288,7 @@
     
     <string name="screen_off_message">Your screen has turned off.</string>
     <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
+    
+    <string name="other_side">Playing \'The other side of the door\'</string>
+    <string name="passing_action">Playing \'Passing action\'</string>
 </resources>

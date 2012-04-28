@@ -320,7 +320,6 @@ public class ZarodnikGameplay extends GameState {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
 		
 		frameW = predatorBitmap.getWidth() / predatorCol;
 		frameH = predatorBitmap.getHeight() / predatorRow;

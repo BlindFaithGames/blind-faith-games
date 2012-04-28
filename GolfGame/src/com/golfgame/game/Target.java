@@ -13,6 +13,8 @@ import com.accgames.input.Input;
 import com.accgames.input.Input.EventType;
 import com.accgames.sound.Music;
 import com.golfgame.R;
+import com.golfgame.activities.SettingsActivity;
+import com.golfgame.activities.TutorialActivity;
 import com.golfgame.game.GolfGameplay.steps;
 
 public class Target extends Entity {
@@ -35,7 +37,7 @@ public class Target extends Entity {
 	public void onUpdate() {
 		EventType e = Input.getInput().getEvent("onDrag");
 
-		if (e != null) {
+		if (e != null && (SettingsActivity.getNotifyTarget(gameState.getContext()) || this.gameState.getContext() instanceof TutorialActivity)) {
 			float x = e.getMotionEventE1().getX();
 			float y = e.getMotionEventE1().getY();
 			if ((x >= this.x && x < this.x + this.getImgWidth())

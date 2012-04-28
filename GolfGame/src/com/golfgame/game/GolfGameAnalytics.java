@@ -36,6 +36,7 @@ public class GolfGameAnalytics {
 	public static final String ON_UP = "On up";
 	public static final String SCROLL = "Scroll";
 	public static final String FLING = "Fling";
+	public static final String DRAG = "Drag";
 	public static final String GAME_RESULT_STAGE = "Game result stage mode";
 	public static final String GAME_RESULT_FREE = "Game result free mode";
 

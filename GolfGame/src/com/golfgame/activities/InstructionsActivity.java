@@ -12,9 +12,8 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.accgames.feedback.AnalyticsManager;
 import com.accgames.input.Input;
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
@@ -64,26 +63,26 @@ public class InstructionsActivity extends Activity implements OnTouchListener{
 		
 		int type = i.getIntExtra(MainActivity.KEY_TYPE_INSTRUCTIONS, 0);
 
-		scale = this.getResources().getDisplayMetrics().density;
-		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
+		//scale = this.getResources().getDisplayMetrics().density;
+		//fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
+		//font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
 		
 		if(type == 0){
 			setContentView(R.layout.instructions_controls);
 			AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.INSTRUCTIONS_CONTROLS_ACTIVITY);
-			t = (TextView) findViewById(R.id.instructions_controls_content);
+			//t = (TextView) findViewById(R.id.instructions_controls_content);
 			v = findViewById(R.id.control_root);
 		}else{
 			setContentView(R.layout.instructions_general);
 			AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.INSTRUCTIONS_GENERAL_ACTIVITY);
-			t = (TextView) findViewById(R.id.instructions_general_content);
+			//t = (TextView) findViewById(R.id.instructions_general_content);
 			v = findViewById(R.id.general_root);
 		}
 		
 		v.setOnTouchListener(this);
 		
-		t.setTextSize(fontSize);
-		t.setTypeface(font);
+		//t.setTextSize(fontSize);
+		//t.setTypeface(font);
 	}
 
 	/**

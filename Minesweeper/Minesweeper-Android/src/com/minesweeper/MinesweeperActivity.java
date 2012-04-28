@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Map;
 import java.util.UUID;
 
 import android.app.Activity;
@@ -37,16 +38,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.accgames.XML.KeyboardReader;
-import com.accgames.XML.XMLKeyboard;
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Log;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
+import com.accgames.input.Input;
+import com.accgames.input.KeyboardReader;
+import com.accgames.input.XMLKeyboard;
 import com.accgames.others.RuntimeConfig;
-import com.minesweeper.game.Input;
+import com.accgames.sound.Music;
+import com.accgames.sound.SubtitleInfo;
+import com.accgames.sound.TTS;
 import com.minesweeper.game.MinesweeperAnalytics;
-import com.minesweeper.game.Music;
-import com.minesweeper.game.SubtitleInfo;
-import com.minesweeper.game.TTS;
 
 /**
  * Main activity - messages from the server and provides
@@ -54,9 +55,7 @@ import com.minesweeper.game.TTS;
  */
 public class MinesweeperActivity extends Activity implements OnClickListener, OnFocusChangeListener,
 															  OnLongClickListener, OnKeyListener {
-	/**
-	 * Tag for logging.
-	 */
+
 	private static final String TAG = "MainMenu";
 	public static final int RESET_CODE = 1;
 	public static final int EXIT_GAME_CODE = 2;
@@ -64,7 +63,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	public static final String KEY_TTS = "org.example.game.TTS";
 	public static final String KEY_DIFFICULTY = "org.example.game.difficulty";
 	private static final String FILE_NAME_ID = ".info";
-
+	
+	private static final String MINESWEEPER_TRACK_ID = "UA-29119983-3";
+	
 	private int difficult;
 	private TTS textToSpeech;
 	private KeyboardReader reader;
@@ -86,8 +87,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	
 	// By default interaction is set to blind mode
 	private boolean blindInteraction; 
-	
-//	private AsyncTask<Void, Void, String> task;
 
 	// User id
 	private UUID id;
@@ -98,7 +97,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	private Context mContext = this;
 	
 	private boolean reset;
-
+	
 	/**
 	 * A {@link BroadcastReceiver} to receive the response from a register or
 	 * unregister request, and to update the UI.
@@ -140,7 +139,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState); 
+		super.onCreate(savedInstanceState);
+		
+		AnalyticsManager.TRACK_ID  = MINESWEEPER_TRACK_ID;
 		
 		checkId();
 		
@@ -164,6 +165,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 		blindInteraction = true;
 		reset = false;
+	
 	}
 	
 	private void logManagement(){
@@ -217,6 +219,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Object f = ois.readObject();
 			id = (UUID) f;
+			Log.getLog().setID(id.toString());
 			fis.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -227,6 +230,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		}
 		if(id == null){
 			id = UUID.randomUUID();
+			Log.getLog().setID(id.toString());
 			save(id);
 		}
 	}
@@ -248,13 +252,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	@Override
 	public void onResume() {
 		super.onResume();
-
-		blindMode();
 		
-		soundManagement();
+		blindMode();
 		
 		transcriptionMode();
 
+		soundManagement();
+		
 		blindInteraction = PrefsActivity.getBlindInteraction(this);
 		
 		Log.getLog().addEntry(MinesweeperActivity.TAG,
@@ -264,7 +268,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	}
 
 	private void soundManagement() {
-		Music.play(this, R.raw.main);
+		Music.getInstanceMusic().play(this, R.raw.main, true);
 		textToSpeech.setEnabled(PrefsActivity.getTTS(this));
 		if(!reset)
 			textToSpeech.speak(this.getString(R.string.main_menu_initial_TTStext));
@@ -272,11 +276,17 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 
 	private void transcriptionMode() {
 		if(PrefsActivity.getTranscription(this)){
+			
+			Map<Integer, String> onomatopeias = MinesweeperMusicSources.getMap(this);
+			
 			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
-					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, null);
+					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
 			textToSpeech.enableTranscription(s);
-		}else
+			Music.getInstanceMusic().enableTranscription(this, s);
+		}else{
 			textToSpeech.disableTranscription();
+			Music.getInstanceMusic().disableTranscription();
+		}
 	}
 
 	private void blindMode() {
@@ -291,7 +301,6 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 */
 	@Override
 	public void onDestroy() {
-		//unregisterReceiver(mUpdateUIReceiver);
 		textToSpeech.stop();
     	AnalyticsManager.dispatch();
 		super.onDestroy();
@@ -301,7 +310,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	@Override
 	protected void onPause() {
 		super.onPause();
-    	Music.stop(this);
+    	Music.getInstanceMusic().stop(R.raw.main);
 
 	}
 	// Manage UI Screens
@@ -414,11 +423,12 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 */
 	private void fillXMLKeyboard() {
 		keyboard.addObject(24, "zoom");
-		keyboard.addObject(84, "coordinates");
-		keyboard.addObject(5, "context");
-		keyboard.addObject(25, "blind_mode");
+		keyboard.addObject(164, "coordinates");
+		keyboard.addObject(84, "context");
+		keyboard.addObject(25, "instructions");
+		keyboard.addObject(27, "exploration");
 		keyboard.addObject(82, "repeat");
-		keyboard.setNum(7);
+		keyboard.setNum(6);
 	}
 
 	private void checkFolderApp(String file) {
@@ -430,7 +440,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 				FileInputStream fis = openFileInput(file);
 				keyboard = reader.loadEditedKeyboard(fis);
 			} catch (FileNotFoundException e) {
-				keyboard = Input.getInstance();
+				keyboard = Input.getKeyboard();
 				this.fillXMLKeyboard();
 			}
 		}
@@ -593,9 +603,10 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	}
 
 	private void menuAction(View v) {
+		Intent i;
 		switch (v.getId()) {
 		case R.id.about_button:
-			Intent i = new Intent(this, AboutActivity.class);
+			i = new Intent(this, AboutActivity.class);
 			i.putExtra(KEY_TTS, textToSpeech);
 			startActivity(i);
 			break;

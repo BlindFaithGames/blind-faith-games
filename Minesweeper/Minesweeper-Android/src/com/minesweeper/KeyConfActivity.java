@@ -17,13 +17,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TableRow;
 
-import com.accgames.XML.KeyboardWriter;
-import com.accgames.XML.XMLKeyboard;
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Log;
-import com.minesweeper.game.Input;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
+import com.accgames.input.Input;
+import com.accgames.input.KeyboardWriter;
+import com.accgames.input.XMLKeyboard;
+import com.accgames.sound.TTS;
 import com.minesweeper.game.MinesweeperAnalytics;
-import com.minesweeper.game.TTS;
 
 
 public class KeyConfActivity extends Activity implements OnFocusChangeListener, OnClickListener, OnLongClickListener {
@@ -55,7 +55,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
         
 		setContentView(R.layout.keyconf);	
 		
-		keyboard = Input.getInstance();
+		keyboard = Input.getKeyboard();
 		
 		TableRow tr;
 		
@@ -309,7 +309,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Integer key = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
 		if(key != null){
 			if (keyCode == key) {
 				textToSpeech.repeatSpeak();

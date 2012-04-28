@@ -14,12 +14,12 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
+import com.accgames.feedback.AnalyticsManager;
 import com.accgames.general.Entity;
 import com.accgames.general.GameState;
 import com.accgames.general.Mask;
 import com.accgames.input.Input;
 import com.accgames.input.Input.EventType;
-import com.accgames.others.AnalyticsManager;
 import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
@@ -49,7 +49,6 @@ public class ScoreBoard extends Entity {
 		fontSize =  (this.game.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
 		brush = new Paint();
-		
 		brush.setTextSize(fontSize);
 		brush.setTypeface(font);
 	}
@@ -136,7 +135,7 @@ public class ScoreBoard extends Entity {
 	}
 
 	public void resetCounter(){
-		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_reset) + counter);
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_reset));
 		counter = 0;
 	}
 	

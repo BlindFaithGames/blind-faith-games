@@ -8,8 +8,8 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.minesweeper.game.SubtitleInfo;
-import com.minesweeper.game.TTS;
+import com.accgames.sound.SubtitleInfo;
+import com.accgames.sound.TTS;
 
 public class SplashScreen extends Activity {
     protected boolean _active = true;

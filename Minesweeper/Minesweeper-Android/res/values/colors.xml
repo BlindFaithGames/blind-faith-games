@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	    <!-- Colors text -->
-	<color name="text_button_color">#FF6633</color>
-	<color name="text_button_color_pressed">#FF3300</color>
-	<color name="text_button_color_focused">#FF3300</color>
+	<color name="text_button_color">#0099FF</color>
+	<color name="text_button_color_pressed">#6699FF</color>
+	<color name="text_button_color_focused">#6699FF</color>
 	
 	<!-- Colors Button -->
 	<color name="button_color">#ffff0000</color>

@@ -12,9 +12,10 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.accgames.XML.XMLKeyboard;
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Log;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
+import com.accgames.input.Input;
+import com.accgames.input.XMLKeyboard;
 import com.minesweeper.KeyConfActivity;
 import com.minesweeper.Minesweeper;
 import com.minesweeper.PrefsActivity;
@@ -130,7 +131,7 @@ public class MinesweeperView extends View {
 		
 		blindMode = PrefsActivity.getBlindMode(this.getContext());
 		
-		this.keyboard = Input.getInstance();
+		this.keyboard = Input.getKeyboard();
 	
 	}
 

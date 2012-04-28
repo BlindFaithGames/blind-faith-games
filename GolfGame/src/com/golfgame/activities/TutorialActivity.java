@@ -15,17 +15,17 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 
+import com.accgames.feedback.AnalyticsManager;
 import com.accgames.general.DrawablePanel;
 import com.accgames.general.Game;
 import com.accgames.general.GameState;
 import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
-import com.accgames.others.AnalyticsManager;
 import com.accgames.sound.Music;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
-import com.golfgame.game.GolfGameplay;
 import com.golfgame.game.GolfGameAnalytics;
+import com.golfgame.game.GolfGameplay;
 
 public class TutorialActivity extends Activity {
 	
@@ -80,10 +80,8 @@ public class TutorialActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		textToSpeech.stop();
-		Music.getInstanceMusic().stop(R.raw.storm);
 		Music.getInstanceMusic().stop(R.raw.sound_shot);
 		Music.getInstanceMusic().stop(R.raw.previous_shoot_feedback_sound);
-		Music.getInstanceMusic().stop(R.raw.water_bubbles);
 		Music.getInstanceMusic().stop(R.raw.clue_feed_back_sound);
 		Music.getInstanceMusic().stop(R.raw.win_sound);
 	}
@@ -139,34 +137,57 @@ public class TutorialActivity extends Activity {
 
 	class GolfGamePanel extends DrawablePanel {
 		private GestureDetector mGestureDetector;
-
-		@Override
-		public boolean onTouchEvent(MotionEvent event) {
-			if (mGestureDetector.onTouchEvent(event)) {
-				return true;
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
-				if (mIsScrolling) {
-					Log.d(TAG, "onUp: " + event.toString());
-					mIsScrolling = false;
-					Input.getInput().addEvent("onUp",
-							MotionEvent.obtain(event), null, -1, -1);
-	                 AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.GAME_EVENTS, GolfGameAnalytics.ON_UP, 
-	                    		event.getX() + " " + event.getY(), 0);
-					return true;
-				}
-			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-				mIsScrolling = true;
-			} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				Log.d(TAG, "onDown: " + event.toString());
-				Input.getInput().addEvent("onDown", MotionEvent.obtain(event),
-						null, -1, -1);
+    	private boolean dragging;
+    	
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+        	onDrag(event);
+        	if (mGestureDetector.onTouchEvent(event)){
+        		return true;
+        	}
+        	else if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (mIsScrolling) {
+                    Log.d(TAG,"onUp: " + event.toString());
+                    mIsScrolling  = false;
+                    Input.getInput().addEvent("onUp", MotionEvent.obtain(event), null, -1, -1);
+                    AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.GAME_EVENTS, GolfGameAnalytics.ON_UP, 
+                    		event.getX() + " " + event.getY(), 0);
+                    return true;
+                }
+            }
+            else if (event.getAction() == MotionEvent.ACTION_MOVE){
+            	mIsScrolling = true;
+            }
+            else if (event.getAction() == MotionEvent.ACTION_DOWN){
+            	Log.d(TAG, "onDown: " + event.toString());
+            	Input.getInput().addEvent("onDown",  MotionEvent.obtain(event), null, -1, -1);
             	AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.GAME_EVENTS, GolfGameAnalytics.SIMPLE_TAP, 
                 		event.getX() + " " + event.getY(), 0);
-				return true;
+    			return true;
+            }
+            return false;
+        }
+        
+		private void onDrag(MotionEvent event) {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				dragging = true;
+				Input.getInput().addEvent("onDrag", MotionEvent.obtain(event),
+						null, -1, -1);
+				AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.GAME_EVENTS, GolfGameAnalytics.DRAG, 
+                		event.getX() + " " + event.getY(), 0);
 			}
-			return false;
+			if (event.getAction() == MotionEvent.ACTION_UP) {
+				dragging = false;
+			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+				if (dragging) {
+					Input.getInput().addEvent("onDrag",
+							MotionEvent.obtain(event), null, -1, -1);
+					AnalyticsManager.getAnalyticsManager().registerAction(GolfGameAnalytics.GAME_EVENTS, GolfGameAnalytics.DRAG, 
+	                		event.getX() + " " + event.getY(), 0);
+				}
+			}
 		}
-
+		
 		@Override
 		public boolean onKeyDown(int keyCode, KeyEvent event) {
 			boolean found = manageCustomConfigurationKeys(keyCode, event);

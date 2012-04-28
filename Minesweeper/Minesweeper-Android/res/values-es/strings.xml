@@ -173,7 +173,7 @@
     <string name="alert_dialog_difficulty_TTStext">Diálogo de dificultad</string>
     <string name="alert_dialog_instructions_TTStext">Diálogo</string>
     <string name="main_menu_initial_TTStext">Menú principal</string>
-    <string name="settings_menu_initial_TTStext">Menu de ajustes. 
+    <string name="settings_menu_initial_TTStext">Menú de ajustes. 
 				Pulsando en cualquiera de las opciones mostradas a lo largo de la pantalla puede activar o desactivar 
 			    una configuración. Al tiempo que activa o desactiva puede leer su descripción para conocer la función que
 			    lleva a cabo en la aplicación.
@@ -277,7 +277,7 @@
     <string name="action_exploration">Modo exploración activado/desactivado</string>
     <string name="action_coordinates">Coordenadas</string>
     <string name="action_zoom">Modo zoom activado/desactivado </string>
-    <string name="action_context">Lectura de información de contexto de las casillas</string>
+    <string name="action_context">Lectura de las casillas alrededor de la actual</string>
     <string name="action_blind_mode">Modo ciego</string>
     <string name="action_instructions">Instrucciones</string>
     <string name="action_repeat">Repetir mensaje del sintetizador</string>
@@ -294,4 +294,7 @@
     
     <string name="screen_off_message">Tu pantalla se ha apagado.</string>
     <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
+    
+    <string name="other_side">Reproduciendo \'The other side of the door\'</string>
+    <string name="passing_action">Reproduciendo \'Passing action\'</string>
 </resources>

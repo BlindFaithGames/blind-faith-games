@@ -37,4 +37,10 @@
 			<locationURI>_android_OpenAL4Android_64b3b6b0/src</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>OPEN_AL</name>
+			<value>$%7BWORKSPACE_LOC%7D/si-project/OpenAL4Android/src</value>
+		</variable>
+	</variableList>
 </projectDescription>

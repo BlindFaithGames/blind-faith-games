@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="advice">We recommend use headphones to play this game.</string>
     <string name="group_name">Game made by, Blind Faith Games</string>
     <string name="mode">This application works on portrait mode.</string>
     <string name="interactionMode_select">Select an interaction mode</string>
@@ -38,14 +39,14 @@
     <string name="music_summary">Play background music</string>
     <string name="tts_title">Default TTS</string>
     <string name="tts_summary">Enables voice synthetizer</string>
-    <string name="infoTarget_title">Clue - Target</string>
-    <string name="infoTarget_summary">Enables sound effect to find target</string>
+    <string name="infoTarget_title">Clue to find target</string>
+    <string name="infoTarget_summary">Enables a sound that will be played when you find the target dragging on the screen</string>
     <string name="v_feedback_title">Vibration feedback</string>
     <string name="v_feedback_summary">A range of vibrations that helps to find target</string>
     <string name="s_feedback_title">Sound effect feedback</string>
     <string name="s_feedback_summary">Stereo sound that helps to find target</string>
-    <string name="doppler_title">Sound variation</string>
-    <string name="doppler_summary"> Progressive volume down when a shot occurs </string>
+    <string name="doppler_title">Sound post-shot</string>
+    <string name="doppler_summary">A sound will be played before you shoot.</string>
     <string name="profileA_title">Profile A</string>
     <string name="profileA_summary"> - </string>
     <string name="profileB_title">Profile B</string>
@@ -60,19 +61,29 @@
     <string name="flags_title">Flags settings</string>
     <string name="flags_shortcut">f</string>
     <string name="instructions_label">Instructions</string>
-    <string name="instructions_title">Instructions GolfGame</string>
-    <string name="instructions_general_label">Instructions</string>
-    <string name="instructions_controls_label">Controls</string>
-    <string name="instructions_general_text">		Only you have to point and shoot!</string>
-    <string name="instructions_controls_text">		Within settings you can choose between the next options:\n
-		1 - UpMode defines the way of shoot\n
-		2 - Info target allows to find the hole through touch on the screen\n
-		3 - Doppler Effect enables to play a sound with this effect during a shot\n
-		4 - Vibration and Sound feedback - before you shot a vibration/sound told you about where is the hole\n</string>
+    <string name="instructions_title">How to use Golf game</string>
+    <string name="instructions_general_label">How to use this game</string>
+    <string name="instructions_controls_label">How to configurate</string>
+    <string name="instructions_general_text">Only you have to point and shoot within the shot area!  
+    This area can be found on the bottom of the screen. Don\'t worry if you don\'t find the shot area, if you do any tap or gesture outside
+    you\'ll hear a beep. </string>
+    <string name="instructions_controls_text">Within settings you can choose between the next options:\n
+		1 - UpMode enables slingshot mode. In golf, exists two modes of shot. Fling and slingshot. 
+		The first one enabled by default, allows you shoot, doing a quick scroll on the shot area. 
+		On the other hand, slingshot you have to do a tap, drag and release your finger to do the shot.\n
+		2 - Info target allows to find the hole through touch and drag on the screen. \n
+		3 - Sound post-shot enables to play a sound whose pitch is decreased during a shot.\n
+		4 - Vibration and Sound feedback - before you shot a vibration/sound told you about where is the hole. To use them during
+		the game you have to describe, dragging an arc on the shot area. You will find the shot area on the bottom on the screen. If you try to do this gestures
+		outside of the shot area you will hear a beep. Where your device vibrate or the sound is more intense, 
+		it will be better position to shoot. Moreover  in sound feedback,
+		if you use headphones, the sound will be played only on one headphone. That indicates that the best position is on the left
+		or on the right from your actual position doing the mencioned arc on the screen.\n
+		If you need more information you can try the game tutorial.</string>
     <string name="synthetizer_title">Synthesizer</string>
         <string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
-    <string name="onup_title">On Up event</string>
-    <string name="onup_summary">Enables to shoot when a on up event occurs</string>
+    <string name="onup_title">Slingshot mode</string>
+    <string name="onup_summary">Enables to shoot like a slingshot.</string>
     <string name="volume_up">Volume Up</string>
     <string name="volume_down">Volume Down</string>
     <string name="home">Home</string>
@@ -83,7 +94,7 @@
     <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
     <string name="settings_menu_initial_TTStext">Menu settings. 
-			    Clicking on each element on this menu changes and reads an option. Particular in thsi menu you can
+			    Clicking on each element on this menu changes and reads an option. Particular in this menu you can
 			    find two options profile A and profile B whose activation enables another options on the menu. Of course, 
 			    you can continue enabling independently all option on the menu.You have the next options on this menu\: 
    </string>
@@ -115,7 +126,7 @@
     <string name="alertOutsideShotArea">You are outside of the shot area. To be able to shot you have to make a scroll gesture on the bottom of the screen.</string>
     <string name="ranking_title">Time,  Date and  Record. </string>
     <string name="ranking_speech">Previous games ranking. You can listen this ranking clicking on each cell.</string>
-    <string name="instructions_dialog_select">Select controls or instructions</string>
+    <string name="instructions_dialog_select">Select configuration or use</string>
     <string name="game_dialog_select">Select difficulty</string>
     <string name="initial_settings">Click any option</string>
     <string name="key_conf_fail">Not a valid key</string>  
@@ -123,15 +134,24 @@
     <string name="stage_speech">Stage number</string>  
    
     <!-- TUTORIAL -->
-    <string name="tutorial_step1_dialog_select">To shoot you have to do a fling.</string>
+    <string name="tutorial_step1_dialog_select">In this tutorial you\'ll learn the game basics. All this features can be enabled/disabled in settings. Tutorial begins! To shoot you have to do a fling on the shoot area.
+    i.e. you have to do a quickly scroll gesture in the direction that you want to shoot</string>
     <string name="tutorial_step2_dialog_select">By default that is the shot mode. Each time you score a shot, the target will change its position.</string>
     <string name="tutorial_step3_dialog_select">You can change the shot mode in settings. To shoot, drag as if it were a slingshot and release the screen touch.</string>
-    <string name="tutorial_step4_dialog_select">The clue target option, let you localize the target by touches. Let\'s try it.</string>
+    <string name="tutorial_step4_dialog_select">The clue target option, let you localize the target by touches and drags. Let\'s try it.</string>
     <string name="tutorial_step5_dialog_select">This sound is emitted when you find the target.</string>
-    <string name="tutorial_step6_dialog_select">The vibration gives you a clue about where is located the target.</string>
-    <string name="tutorial_step7_dialog_select">The sound effect also is an aid to locate the target at the shot.</string>
-    <string name="tutorial_step8_dialog_select">The sound variation indicates how far your shot has gone out of the target.</string>
-    <string name="tutorial_step9_dialog_select">The End</string> 
+    <string name="tutorial_step6_dialog_select">The next two options give you information about which direction is better.
+    		The vibration gives you a clue about where is located the target. 
+    		You have to describe an arc, dragging in the shot area to feel this feature.  
+    		The position in the arc that you describe that sound louder indicates a better direction to do a shot.
+    		Once you have find a good position in the arc, do the gesture appropiated down.</string>
+    <string name="tutorial_step7_dialog_select">The sound effect also is an aid to locate the target at the shot. 
+    You have to describe an arc, dragging in the shot area to listen to this feature. 
+    The position in the arc that you describe that sound louder indicates a better direction to do a shot.
+    Once you have find a good position in the arc, do the gesture appropiated down.</string>
+    <string name="tutorial_step8_dialog_select">The sound when you don\'t score a shot indicates how far your shot has gone out of the target. 
+    Sound deeper indicates that your shot has been worse. If you scores you \'ll hear a applause.</string>
+    <string name="tutorial_step9_dialog_select">The tutorial finish here.</string> 
     
     <!-- Onomatopeias -->
     <string name="bing_ono">bing bing!</string>    
@@ -139,14 +159,15 @@
     <string name="clue_feed_back_sound_ono">Ring!</string>    
     <string name="hit_ball_ono">Tip!</string>    
     <string name="left_ono">Biiiip!</string>    
-    <string name="main_ono">Playing Golf OST!</string>    
+    <string name="main_ono">Playing \'Deliberate Thought\'</string>    
     <string name="missed_ono">biiiip!</string>    
     <string name="previous_shoot_feedback_sound_ono">Sonar</string>    
     <string name="right_ono">biiiip!</string>    
     <string name="sound_shot_ono">Toc!</string>    
-    <string name="storm_ono"> - Storm - </string>    
-    <string name="water_bubbles_ono">Bubbles</string>    
-    <string name="win_sound_ono">Applause</string> 
+    <string name="storm_ono"> - Wind - </string>    
+    <string name="air_plane_bing"> - Pim - </string>    
+    <string name="win_sound_ono"> - Applause - </string> 
+    <string name="sling">tuuumm</string> 
     
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
@@ -201,4 +222,5 @@
     
     <string name="screen_off_message">Your screen has turned off.</string>
     <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
+    <string name="load_text">Sending information... Please wait</string>
 </resources>

@@ -2,7 +2,6 @@ package com.zarodnik.activities;
 
 import java.util.Map;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

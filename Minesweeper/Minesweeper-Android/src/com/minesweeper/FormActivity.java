@@ -1,7 +1,5 @@
 package com.minesweeper;
 
-
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,10 +17,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.Log;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
+import com.accgames.sound.TTS;
 import com.minesweeper.game.MinesweeperAnalytics;
-import com.minesweeper.game.TTS;
 
 public class FormActivity extends Activity implements OnClickListener,
 		OnFocusChangeListener, OnLongClickListener{
@@ -154,7 +152,7 @@ public class FormActivity extends Activity implements OnClickListener,
 			nQuestion++;
 			
 			if(nQuestion == N_QUESTIONS){
-				System.out.println(l);
+				textToSpeech.speak(getString(R.string.load_text));
 				this.finish();
 				return true;
 			}
@@ -373,7 +371,5 @@ public class FormActivity extends Activity implements OnClickListener,
 	@Override
 	public boolean onLongClick(View v) {
 		return menuAction(v);
-		 
 	}
-
 }

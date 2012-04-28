@@ -17,10 +17,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.accgames.others.Log;
+import com.accgames.feedback.Log;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
-import com.zarodnik.others.ScreenReceiver;
 
 public class FormActivity extends Activity implements OnClickListener,
 		OnFocusChangeListener, OnLongClickListener{
@@ -121,23 +120,7 @@ public class FormActivity extends Activity implements OnClickListener,
 		textToSpeech.setInitialSpeech(getString(R.string.form_label) + ", " 
 									+ getString(R.string.form_intro) 
 									+ getString(R.string.form_instructions1));
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		 if (!ScreenReceiver.wasScreenOn) {
-	        	textToSpeech.speak(getString(R.string.screen_on_message));
-	        }
 
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-        if (ScreenReceiver.wasScreenOn) {
-       	 	textToSpeech.speak(getString(R.string.screen_off_message));
-        }
 	}
 
 	@Override
@@ -166,7 +149,7 @@ public class FormActivity extends Activity implements OnClickListener,
 			nQuestion++;
 			
 			if(nQuestion == N_QUESTIONS){
-				System.out.println(l);
+				textToSpeech.speak(getString(R.string.load_text));
 				this.finish();
 				return true;
 			}
@@ -186,7 +169,7 @@ public class FormActivity extends Activity implements OnClickListener,
 			nextQuestion();
 			
 			res = true;
-			
+
 			break;
 		}
 		return res;
@@ -365,18 +348,17 @@ public class FormActivity extends Activity implements OnClickListener,
 	 * OnFocusChangeListener Interface
 	 * */
 	public void onFocusChange(View v, boolean hasFocus) {
+		int ans = -1;
 		if (hasFocus) {
-			if(v != null && v.getContentDescription() != null){
+			if(v != null && v.getContentDescription() != null)
 				textToSpeech.speak(v);
-			}
 		}
+
 	}
 
 
 	@Override
 	public boolean onLongClick(View v) {
 		return menuAction(v);
-		 
 	}
-
 }

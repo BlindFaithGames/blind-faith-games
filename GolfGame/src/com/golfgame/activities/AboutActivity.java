@@ -11,9 +11,8 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.accgames.feedback.AnalyticsManager;
 import com.accgames.input.Input;
-import com.accgames.others.AnalyticsManager;
-import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
@@ -54,13 +53,13 @@ public class AboutActivity extends Activity implements OnTouchListener{
 		
 		setContentView(R.layout.about);
 		
-		scale = this.getResources().getDisplayMetrics().density;
-		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
+		//scale = this.getResources().getDisplayMetrics().density;
+		//fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
+		//font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
 		
-		t = (TextView) findViewById(R.id.about_content);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);
+		//t = (TextView) findViewById(R.id.about_content);
+		//t.setTextSize(fontSize);
+		//t.setTypeface(font);
 		
 		v = findViewById(R.id.about_root);
 		v.setOnTouchListener(this);

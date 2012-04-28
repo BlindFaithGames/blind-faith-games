@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
 
-import com.accgames.others.AnalyticsManager;
+import com.accgames.feedback.AnalyticsManager;
+import com.accgames.feedback.Log;
+import com.accgames.input.Input;
 import com.accgames.others.CustomView;
-import com.accgames.others.Log;
-import com.minesweeper.game.Input;
+import com.accgames.sound.TTS;
 import com.minesweeper.game.MinesweeperAnalytics;
-import com.minesweeper.game.TTS;
 
 /**
  * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
@@ -62,7 +62,7 @@ public class AboutActivity extends Activity{
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Integer key = Input.getInstance().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+		Integer key = Input.getKeyboard().getKeyByAction(KeyConfActivity.ACTION_REPEAT);
 		if(key != null){
 			if (keyCode == key) {
 				textToSpeech.repeatSpeak();

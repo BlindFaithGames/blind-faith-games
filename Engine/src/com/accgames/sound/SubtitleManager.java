@@ -234,7 +234,7 @@ public class SubtitleManager {
 	public void displayMyToast(String msg) {
 		mHandler.removeCallbacks(extendStatusMessageLengthRunnable);
 		
-		toast_long = msg.length();//getsInfo().getDuration()/100;
+		toast_long = msg.length();
 		
 		updateToastText(subtitles, msg, sInfo);
 		subtitles.show();

@@ -19,8 +19,6 @@ public class GolfMusicSources {
 	private static final int previous_shoot_feedback_sound = R.raw.previous_shoot_feedback_sound;
 	private static final int right = R.raw.right;
 	private static final int sound_shot = R.raw.sound_shot;
-	private static final int storm = R.raw.storm;
-	private static final int water_bubbles = R.raw.water_bubbles;
 	private static final int win_sound = R.raw.win_sound;
 	
 	public static Map<Integer, String> getMap(Context c) {
@@ -36,8 +34,6 @@ public class GolfMusicSources {
 		result.put(previous_shoot_feedback_sound, c.getString(R.string.previous_shoot_feedback_sound_ono));
 		result.put(right, c.getString(R.string.right_ono));
 		result.put(sound_shot, c.getString(R.string.sound_shot_ono));
-		result.put(storm, c.getString(R.string.storm_ono));
-		result.put(water_bubbles, c.getString(R.string.water_bubbles_ono));
 		result.put(win_sound, c.getString(R.string.win_sound_ono));
 		return result;
 	}

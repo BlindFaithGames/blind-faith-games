@@ -17,10 +17,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TableRow;
 
+import com.accgames.feedback.AnalyticsManager;
 import com.accgames.input.Input;
 import com.accgames.input.KeyboardWriter;
 import com.accgames.input.XMLKeyboard;
-import com.accgames.others.AnalyticsManager;
 import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;

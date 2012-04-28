@@ -16,12 +16,12 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.accgames.feedback.AnalyticsManager;
 import com.accgames.general.DrawablePanel;
 import com.accgames.general.Game;
 import com.accgames.general.GameState;
 import com.accgames.input.Input;
 import com.accgames.input.XMLKeyboard;
-import com.accgames.others.AnalyticsManager;
 import com.accgames.others.GolfMusicSources;
 import com.accgames.sound.Music;
 import com.accgames.sound.SubtitleInfo;
@@ -104,10 +104,8 @@ public class GolfGameActivity extends Activity {
 	protected void onDestroy(){
     	super.onDestroy();
 		textToSpeech.stop();
-    	Music.getInstanceMusic().stop( R.raw.storm);
     	Music.getInstanceMusic().stop(R.raw.sound_shot);
     	Music.getInstanceMusic().stop(R.raw.previous_shoot_feedback_sound);
-    	Music.getInstanceMusic().stop(R.raw.water_bubbles);
     	Music.getInstanceMusic().stop(R.raw.clue_feed_back_sound);
     	Music.getInstanceMusic().stop(R.raw.win_sound);
     }

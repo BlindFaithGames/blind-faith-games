@@ -31,8 +31,9 @@ public class ScoreBoard extends Entity {
 	private int counter;
 	private int record;
 	
-	private int fontSize;
+	private float fontSize;
 	private Typeface font;
+	private float scale;
 	private Paint brush;
 	
 	public ScoreBoard(int x, int y, int record,Bitmap img, GameState game, List<Mask> mask,
@@ -42,8 +43,8 @@ public class ScoreBoard extends Entity {
 		this.game = (ZarodnikGameplay) game;
 		this.record = record;
 		
-		fontSize = this.game.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu);
-		
+		scale = this.game.getContext().getResources().getDisplayMetrics().density;
+		fontSize = ((this.game.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale);
 		font = Typeface.createFromAsset(this.game.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		
 		brush = new Paint();
@@ -57,7 +58,7 @@ public class ScoreBoard extends Entity {
 		super.onDraw(canvas);
 		
 		brush.setARGB(255, 51, 51, 51);
-		canvas.drawRect(new Rect(this.x - (ZarodnikGameplay.SCREEN_WIDTH - 200),this.y - 30 ,GameState.SCREEN_WIDTH,fontSize + 10), brush);
+		canvas.drawRect(new Rect(this.x - (ZarodnikGameplay.SCREEN_WIDTH - 200), this.y - 30, GameState.SCREEN_WIDTH, (int) (fontSize + 10)), brush);
 		
 		if(record >= 0){
 			brush.setARGB(255, 51, 153, 255);
@@ -68,17 +69,33 @@ public class ScoreBoard extends Entity {
 		canvas.drawText(Integer.toString(counter), this.x + fontSize*2, this.y, brush);
 	}
 	
+	private void onTouch() {
+		EventType drag = Input.getInput().getEvent("onDrag");
+		if(drag != null){
+			double ex = drag.getMotionEventE1().getX();
+			double ey = drag.getMotionEventE1().getY();
+			if(this.x - (ZarodnikGameplay.SCREEN_WIDTH - 200) < ex && 
+					this.y - 30 < ey && 
+					ex < GameState.SCREEN_WIDTH && 
+					ey < fontSize + 10){
+				this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.recordSpeech)
+						+ " " + record + ", " + this.game.getContext().getResources().getString(R.string.counterSpeech)
+						+ " " + counter);
+			}
+		}
+	}
+	
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
 		EventType e = Input.getInput().removeEvent("speakRecord");
 		if(e != null){
 			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.recordSpeech)
-					+ " " + record );
-			this.game.getTTS().speak(this.game.getContext().getResources().getString(R.string.counterSpeech)
+					+ " " + record + ", " + this.game.getContext().getResources().getString(R.string.counterSpeech)
 					+ " " + counter);
 			
 		}
+	//onTouch();
 	}
 	
 	public void incrementCounter(){
@@ -105,6 +122,7 @@ public class ScoreBoard extends Entity {
 	}
 
 	public void resetCounter(){
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_reset));
 		counter = 0;
 	}
 	
@@ -127,10 +145,12 @@ public class ScoreBoard extends Entity {
 	
 	public void incrementCounter(int i) {
 		counter += i;
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_success) + " " + counter);
 	}
 
 	public void decrementCounter(int i) {
 		counter -= i;
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_success) + " " + counter);
 	}
 
 	@Override

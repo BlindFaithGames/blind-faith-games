@@ -28,6 +28,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.accgames.feedback.Id;
+import com.accgames.feedback.Log;
 import com.accgames.input.Input;
 import com.accgames.input.KeyboardReader;
 import com.accgames.input.XMLKeyboard;
@@ -55,6 +57,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public static final String KEY_TYPE_INSTRUCTIONS = "org.example.zarodnikGame.mainActivity.iType";
 	public static final String KEY_RESULTS = "org.example.mainActivity.record";
 	
+	private static String FILE_NAME_ID = ".info";
+	
 	public static String FILENAMEFREEMODE = "ZarodnikRecords1.data";
 	public static String FILENAMESTAGEMODE = "ZarodnikRecords2.data";
 	
@@ -72,6 +76,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
 	private boolean blindInteraction,isFirstRun;
+	
+	private Id id;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -88,6 +94,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
 		checkFirstExecution();
+		
+		id = new Id(this);
+		Log.getLog().setID(id.checkId(MainActivity.FILE_NAME_ID));
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 	}		 
@@ -254,7 +263,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void fillXMLKeyboard(){
 		keyboard.addObject(82, KeyConfActivity.ACTION_RECORD);
 		keyboard.addObject(84, KeyConfActivity.ACTION_REPEAT);
-		keyboard.setNum(3);
+		keyboard.setNum(2);
 	}
 
 	private void checkFolderApp(String file) {

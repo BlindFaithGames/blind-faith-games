@@ -33,6 +33,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>ENGINE</name>
+			<type>2</type>
+			<locationURI>ENGINE</locationURI>
+		</link>
+		<link>
+			<name>OPEN_AL</name>
+			<type>2</type>
+			<locationURI>OPEN_AL</locationURI>
+		</link>
+		<link>
 			<name>SHARED</name>
 			<type>2</type>
 			<locationURI>SHARED</locationURI>
@@ -40,8 +50,16 @@
 	</linkedResources>
 	<variableList>
 		<variable>
+			<name>ENGINE</name>
+			<value>$%7BWORKSPACE_LOC%7D/si-project/engine/src</value>
+		</variable>
+		<variable>
 			<name>LIB</name>
 			<value>$%7BPROJECT_LOC%7D/lib</value>
+		</variable>
+		<variable>
+			<name>OPEN_AL</name>
+			<value>$%7BWORKSPACE_LOC%7D/si-project/OpenAL4Android/src</value>
 		</variable>
 		<variable>
 			<name>SHARED</name>

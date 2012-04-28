@@ -9,7 +9,7 @@ import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.widget.EditText;
 
-import com.minesweeper.game.TTS;
+import com.accgames.sound.TTS;
 
 public class CheckKeyActivity extends Activity implements OnKeyListener{
 	public static final String KEY_NAME = "KeyName";

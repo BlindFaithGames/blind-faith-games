@@ -34,11 +34,11 @@ import com.golfgame.game.GolfGameplay.steps;
 public class Dot extends Entity{
 	
 	private static final int previous_shot_feedback_sound = R.raw.previous_shoot_feedback_sound;
-	private static final int alternative_previous_shot_feedback_sound  = R.raw.water_bubbles;
+	private static final int alternative_previous_shot_feedback_sound  = R.raw.previous_shoot_feedback_sound;
 	private static final int success_feedback_sound = R.raw.win_sound;
 	private static final int hit_feedback_sound = R.raw.hit_ball;
 	private static final int doppler_sound = R.raw.sound_shot;
-	private static final int alternative_doppler_sound = R.raw.storm;
+	private static final int alternative_doppler_sound = R.raw.sound_shot;
 	private static final int clue_feedback_sound = R.raw.clue_feed_back_sound;
 	private static final int originX = GolfGameplay.SCREEN_WIDTH/2;
 	private static final int originY = GolfGameplay.SCREEN_HEIGHT - GolfGameplay.SCREEN_HEIGHT/3;
@@ -79,6 +79,8 @@ public class Dot extends Entity{
 	private boolean windEnabled;
 	private int windHits;
 	private int nextWindHit;
+
+	
 	/**
 	 * It creates the entity scoreboard to refresh its content and uses the vibrator service.
 	 * 
@@ -105,18 +107,21 @@ public class Dot extends Entity{
 		scoreBoard = new ScoreBoard(0,2*GameState.SCREEN_HEIGHT/3,record,null, state, null, false, 0);
 		this.game.addEntity(scoreBoard);
 		
-		Music.getInstanceMusic().play(this.game.getContext(),previous_shot_feedback_sound,true);
-		Music.getInstanceMusic().setVolume(0, 0,previous_shot_feedback_sound);
+		if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+			Music.getInstanceMusic().play(this.game.getContext(),previous_shot_feedback_sound,true);
+			Music.getInstanceMusic().setVolume(0, 0,previous_shot_feedback_sound);
+		}
 		if(!headPhonesMode){
-			Music.getInstanceMusic().play(this.game.getContext(),alternative_previous_shot_feedback_sound,true);
-			Music.getInstanceMusic().setVolume(0, 0,alternative_previous_shot_feedback_sound);
+			if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+				Music.getInstanceMusic().play(this.game.getContext(),alternative_previous_shot_feedback_sound,true);
+				Music.getInstanceMusic().setVolume(0, 0,alternative_previous_shot_feedback_sound);
+			}
 		}
 		
 		windEnabled = !SettingsActivity.getBlindInteraction(game.getContext());
 		
 		if(windEnabled) 
 			createWindOrientator();
-		
 	}
 	
 	private void createWindOrientator() {
@@ -303,9 +308,10 @@ public class Dot extends Entity{
 			if(game.inShotArea(e.getMotionEventE2().getY()))
 				feedBackManagement(e.getMotionEventE2().getX(),e.getMotionEventE2().getY());
 			else{
-				Music.getInstanceMusic().setVolume(0, 0, previous_shot_feedback_sound);
-				Music.getInstanceMusic().setVolume(0, 0, alternative_previous_shot_feedback_sound);
-				Music.getInstanceMusic().setVolume(0, 0,previous_shot_feedback_sound);
+				if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+					Music.getInstanceMusic().setVolume(0, 0, previous_shot_feedback_sound);
+					Music.getInstanceMusic().setVolume(0, 0, alternative_previous_shot_feedback_sound);
+				}
 			}
 			
 			// if tap event outside the shoot area has been received it play a sound effect.
@@ -314,10 +320,12 @@ public class Dot extends Entity{
 				if(!Music.getInstanceMusic().isPlaying(R.raw.bip)){
 					Music.getInstanceMusic().play(this.game.getContext(), R.raw.bip, false);
 				}
-				if(!Music.getInstanceMusic().isPlaying( previous_shot_feedback_sound)){
-					Music.getInstanceMusic().play(this.game.getContext(), previous_shot_feedback_sound, true);
+				if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+					if(!Music.getInstanceMusic().isPlaying( previous_shot_feedback_sound)){
+						Music.getInstanceMusic().play(this.game.getContext(), previous_shot_feedback_sound, true);
+					}
+					Music.getInstanceMusic().setVolume(0, 0, previous_shot_feedback_sound);
 				}
-				Music.getInstanceMusic().setVolume(0, 0, previous_shot_feedback_sound);
 				if(!headPhonesMode){
 					if(!Music.getInstanceMusic().isPlaying(alternative_previous_shot_feedback_sound)){
 						Music.getInstanceMusic().play(this.game.getContext(), alternative_previous_shot_feedback_sound, true);
@@ -366,11 +374,19 @@ public class Dot extends Entity{
 					initialX = this.x;
 					initialY = this.y;
 					Music.getInstanceMusic().play(this.game.getContext(), hit_feedback_sound,false);
-					Music.getInstanceMusic().stop(previous_shot_feedback_sound);
-					Music.getInstanceMusic().play(this.game.getContext(), doppler_sound, true);
+					if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+						Music.getInstanceMusic().stop(previous_shot_feedback_sound);
+					}
+					if(SettingsActivity.getDopplerEffect(this.game.getContext())){
+						Music.getInstanceMusic().play(this.game.getContext(), doppler_sound, true);
+					}
 					if(!headPhonesMode){
-						Music.getInstanceMusic().stop(alternative_previous_shot_feedback_sound);
-						Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
+						if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+							Music.getInstanceMusic().stop(alternative_previous_shot_feedback_sound);
+						}
+						if(SettingsActivity.getDopplerEffect(this.game.getContext())){
+							Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
+						}
 					}
 				}else{
 					outsideShotArea();
@@ -412,12 +428,21 @@ public class Dot extends Entity{
 					incr = 0.03f;
 					initialX = this.x;
 					initialY = this.y;
+					
 					Music.getInstanceMusic().play(this.game.getContext(), hit_feedback_sound,false);
-					Music.getInstanceMusic().stop(previous_shot_feedback_sound);
-					Music.getInstanceMusic().play(this.game.getContext(), doppler_sound, true);
+					if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+						Music.getInstanceMusic().stop(previous_shot_feedback_sound);
+					}
+					if(SettingsActivity.getDopplerEffect(this.game.getContext())){
+						Music.getInstanceMusic().play(this.game.getContext(), doppler_sound, true);
+					}
 					if(!headPhonesMode){
-						Music.getInstanceMusic().stop(alternative_previous_shot_feedback_sound);
-						Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
+						if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+							Music.getInstanceMusic().stop(alternative_previous_shot_feedback_sound);
+						}
+						if(SettingsActivity.getDopplerEffect(this.game.getContext())){
+							Music.getInstanceMusic().play(this.game.getContext(), alternative_doppler_sound, true);
+						}
 					}
 					
 				}
@@ -464,13 +489,21 @@ public class Dot extends Entity{
 	 * 
 	 * */
 	private void resetBall(){
-		Music.getInstanceMusic().play(this.game.getContext(),previous_shot_feedback_sound,true);
-		Music.getInstanceMusic().setVolume(0, 0, previous_shot_feedback_sound);
-		Music.getInstanceMusic().stop(doppler_sound);
+		if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+			Music.getInstanceMusic().play(this.game.getContext(),previous_shot_feedback_sound,true);
+			Music.getInstanceMusic().setVolume(0, 0, previous_shot_feedback_sound);
+		}
+		if(SettingsActivity.getDopplerEffect(this.game.getContext())){
+			Music.getInstanceMusic().stop(doppler_sound);
+		}
 		if(!headPhonesMode){
-			Music.getInstanceMusic().play(this.game.getContext(),alternative_previous_shot_feedback_sound,true);
-			Music.getInstanceMusic().setVolume(0, 0, alternative_previous_shot_feedback_sound);
-			Music.getInstanceMusic().stop(alternative_doppler_sound);
+			if(SettingsActivity.getSoundFeedBack(this.game.getContext())){ 
+				Music.getInstanceMusic().play(this.game.getContext(),alternative_previous_shot_feedback_sound,true);
+				Music.getInstanceMusic().setVolume(0, 0, alternative_previous_shot_feedback_sound);
+			}
+			if(SettingsActivity.getDopplerEffect(this.game.getContext())){
+				Music.getInstanceMusic().stop(alternative_doppler_sound);
+			}
 		}
 
 		// Removes all events

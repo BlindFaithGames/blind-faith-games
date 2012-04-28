@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="advice">Aconsejamos utilizar auriculares para jugar a este juego.</string>
-	<string name="advice">Juego hecho por, Blind Faith Games</string>	
+	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
 	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición horizontal</string>
     <string name="settingsInitialSpeech">Seleccione la opción que desee</string>
     <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
@@ -65,7 +65,7 @@
     <string name="search">Buscar</string>
     <string name="alert_dialog_instructions_TTStext">Diálogo de alerta</string>
     <string name="main_menu_initial_TTStext">Menú principal</string>
-    <string name="settings_menu_initial_TTStext">Menu de ajustes. 
+    <string name="settings_menu_initial_TTStext">Menú de ajustes. 
     			Pulsando en cualquiera de las opciones mostradas a lo largo de la pantalla puede activar o desactivar 
 			    una configuración. Al tiempo que activa o desactiva puede leer su descripción para conocer la función que
 			    lleva a cabo en la aplicación.
@@ -87,6 +87,9 @@
     <string name="recordSpeech">Su record actual es</string>
     <string name="counterSpeech">Su contador actual es</string>
     <string name="newRecordSpeech">¡Nuevo record!</string>
+    <string name="scoreboard_success">Tú puntuación se ha incrementado hasta </string>
+    <string name="scoreboard_fail">Tú puntuación ha disminuido hasta </string>
+    <string name="scoreboard_reset">Tú número de lanzamiento consecutivos es cero.</string>
     <string name="ranking_title">Ranking de juego anteriores</string>
     <string name="ranking_speech">Tiempo, fecha y record</string>
     <string name="dialog_select">Seleccione controles o instrucciones generales</string>
@@ -125,17 +128,17 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
     <!-- Onomatopeias strings -->
     <string name="appear_ono">bing bing!</string>
     <string name="apple_bite_ono">crap!</string>
-    <string name="barn_beat_ono">Está sonando \'Barn Beat\'</string>
+    <string name="barn_beat_ono">Reproduciendo \'Barn Beat\'</string>
     <string name="bip_ono">bip!!</string>
     <string name="bubble_ono">run run</string>
     <string name="die_ono">qua qua qua!</string>
-    <string name="frost_walz_ono">Está sonando \'Frost Walz\'</string>
+    <string name="frost_walkz_ono">Reproduciendo \'Frost Walkz\'</string>
     <string name="predator_ono">arg!!</string>
     <string name="prey_ono">miau!</string>
     <string name="prey_dead_ono">ayyy!!</string>
     <string name="radio_ono">sintonizando radio</string>
     <string name="start_ono">Piii!</string>
-    <string name="the_path_of_the_goblin_ono">Está sonando \'Path of the Goblin\'</string>
+    <string name="the_path_of_the_goblin_ono">Reproduciendo \'Path of the Goblin\'</string>
 
     <string name="disabled">Activada</string>
     <string name="enabled">Desactivada</string>
@@ -188,4 +191,5 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
 
 	<string name="screen_off_message">Tu pantalla se ha apagado.</string>
     <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
+    <string name="load_text">Enviando información... Por favor espere</string>
 </resources>
