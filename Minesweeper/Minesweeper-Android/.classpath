@@ -11,11 +11,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="libs/libGoogleAnalytics.jar"/>
-	<classpathentry kind="lib" path="libs/requestfactory-client.jar"/>
-	<classpathentry kind="lib" path="libs/requestfactory-client-src.jar"/>
-	<classpathentry kind="lib" path="libs/validation-api-1.0.0.GA.jar"/>
-	<classpathentry kind="lib" path="libs/c2dm-sources.jar"/>
-	<classpathentry kind="lib" path="libs/c2dm.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/libGoogleAnalytics.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/requestfactory-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/requestfactory-client-src.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/validation-api-1.0.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/c2dm-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/c2dm.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/acra-4.2.3.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

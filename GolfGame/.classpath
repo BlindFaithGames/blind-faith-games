@@ -4,8 +4,9 @@
 	<classpathentry kind="src" path="OPEN_AL"/>
 	<classpathentry kind="src" path="ENGINE"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="lib" path="/Engine/libs/libGoogleAnalytics.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Engine/libs/acra-4.2.3.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
