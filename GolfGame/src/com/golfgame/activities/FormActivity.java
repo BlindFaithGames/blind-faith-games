@@ -1,4 +1,6 @@
 package com.golfgame.activities;
+import org.acra.ErrorReporter;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -153,6 +155,10 @@ public class FormActivity extends Activity implements OnClickListener,
 			
 			if(nQuestion == N_QUESTIONS){
 				textToSpeech.speak(getString(R.string.load_text));
+				// We save the form
+				ErrorReporter.getInstance().putCustomData("Formulario",l.toString());
+				// We send it
+				ErrorReporter.getInstance().handleSilentException(new Exception("Envio Formulario"));
 				this.finish();
 				return true;
 			}

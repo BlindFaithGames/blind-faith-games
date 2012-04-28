@@ -4,7 +4,9 @@ import android.app.Application;
 import org.acra.*;
 import org.acra.annotation.*;
 
-@ReportsCrashes(formKey = "dFNvb2VqZ09DNHhUN2IwZ0lpRkZMY2c6MQ")
+@ReportsCrashes(formKey = "dFNvb2VqZ09DNHhUN2IwZ0lpRkZMY2c6MQ",
+customReportContent = { ReportField.PACKAGE_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, 
+		ReportField.CUSTOM_DATA, ReportField.SHARED_PREFERENCES, ReportField.STACK_TRACE })
 public class AcraSending extends Application {
 	@Override
 	public void onCreate() {

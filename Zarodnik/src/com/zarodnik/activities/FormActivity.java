@@ -1,5 +1,7 @@
 package com.zarodnik.activities;
 
+import org.acra.ErrorReporter;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -150,6 +152,10 @@ public class FormActivity extends Activity implements OnClickListener,
 			
 			if(nQuestion == N_QUESTIONS){
 				textToSpeech.speak(getString(R.string.load_text));
+				// We save the form
+				ErrorReporter.getInstance().putCustomData("Formulario",l.toString());
+				// We send it
+				ErrorReporter.getInstance().handleSilentException(new Exception("Envio Formulario"));
 				this.finish();
 				return true;
 			}
@@ -348,12 +354,10 @@ public class FormActivity extends Activity implements OnClickListener,
 	 * OnFocusChangeListener Interface
 	 * */
 	public void onFocusChange(View v, boolean hasFocus) {
-		int ans = -1;
 		if (hasFocus) {
 			if(v != null && v.getContentDescription() != null)
 				textToSpeech.speak(v);
 		}
-
 	}
 
 
