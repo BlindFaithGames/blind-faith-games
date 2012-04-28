@@ -117,6 +117,7 @@ public class SplashScreen extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             _active = false;
+            textToSpeech.stop();
         }
         return true;
     }
