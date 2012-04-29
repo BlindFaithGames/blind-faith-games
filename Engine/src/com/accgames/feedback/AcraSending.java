@@ -5,7 +5,7 @@ import org.acra.*;
 import org.acra.annotation.*;
 
 @ReportsCrashes(formKey = "dFNvb2VqZ09DNHhUN2IwZ0lpRkZMY2c6MQ",
-customReportContent = { ReportField.PACKAGE_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, 
+customReportContent = { ReportField.PACKAGE_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.INSTALLATION_ID, 
 		ReportField.CUSTOM_DATA, ReportField.SHARED_PREFERENCES, ReportField.STACK_TRACE })
 public class AcraSending extends Application {
 	@Override
