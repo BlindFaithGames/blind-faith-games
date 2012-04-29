@@ -2,6 +2,8 @@ package com.zarodnik.game;
 
 import java.util.List;
 
+import org.pielot.openal.Source;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,6 +16,7 @@ import com.accgames.general.GameState;
 import com.accgames.general.Mask;
 import com.accgames.graphics.SpriteMap;
 import com.accgames.others.RuntimeConfig;
+import com.accgames.sound.Sound2D;
 
 public abstract class Item extends Entity {
 	
@@ -22,7 +25,7 @@ public abstract class Item extends Entity {
 	public static final int ITEM_NUMBER = 3;
 	
 	public static final int RADIO = 0;
-	public static final int SEAWEED = 1;
+	public static final int CHAINFISH = 1;
 	public static final int CAPSULE = 2;
 	
 	protected enum State{ EATEN, NORMAL };
@@ -64,15 +67,26 @@ public abstract class Item extends Entity {
 		else{
 			this.stopAllSources();
 		}
-		
-		switch(state){
-			case EATEN:
-				break;
-			case NORMAL:
-				break;
+		if(this.gameState!= null){
+			if(this.gameState.getPlayer().isInMovement())
+				changePitch();
 		}
 	}
 	
+	private void changePitch() {
+		List<Sound2D> sources = this.getSources();
+		Source s;
+		float n;
+		if(this.gameState.getPlayer().getY() > this.y)
+			n = 1;
+		else
+			n = 1.2f;
+		if(!sources.isEmpty()){
+			s = sources.get(0).getS();
+			s.setPitch(n);
+		}
+	}
+
 	private boolean checkAround() {
 		if(this.gameState != null){
 			boolean result = (Math.abs(this.gameState.getPlayer().getX() - (2*this.x + this.getImgWidth())/2) < this.getImgWidth()*4)

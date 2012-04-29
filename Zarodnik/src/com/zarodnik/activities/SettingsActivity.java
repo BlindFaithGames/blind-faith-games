@@ -20,7 +20,6 @@ import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
 import com.zarodnik.game.ZarodnikMusicSources;
-import com.zarodnik.others.ScreenReceiver;
 
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
@@ -74,23 +73,6 @@ public class SettingsActivity extends PreferenceActivity implements
 				+ findPreference(OPT_BLIND_INTERACTION).toString());
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		 if (!ScreenReceiver.wasScreenOn) {
-	        	textToSpeech.speak(getString(R.string.screen_on_message));
-	        }
-
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-        if (ScreenReceiver.wasScreenOn) {
-       	 	textToSpeech.speak(getString(R.string.screen_off_message));
-        }
-	}
-	
 	/**
 	 * Turns off TTS engine
 	 */

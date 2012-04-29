@@ -29,7 +29,6 @@ import com.zarodnik.game.ZarodnikGameOver;
 import com.zarodnik.game.ZarodnikGameplay;
 import com.zarodnik.game.ZarodnikIntro;
 import com.zarodnik.game.ZarodnikMusicSources;
-import com.zarodnik.others.ScreenReceiver;
 
 public class ZarodnikGameActivity extends Activity {
 	private TTS textToSpeech;
@@ -125,10 +124,6 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		 if (!ScreenReceiver.wasScreenOn) {
-	        	textToSpeech.speak(getString(R.string.screen_on_message));
-	        }
-
 	}
 
 	/**
@@ -143,13 +138,9 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-        if (ScreenReceiver.wasScreenOn) {
-       	 	textToSpeech.speak(getString(R.string.screen_off_message));
-        }else{
-    		textToSpeech.stop();
-    		Sound3DManager.getSoundManager(this).stopAllSources();
-    		game.clear();
-        }
+    	textToSpeech.stop();
+    	Sound3DManager.getSoundManager(this).stopAllSources();
+    	game.clear();
 	}
 
 	/**

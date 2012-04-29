@@ -8,11 +8,9 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -39,10 +37,9 @@ import com.accgames.sound.SubtitleInfo;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
 import com.zarodnik.game.ZarodnikMusicSources;
-import com.zarodnik.others.ScreenReceiver;
 
 /**
- * @author Gloria Pozuelo and Javier �lvarez
+ * @author Gloria Pozuelo and Javier Álvarez
  * This class implements the music manager of the game
  */
 
@@ -87,8 +84,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		setScreenContent(R.layout.main);
 		
-		initializeReceiver();
-		
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
@@ -100,13 +95,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		checkFolderApp(getString(R.string.app_name)+".xml");
 	}		 
-
-	private void initializeReceiver() {
-		IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        BroadcastReceiver mReceiver = new ScreenReceiver();
-        registerReceiver(mReceiver, filter);
-	}
 
 	private void checkFirstExecution() {
 		wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -486,24 +474,19 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		// only when screen turns on
-        if (!ScreenReceiver.wasScreenOn) {
-        	textToSpeech.speak(getString(R.string.screen_on_message));
-        } else {
-      		blindInteraction = SettingsActivity.getBlindInteraction(this);
-      		
-      		blindMode();
-      		
-      		soundManagement();
-      		
-      		transcriptionMode();
-      		
-      		checkFolderApp(getString(R.string.app_name)+".xml");
-      		
-      		// Removes all events
-      		Input.getInput().clean();
-        }
+
+  		blindInteraction = SettingsActivity.getBlindInteraction(this);
+  		
+  		blindMode();
+  		
+  		soundManagement();
+  		
+  		transcriptionMode();
+  		
+  		checkFolderApp(getString(R.string.app_name)+".xml");
+  		
+  		// Removes all events
+  		Input.getInput().clean();
       
 	}
 	
@@ -542,12 +525,9 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 
 	@Override
 	protected void onPause() {
-        if (ScreenReceiver.wasScreenOn && !isFinishing() && !startNewActivity) {
-            textToSpeech.speak(getString(R.string.screen_off_message));
-        } else {
-        	Music.getInstanceMusic().stop(R.raw.main);
-        	startNewActivity = false;
-        }
+
+        Music.getInstanceMusic().stop(R.raw.main);
+       
         super.onPause();
 	}
 

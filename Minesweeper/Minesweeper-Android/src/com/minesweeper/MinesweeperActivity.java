@@ -84,7 +84,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
-	
+
 	// By default interaction is set to blind mode
 	private boolean blindInteraction; 
 

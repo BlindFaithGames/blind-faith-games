@@ -69,7 +69,9 @@
 			    Clicking on each element on this menu changes and reads an option. 
 			    You have the next options on this menu\: 
 </string>
-    <string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen</string>
+    <string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen. Remember you have 
+    to find the prey and avoid the predators. On the top on the screen there is a scoreboard where you can
+    listen to your punctuation doing long clicks.</string>
     <string name="coordinates_information_button_TTStext">Position</string>
     <string name="key_configuration_menu_initial_TTStext">Key Configuration. Clicking on your left you can listen action descriptions
 			     and on your right you can change the key related 
@@ -99,18 +101,22 @@
 	creatures and he was learning things about survival. Therefore, now our hero is in the midst of a battle between prey and predators. What will bring in our adventure? To continue long touch on the screen</string>
     <string name="game_over_text">The game concludes here </string>
     <string name="game_over_tts">The game concludes here. Long touch on the screen to end</string>
-    <string name="screen_change">there is a screen change</string>
+    <string name="screen_change_begins">Screen change begun.</string>
+    <string name="screen_change_ends">Screen change ended.</string>
     <string name="instruction_speech">Long click to back to the main menu</string>
     <string name="key_conf_fail">Not a valid key</string>
     <string name="key_conf_success">You have changed the key associated with</string>
 
     <!-- Tutorial strings -->
     <string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
-    <string name="tutorial_intro">Here you can learn the basics to play. To listen the entities sounds you have to do double click on the screen. Long press to exit.</string>
+    <string name="tutorial_intro">Here you can learn the basics to play. On the next screens, to listen the entities sounds you have to do double click on the screen. Long press to go to the next step.</string>
+    <string name="tutorial00_intro">On this screen you will learn the sounds related with preys and predators. 
+    Remember! Double tap on different positions on the screen 
+    to listen different sounds and long click to go to the next tutorial step.</string>
     <string name="tutorial00_predator">That sounds represents the predator that you have to avoid.</string>
     <string name="tutorial00_prey">That sound represents the prey that you have to find in the screen.</string>
     <string name="tutorial01_radio">That sound represents the radio that you can find in the screen. It helps you to find the prey.</string>
-    <string name="tutorial02_seaweed">That sound represents the seaweed that you can find in the screen. If you eat it you become invulnerable.</string>
+    <string name="tutorial02_chainfish">That sound represents the chainfish that you can find in the screen. If you eat it you become invulnerable.</string>
     <string name="tutorial03_capsule">That sound represents the capsule that you can find in the screen. Randomly increments/decrements your size.</string>
     <string name="tutorial04_instructions">To move simply you have to drag your finger on the screen and when you release the touch, everything on the screen will be paused until 
         the next touch. Double click to listen the sound emitted by the hero when it\'s moving. Long press to continue.
@@ -129,11 +135,14 @@
     <string name="die_ono">qua qua qua!</string>
     <string name="frost_walkz_ono">Playing \'Frost Walkz\'</string>
     <string name="predator_ono">arg!!</string>
-    <string name="prey_ono">miau!</string>
+    <string name="prey_ono">miaaamiaa!</string>
     <string name="prey_dead_ono">ayyy!!</string>
-    <string name="radio_ono">tuning</string>
+    <string name="radio_ono">tuning...</string>
     <string name="start_ono">Piii!</string>
     <string name="the_path_of_the_goblin_ono">Playing \'The path of the goblin\'</string>
+    <string name="chain">trrrntrrrn</string>
+    <string name="pill">toctoctoc</string>
+    
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
 
@@ -182,4 +191,7 @@
     <string name="screen_off_message">Your screen has turned off.</string>
     <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
     <string name="load_text">Sending information... Please wait</string>
+    
+    <string name="size_inc">Your size has been incremented.</string>
+    <string name="size_dec">Your size has been decremented.</string>
 </resources>

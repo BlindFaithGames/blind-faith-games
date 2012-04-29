@@ -2,20 +2,16 @@ package com.zarodnik.activities;
 
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
-import android.widget.TextView;
 
 import com.accgames.input.Input;
-import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
-import com.zarodnik.others.ScreenReceiver;
 
 public class AboutActivity extends Activity implements OnTouchListener{
 
@@ -44,41 +40,24 @@ public class AboutActivity extends Activity implements OnTouchListener{
 	}
 	
 	private void setContentScreen() {
-		float fontSize;
-		float scale;
-		Typeface font;
-		TextView t;
+		//float fontSize;
+		//float scale;
+		//Typeface font;
+		//TextView t;
 		View v;
 		
 		setContentView(R.layout.about);
 		
-		scale = this.getResources().getDisplayMetrics().density;
-		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
+		//scale = this.getResources().getDisplayMetrics().density;
+		//fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
+		//font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
 		
-		t = (TextView) findViewById(R.id.about_content);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);
+		//t = (TextView) findViewById(R.id.about_content);
+		//t.setTextSize(fontSize);
+		//t.setTypeface(font);
 		
 		v = findViewById(R.id.about_root);
 		v.setOnTouchListener(this);
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		 if (!ScreenReceiver.wasScreenOn) {
-	        	textToSpeech.speak(getString(R.string.screen_on_message));
-	        }
-
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-        if (ScreenReceiver.wasScreenOn) {
-       	 	textToSpeech.speak(getString(R.string.screen_off_message));
-        }
 	}
 	
 	/**

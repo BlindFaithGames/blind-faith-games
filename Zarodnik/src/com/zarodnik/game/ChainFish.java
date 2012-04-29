@@ -13,13 +13,13 @@ import com.accgames.others.RuntimeConfig;
 import com.accgames.sound.Music;
 import com.zarodnik.R;
 
-public class Seaweed extends Item {
+public class ChainFish extends Item {
 
 	private Player player;
 	
 	private static int instancesNo;
 	
-	public Seaweed(int x, int y, Bitmap img, GameState gameState,
+	public ChainFish(int x, int y, Bitmap img, GameState gameState,
 			List<Mask> mask, SpriteMap animations, String soundName,
 			Point soundOffset, boolean collide) {
 		super(x, y, img, gameState, mask, animations, soundName, soundOffset, collide);

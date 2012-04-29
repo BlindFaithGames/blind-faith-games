@@ -70,10 +70,10 @@ public class ScoreBoard extends Entity {
 	}
 	
 	private void onTouch() {
-		EventType drag = Input.getInput().getEvent("onDrag");
-		if(drag != null){
-			double ex = drag.getMotionEventE1().getX();
-			double ey = drag.getMotionEventE1().getY();
+		EventType lp = Input.getInput().getEvent("onLongPress");
+		if(lp != null){
+			double ex = lp.getMotionEventE1().getX();
+			double ey = lp.getMotionEventE1().getY();
 			if(this.x - (ZarodnikGameplay.SCREEN_WIDTH - 200) < ex && 
 					this.y - 30 < ey && 
 					ex < GameState.SCREEN_WIDTH && 
@@ -95,7 +95,7 @@ public class ScoreBoard extends Entity {
 					+ " " + counter);
 			
 		}
-	//onTouch();
+		onTouch();
 	}
 	
 	public void incrementCounter(){
@@ -150,10 +150,16 @@ public class ScoreBoard extends Entity {
 
 	public void decrementCounter(int i) {
 		counter -= i;
-		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_success) + " " + counter);
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_fail) + " " + counter);
 	}
 
 	@Override
 	public void onRemove() {}
+
+	public float getHeight() {
+		float scale = this.gameState.getContext().getResources().getDisplayMetrics().density;
+		float fontSize = ((this.gameState.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale);
+		return fontSize + 10;
+	}
 
 }

@@ -56,7 +56,6 @@ public class PrefsActivity extends PreferenceActivity implements OnPreferenceCli
 
 		tts = (CheckBoxPreference) findPreference(OPT_TTS);
 		tts.setOnPreferenceClickListener(this);
-
 		
 		transcription = (CheckBoxPreference) findPreference(OPT_TRANSCRIPTION);
 		transcription.setOnPreferenceClickListener(this);

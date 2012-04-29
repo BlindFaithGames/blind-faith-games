@@ -153,18 +153,20 @@ public class Player extends Entity{
 		EventType e  = Input.getInput().removeEvent("onDrag"); 
 		
 		if (e != null && state != State.DIE){
-			initMovementParameters();
-			
-			vx = e.getMotionEventE1().getX() - dotCenterX;
-			vy = e.getMotionEventE1().getY() - dotCenterY;
-			
-			destX = e.getMotionEventE1().getX();
-			
-			destY = e.getMotionEventE1().getY();
-			
-			inMovement = true;
-			if(!Music.getInstanceMusic().isPlaying(move_sound)){
-				Music.getInstanceMusic().play(this.gameState.getContext(), move_sound, true);
+			if(e.getMotionEventE1().getY() > scoreBoard.getHeight()){
+				initMovementParameters();
+				
+				vx = e.getMotionEventE1().getX() - dotCenterX;
+				vy = e.getMotionEventE1().getY() - dotCenterY;
+				
+				destX = e.getMotionEventE1().getX();
+				
+				destY = e.getMotionEventE1().getY();
+				
+				inMovement = true;
+				if(!Music.getInstanceMusic().isPlaying(move_sound)){
+					Music.getInstanceMusic().play(this.gameState.getContext(), move_sound, true);
+				}
 			}
 		}
 		
@@ -255,6 +257,7 @@ public class Player extends Entity{
 			
 			state = State.EAT;
 			Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), R.raw.apple_bite, false);
+			this.gameState.getTTS().speak(gameState.getContext().getString(R.string.size_inc));
 			onEat();
 			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP);
 		
@@ -263,7 +266,7 @@ public class Player extends Entity{
 			((Creature) e).onDie();
 	
 			scoreBoard.incrementCounter();
-		}else if (e instanceof Capsule || e instanceof Seaweed || e instanceof Radio){
+		}else if (e instanceof Capsule || e instanceof ChainFish || e instanceof Radio){
 			inMovement = false;
 			destX = x;
 			destY = y;
@@ -272,6 +275,7 @@ public class Player extends Entity{
 			
 			state = State.EAT;
 			Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), R.raw.apple_bite, false);
+			
 			onEat();
 			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP);
 		}

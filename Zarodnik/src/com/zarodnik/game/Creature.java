@@ -3,6 +3,8 @@ package com.zarodnik.game;
 import java.util.List;
 import java.util.Random;
 
+import org.pielot.openal.Source;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,6 +17,7 @@ import com.accgames.general.GameState;
 import com.accgames.general.Mask;
 import com.accgames.graphics.SpriteMap;
 import com.accgames.others.RuntimeConfig;
+import com.accgames.sound.Sound2D;
 import com.zarodnik.game.ZarodnikGameplay.Sense;
 
 public abstract class Creature extends Entity{
@@ -29,7 +32,6 @@ public abstract class Creature extends Entity{
 	private int steps;
 	
 	protected boolean die;
-	
 
 	public Creature(int x, int y, Bitmap img, GameState game, List<Mask> mask, SpriteMap animations, String soundName, Point soundOffset, boolean collidable, int speed) {
 		super(x, y, img, game, mask, animations, soundName, soundOffset, collidable);
@@ -84,10 +86,28 @@ public abstract class Creature extends Entity{
 			else{
 				steps = moveCreature(direction, speed, steps);
 			}
+			if(this.game != null){
+				if(this.game.getPlayer().isInMovement())
+					changePitch();
+			}
 		}
 		super.onUpdate();
 	}
 	
+	private void changePitch() {
+		List<Sound2D> sources = this.getSources();
+		Source s;
+		float n;
+		if(this.game.getPlayer().getY() > this.y)
+			n = 1;
+		else
+			n = 1.4f;
+		if(!sources.isEmpty()){
+			s = sources.get(0).getS();
+			s.setPitch(n);
+		}
+	}
+
 	public abstract void onDie();
 
 	@Override

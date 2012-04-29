@@ -22,7 +22,6 @@ import com.accgames.input.KeyboardWriter;
 import com.accgames.input.XMLKeyboard;
 import com.accgames.sound.TTS;
 import com.zarodnik.R;
-import com.zarodnik.others.ScreenReceiver;
 
 
 public class KeyConfActivity extends Activity implements OnFocusChangeListener, OnClickListener, OnLongClickListener {
@@ -76,23 +75,6 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		textToSpeech.setInitialSpeech(getString(R.string.key_configuration_menu_initial_TTStext)
 										+ buttonRecord.getContentDescription() + ", "
 										+ buttonRepeat.getContentDescription());
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		 if (!ScreenReceiver.wasScreenOn) {
-	        	textToSpeech.speak(getString(R.string.screen_on_message));
-	        }
-
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-        if (ScreenReceiver.wasScreenOn && !isFinishing()) {
-       	 	textToSpeech.speak(getString(R.string.screen_off_message));
-        }
 	}
 	
 	/**

@@ -22,6 +22,8 @@ public class ZarodnikMusicSources {
 	private static final int radio = R.raw.radio;
 	private static final int start = R.raw.start;
 	private static final int the_path_of_the_goblin = R.raw.main;
+	private static final int chain = R.raw.chain;
+	private static final int pill = R.raw.pill;
 	
 	public static Map<Integer, String> getMap(Context c) {
 		Map<Integer, String> result = new HashMap<Integer, String>();
@@ -39,6 +41,9 @@ public class ZarodnikMusicSources {
 		result.put(radio, c.getString(R.string.radio_ono));
 		result.put(start, c.getString(R.string.start_ono));
 		result.put(the_path_of_the_goblin, c.getString(R.string.the_path_of_the_goblin_ono));
+		result.put(chain, c.getString(R.string.chain));
+		result.put(pill, c.getString(R.string.pill));
+		
 		
 		return result;
 	}

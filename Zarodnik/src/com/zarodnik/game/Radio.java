@@ -40,6 +40,7 @@ public class Radio extends Item{
 			this.setTimer(0, RuntimeConfig.FRAMES_PER_STEP);
 			this.setTimer(1, RuntimeConfig.FRAMES_PER_STEP*5);
 			this.setCollidable(false);
+			state = State.EATEN;
 			player = e;
 		}
 	}

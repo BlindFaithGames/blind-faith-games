@@ -71,7 +71,9 @@
 			    lleva a cabo en la aplicación.
 			    Tiene las siguientes opciones dentro de este menu\: 
 	</string>
-    <string name="game_play_initial_TTStext">¡El juego ha comenzado! Empieza en el centro en la parte de abajo de la pantalla.</string>
+    <string name="game_play_initial_TTStext">¡El juego ha comenzado! Empiezas en el centro en la parte de abajo de la pantalla.
+    Recuerda encuentra a la presa y evita los depredadores. En la parte superior de la pantalla, mediante long clicks puedes consultar un marcador
+    que te indicará tu puntuación.</string>
     <string name="coordinates_information_button_TTStext">Posición</string>
     <string name="key_configuration_menu_initial_TTStext">
 				Configuración de teclado. Mediante taps a tu izquierda puedes escuchar
@@ -105,18 +107,22 @@ Es por ello, que ahora nuestro protagonista se encuentra en medio de una batalla
 Para continuar realiza una pulsación larga sobre la pantalla</string>
     <string name="game_over_text">El juego finaliza aquí</string>
     <string name="game_over_tts">El juego finaliza aquí. Para salir realice una pulsación larga</string>
-    <string name="screen_change">Se está realizando un cambio de pantalla</string>
+        <string name="screen_change_begins">Cambio de pantalla comenzado.</string>
+    <string name="screen_change_ends">Cambio de pantalla finalizado.</string>
     <string name="instruction_speech">Pulsación larga para regresar al menú principal</string>
     <string name="key_conf_fail">No es una tecla válida</string>
     <string name="key_conf_success">Has cambiado la tecla asociada a</string>
     <!-- Tutorial strings -->
     <string name="tutorial_warning">Si quiere salir de esta pantalla simplemente haga una pulsación larga en pantalla.</string>
-    <string name="tutorial_intro">Aquí podrá aprender los conceptos básicos para jugar. Para escuchar los sonidos que representan los objetos realice doble click. 
-	Para salir realice una pulsación larga.</string>
+    <string name="tutorial_intro">Aquí podrá aprender los conceptos básicos para jugar. En las siguientes pantallas, para escuchar los sonidos que representan los objetos realice doble click. 
+	Para pasar al siguiente paso del tutorial realice una pulsación larga.</string>
+    <string name="tutorial00_intro">En esta pantalla aprenderás los sonidos relacionados con presas y depredadores.
+    Recuerda! doble pulsación en una mitad u otra de la pantalla para escuchar un sonido diferente
+    y pulsación larga para pasar al siguiente paso del tutorial.</string>
     <string name="tutorial00_predator">Ese sonido representa el depredador que debe de evitar.</string>
     <string name="tutorial00_prey">Ese sonido representa la presa que tiene que encontrar por la pantalla.</string>
     <string name="tutorial01_radio">Ese sonido representa la radio que encontrará en algunas pantallas. Le ayudará a encontrar la presa.</string>
-    <string name="tutorial02_seaweed">Ese sonido representa el alga marina que encontrará en algunas pantallas. Si la encuentra se volverá invulnerable.</string>
+    <string name="tutorial02_chainfish">Ese sonido representa el pez cadena que encontrará en algunas pantallas. Si la encuentra se volverá invulnerable.</string>
     <string name="tutorial03_capsule">Ese sonido representa la cápsula que encontrará en algunas pantallas. Incrementará o decrementará de manera aleatoria el tamaño
 	    del protagonista dificultando o facilitando respectivamente la movilidad por pantalla.</string>
     <string name="tutorial04_instructions">Para moverse simplemente desplace la pulsación sobre la pantalla y cuando la suelte todo lo que se muestra en pantalla quedará pausado hasta la siguiente pulsación. Para escuchar el sonido
@@ -192,4 +198,7 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
 	<string name="screen_off_message">Tu pantalla se ha apagado.</string>
     <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
     <string name="load_text">Enviando información... Por favor espere</string>
+   
+    <string name="size_inc">Tu tamaño se ha incrementado.</string>
+    <string name="size_dec">Tu tamaño se ha reducido.</string>
 </resources>

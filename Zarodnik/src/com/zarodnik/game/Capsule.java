@@ -1,7 +1,6 @@
 package com.zarodnik.game;
 
 import java.util.List;
-import java.util.Random;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -11,6 +10,7 @@ import com.accgames.general.GameState;
 import com.accgames.general.Mask;
 import com.accgames.graphics.SpriteMap;
 import com.accgames.others.RuntimeConfig;
+import com.zarodnik.R;
 
 public class Capsule extends Item {
 
@@ -23,8 +23,7 @@ public class Capsule extends Item {
 			Point soundOffset, boolean collide) {
 		super(x, y, img, gameState, mask, animations, soundName, soundOffset, collide);
 		
-		Random numberGenerator = new Random();
-		increment = numberGenerator.nextInt(2) == 0;
+		increment = false;
 		instancesNo++;
 	}
 
@@ -38,6 +37,8 @@ public class Capsule extends Item {
 				player.resize(-Player.PIXEL_PLAYER_RESIZE);
 			
 			this.state = State.EATEN;
+			
+			this.gameState.getTTS().speak(gameState.getContext().getString(R.string.size_dec));
 			
 			this.setTimer(0, RuntimeConfig.FRAMES_PER_STEP);
 			this.setCollidable(false);

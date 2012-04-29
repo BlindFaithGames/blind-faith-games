@@ -53,11 +53,11 @@ public class ZarodnikGameplay extends GameState {
 	private static final int maxPredatorNumber = 3;
 	private static final int prey_sound_die = R.raw.prey_dead;
 
-	private static String prey_sound = "miau";
+	private static String prey_sound = "miaaamiaa";
 	private static String predator_sound = "arg";
-	private static String radio_sound = "tunning...";
-	private static String seaweed_sound = "tunning..."; // TODO: find ocean sound
-	private static String capsule_sound = "tunning..."; // TODO: find ? sound
+	private static String radio_sound = "tuning...";
+	private static String chainfish_sound = "trrrntrrrn"; 
+	private static String capsule_sound = "toctoctoc"; 
  	
 	// Sheets dimensions
 	private static int playerRow = 8;
@@ -185,7 +185,7 @@ public class ZarodnikGameplay extends GameState {
 		createPredator(sheetSize);
 		// Prey
 		createPrey(sheetSize);
-		// Capsule, radio, seaweed, whatever
+		// Capsule, radio, chainfish, whatever
 		createItems();
 	}
 	
@@ -368,8 +368,7 @@ public class ZarodnikGameplay extends GameState {
 			sources = e.getSources();
 			if(!sources.isEmpty()){
 				s = sources.get(0).getS();
-				s.setGain(5);
-				s.setPitch(0.5f);
+				s.setGain(10);
 			}
 			predatorN--;
 		}
@@ -399,6 +398,8 @@ public class ZarodnikGameplay extends GameState {
 		Bitmap preyBitmap = null;
 		ArrayList<Integer> aux;
 		ArrayList<Mask> preyMasks;
+		List<Sound2D> sources;
+		Source s;
 		Entity e;
 		
 		BitmapScaler scaler;
@@ -456,6 +457,12 @@ public class ZarodnikGameplay extends GameState {
 		}
 		
 		tempEntities.add(e);
+		
+		sources = e.getSources();
+		if(!sources.isEmpty()){
+			s = sources.get(0).getS();
+			s.setGain(10);
+		}
 		
 		prey = e;
 		
@@ -546,13 +553,13 @@ public class ZarodnikGameplay extends GameState {
 			if (preyN == 0) {
 				createEntitiesWithoutPlayer(400);
 				Music.getInstanceMusic().play(this.getContext(), R.raw.bip, true);
+				this.getTTS().speak(this.getContext().getString(R.string.screen_change_begins));
 			}
         	transitionEffectLogic();
         }
 
 	}
 	
-
 	private void transitionEffectBackground(Canvas canvas) {
 		int width; 
 		int height;
@@ -580,7 +587,7 @@ public class ZarodnikGameplay extends GameState {
 				e.setX((int) (e.getX() + incX)); 
 				e.setY((int) (e.getY() + incY));
 			}
-			if(e instanceof Radio || e instanceof Seaweed || e instanceof Capsule){
+			if(e instanceof Radio || e instanceof ChainFish || e instanceof Capsule){
 //				e.remove();
 			}
 			if(e.isRenderable())
@@ -620,8 +627,13 @@ public class ZarodnikGameplay extends GameState {
 			getRenderables().clear();
 			dx = 0;
 			dy = 0;
+			
+			if(player != null)
+				player.setInvulnerable(false);
+			Music.getInstanceMusic().stop(R.raw.barn_beat);
+			
 			this.getTTS().setQueueMode(TTS.QUEUE_FLUSH);
-			this.getTTS().speak(this.getContext().getString(R.string.screen_change));
+			this.getTTS().speak(this.getContext().getString(R.string.screen_change_ends));
 			Music.getInstanceMusic().stop(R.raw.bip);
 			if(tutorial)
 				this.stop();
@@ -663,8 +675,8 @@ public class ZarodnikGameplay extends GameState {
 			case(Item.RADIO):
 				itemBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.radio);
 				break;
-			case(Item.SEAWEED):
-				itemBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.seaweed);
+			case(Item.CHAINFISH):
+				itemBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.chainfish);
 				break;
 			case(Item.CAPSULE):
 				itemBitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.capsule);
@@ -688,17 +700,17 @@ public class ZarodnikGameplay extends GameState {
 		case(Item.RADIO):
 			i = new Radio(x, y, itemBitmap, this, itemMasks, null, radio_sound, new Point(frameW/2,frameW/2), true, prey);
 			s = i.getSources().get(0).getS();
-			s.setGain(5);
+			s.setGain(10);
 			break;
-		case(Item.SEAWEED):
-			i = new Seaweed(x, y, itemBitmap, this, itemMasks, null, seaweed_sound, new Point(frameW/2,frameW/2), true);
+		case(Item.CHAINFISH):
+			i = new ChainFish(x, y, itemBitmap, this, itemMasks, null, chainfish_sound, new Point(frameW/2,frameW/2), true);
 			s = i.getSources().get(0).getS();
-			s.setGain(5);
+			s.setGain(10f);
 			break;
 		case(Item.CAPSULE):
 			i = new Capsule(x, y, itemBitmap, this, itemMasks, null, capsule_sound, new Point(frameW/2,frameW/2), true);
 			s = i.getSources().get(0).getS();
-			s.setGain(5);
+			s.setGain(100);
 			break;
 		default:
 			break;
