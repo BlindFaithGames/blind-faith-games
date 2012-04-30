@@ -76,7 +76,7 @@
         <activity
             android:name=".activities.FormActivity"
             android:label="@string/form_label"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

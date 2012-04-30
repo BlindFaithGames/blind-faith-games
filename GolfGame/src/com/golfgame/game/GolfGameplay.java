@@ -35,7 +35,6 @@ import com.accgames.sound.TTS;
 import com.accgames.sound.VolumeManager;
 import com.golfgame.R;
 import com.golfgame.activities.MainActivity;
-import com.golfgame.activities.SettingsActivity;
 
 public class GolfGameplay extends GameState implements OnCancelListener {
 
@@ -346,7 +345,6 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[2].dismiss();
 					step[3].show();
-					SettingsActivity.setOnUp(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step3_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -360,7 +358,6 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[3].dismiss();
 					step[4].show();
-					SettingsActivity.setInfoTarget(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step4_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -387,7 +384,6 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[5].dismiss();
 					step[6].show();
-					SettingsActivity.setVibration(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step6_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -401,7 +397,6 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[6].dismiss();
 					step[7].show();
-					SettingsActivity.setSoundFeedback(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step7_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -415,7 +410,6 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[7].dismiss();
 					step[8].show();
-					SettingsActivity.setDoppler(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step8_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);

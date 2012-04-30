@@ -31,7 +31,7 @@ public class AboutActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 	
 		if(!PrefsActivity.getBlindMode(this)){
-//			setTheme(android.R.style.Theme_Dialog);
+			setTheme(android.R.style.Theme_Dialog);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.about);
 		}else{

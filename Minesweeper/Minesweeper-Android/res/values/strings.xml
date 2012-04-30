@@ -321,6 +321,7 @@
 
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
+    <string name="next">Next</string>
     <string name="state">cells. State</string>
     
     <string name="pushCellSuccess">Great! you have digged various cells.</string>

@@ -324,6 +324,7 @@
     
     <string name="disabled">Desactivada</string>
     <string name="enabled">Activada</string>
+    <string name="next">Siguiente</string>
     <string name="state">celdas. Estado seleccionada</string>
     
     <string name="pushCellSuccess">Genial!. Has conseguido destapar varias celdas.</string>

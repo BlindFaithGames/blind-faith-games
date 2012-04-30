@@ -119,7 +119,8 @@ public class FormActivity extends Activity implements OnClickListener,
 		textToSpeech = (TTS) getIntent().getParcelableExtra(
 				MainActivity.KEY_TTS);
 		textToSpeech.setContext(this);
-		textToSpeech.setInitialSpeech(getString(R.string.form_label) + ", " 
+		textToSpeech.setInitialSpeech(getString(R.string.form_landscape) + 
+									getString(R.string.form_label) + ", " 
 									+ getString(R.string.form_intro) 
 									+ getString(R.string.form_instructions1));
 
