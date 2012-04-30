@@ -55,6 +55,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 
 	private TTS textToSpeech;
 	private Resources res;
+	private boolean onUp, infoTarget, vibration, soundFeedback, doppler;
 	private static Handler handler;
 
 	public GolfGameplay(int mode, View v, TTS textToSpeech, Context c, Game game) {
@@ -333,6 +334,10 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[1].dismiss();
 					step[2].show();
+					if (SettingsActivity.getOnUp(GolfGameplay.this.getContext())){
+						SettingsActivity.setOnUp(false);
+						onUp = true;
+					} else onUp = false;
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step2_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -346,7 +351,9 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[2].dismiss();
 					step[3].show();
-					SettingsActivity.setOnUp(true);
+					if (!SettingsActivity.getOnUp(GolfGameplay.this.getContext())){
+						SettingsActivity.setOnUp(true);
+					} 
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step3_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -360,7 +367,11 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[3].dismiss();
 					step[4].show();
-					SettingsActivity.setInfoTarget(true);
+					SettingsActivity.setOnUp(onUp);		
+					if (!SettingsActivity.getNotifyTarget(GolfGameplay.this.getContext())){
+						SettingsActivity.setInfoTarget(true);
+						infoTarget = false;
+					} else infoTarget = true;
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step4_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -374,6 +385,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[4].dismiss();
 					step[5].show();
+					SettingsActivity.setInfoTarget(infoTarget);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step5_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -387,7 +399,11 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[5].dismiss();
 					step[6].show();
-					SettingsActivity.setVibration(true);
+					if (!SettingsActivity.getVibrationFeedback(GolfGameplay.this.getContext())){
+						SettingsActivity.setVibration(true);
+						vibration = false;
+					} else vibration = true;
+
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step6_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -401,7 +417,12 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[6].dismiss();
 					step[7].show();
-					SettingsActivity.setSoundFeedback(true);
+					SettingsActivity.setVibration(vibration);
+					if (!SettingsActivity.getSoundFeedBack(GolfGameplay.this.getContext())){
+						SettingsActivity.setSoundFeedback(true);
+						soundFeedback = false;
+					} else soundFeedback = true;
+
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step7_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -415,7 +436,12 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[7].dismiss();
 					step[8].show();
-					SettingsActivity.setDoppler(true);
+					SettingsActivity.setSoundFeedback(soundFeedback);
+					if (!SettingsActivity.getDopplerEffect(GolfGameplay.this.getContext())){
+						SettingsActivity.setDoppler(true);
+						doppler = false;
+					} else doppler = true;
+
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step8_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -429,6 +455,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				public void run() {
 					step[8].dismiss();
 					step[9].show();
+					SettingsActivity.setDoppler(doppler);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step9_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
