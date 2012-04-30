@@ -5,18 +5,22 @@
     <!--           DIALOGS  			 -->
     <!-- =============================== -->        
     
-	<string name="advice">We recommend use headphones to play this game.</string>
-    <string name="group_name">Game made by, Blind Faith Games</string>
+	<string name="advice">We recommend you to use headphones in order to this game.</string>
+    <string name="group_name">A game by, Blind Faith Games</string>
     <string name="mode">This application works on portrait mode.</string>
-    <string name="interactionMode_select">Select an interaction mode</string>
-    <string name="interactionMode_select_TTS">Select an interaction mode. To select make a long press on the option</string>
+    <string name="interactionMode_select">This is a research project that tries to gather insight on how blind people play games on mobile
+	devices and how developers could make games that are not only accessible, but also enjoyable for them. Select an interaction mode depending
+	on if you have visual discapacity or not. To select make a long press to select an option</string>
+    <string name="interactionMode_select_TTS">This is a research project that tries to gather insight on how blind people play games on mobile
+	devices and how developers could make games that are not only accessible, but also enjoyable for them. Select an interaction mode depending
+	on if you have visual discapacity or not. To select make a long press to select an option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
-    <string name="tts_select">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer, because it has a goog quality. We are not colaborating with IVONA project but is the best
-	synthetizer we have found. Would you like to install it?</string>
+    <string name="tts_select">In order to get a better game experience, we recommend you to download the "IVONA Text-to-Speech HQ" synthesizer. Blind Faith Games is not associated or have any relation with IVONA project but we think that is the best
+	synthetizer. Would you like to install it?</string>
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>    
-    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="introMessage">Welcome, please select a difficulty</string>
     <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
@@ -52,7 +56,8 @@
 		
 		Music: Kevin MacLeod \n\n   
 		
-		<i>Android is a trademark of Google Inc.</i>	</string>
+		<i>Android is a trademark of Google Inc.</i>
+	</string>
 	
     <!-- =============================== -->
     <!--           SETTINGS  			 -->
@@ -68,12 +73,12 @@
     <string name="music_summary">Play background music</string>
     <string name="tts_title">Default TTS</string>
     <string name="tts_summary">Enables voice synthetizer</string>
-    <string name="infoTarget_title">Clue to find target</string>
-    <string name="infoTarget_summary">Enables a sound that will be played when you find the target dragging on the screen</string>
+    <string name="infoTarget_title">Clues to find target</string>
+    <string name="infoTarget_summary">Enables sounds that will be played when you find the target dragging on the screen</string>
     <string name="v_feedback_title">Vibration feedback</string>
-    <string name="v_feedback_summary">A range of vibrations that helps to find target</string>
+    <string name="v_feedback_summary">A range of vibrations helps to find target</string>
     <string name="s_feedback_title">Sound effect feedback</string>
-    <string name="s_feedback_summary">Stereo sound that helps to find target</string>
+    <string name="s_feedback_summary">Stereo sound helps to find target</string>
     <string name="doppler_title">Sound post-shot</string>
     <string name="doppler_summary">A sound will be played before you shoot.</string>
     <string name="profileA_title">Profile A</string>
@@ -83,36 +88,37 @@
     <string name="transcription_title">Transcription mode</string>
     <string name="transcription_summary">It shows text that contains the TTS speech</string>
     <string name="blind_interaction_title">Blind Interaction Mode</string>
-    <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
+    <string name="blind_interaction_summary">It adds one more touch to each screen touch event</string>
     <string name="blind_mode_title">Blind Mode</string>
     <string name="blind_mode_summary">Allows to use the application without any visual reference in the game and main menu.</string>
     <string name="game_title">Game</string>
     <string name="flags_title">Flags settings</string>
     <string name="flags_shortcut">f</string>
     <string name="instructions_label">Instructions</string>
-    <string name="instructions_title">How to use Golf game</string>
+    <string name="instructions_title">How to play Golf game</string>
     <string name="instructions_general_label">How to use this game</string>
     <string name="instructions_controls_label">How to configurate</string>
-    <string name="instructions_general_text">Only you have to point and shoot within the shot area!  
-    This area can be found on the bottom of the screen. Don\'t worry if you don\'t find the shot area, if you do any tap or gesture outside
-    you\'ll hear a beep. </string>
+    <string name="instructions_general_text">You only have to point and shoot within the shot area!  
+    This area is located at the bottom of the screen. Don\'t worry if you don\'t find the shot area, if you do any tap or gesture outside this area
+    you\'ll hear a beep sound. </string>
     <string name="instructions_controls_text">Within settings you can choose between the next options:\n
-		1 - UpMode enables slingshot mode. In golf, exists two modes of shot. Fling and slingshot. 
-		The first one enabled by default, allows you shoot, doing a quick scroll on the shot area. 
-		On the other hand, slingshot you have to do a tap, drag and release your finger to do the shot.\n
-		2 - Info target allows to find the hole through touch and drag on the screen. \n
+		1 - UpMode enables slingshot mode. In golf, exists two modes of shot. Fling and Slingshot. 
+		The first one is enabled by default, allows you shoot, doing a quick scroll on the shot area. 
+		Using Slingshot mode you have to do a tap, drag and release your finger to shot.\n
+		2 - Info target allows you to find the hole by simply touching and dragging on the screen. \n
 		3 - Sound post-shot enables to play a sound whose pitch is decreased during a shot.\n
-		4 - Vibration and Sound feedback - before you shot a vibration/sound told you about where is the hole. To use them during
-		the game you have to describe, dragging an arc on the shot area. You will find the shot area on the bottom on the screen. If you try to do this gestures
-		outside of the shot area you will hear a beep. Where your device vibrate or the sound is more intense, 
-		it will be better position to shoot. Moreover  in sound feedback,
+		4 - Vibration and Sound feedback - before you shot, a vibration/sound will help you to find where is the hole. To use them during
+		the game you have to describe an arc by dragging your finger on the shot area. You will find the shot area at the bottom on the screen. If you try to do this gestures
+		outside the shot area you will hear a beep sound. The louder vibration/sound you feel/heard, 
+		the more accurate will be your shoot. Moreover in sound feedback,
 		if you use headphones, the sound will be played only on one headphone. That indicates that the best position is on the left
-		or on the right from your actual position doing the mencioned arc on the screen.\n
-		If you need more information you can try the game tutorial.</string>
+		or on the right from your actual position while you point describing an arc dragging your finger on the shot area.\n
+		you will find more information in the game tutorial.
+	</string>
     <string name="synthetizer_title">Synthesizer</string>
-        <string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
+        <string name="synthesizer_suggestion">We recommend you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
     <string name="onup_title">Slingshot mode</string>
-    <string name="onup_summary">Enables to shoot like a slingshot.</string>
+    <string name="onup_summary">Enables to shoot like a Slingshot.</string>
     <string name="volume_up">Volume Up</string>
     <string name="volume_down">Volume Down</string>
     <string name="home">Home</string>
@@ -124,17 +130,17 @@
     <string name="main_menu_initial_TTStext">Main menu</string>
     <string name="settings_menu_initial_TTStext">Menu settings. 
 			    Clicking on each element on this menu changes and reads an option. Particular in this menu you can
-			    find two options profile A and profile B whose activation enables another options on the menu. Of course, 
-			    you can continue enabling independently all option on the menu.You have the next options on this menu\: 
+			    find two profile options\: A and B whose activation enables another options on the menu. Of course, 
+			    you can continue enabling independently all option on the menu. You will find the next options on this menu\: 
    </string>
     <string name="game_initial_TTStext">Game started!</string>
     <string name="game_initial_stage_TTStext">Game started! Stage 1</string>
     <string name="coordinates_information_button_TTStext">Position</string>
     <string name="key_configuration_menu_initial_TTStext">
-			  	Key Configuration. Clicking on your left you can listen action descriptions
-			     and on your right you can change the key related 
-			    with an action. If you are in blind interaction mode you have to do a long click
-			     to be able to change the configuration You have the next options\: 
+			  	Key Configuration. By Clicking on your left you could listen the action descriptions
+			     and by clicking on your right you will change the key related 
+			    by an action. If you are in blind interaction mode you have to do a long click
+			     to be able to change the configuration. You have the next options\: 
     </string>
     <string name="keydialog">Action configuration</string>
     <string name="keydialog_text">Press any key</string>
@@ -148,7 +154,7 @@
     <string name="new_game_dialog_title">Mode Selection</string>
     <string name="recordSpeech">your actual record is</string>
     <string name="counterSpeech">your actual count is</string>
-    <string name="newRecordSpeech">new record!</string>
+    <string name="newRecordSpeech">New record!</string>
     <string name="EndingDialogTitle">Round completed</string>
     <string name="EndingPositiveButtonLabel">Ok</string>
     <string name="EndingPositiveButtonLabelSpeech">Press ok to back to the main menu</string>
@@ -166,20 +172,20 @@
     <!--           TUTORIAL  			 -->
     <!-- =============================== -->    
 
-     <string name="tutorial_step0_dialog_select">In this tutorial you\'ll learn the game basics. The game consists in to achieve the highest score. This must be successful launch pit.
-         To launch the ball yuo has a launch area at the bottom of the screen. When you leave this area, you will hear a beep notification. We have two modes of play,
-         free mode, where you can play as many shots as you want and 18 holes mode, which will count the score on 18 holes. To find your score, you has
-         a marker on the left edge of the screen to the height of the throwing area. If you make a click on it, it will notify the cumulative score so far.</string>
-    <string name="tutorial_step1_dialog_select">All this features can be enabled/disabled in settings. Tutorial begins! To shoot you have to do a fling on the shoot area.
-    i.e. you have to do a quickly scroll gesture in the direction that you want to shoot</string>
+     <string name="tutorial_step0_dialog_select">In this tutorial you\'ll learn the game basics. The game goal is achieve the highest score. This must be successful launch pit.
+         You can launch the ball at the launch area located at the bottom of the screen. When you will leave this area, you will hear a beep notification sound. We have two modes of play,
+         free mode, where you can make as many shots as you want and 18 holes mode, which will count the score on 18 holes. To find your score, you has
+         a marker on the left edge of the screen to the height of the throwing area. If you make a click on it, it will notify you the cumulative score achieved.</string>
+    <string name="tutorial_step1_dialog_select">All this features can be enabled/disabled in the settings menu. Tutorial begins! To shoot you have to do a fling on the shoot area.
+    i.e. you have to do a quick scroll gesture in the direction that you want to shoot</string>
     <string name="tutorial_step2_dialog_select">By default that is the shot mode. Each time you score a shot, the target will change its position.</string>
     <string name="tutorial_step3_dialog_select">You can change the shot mode in settings. To shoot, drag as if it were a slingshot and release the screen touch.</string>
     <string name="tutorial_step4_dialog_select">The clue target option, let you localize the target by touches and drags. Let\'s try it.</string>
     <string name="tutorial_step5_dialog_select">This sound is emitted when you find the target.</string>
-    <string name="tutorial_step6_dialog_select">The next two options give you information about which direction is better.
+    <string name="tutorial_step6_dialog_select">The next two options give you information about which direction is best.
     		The vibration gives you a clue about where is located the target. 
-    		You have to describe an arc, dragging in the shot area to feel this feature.  
-    		The position in the arc that you describe that sound louder indicates a better direction to do a shot.
+    		You have to describe an arc, by dragging your finger on the shot area to feel this feature.  
+    		The position in the arc that you describe that sound louder will indicate you a which is the best direction to shot.
     		Once you have find a good position in the arc, do the gesture appropiated down.</string>
     <string name="tutorial_step7_dialog_select">The sound effect also is an aid to locate the target at the shot. 
     You have to describe an arc, dragging in the shot area to listen to this feature. 
@@ -218,9 +224,12 @@
     <string name="scoreboard_fail">Your punctuaction have been decremented to </string>
     <string name="scoreboard_reset">Your number of consecutive shots is zero.</string>
     
-    <!-- Forms -->
+    <!-- =============================== -->
+    <!--           FORMS  			 -->
+    <!-- =============================== -->  
+    
     <string name= "form_instructions1">You can navigate through this form menu by making 
-		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button
+		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button and
 		its text will be read and, important!! if it\'s a answer button will be selected.
 	</string>
 	<string name= "form_instructions2">In this case, if you want, you can write in a field your opinion about the application. </string>
@@ -228,7 +237,7 @@
     <string name= "form_instructions4">You can fill this field with your opinion.</string>
     <string name="form_intro">This is a research project that tries to gather insight on how blind people play games on mobile
 					devices and how developers could make games that are not only accessible, but also enjoyable
-					for them. To fulfill these goals, we would like to know some details about you and how you
+					for them. To achieve these goals, we would like to know some details about you and how you
 					interact with technologies in general and games in particular. This will help us to interpret your
 					answers to this questionnaire. All the information collected through this questionnaire will be
 					anonymous, untraceable and will be treated confidentially and only used for the purpose of the

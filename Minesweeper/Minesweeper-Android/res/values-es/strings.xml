@@ -67,8 +67,12 @@
     
     <string name="group_name">Juego hecho por, Blind Faith Games</string>	
 	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical</string>
-    <string name="interactionMode_select">Seleccione un modo de interacción</string>
-    <string name="interactionMode_select_TTS">Seleccione un modo de interacción. Para seleccionar una opción mantenga la pulsación</string>
+    <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
+        jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
+        sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación</string>
+    <string name="interactionMode_select_TTS">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
+        jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
+        sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación</string>
     <string name="blindMode_label">Interacción para ciegos</string>
     <string name="noBlindMode_label">Interacción estándar</string>
     <string name="cellStatePushed">Destapada</string>
@@ -79,7 +83,7 @@
     <string name="find">Encontrar</string>
     <string name="intro_main_menu">Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee</string>
-    <string name="tts_select">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
+    <string name="tts_select">Le recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
    	que hemos encontrado. ¿Desea instalarlo?</string>
    	<string name="yes_label">Sí</string>
     <string name="no_label">No</string>
@@ -142,7 +146,7 @@
     <string name="instructions_general_title">Intrucciones del Buscaminas</string>
     <string name="instructions_controls_label">Controles</string>
     <string name="instructions_controls_title">Controles del buscaminas</string>
-    <string name="instructions_general_text">        El tablero es una matriz de casillas. En algunas de estas casillas se encuentran escondidas minas.
+    <string name="instructions_general_text">El tablero es una matriz de casillas. En algunas de estas casillas se encuentran escondidas minas.
         El objetivo es destapar todo el tablero evitando destapar alguna casilla con mina.\n\n
 		
 		Para lograrlo, puede pulsar sobre cualquier celda -modo escavación- o marcarla -modo exploración-
@@ -151,7 +155,7 @@
 		\n\n
 		Opciones: puede configurar las opciones del juego accediendo desde el menú principal, para activar o desactivar el sintetizador 
 		o la música del juego.</string>
-    <string name="instructions_controls_text">        Para jugar al Buscaminas Accesible dispone de estos controles:\n\n
+    <string name="instructions_controls_text">Para jugar al Buscaminas Accesible dispone de estos controles:\n\n
         
         Uso de los botones:\n
         - Botón menú - para escuchar las coordenadas de la casilla en la que está situado\n
@@ -177,13 +181,13 @@
 		
 		Si se encuentra en modo zoom, pulse el botón enter o realice una pulsación para excavar o explorar.</string>
     <string name="synthetizer_title">Sintetizador</string>
-    <string name="synthesizer_suggestion">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ"</string>
+    <string name="synthesizer_suggestion">Le recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ"</string>
     <string name="LosePositiveButtonLabel">Reiniciar</string>
     <string name="LoseNegativeButtonLabel">Volver al menú principal</string>
     <string name="WinPositiveButtonLabel">Ok</string>
     <string name="LoseDialogTitle">Fin del juego</string>
     <string name="WinDialogTitle">¡¡ENHORABUENA!!</string>
-    <string name="WinDialogMessage">"¡Ganaste!"</string>
+    <string name="WinDialogMessage">"¡Victoria!"</string>
     <string name="tts_title">Sintetizador por defecto</string>
     <string name="tts_summary">Habilita el sintetizador</string>
     <string name="volume_up">Subir volumen</string>
@@ -207,10 +211,10 @@
     <string name="zoom_mode_TTStext">Modo zoom</string>
     <string name="coordinates_information_button_TTStext">Posición</string>
     <string name="key_configuration_menu_initial_TTStext">
-				Configuración de teclado. Mediante taps a tu izquierda puedes escuchar
-			    las descripciones de las acciones y a tu derecha puedes cambiar la tecla relacionada
-				con la acción de la izquierda. Si estás en modo de interacción para ciegos el cambio de configuración asociada a una tecla
-				será mediante un long tap sino mediante tap simple. En total se tienen las siguiente opciones\: 
+				Configuración de teclado. Mediante taps a su izquierda puede escuchar
+			    las descripciones de las acciones, a su derecha puede cambiar la tecla relacionada
+				con la acción de la izquierda. Si está en modo de interacción para ciegos el cambio de configuración asociada a una tecla
+				será mediante una pulsación larga, sino mediante pulsación simple. En total se tienen las siguiente opciones\: 
     </string> 
     
     <!-- =============================== -->
@@ -231,23 +235,19 @@
     <string name="form_label">Formulario</string>
     <string name="on_back_pressed">Tiene que completar el formulario</string>
     <string name="key_conf_fail">No es una tecla válida</string>
-    <string name="key_conf_success">Has cambiado la tecla asociada a</string>
+    <string name="key_conf_success">Ha cambiado la tecla asociada a</string>
 
     <!-- =============================== -->
     <!--         FORMULARIOS  			 -->
     <!-- =============================== -->    
     
-    <string name= "form_instructions1"> Puedes navegar a través de este menú haciendo long click sobre los botones siguiente y anterior situados debajo
-    		de cada conjunto de posibles respuestas o cada texto. Si haces un click simple la opción será leída. Y importante, la opción que se clickee la última vez será la seleccionada. 
+    <string name= "form_instructions1"> Puede navegar a través de este menú, haciendo long click sobre los botones siguiente y anterior, situados debajo
+    		de cada conjunto de posibles respuestas, o de cada texto. Si se realiza un click se leerá la opción. Importante, la opción que se clickee la última vez será la seleccionada. 
 	</string>
-	<string name= "form_instructions2">En este caso, si quieres, puedes rellenar un campo de texto
-	 con tu opinión sobre la aplicación. 
-	</string>
-	<string name= "form_instructions3">De ahora en adelante, tienes varias opciones para responder
-	a cada pregunta. Haz click sobre cada opción para seleccionarla.
-	</string>
-	<string name= "form_instructions4"> Tienes que rellenar este campo con tu opinión sobre la aplicación.</string>
-    <string name="form_intro">        Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
+	<string name= "form_instructions2">En este caso, si quiere, puede rellenar un campo de texto con su opinión sobre la aplicación.</string>
+	<string name= "form_instructions3">De ahora en adelante, tiene varias opciones para responder a cada pregunta. Haga click sobre la opción para seleccionarla.</string>
+	<string name= "form_instructions4"> Tiene que rellenar este campo con su opinión sobre la aplicación.</string>
+    <string name="form_intro">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
         sino también agradables para ellos. Para cumplir estos objetivos, nos gustaría conocer algunos detalles acerca de usted 
         y de cómo interactúa con las tecnologías en general y los juegos en particular. Esto nos ayudará a interpretar sus respuestas
@@ -298,17 +298,16 @@
 									Algunas de ellas son:\n
 									Lectura de instrucciones: para recordar cómo jugar, use el botón Menú por defecto.\n
 									Coordenadas: para escuchar el estado de la casilla y las coordenadas, use el botón buscar por defecto. \n
-									El modo zoom y el modo exploración se explican en el tutorial a continuación
-									¡Ahora prueba a usarlos!.</string>
+									El modo zoom y el modo exploración se explican en el tutorial a continuación.
+									¡Ahora pruebe a usarlos!.</string>
     <string name="tut_zoom_mode_text">El modo zoom permite centrar la vista en una casilla determinada. Para destapar 
-    la casilla en este modo, simplemente hay que realizar una pulsación en pantalla. Además si pulsa sobre alguno de los extremos
-    de la pantalla, podrá desplazarse por el tablero. También cambia la forma de interactuar, de forma que para excavar realizamos 
-    una pulsación y para explorar dos pulsaciones en pantalla. Para habilitar el modo zoom simplemente debe presionar el botón de 
-    subir volumen o el que haya establecido en el panel de configuración de teclado. ¡Ahora pruebe a usar el modo zoom!	</string>
+    la casilla en este modo, simplemente hay que realizar una pulsación en pantalla. Además, si pulsa sobre alguno de los extremos
+    de la pantalla, podrá desplazarse por el tablero. También cambia la forma de interactuar, de forma que para excavar haremos 
+    una pulsación y para explorar dos pulsaciones en pantalla. Para habilitar el modo zoom, simplemente debe presionar el botón de 
+    subir volumen, o el que haya establecido en el panel de configuración de teclado. ¡Ahora pruebe a usar el modo zoom!	</string>
     <string name="tut_exploration_mode_text">El modo exploración permite establecer banderas en las casillas
      independientemente del evento táctil que realice (una pulsación, dos, tres...). ¡Compruébelo!</string>
-    <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que
-     rodean a la seleccionada. ¡Pruébelo!</string>
+    <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que rodean a la seleccionada. ¡Pruébelo!</string>
 
     <!-- =============================== -->
     <!--           ACCIONES  			 -->
@@ -324,16 +323,15 @@
     
     <string name="disabled">Desactivada</string>
     <string name="enabled">Activada</string>
-    <string name="state">celdas. Estado seleccionada</string>
     
-    <string name="pushCellSuccess">Genial!. Has conseguido destapar varias celdas.</string>
+    <string name="pushCellSuccess">¡Genial!. Ha conseguido destapar varias celdas.</string>
     <string name="transition_zoom">Hay un cambio de celda. Celda actual</string>
     
     <string name="infoKeyConf">asociada a</string>
     <string name="infoKeyConffail">asociada a ninguna tecla.</string>
     
-    <string name="screen_off_message">Tu pantalla se ha apagado.</string>
-    <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
+    <string name="screen_off_message">Su pantalla se ha apagado.</string>
+    <string name="screen_on_message">Su pantalla se ha encendido. Tal vez tenga que desbloquear su dispositivo.</string>
     
     <string name="other_side">Reproduciendo \'The other side of the door\'</string>
     <string name="passing_action">Reproduciendo \'Passing action\'</string>

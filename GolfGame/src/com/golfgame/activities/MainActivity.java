@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		
+
 		setScreenContent(R.layout.main);
 	
 		checkFolderApp(getString(R.string.app_name)+".xml");
@@ -465,28 +465,22 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	}
 	
 	private void createInteractionModeDialog() {
-		Button b; TextView t;
+		Button b;
 		
 		interactionModeDialog = new Dialog(this);
 		interactionModeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		interactionModeDialog.setContentView(R.layout.interaction_mode_dialog);
-		
-		t = (TextView) interactionModeDialog.findViewById(R.id.interactionMode_textView);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);	
+			
 		b = (Button) interactionModeDialog.findViewById(R.id.blindMode_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
+
 		b = (Button) interactionModeDialog.findViewById(R.id.noBlindMode_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
 		
 		interactionModeDialog.setOnKeyListener(this);
 	}

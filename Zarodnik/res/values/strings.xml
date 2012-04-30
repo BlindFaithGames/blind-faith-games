@@ -12,13 +12,13 @@
     <string name="interactionMode_select">This is a research project that tries to gather insight on how blind people play games on mobile
 	devices and how developers could make games that are not only accessible, but also enjoyable
 	for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
+	<string name="interactionMode_select_TTS">This is a research project that tries to gather insight on how blind people play games on mobile
+	devices and how developers could make games that are not only accessible, but also enjoyable
+	for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
     <string name="tts_select">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer, because it has a goog quality. We are not colaborating with IVONA project but is the best
 	synthetizer we have found. Would you like to install it?</string>
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>
-    <string name="interactionMode_select_TTS">This is a research project that tries to gather insight on how blind people play games on mobile
-	devices and how developers could make games that are not only accessible, but also enjoyable
-	for them. Select an interaction mode depending on if you have visual discapacity or not. To select make a long press on the option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
     <string name="app_name">Zarodnik Game</string>

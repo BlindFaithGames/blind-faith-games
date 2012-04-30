@@ -65,22 +65,25 @@
     <!--           DIÁLOGOS  			 -->
     <!-- =============================== -->        
     
-    <string name="group_name">Game made by, Blind Faith Games</string>
-    <string name="mode">This application works on portrait mode</string>
-    <string name="interactionMode_select">Select an interaction mode</string>
-    <string name="interactionMode_select_TTS">Select an interaction mode. To select make a long press on the option</string>
+    <string name="group_name">A game by, Blind Faith Games</string>
+    <string name="mode">This application works on portrait mode.</string>
+    <string name="interactionMode_select">This is a research project that tries to gather insight on how blind people play games on mobile
+	devices and how developers could make games that are not only accessible, but also enjoyable for them. Select an interaction mode depending
+	on if you have visual discapacity or not. To select make a long press to select an option</string>
+    <string name="interactionMode_select_TTS">This is a research project that tries to gather insight on how blind people play games on mobile
+	devices and how developers could make games that are not only accessible, but also enjoyable for them. Select an interaction mode depending
+	on if you have visual discapacity or not. To select make a long press to select an option</string>
     <string name="blindMode_label">Blind interaction</string>
     <string name="noBlindMode_label">Standard interaction</string>
-    <string name="find">Find</string>
-    <string name="intro_main_menu">Main Menu minesweeper, you can navigate through the menu by making simple taps in the different options
-    							 and just make a long press to select one of the options below</string>
-    <string name="tts_select">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer, because it has a goog quality. We are not colaborating with IVONA project but is the best
-	synthetizer we have found. Would you like to install it?</string>
+    <string name="tts_select">In order to get a better game experience, we recommend you to download the "IVONA Text-to-Speech HQ" synthesizer. Blind Faith Games is not associated or have any relation with IVONA project but we think that is the best
+	synthetizer. Would you like to install it?</string>
     <string name="yes_label">Yes</string>
-    <string name="no_label">No</string>    							 
-    <string name="create">Create new log</string>
-    <string name="introMessage">Welcome, select a difficulty</string>
+    <string name="no_label">No</string>    
+    <string name="introMessage">Welcome, please select a difficulty</string>
+    <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
+    <string name="create">Create new log</string>
     
     <!-- =============================== -->
     <!--           MENU  			 -->
@@ -123,7 +126,7 @@
     <string name="blind_interaction_title">Blind Interaction Mode</string>
     <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
     <string name="blind_mode_title">Blind Mode</string>
-    <string name="blind_mode_summary">Allows to use the application without any visual reference in the game and main menu.</string>
+    <string name="blind_mode_summary">Allows you to use the application without any visual reference in the game and main menu.</string>
     <string name="new_game_title">Difficulty</string>
     <string name="easy_label">Easy</string>
     <string name="medium_label">Medium</string>
@@ -138,14 +141,14 @@
     <string name="instructions_general_title">Instructions Minesweeper</string>
     <string name="instructions_controls_label">Controls</string>
     <string name="instructions_controls_title">Controls Minesweeper</string>
-    <string name="instructions_general_text">The board is a grid of cells, and some of them are hiding a mine. Your 
+    <string name="instructions_general_text">The board is a mesh of buttons and some of them hide a mine. Your 
 		goal is to find all of those mines, without detonating any of them.\n\n
-		To accomplish that, you can press any cell -dig mode- or mark it -exploration mode- 
-		with a flag,if you are sure it contains a mine. When you press a cell, several cells
+		You can press any cell -dig mode- or mark it -exploration mode- 
+		with a flag, if you think it contains a mine. When you press a cell, several cells
 		can be discovered, and they will show you how many mines are around them.\n\n
 		\n\n
-		Options: make use of the settings while in the main menu in order to 
-		turn on Speech synthesizer as well as music.</string>
+		Options: make use of the settings while you are in the main menu in order to 
+		turn on the Speech synthesizer as well as music.</string>
     <string name="instructions_controls_text">To play Android Minesweeper there are several controls you should know:\n\n
 		
 		Buttons, use:\n
@@ -153,10 +156,10 @@
 		- search button - switch between exploration and dig mode\n
 		- volume up button - turn on/off zoom mode\n
 		- volume down button - listen to controls hints\n
-		- call button - listen to cell context information, that is, you will listen every cell information, 
+		- call button - listen to the cell context information, that is, you will listen at every cell information, 
 		that surround the selected one, beginning at the top cell and ending at the top left cell in clockwise order.\n\n
 		
-		If you don\'t have any of this buttons, you can change them, by clicking on Key Configurations.\n\n
+		If you don\'t have any of this buttons, you can change them, by making a simple tap on Key Configurations.\n\n
 		
 		Play with touch screen, use:\n
 		- one tap, to select a cell\n
@@ -175,12 +178,12 @@
     <string name="cellStateFlagged">Flagged</string>
     <string name="cellStateUnknown">Unknown state</string>
     <string name="synthetizer_title">Synthesizer</string>
-    <string name="synthesizer_suggestion">We advise you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
+    <string name="synthesizer_suggestion">We recommend you to download the "IVONA Text-to-Speech HQ" synthesizer</string>
     <string name="LosePositiveButtonLabel">Reset</string>
     <string name="LoseNegativeButtonLabel">Back to the main menu</string>
     <string name="WinPositiveButtonLabel">Ok</string>
     <string name="LoseDialogTitle">Game Over</string>
-    <string name="WinDialogTitle">CONGRATULATIONS!!</string>
+    <string name="WinDialogTitle">CONGRATULATIONS!</string>
     <string name="WinDialogMessage">"This time you win!"</string>
     <string name="tts_title">Default TTS</string>
     <string name="tts_summary">Enables voice synthetizer</string>
@@ -194,8 +197,8 @@
     <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
     <string name="settings_menu_initial_TTStext">Menu settings. 
-			   Clicking on each element on this menu changes and reads an option. 
-			    You have the next options on this menu\: 
+			   Making a tap on each element on this menu changes and reads an option. 
+			   You will find the next options on this menu\: 
    </string>
     <string name=" accounts_menu_initial_TTStext">accounts</string>
     <string name="game_initial_TTStext">Game started!</string>
@@ -203,10 +206,10 @@
     <string name="zoom_mode_TTStext">Zoom mode</string>
     <string name="coordinates_information_button_TTStext">Position</string>
     <string name="key_configuration_menu_initial_TTStext">
-			    Key Configuration. Clicking on your left you can listen action descriptions
-			     and on your right you can change the key related 
-			    with an action. If you are in blind interaction mode you have to do a long click
-			     to be able to change the configuration You have the next options\: 
+			  	Key Configuration. By tapping on your left you could listen the action descriptions
+			     and by clicking on your right you will change the key related 
+			    by an action. If you are in blind interaction mode you have to do a long click
+			     to be able to change the configuration. You have the next options\: 
     </string>
     
     <!-- =============================== -->
@@ -280,33 +283,33 @@
     <!--           TUTORIAL  			 -->
     <!-- =============================== -->    
     
-    <string name="tut_step">To go to the next tip, do a tap in the top of the screen.</string>
-    <string name="tut_finish">To finish, do a tap in the top of the screen.</string>
-    <string name="tut_intro_text">In this tutorial, you are learning the game basics.</string>
-    <string name="tut_tap_text">You can do a tap on the screen to select a cell and to listen its state. Try to do it 
-    on this screen!.</string>
-    <string name="tut_dtap_text">You can do double tap on the screen to dig a cell. Try to do it on this screen!.</string>
-    <string name="tut_trtap_text">You can do triple tap on the screen to explore a non pushed cell or to non explore
-     a explored cell. Try to do it on this screen!.</string>
+    <string name="tut_step">To go to the next tip, make a simple tap on the top of the screen.</string>
+    <string name="tut_finish">To finish the tutorial, make a simple tap on the top of the screen.</string>
+    <string name="tut_intro_text">In this tutorial, you will learn the game basics.</string>
+    <string name="tut_tap_text">You can make a simple tap on the screen to select a cell and to listen its state. Try to do it 
+    now!.</string>
+    <string name="tut_dtap_text">You can make a double tap on the screen to dig a cell. Try to do it now!.</string>
+    <string name="tut_trtap_text">You can make a triple tap on the screen to explore a non pushed cell or to non explore
+     a explored cell. Try to do it now!.</string>
     <string name="tut_drag_text">You will be able to check out how to change the selected cell using drag events. Check it out!</string>
     <string name="tut_keyboard_text">In Accessible Minesweeper you can assign some keys to some actions.
 									Some of them are:\n
-									Instructions reading: To remember how to play, using the key Menu by default.\n
-									Coordinates: To read the cell state and coordinates, using the key Menu by default.. \n
-									The more complex actions like Zoom mode, exploration mode or Read 
+									Instructions reading: To remember how to play, use the Menu key by default.\n
+									Coordinates: To read the cell state and coordinates, use the Menu key by default. \n
+									The most complex actions like Zoom mode, exploration mode or Read 
 									cell context are explained in tutorial next steps
 									Now, try to use them!.</string>
-    <string name="tut_zoom_mode_text">Zoom mode allows you select a cell easier, 
-						only clicking in the center of the screen. 
-						If you do a tap in some of the screen ends you will be changing the focused cell. 
-						Remember only a tap!. Moreover the way of interact changes.
-						Now you have to do a tap to dig and a double tap to flag a cell
-						To enables zoom mode you must use the key Volume Up by default.
-						Now, try to use it !.</string>
-    <string name="tut_exploration_mode_text">Exploration mode allows you flag cells independently of the event,
-     simple double or triple tap. Check it out!.</string>
-    <string name="tut_read_context_text">It\'s an additional option that reads the cell states around the focused
-     cell. Check it out!.</string>
+    <string name="tut_zoom_mode_text">Zoom mode allows you to select a cell in a easier way than the normal mode, 
+						by tapping on the center of the screen. 
+						If you make a tap in some of the screen ends you will be changing the focused cell. 
+						Remember to make only one tap!. Moreover, the way of interact changes.
+						Now you have to do a tap to dig a cell and a double tap to flag a cell
+						To enable the zoom mode you must use the key Volume Up by default.
+						Now, try to use it!.</string>
+    <string name="tut_exploration_mode_text">Exploration mode allows you to flag cells independently of the event,
+     by making double or triple tap. Try it now.</string>
+    <string name="tut_read_context_text">It\'s an additional option that reads the cells states around the focused
+     cell. Try it now.</string>
 
     <!-- =============================== -->
     <!--           ACTIONS  			 -->

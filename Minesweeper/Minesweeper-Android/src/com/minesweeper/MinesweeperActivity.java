@@ -512,7 +512,7 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	}
 	
 	private void createInteractionModeDialog() {
-		Button b; TextView t;
+		Button b; 
 		
 		interactionModeDialog = new Dialog(this);
 		interactionModeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -520,22 +520,16 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 		interactionModeDialog.setContentView(R.layout.interaction_mode_dialog);
 		
 		interactionModeDialog.setOnKeyListener(this);
-		
-		t = (TextView) interactionModeDialog.findViewById(R.id.interactionMode_textView);
-		t.setTextSize(fontSize);
-		t.setTypeface(font);	
+	
 		b = (Button) interactionModeDialog.findViewById(R.id.blindMode_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
 		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);	
+	
 		b = (Button) interactionModeDialog.findViewById(R.id.noBlindMode_button);
 		b.setOnClickListener(this);
 		b.setOnFocusChangeListener(this);
-		b.setOnLongClickListener(this);
-		b.setTextSize(fontSize);
-		b.setTypeface(font);		
+		b.setOnLongClickListener(this);		
 	}
 	
 	private void createTTSDialog() {
