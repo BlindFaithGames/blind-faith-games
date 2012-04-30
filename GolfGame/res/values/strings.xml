@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- =============================== -->
+    <!--           DIALOGS  			 -->
+    <!-- =============================== -->        
+    
 	<string name="advice">We recommend use headphones to play this game.</string>
     <string name="group_name">Game made by, Blind Faith Games</string>
     <string name="mode">This application works on portrait mode.</string>
@@ -15,6 +20,11 @@
     <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
+    
+    <!-- =============================== -->
+    <!--           MENU	 	  			 -->
+    <!-- =============================== -->        
+    
     <string name="golfGamerActivity">Golf game</string>
     <string name="exitButton">Exit</string>
     <string name="app_name">GolfGame</string>
@@ -26,9 +36,28 @@
     <string name="exit_label">Exit</string>
     <string name="tutorial_label">Game Tutorial</string>
 	<string name="form_label">Form</string>
-    <string name="about_title">About GolfGame</string>
-    <string name="about_text">		   Music by www.SoundJay.com \n
-           Gloria E. Pozuelo Fernández, 2011-2012.</string>
+    <string name="about_title">About Golf Game</string>
+    <string name="about_text">
+		Golf Game, 2012. \n\n
+		
+		Golf Game is part of Blind Faith Games (BFG), a research project about how to deliver eyes-free game experiences that are enjoyable on your Android&#8482; 
+		device regardless of your sight capabilities. If you have some time to spare, please help us to improve the game by filling in the feedback form that can be reached from the main menu.\n\n
+		
+		
+		BFG is a project of the e-UCM research group, developed by Gloria Pozuelo and Javier Álvarez.\n
+		e-UCM is a research group of the Department of Software Engineering and Artificial Intelligence at the Complutense University of Madrid.\n\n
+		
+		More info at: <a href="http://blind-faith-games.e-ucm.es">http://blind-faith-games.e-ucm.es</a>\n
+		Contact us at: android@e-ucm.es  \n\n   
+		
+		Music: Kevin MacLeod \n\n   
+		
+		<i>Android is a trademark of Google Inc.</i>	</string>
+	
+    <!-- =============================== -->
+    <!--           SETTINGS  			 -->
+    <!-- =============================== -->        
+    
     <string name="settings_label">Settings</string>
     <string name="settings_title">Golf Game settings</string>
     <string name="settings_shortcut">s</string>
@@ -133,7 +162,10 @@
     <string name="key_conf_success">You have changed the key associated with</string>
     <string name="stage_speech">Stage number</string>  
    
-    <!-- TUTORIAL -->
+    <!-- =============================== -->
+    <!--           TUTORIAL  			 -->
+    <!-- =============================== -->    
+
      <string name="tutorial_step0_dialog_select">In this tutorial you\'ll learn the game basics. The game consists in to achieve the highest score. This must be successful launch pit.
          To launch the ball yuo has a launch area at the bottom of the screen. When you leave this area, you will hear a beep notification. We have two modes of play,
          free mode, where you can play as many shots as you want and 18 holes mode, which will count the score on 18 holes. To find your score, you has
@@ -157,7 +189,10 @@
     Sound deeper indicates that your shot has been worse. If you scores you \'ll hear a applause.</string>
     <string name="tutorial_step9_dialog_select">The tutorial finish here.</string> 
     
-    <!-- Onomatopeias -->
+    <!-- =============================== -->
+    <!--           TUTORIAL  			 -->
+    <!-- =============================== -->    
+    
     <string name="bing_ono">bing bing!</string>    
     <string name="bip_ono">Bip bip!</string>    
     <string name="clue_feed_back_sound_ono">Ring!</string>    
@@ -223,6 +258,10 @@
     <string name="previous_context">Previous</string>
     <string name="finish_context">Finish</string>
     <string name="action_form">You have selected</string>
+    
+    <!-- =============================== -->
+    <!--           OTHERS	  			 -->
+    <!-- =============================== -->        
     
     <string name="screen_off_message">Your screen has turned off.</string>
     <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>

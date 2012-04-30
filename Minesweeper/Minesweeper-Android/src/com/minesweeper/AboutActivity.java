@@ -15,7 +15,7 @@ import com.accgames.sound.TTS;
 import com.minesweeper.game.MinesweeperAnalytics;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Álvarez
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier Ã�lvarez
  * This class implements the about activity, where is shown a description of minesweeper
  */
 
@@ -31,7 +31,7 @@ public class AboutActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 	
 		if(!PrefsActivity.getBlindMode(this)){
-			setTheme(android.R.style.Theme_Dialog);
+//			setTheme(android.R.style.Theme_Dialog);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.about);
 		}else{

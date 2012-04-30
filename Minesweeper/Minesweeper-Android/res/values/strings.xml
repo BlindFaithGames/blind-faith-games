@@ -61,6 +61,10 @@
     <!-- Notification message [CHAR LIMIT=NONE] -->
     <string name="unregistration_succeeded">Unegistered %1$s for C2DM messaging.</string>
     
+    <!-- =============================== -->
+    <!--           DIÁLOGOS  			 -->
+    <!-- =============================== -->        
+    
     <string name="group_name">Game made by, Blind Faith Games</string>
     <string name="mode">This application works on portrait mode</string>
     <string name="interactionMode_select">Select an interaction mode</string>
@@ -77,6 +81,11 @@
     <string name="create">Create new log</string>
     <string name="introMessage">Welcome, select a difficulty</string>
     <string name="buttonMessage">Go!</string>
+    
+    <!-- =============================== -->
+    <!--           MENU  			 -->
+    <!-- =============================== -->    
+        
     <string name="minesweeperActivity">Minesweeper game</string>
     <string name="gameOverMessage">Game Over!</string>
     <string name="resetButtonMessage">Reset</string>
@@ -88,8 +97,22 @@
     <string name="keyConf_label">Key Configuration</string>
     <string name="about_label">About</string>
     <string name="exit_label">Exit</string>
-    <string name="about_title">About Android Minesweeper</string>
-    <string name="about_text">Computer Systems Project UCM, 2011-2012.</string>
+    <string name="about_title">About Accessible Minesweeper</string>
+    <string name="about_text">
+		Accessible Minesweeper, 2012. \n\n
+		
+		Accessible Minesweeper is part of Blind Faith Games (BFG), a research project about how to deliver eyes-free game experiences that are enjoyable on your Android&#8482; 
+		device regardless of your sight capabilities. If you have some time to spare, please help us to improve the game by filling in the feedback form that can be reached from the main menu.\n\n
+		
+		
+		BFG is a project of the e-UCM research group, developed by Gloria Pozuelo and Javier Álvarez.\n
+		e-UCM is a research group of the Department of Software Engineering and Artificial Intelligence at the Complutense University of Madrid.\n\n
+		
+		More info at: <a href="http://blind-faith-games.e-ucm.es">http://blind-faith-games.e-ucm.es</a>\n
+		Contact us at: android@e-ucm.es  \n\n      
+		
+		<i>Android is a trademark of Google Inc.</i>
+	</string>
     <string name="settings_label">Settings</string>
     <string name="settings_title">Minesweeper settings</string>
     <string name="settings_shortcut">s</string>
@@ -185,6 +208,11 @@
 			    with an action. If you are in blind interaction mode you have to do a long click
 			     to be able to change the configuration You have the next options\: 
     </string>
+    
+    <!-- =============================== -->
+    <!--           SETTINGS  			 -->
+    <!-- =============================== -->    
+        
     <string name="button_coord">Coordinates Button</string>
     <string name="button_instr">Instructions Button</string>
     <string name="button_zoom">Zoom Button</string>
@@ -199,7 +227,11 @@
     <string name="on_back_pressed">You have to complete the form</string>
     <string name="key_conf_fail">Not a valid key</string>
     <string name="key_conf_success">You have changed the key associated with</string>
-    <!-- Forms -->
+
+    <!-- =============================== -->
+    <!--           FORMS	  			 -->
+    <!-- =============================== -->    
+    
     <string name= "form_instructions1">You can navigate through this form menu by making 
 		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button
 		its text will be read and, important!! if it\'s a answer button will be selected.
@@ -243,7 +275,11 @@
     <string name="load_text">Sending information... Please wait</string>
     <string name="instructions_dialog_select">Select controls or instructions</string>
     <string name="game_dialog_select">Select difficulty</string>
-    <!-- Tutorial info -->
+
+    <!-- =============================== -->
+    <!--           TUTORIAL  			 -->
+    <!-- =============================== -->    
+    
     <string name="tut_step">To go to the next tip, do a tap in the top of the screen.</string>
     <string name="tut_finish">To finish, do a tap in the top of the screen.</string>
     <string name="tut_intro_text">In this tutorial, you are learning the game basics.</string>
@@ -272,7 +308,9 @@
     <string name="tut_read_context_text">It\'s an additional option that reads the cell states around the focused
      cell. Check it out!.</string>
 
-    <!-- Game Actions -->
+    <!-- =============================== -->
+    <!--           ACTIONS  			 -->
+    <!-- =============================== -->    
     <string name="action_exploration">Exploration mode</string>
     <string name="action_coordinates">Coordinates</string>
     <string name="action_zoom">Zoom mode</string>

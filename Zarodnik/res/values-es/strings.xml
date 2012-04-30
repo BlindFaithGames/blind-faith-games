@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!-- =============================== -->
+    <!--           DIÁLOGOS  			 -->
+    <!-- =============================== -->    
+        
 	<string name="advice">Aconsejamos utilizar auriculares para jugar a este juego.</string>
 	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
 	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición horizontal</string>
@@ -22,6 +27,11 @@
     <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee, en caso de haber seleccionado interacción para ciegos.</string>
     <string name="buttonMessage">¡Adelante!</string>
+    
+    <!-- =============================== -->
+    <!--           MENÚ		  			 -->
+    <!-- =============================== -->    
+        
     <string name="zarodnik_activity">Zarodnik</string>
     <string name="exitButton">Salir</string>
     <string name="main_title">Zarodnik</string>
@@ -32,9 +42,21 @@
     <string name="form_label">Formulario</string>
     <string name="exit_label">Salir</string>
     <string name="about_title">Acerca de Zarodnik</string>
-    <string name="about_text">           Music by www.SoundJay.com \n
-           and www.freesound.org \n
-           Proyecto de Sistemas Informáticos de la UCM, 2011-2012.</string>
+    <string name="about_text">   
+		Zarodnik, 2012. \n\n
+		
+		Zarodnik es parte del proyecto de investigación Blind Faith Games (BFG), que trata de averiguar estrategias de diseño adecuadas para producir juegos de los que puedan disfrutarse en un dispositivo con Android&#8482;  
+		independientemente de las capacidades de visión de la persona. Por favor, si tiene cinco minutos le agradeceríamos que rellenara el formulario de evaluación que encontrará a través del menú principal de la aplicación, esto nos ayudará a mejorarla.\n\n
+		
+		BFG es un proyecto del grupo e-UCM, y ha sido desarrollado por Gloria Pozuelo y Javier Álvarez.\n
+		e-UCM es un grupo de investigación reconocido del Departamento de Ingeniería del Software e Inteligencia Artificial de la Universidad Complutense de Madrid.\n\n
+		
+		Para más información visite: <a href="http://blind-faith-games.e-ucm.es">http://blind-faith-games.e-ucm.es</a>\n
+		Dirección de contacto: android@e-ucm.es \n\n  
+		     
+		Music by www.SoundJay.com &amp; www.freesound.org \n\n
+		
+		<i>Android es una marca registrada de Google Inc.</i>                </string>
     <string name="settings_label">Configuración</string>
     <string name="settings_title">Configuración de Zarodnik</string>
     <string name="settings_shortcut">s</string>
@@ -99,19 +121,19 @@
     <string name="ending_lose_message">Fin del juego</string>
     <string name="ending_win_message">Encontraste un obeaune.</string>
     <string name="intro_game_text">Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
-A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
-de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
-encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
+	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
+	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
+	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
+	del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
     <string name="intro_game_tts">Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
-A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
-de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
-encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
+	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
+	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
+	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
+	del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
     <string name="game_over_text">El juego finaliza aquí</string>
     <string name="game_over_tts">El juego finaliza aquí. Para salir realiza una pulsación larga</string>
         <string name="screen_change_begins">Cambio de pantalla comenzado.</string>
@@ -120,7 +142,10 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
     <string name="key_conf_fail">No es una tecla válida</string>
     <string name="key_conf_success">Has cambiado la tecla asociada a</string>
     
-    <!-- Tutorial strings -->
+    <!-- =============================== -->
+    <!--           TUTORIAL  			 -->
+    <!-- =============================== -->    
+    
     <string name="tutorial_warning">Si quieres pasar al siguiente paso del tutorial haz una pulsación larga en pantalla.</string>
     <string name="tutorial00_intro">En esta pantalla aprenderás los sonidos relacionados con los elementos del juego.
     ¡Recuerda! En este tutorial, una doble pulsación en una mitad u otra de la pantalla para escuchar un sonido diferente.</string>
@@ -150,7 +175,10 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
     <string name="tutorial06_intro">Aquí puedes aprender los conceptos básicos para jugar. En las
      siguientes pantallas, para escuchar los sonidos que representan los objetos haz doble click.</string>
 	
-    <!-- Onomatopeias strings -->
+    <!-- =============================== -->
+    <!--          ONOMATOPEYAS  		 -->
+    <!-- =============================== -->    
+    
     <string name="appear_ono">bing bing!</string>
     <string name="apple_bite_ono">crap!</string>
     <string name="barn_beat_ono">Reproduciendo \'Barn Beat\'</string>
@@ -168,7 +196,10 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
     <string name="disabled">Activada</string>
     <string name="enabled">Desactivada</string>
     
-    <!-- form -->
+    <!-- =============================== -->
+    <!--           FORMULARIOS 			 -->
+    <!-- =============================== -->    
+    
 	<string name= "form_instructions1"> Puedes navegar a través de este menú haciendo long click sobre los botones siguiente y anterior situados debajo
     		de cada conjunto de posibles respuestas o cada texto. Si haces un click simple la opción será leída. Y importante, la opción que se clickee la última vez será la seleccionada. 
 	</string>
@@ -217,6 +248,10 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
 	<string name="screen_off_message">Tu pantalla se ha apagado.</string>
     <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
     <string name="load_text">Enviando información... Por favor espere</string>
+    
+    <!-- =============================== -->
+    <!--           OTRAS 	  			 -->
+    <!-- =============================== -->        
    
     <string name="size_inc">Tu tamaño se ha incrementado.</string>
     <string name="size_dec">Tu tamaño se ha reducido.</string>

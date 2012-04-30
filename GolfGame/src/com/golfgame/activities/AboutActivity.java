@@ -2,14 +2,9 @@ package com.golfgame.activities;
 
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.Window;
-import android.widget.TextView;
 
 import com.accgames.feedback.AnalyticsManager;
 import com.accgames.input.Input;
@@ -17,7 +12,7 @@ import com.accgames.sound.TTS;
 import com.golfgame.R;
 import com.golfgame.game.GolfGameAnalytics;
 
-public class AboutActivity extends Activity implements OnTouchListener{
+public class AboutActivity extends Activity{
 
 	private TTS textToSpeech;
 	
@@ -27,7 +22,7 @@ public class AboutActivity extends Activity implements OnTouchListener{
 	public void onCreate(Bundle savedInstanceState) {
 
 		if(!SettingsActivity.getBlindMode(this)){
-			setTheme(android.R.style.Theme_Dialog);
+//			setTheme(android.R.style.Theme_Dialog);
 			super.onCreate(savedInstanceState);
 			setContentScreen();
 		}else{
@@ -45,11 +40,11 @@ public class AboutActivity extends Activity implements OnTouchListener{
 	}
 	
 	private void setContentScreen() {
-		float fontSize;
-		float scale;
-		Typeface font;
-		TextView t;
-		View v;
+//		float fontSize;
+//		float scale;
+//		Typeface font;
+//		TextView t;
+//		View v;
 		
 		setContentView(R.layout.about);
 		
@@ -61,8 +56,7 @@ public class AboutActivity extends Activity implements OnTouchListener{
 		//t.setTextSize(fontSize);
 		//t.setTypeface(font);
 		
-		v = findViewById(R.id.about_root);
-		v.setOnTouchListener(this);
+//		v = findViewById(R.id.about_root);
 	}
 	
 	/**
@@ -72,12 +66,6 @@ public class AboutActivity extends Activity implements OnTouchListener{
 	protected void onDestroy() {
 		 super.onDestroy();
 	     textToSpeech.stop();
-	}
-	
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		this.finish();
-		return false;
 	}
 	
 	@Override

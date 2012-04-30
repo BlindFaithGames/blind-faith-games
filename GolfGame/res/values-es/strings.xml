@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!-- =============================== -->
+    <!--           DIÁLOGOS  			 -->
+    <!-- =============================== -->        
+    
 	<string name="advice">Aconsejamos utilizar auriculares para jugar a este juego.</string>
 	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
 	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical</string>
@@ -15,6 +20,11 @@
     <string name="introMainMenu">Menú principal de Golf Accesible. Puede navegar por el menú mediante pulsaciones
      simples sobre las diferentes opciones ,para seleccionar haga una pulsación larga sobre la opción que desee.</string>
     <string name="buttonMessage">¡Adelante!</string>
+    
+    <!-- =============================== -->
+    <!--           MENU  	 			 -->
+    <!-- =============================== -->        
+    
     <string name="golfGamerActivity">Golf Accesible</string>
     <string name="exitButton">Salir</string>
     <string name="app_name">Golf Accesible</string>
@@ -27,8 +37,26 @@
     <string name="tutorial_label">Tutorial</string>
     <string name="form_label">Formulario</string>
     <string name="about_title">Acerca de Golf Accesible</string>
-    <string name="about_text">		   Music by www.SoundJay.com \n
-           Proyecto de Sistemas Informáticos de la UCM, 2011-2012.</string>
+    <string name="about_text">		  
+		Golf Game, 2012. \n\n
+		
+		Golf Game es parte del proyecto de investigación Blind Faith Games (BFG), que trata de averiguar estrategias de diseño adecuadas para producir juegos de los que puedan disfrutarse en un dispositivo con Android&#8482;  
+		independientemente de las capacidades de visión de la persona. Por favor, si tiene cinco minutos le agradeceríamos que rellenara el formulario de evaluación que encontrará a través del menú principal de la aplicación, esto nos ayudará a mejorarla.\n\n
+		
+		BFG es un proyecto del grupo e-UCM, y ha sido desarrollado por Gloria Pozuelo y Javier Álvarez.\n
+		e-UCM es un grupo de investigación reconocido del Departamento de Ingeniería del Software e Inteligencia Artificial de la Universidad Complutense de Madrid.\n\n
+		
+		Para más información visite: <a href="http://blind-faith-games.e-ucm.es">http://blind-faith-games.e-ucm.es</a>\n
+		Dirección de contacto: android@e-ucm.es \n\n  
+		
+		Music: Kevin MacLeod \n\n     
+		
+		<i>Android es una marca registrada de Google Inc.</i>	</string>
+	
+    <!-- =============================== -->
+    <!--           SETTINGS  			 -->
+    <!-- =============================== -->        
+    
     <string name="settings_label">Configuración</string>
     <string name="settings_title">Configuración de Golf Accesible</string>
     <string name="settings_shortcut">s</string>
@@ -40,19 +68,19 @@
     <string name="tts_title">Sintetizador por defecto</string>
     <string name="tts_summary">Habilita el sintetizador</string>
     <string name="infoTarget_title">Pista para encontrar el objetivo</string>
-    <string name="infoTarget_summary">Habilita un sonido que es reproducido cuando encuentres el objetivo mediante eventos de arrastre sobre la pantalla</string>
+    <string name="infoTarget_summary">Habilita un sonido que se reproduce cuando encuentre el objetivo mediante eventos de arrastre sobre la pantalla</string>
     <string name="v_feedback_title">Vibración</string>
     <string name="v_feedback_summary">Efecto de vibración para ayudar a encontrar la localización del objetivo</string>
     <string name="s_feedback_title">Pistas con efectos de sonido</string>
     <string name="s_feedback_summary">Sonido estéreo que ayuda a encontrar el objetivo</string>
     <string name="doppler_title">Sonido post-disparo</string>
-    <string name="doppler_summary">Un sonido será reproducido tras realizar un lanzamiento</string>
+    <string name="doppler_summary">Se reproducirá un sonido tras realizar un lanzamiento</string>
     <string name="profileA_title">Perfil A</string>
-    <string name="profileA_summary"> Habilita efectos de sonido para encontrar el objetivo, Sonido estéreo que ayuda a encontrar
-    							 el objetivo y Disminución progresiva del volumen cuando se lanza la pelota </string>
+    <string name="profileA_summary"> Habilita efectos de sonido para encontrar el objetivo, sonido estéreo que ayuda a encontrar
+    							 el objetivo y disminución progresiva del volumen cuando se lanza la pelota </string>
     <string name="profileB_title">Perfil B</string>
-    <string name="profileB_summary">Habilita efectos de sonido para encontrar el objetivo, Habilita el lanzamiento mediante evento de arrastre (como un tirachinas),
-    								efecto de vibración para ayudar a encontrar la localización del objetivo y  una disminución progresiva del volumen cuando se lanza la pelota</string>
+    <string name="profileB_summary">Habilita efectos de sonido para encontrar el objetivo, lanzamiento mediante evento de arrastre (como un tirachinas),
+    								efecto de vibración para ayudar a encontrar la localización del objetivo y disminución progresiva del volumen cuando se lanza la pelota</string>
     <string name="transcription_title">Modo onomatopeyas</string>
     <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
     <string name="blind_interaction_title">Modo de interacción para ciegos</string>
@@ -81,7 +109,7 @@
 		 disparo en sentido vertical, mediante uno de los movimientos que se explicaronanteriormente. Además en el caso del sonido, si la posición
 		 si llevas auriculares se emitirá sólo por un auricular. Esto indicará que la mejor posición está a la izquierda o a la derecha desde el 
 		 punto en el que estás describiendo el arco\n
-		Si necesitas más información puedes utilizar el tutorial.</string>
+		Si necesitas más información puedes utilizar el tutorial.	</string>
     <string name="synthetizer_title">Sintetizador</string>
         <string name="synthesizer_suggestion">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ"</string>
     <string name="onup_title">Evento tirachinas</string>
@@ -137,7 +165,11 @@
     <string name="key_conf_fail">No es una tecla válida</string>  
     <string name="key_conf_success">Has cambiado la tecla asociada a</string>
     <string name="stage_speech">Hoyo número</string>  
-   
+
+    <!-- =============================== -->
+    <!--           TUTORIAL  			 -->
+    <!-- =============================== -->    
+    
     <!-- TUTORIAL -->
     <string name="tutorial_step0_dialog_select">En este tutorial aprenderá lo básico de Golf. El juego consiste en lograr la máxima puntuación. Para ello deberá acertar el lanzamiento al hoyo.
         Para lanzar la pelota dispone de un área de lanzamiento en la parte inferior de la pantalla. Cuando se salga de este área, oirá un pitido de notificación. Tenemos dos modos de juego, 
@@ -162,7 +194,9 @@
     <string name="tutorial_step8_dialog_select">Cuanto más grave sea el pitido emitido en caso de fallo, más lejos se encuentra del objetivo. Si logra acertar el lanzamiento oirá un aplauso.</string>
     <string name="tutorial_step9_dialog_select">El tutorial acaba aquí.</string> 
     
-    <!-- Onomatopeias -->
+    <!-- =============================== -->
+    <!--           ONOMATOPEYAS			 -->
+    <!-- =============================== -->    
     <string name="bing_ono"> - bing bing! - </string>    
     <string name="bip_ono"> - Bip bip! -</string>    
     <string name="clue_feed_back_sound_ono"> - Ring! - </string>    
@@ -184,11 +218,13 @@
 	<string name="infoKeyConf">asociada a</string>
     <string name="infoKeyConffail">asociada a ninguna tecla.</string>
     
-    <string name="scoreboard_success">Tú puntuación se ha incrementado hasta </string>
-    <string name="scoreboard_fail">Tú puntuación ha disminuido hasta </string>
-    <string name="scoreboard_reset">Tú número de lanzamiento consecutivos es cero.</string>
+    <string name="scoreboard_success">Tu puntuación se ha incrementado hasta </string>
+    <string name="scoreboard_fail">Tu puntuación ha disminuido hasta </string>
+    <string name="scoreboard_reset">El número de lanzamientos consecutivos es cero.</string>
     
-    <!-- Forms -->
+    <!-- =============================== -->
+    <!--           FORMULARIOS 			 -->
+    <!-- =============================== -->    
     <string name= "form_instructions1"> Puedes navegar a través de este menú haciendo long click sobre los botones siguiente y anterior situados debajo
     		de cada conjunto de posibles respuestas o cada texto. Si haces un click simple la opción será leída. Y importante, la opción que se clickee la última vez será la seleccionada. 
 	</string>
@@ -230,6 +266,10 @@
     <string name="previous_context">Previa</string>
     <string name="finish_context">Finalizar</string>
     <string name="action_form">Has seleccionado</string>
+    
+    <!-- =============================== -->
+    <!--           OTRAS	  			 -->
+    <!-- =============================== -->        
     
 	<string name="screen_off_message">Tu pantalla se ha apagado.</string>
     <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>

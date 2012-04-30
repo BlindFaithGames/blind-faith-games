@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!-- =============================== -->
+    <!--           DIALOGS  			 -->
+    <!-- =============================== -->    
+        
     <string name="advice">We recommend using headphones to play this game.</string>
     <string name="group_name">Game made by Blind Faith Games</string>
     <string name="mode">This application works on landscape mode</string>
@@ -21,6 +26,11 @@
     <string name="introMainMenu">Main menu Zarodnik Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
+    
+    <!-- =============================== -->
+    <!--           MENU 	  			 -->
+    <!-- =============================== -->    
+        
     <string name="zarodnik_activity">Zarodnik</string>
     <string name="exitButton">Exit</string>
     <string name="main_title">Zarodnik</string>
@@ -32,9 +42,23 @@
     <string name="form_label">Form</string>
     <string name="exit_label">Exit</string>
     <string name="about_title">Zarodnik About </string>
-    <string name="about_text">           Music by www.SoundJay.com \n
-           and www.freesound.org \n
-           Insertar nombre grupo UCM, 2011-2012.	</string>
+    <string name="about_text"> 
+        Zaridnik, 2012. \n\n
+		
+		Zarodnik is part of Blind Faith Games (BFG), a research project about how to deliver eyes-free game experiences that are enjoyable on your Android&#8482; 
+		device regardless of your sight capabilities. If you have some time to spare, please help us to improve the game by filling in the feedback form that can be reached from the main menu.\n\n
+		
+		
+		BFG is a project of the e-UCM research group, developed by Gloria Pozuelo and Javier Álvarez.\n
+		e-UCM is a research group of the Department of Software Engineering and Artificial Intelligence at the Complutense University of Madrid.\n\n
+		
+		More info at: <a href="http://blind-faith-games.e-ucm.es">http://blind-faith-games.e-ucm.es</a>\n
+		Contact us at: android@e-ucm.es  \n\n  
+		
+		Music by www.SoundJay.com &amp; www.freesound.org \n\n 
+		
+		<i>Android is a trademark of Google Inc.</i>
+	</string>
     <string name="settings_label">Settings</string>
     <string name="settings_title">Zarodnik settings</string>
     <string name="settings_shortcut">s</string>
@@ -68,7 +92,7 @@
     <string name="settings_menu_initial_TTStext">Menu settings. 
 			    Clicking on each element on this menu changes and reads an option. 
 			    You have the next options on this menu\: 
-</string>
+	</string>
     <string name="game_play_initial_TTStext">Game Started! You begin in the center of the bottom on the screen. Remember you have 
     to find the prey and avoid the predators. On the top on the screen there is a scoreboard where you can
     listen to your punctuation doing long clicks.</string>
@@ -77,7 +101,7 @@
 			     and on your right you can change the key related 
 			    with an action. If you are in blind interaction mode you have to do a long click
 			     to be able to change the configuration .You have the next options\: 
-</string>
+	</string>
     <string name="keydialog">Action configuration</string>
     <string name="keydialog_text">Press any key</string>
     <string name="button_speak_record">Play record in game</string>
@@ -96,20 +120,20 @@
     <string name="ending_lose_message">Game Over</string>
     <string name="ending_win_message">You find your prey</string>
     <string name="intro_game_text">
-Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
-A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
-de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
-encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
+	Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
+	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
+	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
+	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
+	del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
     <string name="intro_game_tts">Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
-A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
-de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
-encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
+	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
+	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
+	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
+	del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
     <string name="game_over_text">The game concludes here </string>
     <string name="game_over_tts">The game concludes here. Long touch on the screen to end</string>
     <string name="screen_change_begins">Screen change begun.</string>
@@ -118,11 +142,11 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
     <string name="key_conf_fail">Not a valid key</string>
     <string name="key_conf_success">You have changed the key associated with</string>
 
-    <!-- Tutorial strings -->
+    <!-- =============================== -->
+    <!--           TUTORIAL  			 -->
+    <!-- =============================== -->  
+      
     <string name="tutorial03_capsule">That sound represents the capsule that you can find in the screen. Randomly increments/decrements your size.</string>
-
-     
-         <!-- Tutorial strings -->
     <string name="tutorial_warning">If you want to leave this info page do an a long touch on the screen.</string>
     <string name="tutorial00_intro">On this screen you will learn the sounds related the game elements. Remember! 
     In this tips, double tap on different positions on the screen to listen different sounds.</string>
@@ -154,7 +178,10 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
     <string name="tutorial06_intro">Here you can learn the basics to play. On the next screens,
      to listen the entities sounds you have to do double click on the screen.</string>
      
-    <!-- Onomatopeias strings -->
+    <!-- =============================== -->
+    <!--          ONOMATOPEYAS 			 -->
+    <!-- =============================== -->  
+      
     <string name="appear_ono">bing bing!</string>
     <string name="apple_bite_ono">crap!</string>
     <string name="barn_beat_ono">Playing \'Barn Beat\'</string>
@@ -174,11 +201,14 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
 
-    <!-- form -->
+    <!-- =============================== -->
+    <!--           FORMS  			 -->
+    <!-- =============================== -->    
+    
     <string name="form_instructions1">You can navigate through this form menu by making 
 		long taps on the buttons next and previous situated below of each option set or text. If you click on a text or a button
 		its text will be read and, important!! if it\'s a answer button will be selected.
-</string>
+	</string>
     <string name="form_instructions2">In this case, if you want, you can write in a field your opinion about the application. </string>
     <string name="form_instructions3">From now on, making taps, you can choose between different answers to respond questions.</string>
     <string name="form_instructions4">You can fill this field with your opinion.</string>
@@ -189,7 +219,7 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
 					answers to this questionnaire. All the information collected through this questionnaire will be
 					anonymous, untraceable and will be treated confidentially and only used for the purpose of the
 					study. \n
-</string>
+	</string>
     <string name="q1_context">Mark the option that better describes your current visual level</string>
     <string name="q2_context">Rate how often you play games in your computer or game console. Where 1 means "Never" and 5 "very often"</string>
     <string name="q3_context">Rate how often you play games in your mobile device (phone or tablet). Where 1 means "Never" and 5 "very often"</string>
@@ -220,6 +250,9 @@ almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene
     <string name="screen_on_message">Your screen has turned on. May be you have to unlock your device.</string>
     <string name="load_text">Sending information... Please wait</string>
     
+    <!-- =============================== -->
+    <!--           OTHERS   			 -->
+    <!-- =============================== -->        
     <string name="size_inc">Your size has been incremented.</string>
     <string name="size_dec">Your size has been decremented.</string>
     
