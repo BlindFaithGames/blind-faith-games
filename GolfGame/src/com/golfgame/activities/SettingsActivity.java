@@ -50,7 +50,7 @@ public class SettingsActivity extends PreferenceActivity implements
 	public static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = true;
 	public static final String FIRSTRUN = "first";
-	public static final boolean FIRSTRUN_DEF = false;
+	public static final boolean FIRSTRUN_DEF = true;
 	public static final String OPT_BLIND_INTERACTION = "interaction";
 	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
 	public static final String OPT_BLIND_MODE = "blind_mode";

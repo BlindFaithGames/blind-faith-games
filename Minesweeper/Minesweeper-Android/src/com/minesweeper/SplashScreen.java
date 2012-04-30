@@ -36,7 +36,7 @@ public class SplashScreen extends Activity {
                 try {
                     int waited = 0;
                     while(_active && (waited < _splashTime)) {
-                        sleep(100);
+                        sleep(300);
                         if(_active) {
                             waited += 100;
                         }

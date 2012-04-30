@@ -38,9 +38,9 @@ import com.golfgame.activities.MainActivity;
 import com.golfgame.activities.SettingsActivity;
 
 public class GolfGameplay extends GameState implements OnCancelListener {
-	
+
 	public enum steps {
-		STEP1, STEP2, STEP3, STEP4, STEP5, STEP6, STEP7, STEP8, STEP9
+		STEP0, STEP1, STEP2, STEP3, STEP4, STEP5, STEP6, STEP7, STEP8, STEP9
 	};
 
 	public static steps state;
@@ -50,8 +50,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 	private int stage; // stage number
 
 	private Random numberGenerator;
-	
-	private Dialog step[] = new Dialog[9];
+
+	private Dialog step[] = new Dialog[10];
 
 	private TTS textToSpeech;
 	private Resources res;
@@ -61,7 +61,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 		super(v, c, textToSpeech, game);
 
 		int record;
-		
+
 		stage = 1;
 		stageMode = (mode == 0);
 
@@ -71,22 +71,20 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			textToSpeech.setInitialSpeech(this.context
 					.getString(R.string.game_initial_TTStext));
 			record = loadRecord();
-		} 
-		else {
+		} else {
 			textToSpeech.setInitialSpeech(this.context
 					.getString(R.string.game_initial_stage_TTStext));
 			record = -1;
 		}
-		if (tutorial){
+		if (tutorial) {
 			stageMode = false;
 			res = this.getContext().getResources();
-			
-			// Comenzamos por el paso 1
-			state = steps.STEP1;
+
+			state = steps.STEP0;
 			handler = new Handler();
 			createDialogs(c);
 			step[0].show();
-			textToSpeech.setInitialSpeech(res.getString(R.string.tutorial_step1_dialog_select));
+			textToSpeech.setInitialSpeech(res.getString(R.string.tutorial_step0_dialog_select));
 			textToSpeech.disableTranscription();
 			record = -1;
 		}
@@ -94,7 +92,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 		createEntities(record);
 
 		this.textToSpeech = textToSpeech;
-		
+
 		// Set background image
 		numberGenerator = new Random();
 		Bitmap field;
@@ -125,33 +123,35 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 	public boolean isTutorialMode() {
 		return tutorial;
 	}
-	
-	public steps getStep(){
+
+	public steps getStep() {
 		return state;
 	}
 
 	private void createDialogs(Context c) {
-		for (int i = 0; i < step.length; i++){
+		for (int i = 0; i < step.length; i++) {
 			step[i] = new Dialog(c);
 			step[i].requestWindowFeature(Window.FEATURE_NO_TITLE);
-			switch (i){
-			case 0: step[i].setContentView(R.layout.tutorial_step1);
+			switch (i) {
+			case 0: step[i].setContentView(R.layout.tutorial_step0);
 				break;
-			case 1: step[i].setContentView(R.layout.tutorial_step2);
+			case 1: step[i].setContentView(R.layout.tutorial_step1);
 				break;
-			case 2: step[i].setContentView(R.layout.tutorial_step3);
+			case 2: step[i].setContentView(R.layout.tutorial_step2);
 				break;
-			case 3:  step[i].setContentView(R.layout.tutorial_step4);
+			case 3: step[i].setContentView(R.layout.tutorial_step3);
 				break;
-			case 4: step[i].setContentView(R.layout.tutorial_step5);
+			case 4: step[i].setContentView(R.layout.tutorial_step4);
 				break;
-			case 5: step[i].setContentView(R.layout.tutorial_step6);
+			case 5: step[i].setContentView(R.layout.tutorial_step5);
 				break;
-			case 6: step[i].setContentView(R.layout.tutorial_step7);
+			case 6: step[i].setContentView(R.layout.tutorial_step6);
 				break;
-			case 7: step[i].setContentView(R.layout.tutorial_step8);
+			case 7: step[i].setContentView(R.layout.tutorial_step7);
 				break;
-			case 8: step[i].setContentView(R.layout.tutorial_step9);
+			case 8: step[i].setContentView(R.layout.tutorial_step8);
+				break;
+			case 9: step[i].setContentView(R.layout.tutorial_step9);
 				break;
 			}
 			step[i].setCanceledOnTouchOutside(true);
@@ -221,16 +221,16 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 	public void onDraw(Canvas canvas) {
 		Paint brush = new Paint();
 		brush.setARGB(250, 210, 180, 140);
-		canvas.drawRect(0, GameState.SCREEN_HEIGHT - GameState.SCREEN_HEIGHT/3, 
-							GameState.SCREEN_WIDTH, GameState.SCREEN_HEIGHT-5, brush);
-		
+		canvas.drawRect(0, GameState.SCREEN_HEIGHT - GameState.SCREEN_HEIGHT
+				/ 3, GameState.SCREEN_WIDTH, GameState.SCREEN_HEIGHT - 5, brush);
+
 		if (stageMode) {
 			brush = new Paint();
 			brush.setTextSize(30);
 			canvas.drawText(Integer.toString(stage), SCREEN_WIDTH / 2, 30,
 					brush);
 		}
-		
+
 		super.onDraw(canvas);
 	}
 
@@ -239,11 +239,10 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 	 * 
 	 * */
 	public boolean inShotArea(float y) {
-		int height = getView().getHeight(); 
-		return (y < height-5) && (y > (height - height/3));
+		int height = getView().getHeight();
+		return (y < height - 5) && (y > (height - height / 3));
 	}
 
-	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -257,7 +256,7 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				VolumeManager.adjustStreamVolume(this.context,
 						AudioManager.ADJUST_LOWER);
 		}
-		if (tutorial){
+		if (tutorial) {
 			e = Input.getInput().getEvent("onDown");
 			if (e != null && state == steps.STEP2) {
 				Input.getInput().remove("onDown");
@@ -276,7 +275,9 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 				this.context.setResult(MainActivity.EXIT_GAME_CODE, i);
 				this.context.finish();
 			} else {
-				this.getTTS().speak(this.getContext().getString(R.string.stage_speech) + " " + stage);
+				this.getTTS().speak(
+						this.getContext().getString(R.string.stage_speech)
+								+ " " + stage);
 				// Change background image
 				// Set background image
 				Bitmap field;
@@ -312,13 +313,26 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 
 	public void nextState() {
 		switch (state) {
-		case STEP1:
-			state = steps.STEP2;
+		case STEP0: 
+			state = steps.STEP1;
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
 					step[0].dismiss();
 					step[1].show();
+					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
+					textToSpeech.speak(res.getString(R.string.tutorial_step1_dialog_select));
+					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
+				}
+			});
+			break;
+		case STEP1:
+			state = steps.STEP2;
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					step[1].dismiss();
+					step[2].show();
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step2_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -330,8 +344,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					step[1].dismiss();
-					step[2].show();
+					step[2].dismiss();
+					step[3].show();
 					SettingsActivity.setOnUp(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step3_dialog_select));
@@ -344,8 +358,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					step[2].dismiss();
-					step[3].show();
+					step[3].dismiss();
+					step[4].show();
 					SettingsActivity.setInfoTarget(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step4_dialog_select));
@@ -358,8 +372,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					step[3].dismiss();
-					step[4].show();
+					step[4].dismiss();
+					step[5].show();
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step5_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -371,8 +385,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					step[4].dismiss();
-					step[5].show();
+					step[5].dismiss();
+					step[6].show();
 					SettingsActivity.setVibration(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step6_dialog_select));
@@ -385,8 +399,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					step[5].dismiss();
-					step[6].show();
+					step[6].dismiss();
+					step[7].show();
 					SettingsActivity.setSoundFeedback(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step7_dialog_select));
@@ -399,8 +413,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					step[6].dismiss();
-					step[7].show();
+					step[7].dismiss();
+					step[8].show();
 					SettingsActivity.setDoppler(true);
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step8_dialog_select));
@@ -413,8 +427,8 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 			handler.post(new Runnable() {
 				@Override
 				public void run() {
-					step[7].dismiss();
-					step[8].show();
+					step[8].dismiss();
+					step[9].show();
 					textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 					textToSpeech.speak(res.getString(R.string.tutorial_step9_dialog_select));
 					textToSpeech.setQueueMode(TTS.QUEUE_ADD);
@@ -426,10 +440,9 @@ public class GolfGameplay extends GameState implements OnCancelListener {
 
 	@Override
 	public void onCancel(DialogInterface dialog) {
-		if (dialog.equals(step[1]) || dialog.equals(step[4])){
+		if (dialog.equals(step[0]) || dialog.equals(step[2]) || dialog.equals(step[5])) {
 			this.nextState();
-		}
-		else if (dialog.equals(step[8])){
+		} else if (dialog.equals(step[9])) {
 			this.context.finish();
 		}
 	}

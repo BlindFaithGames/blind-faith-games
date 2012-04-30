@@ -5,7 +5,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:padding="10dp"
-              android:background="@color/transparent_orange1">
+              android:background="@color/button">
     <TextView android:id="@+id/toast_text"
               android:layout_width="wrap_content"
               android:layout_height="fill_parent"

@@ -98,9 +98,9 @@
     <string name="settings_menu_initial_TTStext">Menú de ajustes. 
 			    Pulsando en cualquiera de las opciones mostradas a lo largo de la pantalla puede activar o desactivar 
 			    una configuración. Al tiempo que activa o desactiva puede leer su descripción para conocer la función que
-			    lleva a cabo en la aplicación. En particular en este menú existen dos opciones: perfil A y perfil B, que perfil habilitar y 
-			    deshabilitar a la vez un conjunto de opciones de este menu que no es recomendable combinar. Por otro lado también se pueden 
-			    habilitar todas las opciones por separado.
+			    lleva a cabo en la aplicación. En particular en este menú existen dos opciones: perfil A y perfil B. Estos perfiles habilitan y 
+			    deshabilitan un conjunto de opciones, idóneos para jugar. Por otro lado también se pueden habilitar todas las opciones por separado independientemente
+			    de los perfiles.
 			    Tiene las siguientes opciones dentro de este menu\: 
 	</string>
     <string name="game_initial_TTStext">¡El juego ha comenzado!</string>
@@ -139,24 +139,27 @@
     <string name="stage_speech">Hoyo número</string>  
    
     <!-- TUTORIAL -->
-    <string name="tutorial_step1_dialog_select">En este tutorial aprenderás lo básico de Golf. Todas las características mostradas en este tutorial se pueden activar/desactivar en configuración. El tutorial comienza! Para disparar, en la zona de tiro
-    situada en la parte inferior de la pantalla, haz un gesto fling, es decir un gesto de scroll rápido hacia la dirección en la que quieras disparar.</string>
+    <string name="tutorial_step0_dialog_select">En este tutorial aprenderá lo básico de Golf. El juego consiste en lograr la máxima puntuación. Para ello deberá acertar el lanzamiento al hoyo.
+        Para lanzar la pelota dispone de un área de lanzamiento en la parte inferior de la pantalla. Cuando se salga de este área, oirá un pitido de notificación. Tenemos dos modos de juego, 
+        el modo libre, en el que podrá practicar tantos lanzamientos como desee y el modo 18 hoyos, en el que se hará un recuento de la puntuación sobre 18 hoyos. Para conocer su puntuación, dispone
+        de un marcador en el borde izquierdo de la pantalla a la altura de la zona de lanzamiento. Si realiza una pulsación sobre éste, se le notificará la puntuación acumulada hasta el momento.</string>
+    <string name="tutorial_step1_dialog_select">Todas las características mostradas en este tutorial se pueden activar/desactivar en configuración. El tutorial comienza! Recuerde que para disparar debe
+        colorcarse en la zona de tiro situada en la parte inferior de la pantalla y realizar un fling, es decir un gesto de scroll rápido hacia la dirección que desee disparar.</string>
     <string name="tutorial_step2_dialog_select">Ese modo de lanzamiento es el establecido por defecto. Cada vez que se acierta un lanzamiento
         el objetivo cambia de posición.</string>
     <string name="tutorial_step3_dialog_select">Puedes cambiar el modo a on Up. Para disparar arrastra y levanta el dedo</string>
-    <string name="tutorial_step4_dialog_select">La opción clue target te permite localizar el objetivo mediante pulsaciones y eventos de arrastre.
+    <string name="tutorial_step4_dialog_select">La opción pista para encontrar el objetivo, te permite localizar el objetivo mediante pulsaciones y eventos de arrastre.
   	    Prueba a encontrarlo.</string>
     <string name="tutorial_step5_dialog_select">Este sonido es el que se emite cuando encuentras el objetivo</string>
-    <string name="tutorial_step6_dialog_select">Las dos siguietnes opciones te indican que dirección para tu lanzamiento puede ser la mejor.
-    La vibración te da una pista de por dónde está el objetivo. 
-    Para utilizarla basta con describir un arco en la zona de tiro en la parte inferior de la pantalla. 
+    <string name="tutorial_step6_dialog_select">Las siguientes opciones te indican qué dirección para tu lanzamiento puede ser la mejor.
+    La vibración te da una pista de por dónde está el objetivo. Para utilizarla basta con describir un arco en la zona de tiro en la parte inferior de la pantalla. 
     La posición donde vibra el dispositivo indica la mejor dirección para realizar el disparo. 
-    Una vez has encontrado una buena posición dentro del arco, trata de hacer el gesto de tiro que corresponda hacía abajo desde esa posición.</string>
+    Una vez haya encontrado una buena posición dentro del arco, trate de hacer el gesto de tiro que corresponda hacia abajo desde esa posición.</string>
     <string name="tutorial_step7_dialog_select">Pistas con efectos de sonido, también es una ayuda para localizar el objetivo en el lanzamiento. 
     Nuevamente describiendo un arco en la zona de tiro en la parte inferior de la pantalla. 
-    La posición cuando se describe el arco que reproduce un sonido de mayor volumen es la mejor para realizar tu disparo.
+    Si cuando estamos describiendo el arco del tiro escuchamos un sonido de mayor volumen quiere decir que es la mejor posición para realizar su disparo.
     Una vez has encontrado una buena posición dentro del arco, trata de hacer el gesto de tiro que corresponda hacía abajo desde esa posición</string>
-    <string name="tutorial_step8_dialog_select">El pitido emitido en caso de fallo indica cuanto más grave sea más lejos se encuentra de la pantalla. Si lograr acertar oiras un aplauso.</string>
+    <string name="tutorial_step8_dialog_select">Cuanto más grave sea el pitido emitido en caso de fallo, más lejos se encuentra del objetivo. Si logra acertar el lanzamiento oirá un aplauso.</string>
     <string name="tutorial_step9_dialog_select">El tutorial acaba aquí.</string> 
     
     <!-- Onomatopeias -->

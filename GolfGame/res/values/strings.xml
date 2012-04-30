@@ -134,7 +134,11 @@
     <string name="stage_speech">Stage number</string>  
    
     <!-- TUTORIAL -->
-    <string name="tutorial_step1_dialog_select">In this tutorial you\'ll learn the game basics. All this features can be enabled/disabled in settings. Tutorial begins! To shoot you have to do a fling on the shoot area.
+     <string name="tutorial_step0_dialog_select">In this tutorial you\'ll learn the game basics. The game consists in to achieve the highest score. This must be successful launch pit.
+         To launch the ball yuo has a launch area at the bottom of the screen. When you leave this area, you will hear a beep notification. We have two modes of play,
+         free mode, where you can play as many shots as you want and 18 holes mode, which will count the score on 18 holes. To find your score, you has
+         a marker on the left edge of the screen to the height of the throwing area. If you make a click on it, it will notify the cumulative score so far.</string>
+    <string name="tutorial_step1_dialog_select">All this features can be enabled/disabled in settings. Tutorial begins! To shoot you have to do a fling on the shoot area.
     i.e. you have to do a quickly scroll gesture in the direction that you want to shoot</string>
     <string name="tutorial_step2_dialog_select">By default that is the shot mode. Each time you score a shot, the target will change its position.</string>
     <string name="tutorial_step3_dialog_select">You can change the shot mode in settings. To shoot, drag as if it were a slingshot and release the screen touch.</string>
