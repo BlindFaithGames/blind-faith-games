@@ -68,11 +68,10 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private Dialog interactionModeDialog, ttsDialog;
 	private View focusedView;
 	private Typeface font;
-	private boolean startNewActivity;
 	
 	private SharedPreferences wmbPreference;
 	private SharedPreferences.Editor editor;
-	private boolean blindInteraction,isFirstRun;
+	private boolean blindInteraction, isFirstRun;
 	
 	private Id id;
 
@@ -296,7 +295,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	
 	private void menuAction(View v) {
 		Intent i;
-		startNewActivity = true;
 		switch (v.getId()) {
 			case R.id.settings_button:
 				i = new Intent(this, SettingsActivity.class);
@@ -456,7 +454,6 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Intent nextIntent;
-		startNewActivity = true;
 		switch (resultCode) {
 		case (RESET_CODE):
 			nextIntent = new Intent(getApplicationContext(),ZarodnikGameActivity.class);

@@ -7,7 +7,7 @@ import android.graphics.Rect;
 /**
  * This class contains a simple animation. It's supposed the frames of the graphic are only in horizontal sense.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo. 
+ * @author Javier √Ålvarez & Gloria Pozuelo. 
  * 
  * */
 

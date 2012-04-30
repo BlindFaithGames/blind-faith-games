@@ -33,12 +33,14 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final boolean OPT_TTS_DEF = true;
 	private static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = true;
-	public static final String FIRSTRUN = "first";
-	public static final boolean FIRSTRUN_DEF = true;
 	public static final String OPT_BLIND_INTERACTION = "interaction";
 	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
 	public static final String OPT_BLIND_MODE = "blind_mode";
 	private static final boolean OPT_BLIND_MODE_DEF = false;
+	public static final String FIRSTRUN = "first";
+	public static final boolean FIRSTRUN_DEF = true;
+	public static final String FIRSTGAME = "firstg";
+	public static final boolean FIRSTGAME_DEF = true;
 	
 	private TTS textToSpeech;
 

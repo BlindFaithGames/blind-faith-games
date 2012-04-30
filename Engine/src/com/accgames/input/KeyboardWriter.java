@@ -26,7 +26,7 @@ import android.util.Log;
  * 
  * Class that manages everything related to saving an edited XML keyboard.
  * 
- * @author Gloria Pozuelo & Javier ¡lvarez
+ * @author Gloria Pozuelo & Javier √Ålvarez
  * 
  */
 

@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 /**
  * Abstract class that provides methods to implement mask with different shapes. 
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo. 
+ * @author Javier √Ålvarez & Gloria Pozuelo. 
  * 
  * */
 

@@ -11,7 +11,7 @@ import android.graphics.PorterDuff;
 /**
  * State machine that contains a list of game state and an order that indicates how to be used each of them.
  * 
- * @author Javier �lvarez & Gloria Pozuelo.
+ * @author Javier Álvarez & Gloria Pozuelo.
  * 
  * */
 

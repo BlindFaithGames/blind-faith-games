@@ -29,7 +29,7 @@ import com.zarodnik.R;
 
 public class ZarodnikTutorial extends  GameState{
 	
-	public enum TutorialID {TUTORIAL0, TUTORIAL1, TUTORIAL2, TUTORIAL3, TUTORIAL4, TUTORIAL5, TUTORIAL6};
+	public enum TutorialID {TUTORIAL0, TUTORIAL1, TUTORIAL2, TUTORIAL3, TUTORIAL4, TUTORIAL5, TUTORIAL6, TUTORIAL7, TUTORIAL8 };
 	
 	private TutorialID tutorialN;
 
@@ -59,7 +59,8 @@ public class ZarodnikTutorial extends  GameState{
 		this.getTTS().setQueueMode(TextToSpeech.QUEUE_FLUSH);
 		switch(tutorialN){
 		case TUTORIAL0:
-			this.getTTS().speak(this.getContext().getString(R.string.tutorial00_intro));
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial00_intro) 
+					+ " " + this.context.getString(R.string.long_tap));
 			break;
 		case TUTORIAL1:
 			explainRadio();
@@ -71,13 +72,24 @@ public class ZarodnikTutorial extends  GameState{
 			explainCapsule();
 			break;
 		case TUTORIAL4:
-			this.getTTS().speak(this.getContext().getString(R.string.tutorial04_instructions));
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial04_instructions) 
+					+ " " + this.context.getString(R.string.long_tap));
 			break;
 		case TUTORIAL5:
-			this.getTTS().speak(this.getContext().getString(R.string.instructions_general_text));
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial05_goal) 
+					+ " " + this.context.getString(R.string.long_tap));
 			break;
 		case TUTORIAL6:
-			this.getTTS().speak(this.getContext().getString(R.string.tutorial_intro));
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial06_intro) 
+					+ " " + this.context.getString(R.string.long_tap));
+			break;
+		case TUTORIAL7:
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial07_sound) 
+					+ " " + this.context.getString(R.string.long_tap));
+			break;
+		case TUTORIAL8:
+			this.getTTS().speak(this.getContext().getString(R.string.tutorial08_scoreboard) 
+					+ " " + this.context.getString(R.string.long_tap));
 			break;
 		}
 	}
@@ -108,6 +120,12 @@ public class ZarodnikTutorial extends  GameState{
 				createText(tutorialN);
 				break;
 			case TUTORIAL6:
+				createText(tutorialN);
+				break;
+			case TUTORIAL7:
+				createText(tutorialN);
+				break;
+			case TUTORIAL8:
 				createText(tutorialN);
 				break;
 		}
@@ -178,11 +196,11 @@ public class ZarodnikTutorial extends  GameState{
 		Text preyText, predatorText, radioText, chainFishText, capsuleText, instructionsText;
 		int stepsPerWord;
 		String preySpeech, predatorSpeech, chainFishSpeech, radioSpeech, capsuleSpeech, instructions;
-		fontSize =  (this.getContext().getResources().getDimension(R.dimen.font_size_intro)/GameState.scale);
+		fontSize =  (this.getContext().getResources().getDimension(R.dimen.font_size_tuto)/GameState.scale);
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		brush = new Paint();
 		brush.setTextSize(fontSize);
-		brush.setARGB(255, 255, 255, 204);
+		brush.setColor(this.getContext().getResources().getColor(R.color.blue1));
 		if(font != null)
 			brush.setTypeface(font);
 		stepsPerWord = RuntimeConfig.TEXT_SPEED;
@@ -191,48 +209,60 @@ public class ZarodnikTutorial extends  GameState{
 			case TUTORIAL0:
 				preySpeech = this.getContext().getString(R.string.tutorial00_prey);
 				preyText = new Text(SCREEN_WIDTH/3, 0, null, this,null, null, null,
-						null, false, brush, stepsPerWord, preySpeech);
+						null, false, brush, stepsPerWord, preySpeech, fontSize);
 				this.addEntity(preyText);
 				
 				predatorSpeech = this.getContext().getString(R.string.tutorial00_predator);
 				predatorText = new Text(SCREEN_WIDTH/3, SCREEN_HEIGHT/2, null, this,null, null, null,
-						null, false, brush, stepsPerWord, predatorSpeech);
+						null, false, brush, stepsPerWord, predatorSpeech, fontSize);
 				this.addEntity(predatorText);
 				break;
 			case TUTORIAL1:
 				radioSpeech = this.getContext().getString(R.string.tutorial01_radio);
 				radioText = new Text(0, SCREEN_HEIGHT/3, null, this,null, null, null,
-						null, false, brush, stepsPerWord, radioSpeech);
+						null, false, brush, stepsPerWord, radioSpeech, fontSize);
 				this.addEntity(radioText);
 				break;
 			case TUTORIAL2:
 				chainFishSpeech = this.getContext().getString(R.string.tutorial02_chainfish);
 				chainFishText = new Text(0, SCREEN_HEIGHT/3, null, this,null, null, null,
-						null, false, brush, stepsPerWord, chainFishSpeech);
+						null, false, brush, stepsPerWord, chainFishSpeech, fontSize);
 				this.addEntity(chainFishText);
 				break;
 			case TUTORIAL3:
 				capsuleSpeech = this.getContext().getString(R.string.tutorial03_capsule);
 				capsuleText = new Text(0, SCREEN_HEIGHT/3, null, this,null, null, null,
-						null, false, brush, stepsPerWord, capsuleSpeech);
+						null, false, brush, stepsPerWord, capsuleSpeech, fontSize);
 				this.addEntity(capsuleText);
 				break;
 			case TUTORIAL4:
 				instructions = this.getContext().getString(R.string.tutorial04_instructions);
 				instructionsText = new Text(0, 0, null, this,null, null, null,
-						null, false, brush, stepsPerWord, instructions);
+						null, false, brush, stepsPerWord, instructions, fontSize);
 				this.addEntity(instructionsText);
 				break;
 			case TUTORIAL5:
-				instructions = this.getContext().getString(R.string.instructions_general_text);
+				instructions = this.getContext().getString(R.string.tutorial05_goal);
 				instructionsText = new Text(0, 0, null, this,null, null, null,
-						null, false, brush, stepsPerWord, instructions);
+						null, false, brush, stepsPerWord, instructions, fontSize);
 				this.addEntity(instructionsText);
 				break;
 			case TUTORIAL6:
-				instructions = this.getContext().getString(R.string.tutorial_intro);
+				instructions = this.getContext().getString(R.string.tutorial06_intro);
 				instructionsText = new Text(0, 0, null, this,null, null, null,
-						null, false, brush, stepsPerWord, instructions);
+						null, false, brush, stepsPerWord, instructions, fontSize);
+				this.addEntity(instructionsText);
+				break;
+			case TUTORIAL7:
+				instructions = this.getContext().getString(R.string.tutorial07_sound);
+				instructionsText = new Text(0, 0, null, this,null, null, null,
+						null, false, brush, stepsPerWord, instructions, fontSize);
+				this.addEntity(instructionsText);
+				break;
+			case TUTORIAL8:
+				instructions = this.getContext().getString(R.string.tutorial08_scoreboard);
+				instructionsText = new Text(0, 0, null, this,null, null, null,
+						null, false, brush, stepsPerWord, instructions, fontSize);
 				this.addEntity(instructionsText);
 				break;
 		}
@@ -442,17 +472,20 @@ public class ZarodnikTutorial extends  GameState{
 
 	private void explainChainfish() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.chain, false);
-		this.getTTS().speak(this.getContext().getString(R.string.tutorial02_chainfish));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial02_chainfish) 
+				+ " " + this.context.getString(R.string.long_tap));
 	}
 	
 	private void explainCapsule() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.pill, false);
-		this.getTTS().speak(this.getContext().getString(R.string.tutorial03_capsule));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial03_capsule) 
+				+ " " + this.context.getString(R.string.long_tap));
 	}
 	
 	private void explainRadio() {
 		Music.getInstanceMusic().playWithBlock(this.getContext(), R.raw.radio, false);
-		this.getTTS().speak(this.getContext().getString(R.string.tutorial01_radio));
+		this.getTTS().speak(this.getContext().getString(R.string.tutorial01_radio) 
+				+ " " + this.context.getString(R.string.long_tap));
 	}
 
 	private void explainPredator() {

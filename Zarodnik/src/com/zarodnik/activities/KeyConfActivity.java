@@ -96,7 +96,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 	 * @throws ParserConfigurationException 
 	 */
 	public void saveEditedKeyboard(String file){
-		// Si el writer no ha sido a�n creado, lo creamos
+		// Si el writer no ha sido aún creado, lo creamos
 		if (writer == null) writer = new KeyboardWriter();
 		try {
 			FileOutputStream fos = openFileOutput(file, 3);

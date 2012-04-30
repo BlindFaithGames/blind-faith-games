@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * This class represents a simple animation.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo.
+ * @author Javier √Ålvarez & Gloria Pozuelo.
  * 
  * */
 

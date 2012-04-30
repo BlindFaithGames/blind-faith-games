@@ -253,7 +253,7 @@
     <string name="game_dialog_select">Seleccione una dificultad</string>
     <!-- Tutorial info -->
     <string name="tut_step">Para ir al siguiente consejo, realice una pulsación en la parte superior de la pantalla.</string>
-    <string name="tut_finish">Para finalizar, relalice una pulsación en la parte superior de la pantalla.</string>
+    <string name="tut_finish">Para finalizar, realice una pulsación en la parte superior de la pantalla.</string>
     <string name="tut_intro_text">En este tutorial, aprenderá las lecciones básicas para jugar.</string>
     <string name="tut_tap_text">Pulse una casilla para seleccionarla y escuchar su estado. ¡Pruébelo!.</string>
     <string name="tut_dtap_text">Realice doble pulsación en pantalla para excavar una casilla. ¡Pruébelo!.</string>
@@ -265,13 +265,15 @@
 									Coordenadas: para escuchar el estado de la casilla y las coordenadas, use el botón buscar por defecto. \n
 									El modo zoom y el modo exploración se explican en el tutorial a continuación
 									¡Ahora prueba a usarlos!.</string>
-    <string name="tut_zoom_mode_text">        El modo zoom permite centrar la vista en una casilla determinada. Para destapar la casilla en este modo, simplemente
-        hay que realizar una pulsación en pantalla. Además si pulsa sobre alguno de los extremos de la pantalla, podrá 
-        desplazarse por el tablero. También cambia la forma de interactuar, de forma que para excavar realizamos una pulsación 
-        y para explorar dos pulsaciones en pantalla. Para habilitar el modo zoom simplemente debe presionar el botón de subir
-        volumen o el que haya establecido en el panel de configuración de teclado. ¡Ahora pruebe a usar el modo zoom!</string>
-    <string name="tut_exploration_mode_text">        El modo exploración permite establecer banderas en las casillas independientemente del evento táctil que realice (una pulsación, dos, tres...). ¡Compruébelo!</string>
-    <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que rodean a la seleccionada. ¡Pruébelo!</string>
+    <string name="tut_zoom_mode_text">El modo zoom permite centrar la vista en una casilla determinada. Para destapar 
+    la casilla en este modo, simplemente hay que realizar una pulsación en pantalla. Además si pulsa sobre alguno de los extremos
+    de la pantalla, podrá desplazarse por el tablero. También cambia la forma de interactuar, de forma que para excavar realizamos 
+    una pulsación y para explorar dos pulsaciones en pantalla. Para habilitar el modo zoom simplemente debe presionar el botón de 
+    subir volumen o el que haya establecido en el panel de configuración de teclado. ¡Ahora pruebe a usar el modo zoom!	</string>
+    <string name="tut_exploration_mode_text">El modo exploración permite establecer banderas en las casillas
+     independientemente del evento táctil que realice (una pulsación, dos, tres...). ¡Compruébelo!</string>
+    <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que
+     rodean a la seleccionada. ¡Pruébelo!</string>
 
     <!-- Game Actions -->
     <string name="action_exploration">Modo exploración activado/desactivado</string>

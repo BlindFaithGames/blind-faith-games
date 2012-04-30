@@ -19,7 +19,7 @@ import android.view.View;
  * This class allows use the default voice synthesizer in the system to transcribe a string, 
  * and checks what is the synthesis engine installed in a device.
  * 
- * @author Gloria Pozuelo & Javier �lvarez 
+ * @author Gloria Pozuelo & Javier Álvarez 
  * @implements OnInitListener, Parcelable
  * 
  */

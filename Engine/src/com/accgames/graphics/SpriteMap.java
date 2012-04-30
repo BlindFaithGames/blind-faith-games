@@ -13,7 +13,7 @@ import android.graphics.Rect;
 /**
  * This class provides a set of animation objects which will be used comfortably.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo.
+ * @author Javier √Ålvarez & Gloria Pozuelo.
  * 
  * */
 @SuppressWarnings("unused")

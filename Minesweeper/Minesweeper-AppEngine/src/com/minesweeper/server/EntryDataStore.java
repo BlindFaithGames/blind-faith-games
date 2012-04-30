@@ -14,8 +14,8 @@ import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 
 /**
  * 
- * @author Gloria Pozuelo, Javier ¡lvarez y Gonzalo Benito Clase encargada de
- *         almacenar los datos a travÈs de JDO
+ * @author Gloria Pozuelo, Javier √Ålvarez y Gonzalo Benito Clase encargada de
+ *         almacenar los datos a trav√©s de JDO
  * 
  */
 

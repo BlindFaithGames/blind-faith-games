@@ -9,7 +9,7 @@ import android.view.SurfaceView;
 /**
  * This class provides a Custom surface view controlled within other thread
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo. 
+ * @author Javier √Ålvarez & Gloria Pozuelo. 
  * 
  * @implements SurfaceHolder.Callback, ISurface.
  * 

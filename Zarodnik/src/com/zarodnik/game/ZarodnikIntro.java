@@ -44,12 +44,12 @@ public class ZarodnikIntro extends GameState {
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		brush = new Paint();
 		brush.setTextSize(fontSize);
-		brush.setARGB(255, 255, 255, 204);
+		brush.setColor(this.getContext().getResources().getColor(R.color.blue1));
 		if(font != null)
 			brush.setTypeface(font);
 		
 		text = new Text(textoffSetX, textoffSetY, null, this, null, null, 
-				null, null, false, brush, stepsPerWord, this.getContext().getString(R.string.intro_game_text));
+				null, null, false, brush, stepsPerWord, this.getContext().getString(R.string.intro_game_text), fontSize);
 		this.addEntity(text);
 		
 		BitmapScaler scaler;
@@ -66,7 +66,7 @@ public class ZarodnikIntro extends GameState {
 		super.onInit();
 		Music.getInstanceMusic().play(this.getContext(), R.raw.intro, true);
 		
-		getTTS().speak(this.context.getString(R.string.intro_game_tts));
+		getTTS().speak(this.context.getString(R.string.intro_game_tts) + ". " + this.context.getString(R.string.long_tap));
 	}
 	
 	@Override

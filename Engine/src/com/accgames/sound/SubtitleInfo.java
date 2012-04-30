@@ -11,7 +11,7 @@ import android.widget.Toast;
 /**
  * This class encapsulates all persistent information needed to make work SubtitlesManager class.
  * 
- * @author Gloria Pozuelo & Javier ¡lvarez 
+ * @author Gloria Pozuelo & Javier √Ålvarez 
  * @implements Parcelable
  * 
  * */

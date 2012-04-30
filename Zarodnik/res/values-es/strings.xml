@@ -22,7 +22,7 @@
     <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
     							 ,para seleccionar haga una pulsación larga sobre la opción que desee, en caso de haber seleccionado interacción para ciegos.</string>
     <string name="buttonMessage">¡Adelante!</string>
-    <string name="zarodnik_activity">Zarodnik Accesible</string>
+    <string name="zarodnik_activity">Zarodnik</string>
     <string name="exitButton">Salir</string>
     <string name="main_title">Zarodnik</string>
     <string name="continue_label">Continuar</string>
@@ -31,12 +31,12 @@
     <string name="about_label">Acerca de</string>
     <string name="form_label">Formulario</string>
     <string name="exit_label">Salir</string>
-    <string name="about_title">Acerca de Zarodnik Accesible </string>
+    <string name="about_title">Acerca de Zarodnik</string>
     <string name="about_text">           Music by www.SoundJay.com \n
            and www.freesound.org \n
            Proyecto de Sistemas Informáticos de la UCM, 2011-2012.</string>
     <string name="settings_label">Configuración</string>
-    <string name="settings_title">Configuración de Zarodnik Accesible</string>
+    <string name="settings_title">Configuración de Zarodnik</string>
     <string name="settings_shortcut">s</string>
     <string name="main_category">Principal</string>
     <string name="profiles_category">Perfiles</string>
@@ -72,14 +72,14 @@
 			    Tiene las siguientes opciones dentro de este menu\: 
 	</string>
     <string name="game_play_initial_TTStext">¡El juego ha comenzado! Empiezas en el centro en la parte de abajo de la pantalla.
-    Recuerda encuentra a la presa y evita los depredadores. En la parte superior de la pantalla, mediante long clicks puedes consultar un marcador
-    que te indicará tu puntuación.</string>
+    Recuerda encuentra al obeaune y evita los strouf. En la parte superior de la pantalla, mediante long clicks puedes consultar 
+    un marcador que te indicará tu puntuación.</string>
     <string name="coordinates_information_button_TTStext">Posición</string>
     <string name="key_configuration_menu_initial_TTStext">
-				Configuración de teclado. Mediante taps a tu izquierda puedes escuchar
-			    las descripciones de las acciones y a tu derecha puedes cambiar la tecla relacionada
-				con la acción de la izquierda. Si estás en modo de interacción para ciegos el cambio de configuración asociada a una tecla
-				será mediante un long tap sino mediante tap simple.  En total se tienen las siguiente opciones\: 
+				Configuración de teclado. Mediante taps a su izquierda puedes escuchar
+			    las descripciones de las acciones y a su derecha puede cambiar la tecla relacionada
+				con la acción de la izquierda. Si está en modo de interacción para ciegos el cambio de configuración 
+				asociada a una tecla será mediante un long tap sino mediante tap simple.  En total se tienen las siguiente opciones\: 
     </string> 
     <string name="keydialog">Configuración de acción</string>
     <string name="keydialog_text">Pulse cualquier tecla</string>
@@ -93,44 +93,63 @@
     <string name="scoreboard_fail">Tú puntuación ha disminuido hasta </string>
     <string name="scoreboard_reset">Tú número de lanzamiento consecutivos es cero.</string>
     <string name="ranking_title">Ranking de juego anteriores</string>
-    <string name="ranking_speech">Tiempo, fecha y record</string>
+    <string name="ranking_speech">Tiempo, fecha y record.</string>
     <string name="dialog_select">Seleccione controles o instrucciones generales</string>
     <string name="initial_message">Preparado... ¡Ya!</string>
     <string name="ending_lose_message">Fin del juego</string>
-    <string name="ending_win_message">Encontró su presa</string>
-    <string name="intro_game_text">Había una vez, un pequeño monstruo que viajaba inmerso en las profundidades. 
+    <string name="ending_win_message">Encontraste un obeaune.</string>
+    <string name="intro_game_text">Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
 A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-Es por ello, que ahora nuestro protagonista se encuentra en medio de una batalla entre presas y depredadores. ¿Qué nos deparará en nuestra aventura?</string>
-    <string name="intro_game_tts">Había una vez, un pequeño monstruo que viajaba inmerso en las profundidades. 
+Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
+encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
+del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
+    <string name="intro_game_tts">Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
 A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-Es por ello, que ahora nuestro protagonista se encuentra en medio de una batalla entre presas y depredadores. ¿Qué nos deparará en nuestra aventura?
-Para continuar realiza una pulsación larga sobre la pantalla</string>
+Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
+encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
+del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
     <string name="game_over_text">El juego finaliza aquí</string>
-    <string name="game_over_tts">El juego finaliza aquí. Para salir realice una pulsación larga</string>
+    <string name="game_over_tts">El juego finaliza aquí. Para salir realiza una pulsación larga</string>
         <string name="screen_change_begins">Cambio de pantalla comenzado.</string>
     <string name="screen_change_ends">Cambio de pantalla finalizado.</string>
     <string name="instruction_speech">Pulsación larga para regresar al menú principal</string>
     <string name="key_conf_fail">No es una tecla válida</string>
     <string name="key_conf_success">Has cambiado la tecla asociada a</string>
+    
     <!-- Tutorial strings -->
-    <string name="tutorial_warning">Si quiere salir de esta pantalla simplemente haga una pulsación larga en pantalla.</string>
-    <string name="tutorial_intro">Aquí podrá aprender los conceptos básicos para jugar. En las siguientes pantallas, para escuchar los sonidos que representan los objetos realice doble click. 
-	Para pasar al siguiente paso del tutorial realice una pulsación larga.</string>
-    <string name="tutorial00_intro">En esta pantalla aprenderás los sonidos relacionados con presas y depredadores.
-    Recuerda! doble pulsación en una mitad u otra de la pantalla para escuchar un sonido diferente
-    y pulsación larga para pasar al siguiente paso del tutorial.</string>
-    <string name="tutorial00_predator">Ese sonido representa el depredador que debe de evitar.</string>
-    <string name="tutorial00_prey">Ese sonido representa la presa que tiene que encontrar por la pantalla.</string>
-    <string name="tutorial01_radio">Ese sonido representa la radio que encontrará en algunas pantallas. Le ayudará a encontrar la presa.</string>
-    <string name="tutorial02_chainfish">Ese sonido representa el pez cadena que encontrará en algunas pantallas. Si la encuentra se volverá invulnerable.</string>
-    <string name="tutorial03_capsule">Ese sonido representa la cápsula que encontrará en algunas pantallas. Incrementará o decrementará de manera aleatoria el tamaño
-	    del protagonista dificultando o facilitando respectivamente la movilidad por pantalla.</string>
-    <string name="tutorial04_instructions">Para moverse simplemente desplace la pulsación sobre la pantalla y cuando la suelte todo lo que se muestra en pantalla quedará pausado hasta la siguiente pulsación. Para escuchar el sonido
-        que emite el protagonista cuando se mueve haga doble click. Para continuar realice una pulsación larga.</string>
-    <string name="instructions_general_text">El objetivo del juego es comer tantas presas como pueda, evitando a los depredadores que pueda escuchar.
-	    Cuantas más presas coma, mejor será la partida. Una vez devoradas las presas localizadas en pantalla, tiene que acercarse a uno de los bordes de la pantalla para pasar al siguiente nivel y continuar con el juego. 
+    <string name="tutorial_warning">Si quieres pasar al siguiente paso del tutorial haz una pulsación larga en pantalla.</string>
+    <string name="tutorial00_intro">En esta pantalla aprenderás los sonidos relacionados con los elementos del juego.
+    ¡Recuerda! En este tutorial, una doble pulsación en una mitad u otra de la pantalla para escuchar un sonido diferente.</string>
+    <string name="tutorial00_predator">Ese sonido representa a un Strouf una poderosa raza que dominan el océano de Izlude. Debes evitar acercarte a estás criaturas o 
+    acabarás mal parado.</string>
+    <string name="tutorial00_prey">Ese sonido representa a los obeaune una raza de débiles criaturas, de las que sólo quedan unos pocos. Será tu tarea encontrar y 
+    salvar los restantes de las manos de los Strouf, almacenandolas en tu interior. Pero hay un problema a medida cuantos más obeaunes rescates más crecerá nuestro
+    protagonista y más difícil será eludir a los Strouf.</string>
+    <string name="tutorial01_radio">Ese sonido representa un emisor de radio lotam. Son restos tecnológicos una antigua civilización antecesora de los obeaune. Te ayudará a
+    conocer la dirección en la que se encuentra el obeaune más próximos.</string>
+    <string name="tutorial02_chainfish">Ese sonido representa al legendario Chainfish. Está misteriosa criatura vaga por el fondo del océano y dicen
+    que aquel que lo deguste podrá eludir los ataques de los Strouf durante cierto tiempo.</string>
+    <string name="tutorial03_capsule">Ese sonido representa una de las cápsula del profesorn Konstantin que te permitira
+     rescatar durante más tiempo un mayor número de obeaune reducienco el tamaño del protagonista.</string>
+    <string name="tutorial04_instructions">Para moverse simplemente tienes que desplazar la pulsación sobre la pantalla y cuando la suelte 
+    	todo los elementos de la pantalla, obeaunes, Stroufs en pantalla quedaran pausado hasta la siguiente pulsación. Para escuchar el sonido
+        que emite el protagonista cuando se mueve haz doble click.</string>
+    <string name="tutorial05_goal">El objetivo del juego es rescatar tantos obeaune como puedas, evitando a los Strouf que puedes escuchar por al desplazarte.
+	    Cuantos más Obeaune rescates, mejor será la partida. Una vez rescatada el Obeaune localizado en pantalla, 
+	    tiene que desplazarte a uno de los bordes de la misma para pasar al siguiente nivel y continuar con la aventura.
 	</string>        	    
-
+    <string name="tutorial07_sound">Para poder identificar cada una de las criaturas del
+    	océano de Izlude tan sólo tienes que tener en cuenta el sonido 3D en el se apoyan. Según lo oigas por tu auricular izquierdo o derecho sabrás donde se pueden encontrar
+    	ese elemento. Además según sea más grave o agudo sabrás si se encuentra por encima o por debajo de tu posición en la pantalla.</string>
+    <string name="tutorial08_scoreboard">Puedes consultar el número de Obeaunes que has rescatado en está partida y el máximo histórico haciendo una pulsación larga en el marcador
+    de la parte superior de la pantalla.</string>
+    <string name="tutorial06_intro">Aquí puedes aprender los conceptos básicos para jugar. En las
+     siguientes pantallas, para escuchar los sonidos que representan los objetos haz doble click.</string>
+	
     <!-- Onomatopeias strings -->
     <string name="appear_ono">bing bing!</string>
     <string name="apple_bite_ono">crap!</string>
@@ -142,7 +161,7 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
     <string name="predator_ono">arg!!</string>
     <string name="prey_ono">miau!</string>
     <string name="prey_dead_ono">ayyy!!</string>
-    <string name="radio_ono">sintonizando radio</string>
+    <string name="radio_ono">Sintonizando radio</string>
     <string name="start_ono">Piii!</string>
     <string name="the_path_of_the_goblin_ono">Reproduciendo \'Path of the Goblin\'</string>
 
@@ -201,4 +220,5 @@ Para continuar realiza una pulsación larga sobre la pantalla</string>
    
     <string name="size_inc">Tu tamaño se ha incrementado.</string>
     <string name="size_dec">Tu tamaño se ha reducido.</string>
+    <string name="long_tap">Pulsación larga en la pantalla para continuar.</string>
 </resources>
