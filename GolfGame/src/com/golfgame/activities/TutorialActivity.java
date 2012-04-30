@@ -60,7 +60,7 @@ public class TutorialActivity extends Activity {
 
 		// We set the configuration options at its default values
 		settings = PreferenceManager.getDefaultSharedPreferences(this);
-		SettingsActivity.setDefaultTutorialConfig(settings.edit());
+		SettingsActivity.setEditor(settings.edit());
 
 		AnalyticsManager.getAnalyticsManager(this).registerPage(
 				GolfGameAnalytics.TUTORIAL_ACTIVITY);

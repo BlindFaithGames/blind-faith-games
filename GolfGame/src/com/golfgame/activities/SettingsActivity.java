@@ -35,26 +35,37 @@ public class SettingsActivity extends PreferenceActivity implements
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
 	private static final boolean OPT_MUSIC_DEF = false;
+	
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
+	
 	public static final String OPT_INFO_TARGET = "infoTarget";
 	private static final boolean OPT_INFO_TARGET_DEF = true;
+	
 	public static final String OPT_UP = "On up event";
 	private static final boolean OPT_UP_DEF = true;
+	
 	public static final String OPT_VIBRATION_FEEDBACK = "vibration feedback";
 	private static final boolean OPT_VIBRATION_FEEDBACK_DEF = false;
+	
 	public static final String OPT_SOUND_FEEDBACK = "sound feedback";
 	private static final boolean OPT_SOUND_FEEDBACK_DEF = true;
+	
 	public static final String OPT_SOUND_DOPPLER_EFFECT = "doppler effect";
 	private static final boolean OPT_SOUND_DOPPLER_EFFECT_DEF = false;
+	
 	public static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = true;
+	
 	public static final String FIRSTRUN = "first";
 	public static final boolean FIRSTRUN_DEF = true;
+	
 	public static final String OPT_BLIND_INTERACTION = "interaction";
 	private static final boolean OPT_BLIND_INTERACTION_DEF = true;
+	
 	public static final String OPT_BLIND_MODE = "blind_mode";
 	private static final boolean OPT_BLIND_MODE_DEF = false;
+	
 	private static final String OPT_PROFILEA = "profile A";
 	private static final String OPT_PROFILEB = "profile B";
 	private TTS textToSpeech;
@@ -345,13 +356,8 @@ public class SettingsActivity extends PreferenceActivity implements
 		editor.commit();
 	}
 	
-	public static void setDefaultTutorialConfig(Editor ed){
+	public static void setEditor(Editor ed){
 		editor = ed;
-		setDoppler(false);
-		setInfoTarget(false);
-		setOnUp(false);
-		setSoundFeedback(false);
-		setVibration(false);
 	}
 	
 	@Override
