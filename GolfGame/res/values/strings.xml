@@ -21,7 +21,7 @@
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>    
     <string name="introMessage">Welcome, please select a difficulty</string>
-    <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    <string name="introMainMenu">Main menu Accessible Minesweeper Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     
