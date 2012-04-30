@@ -197,8 +197,9 @@
     <string name="alert_dialog_instructions_TTStext">Dialog</string>
     <string name="main_menu_initial_TTStext">Main menu</string>
     <string name="settings_menu_initial_TTStext">Menu settings. 
-			   Making a tap on each element on this menu changes and reads an option. 
-			   You will find the next options on this menu\: 
+			    By tapping on each element on this menu changes and reads an option. Particular in this menu you can
+			    find two profile options\: A and B whose activation enables another options on the menu. Of course, 
+			    you can continue enabling independently all option on the menu. You will find the next options on this menu\: 
    </string>
     <string name=" accounts_menu_initial_TTStext">accounts</string>
     <string name="game_initial_TTStext">Game started!</string>
@@ -207,7 +208,7 @@
     <string name="coordinates_information_button_TTStext">Position</string>
     <string name="key_configuration_menu_initial_TTStext">
 			  	Key Configuration. By tapping on your left you could listen the action descriptions
-			     and by clicking on your right you will change the key related 
+			     and by tapping on your right you will change the key related 
 			    by an action. If you are in blind interaction mode you have to do a long click
 			     to be able to change the configuration. You have the next options\: 
     </string>

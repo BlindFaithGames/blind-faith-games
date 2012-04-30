@@ -35,6 +35,7 @@ import com.accgames.sound.TTS;
 import com.accgames.sound.VolumeManager;
 import com.golfgame.R;
 import com.golfgame.activities.MainActivity;
+import com.golfgame.activities.SettingsActivity;
 
 public class GolfGameplay extends GameState implements OnCancelListener {
 

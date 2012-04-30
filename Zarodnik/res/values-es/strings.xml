@@ -37,6 +37,7 @@
     <string name="main_title">Zarodnik</string>
     <string name="continue_label">Continuar</string>
     <string name="new_game_label">Nuevo juego</string>
+    <string name="tutorial_label">Consejos</string>
     <string name="keyConf_label">Configuración de teclado</string>
     <string name="about_label">Acerca de</string>
     <string name="form_label">Formulario</string>
@@ -120,24 +121,20 @@
     <string name="initial_message">Preparado... ¡Ya!</string>
     <string name="ending_lose_message">Fin del juego</string>
     <string name="ending_win_message">Encontraste un obeaune.</string>
-<<<<<<< HEAD
     <string name="intro_game_text">Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik, que viajaba inmerso por las profundidades del océano. 
-=======
-    <string name="intro_game_text">Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik,que viajaba inmerso por las profundidades del océano. 
->>>>>>> d19792c067e72b154968e62b14c3e581387b01d0
 	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el océano más próspero del mundo, pero bajo las aguas 
 	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
 	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-	del océano que a la que ha llegado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
-    <string name="intro_game_tts">Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
+	del océano que a la que ha llegado nuestro protagonista. Nuestro protagonista se ve inmerso en esta situación en la que tratará de rescatar el mayor número posible de Obeaunes 
+	almacenándolos en su interior, pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
+    <string name="intro_game_tts">Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik, que viajaba inmerso por las profundidades del océano. 
 	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
+	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el océano más próspero del mundo, pero bajo las aguas 
 	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
 	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-	del océano que a la que ha llegado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
+	del océano que a la que ha llegado nuestro protagonista. Nuestro protagonista se ve inmerso en esta situación en la que tratará de rescatar el mayor número posible de Obeaunes 
+	almacenándolos en su interior, pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
     <string name="game_over_text">El juego finaliza aquí</string>
     <string name="game_over_tts">El juego finaliza aquí. Para salir realice una pulsación larga</string>
         <string name="screen_change_begins">Cambio de pantalla comenzado.</string>
@@ -163,7 +160,7 @@
     <string name="tutorial02_chainfish">Ese sonido representa al legendario Chainfish. Está misteriosa criatura vaga por el fondo del océano y dicen
     que aquel que lo deguste podrá eludir los ataques de los Strouf durante cierto tiempo.</string>
     <string name="tutorial03_capsule">Ese sonido representa una de las cápsula del profesorn Konstantin que le permitirá
-     rescatar durante más tiempo un mayor número de obeaune reduciendo el tamaño del protagonista.</string>
+     rescatar durante más tiempo un mayor número de Obeaune reduciendo el tamaño del protagonista.</string>
     <string name="tutorial04_instructions">Para moverse simplemente tiene que desplazar la pulsación sobre la pantalla y cuando la suelte 
     	todo los elementos de la pantalla, obeaunes, Stroufs en pantalla quedaran pausados hasta la siguiente pulsación. Para escuchar el sonido
         que emite el protagonista cuando se mueve haga doble click.</string>
