@@ -651,11 +651,11 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 			gameDialog.dismiss();
 			break;
 		case R.id.controls_button: // controls
-			startInstructions(0);
+			startInstructions(1);
 			instructionsDialog.dismiss();
 			break;
 		case R.id.instructions_general_button: // instructions
-			startInstructions(1);
+			startInstructions(0);
 			instructionsDialog.dismiss();
 			break;
 			// Interaction mode dialog

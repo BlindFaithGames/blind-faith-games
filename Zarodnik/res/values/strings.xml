@@ -120,7 +120,7 @@
     <string name="ending_lose_message">Game Over</string>
     <string name="ending_win_message">You find your prey</string>
     <string name="intro_game_text">
-	Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
+	Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik, que viajaba inmerso por las profundidades del océano. 
 	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
 	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
 	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
@@ -153,7 +153,7 @@
     <string name="tutorial00_predator">That sound represents a Strouf which is a powerful race that take over the ocean of Izlude.
    	You must avoid this creatures or you end badly.</string>
     <string name="tutorial00_prey">That sound represents an Obeaune a race of weakness creatures. Only a few have survive. Your
-	task will be to find and to save as many Obeaunes you can store. But there is a problem, if you save a lot of them you will
+	task will be to find and to save as many Obeaunes you can store in zarodnik. But there is a problem, if you save a lot of them you will
 	grow rather and harder will be avoid Stroufs. </string>
     <string name="tutorial01_radio"> That sound represents an emitter lotam. Rest of an ancient civilitation previous to obeaune. It
 	will help you to know the direction where the obeaune of the screen stays.</string>
@@ -255,6 +255,6 @@
     <!-- =============================== -->        
     <string name="size_inc">Your size has been incremented.</string>
     <string name="size_dec">Your size has been decremented.</string>
-    
+    <string name="form_landscape">This form is showed in landscape.</string>
     <string name="long_tap">Long click on the screen to continue.</string>
 </resources>

@@ -22,9 +22,9 @@ public class AboutActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 
 		if(!SettingsActivity.getBlindMode(this)){
-//			setTheme(android.R.style.Theme_Dialog);
+			setTheme(android.R.style.Theme_Dialog);
 			super.onCreate(savedInstanceState);
-			setContentScreen();
+			setContentView(R.layout.about);
 		}else{
 			super.onCreate(savedInstanceState);
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -38,27 +38,7 @@ public class AboutActivity extends Activity{
 		
 		AnalyticsManager.getAnalyticsManager(this).registerPage(GolfGameAnalytics.ABOUT_ACTIVITY);
 	}
-	
-	private void setContentScreen() {
-//		float fontSize;
-//		float scale;
-//		Typeface font;
-//		TextView t;
-//		View v;
-		
-		setContentView(R.layout.about);
-		
-		//scale = this.getResources().getDisplayMetrics().density;
-		//fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
-		//font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);
-		
-		//t = (TextView) findViewById(R.id.about_content);
-		//t.setTextSize(fontSize);
-		//t.setTypeface(font);
-		
-//		v = findViewById(R.id.about_root);
-	}
-	
+
 	/**
 	 *  Turns off TTS engine
 	 */

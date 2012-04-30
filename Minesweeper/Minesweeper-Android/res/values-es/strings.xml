@@ -323,6 +323,11 @@
     
     <string name="disabled">Desactivada</string>
     <string name="enabled">Activada</string>
+<<<<<<< HEAD
+=======
+    <string name="next">Siguiente</string>
+    <string name="state">celdas. Estado seleccionada</string>
+>>>>>>> d19792c067e72b154968e62b14c3e581387b01d0
     
     <string name="pushCellSuccess">¡Genial!. Ha conseguido destapar varias celdas.</string>
     <string name="transition_zoom">Hay un cambio de celda. Celda actual</string>

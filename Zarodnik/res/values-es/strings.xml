@@ -7,15 +7,15 @@
         
 	<string name="advice">Aconsejamos utilizar auriculares para jugar a este juego.</string>
 	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
-	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición horizontal</string>
+	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición horizontal.</string>
     <string name="settingsInitialSpeech">Seleccione la opción que desee</string>
     <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
-        sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación</string>
+        sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación.</string>
     <string name="interactionMode_select_TTS">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
         sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación</string>
-   	<string name="tts_select">Te recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
+   	<string name="tts_select">Le recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
    	    que hemos encontrado. ¿Desea instalarlo?</string>
    	<string name="yes_label">Sí</string>
     <string name="no_label">No</string>
@@ -23,9 +23,9 @@
     <string name="noBlindMode_label">Interacción estándar</string>
 
     <string name="app_name">Zarodnik</string>
-    <string name="introMessage">Welcome, select a difficulty</string>
-    <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
-    							 ,para seleccionar haga una pulsación larga sobre la opción que desee, en caso de haber seleccionado interacción para ciegos.</string>
+    <string name="introMessage">Bienvenido, seleccione una dificultad.</string>
+    <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones,
+     para seleccionar haga una pulsación larga sobre la opción que desee, en caso de haber seleccionado interacción para ciegos</string>
     <string name="buttonMessage">¡Adelante!</string>
     
     <!-- =============================== -->
@@ -72,13 +72,13 @@
     <string name="blind_interaction_title">Modo de interacción para ciegos</string>
     <string name="blind_interaction_summary">Añade una pulsación más a todos los eventos táctiles en pantalla</string>
     <string name="blind_mode_title">Modo ciego</string>
-    <string name="blind_mode_summary">Permite usar la aplicación sin ninguna referencia visual en el menú principal y en el juego.</string>
+    <string name="blind_mode_summary">Permite usar la aplicación sin ninguna referencia visual en el menú principal y en el juego</string>
     <string name="game_title">Juego</string>
-    <string name="flags_title">Ajutes de bandera</string>
+    <string name="flags_title">Ajustes de bandera</string>
     <string name="flags_shortcut">f</string>
     <string name="synthetizer_title">Sintetizador</string>
     <string name="onup_title">Evento tirachinas</string>
-    <string name="onup_summary">Habilita el lanzamiento mediante eventos de arrastre (como si de un tirachinas se tratase)</string>
+    <string name="onup_summary">Habilita el lanzamiento mediante eventos de arrastre (como si de un tirachinas)</string>
     <string name="volume_up">Subir volumen</string>
     <string name="volume_down">Bajar volumen</string>
     <string name="home">Inicio</string>
@@ -93,15 +93,15 @@
 			    lleva a cabo en la aplicación.
 			    Tiene las siguientes opciones dentro de este menu\: 
 	</string>
-    <string name="game_play_initial_TTStext">¡El juego ha comenzado! Empiezas en el centro en la parte de abajo de la pantalla.
-    Recuerda encuentra al obeaune y evita los strouf. En la parte superior de la pantalla, mediante long clicks puedes consultar 
-    un marcador que te indicará tu puntuación.</string>
+    <string name="game_play_initial_TTStext">¡El juego ha comenzado! Empieza en el centro en la parte de abajo de la pantalla.
+    Recuerde encuentre al Obeaune y evite los Strouf. En la parte superior de la pantalla, mediante long clicks puede consultar 
+    un marcador que le indica su puntuación.</string>
     <string name="coordinates_information_button_TTStext">Posición</string>
     <string name="key_configuration_menu_initial_TTStext">
-				Configuración de teclado. Mediante taps a su izquierda puedes escuchar
+				Configuración de teclado. Mediante taps a su izquierda puede escuchar
 			    las descripciones de las acciones y a su derecha puede cambiar la tecla relacionada
 				con la acción de la izquierda. Si está en modo de interacción para ciegos el cambio de configuración 
-				asociada a una tecla será mediante un long tap sino mediante tap simple.  En total se tienen las siguiente opciones\: 
+				asociada a una tecla será mediante un long tap sino mediante tap simple. En total se tienen las siguiente opciones\: 
     </string> 
     <string name="keydialog">Configuración de acción</string>
     <string name="keydialog_text">Pulse cualquier tecla</string>
@@ -111,69 +111,73 @@
     <string name="recordSpeech">Su record actual es</string>
     <string name="counterSpeech">Su contador actual es</string>
     <string name="newRecordSpeech">¡Nuevo record!</string>
-    <string name="scoreboard_success">Tú puntuación se ha incrementado hasta </string>
-    <string name="scoreboard_fail">Tú puntuación ha disminuido hasta </string>
-    <string name="scoreboard_reset">Tú número de lanzamiento consecutivos es cero.</string>
+    <string name="scoreboard_success">Su puntuación se ha incrementado hasta </string>
+    <string name="scoreboard_fail">Su puntuación ha disminuido hasta </string>
+    <string name="scoreboard_reset">Su número de lanzamiento consecutivos es cero.</string>
     <string name="ranking_title">Ranking de juego anteriores</string>
     <string name="ranking_speech">Tiempo, fecha y record.</string>
     <string name="dialog_select">Seleccione controles o instrucciones generales</string>
     <string name="initial_message">Preparado... ¡Ya!</string>
     <string name="ending_lose_message">Fin del juego</string>
     <string name="ending_win_message">Encontraste un obeaune.</string>
+<<<<<<< HEAD
     <string name="intro_game_text">Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik, que viajaba inmerso por las profundidades del océano. 
+=======
+    <string name="intro_game_text">Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik,que viajaba inmerso por las profundidades del océano. 
+>>>>>>> d19792c067e72b154968e62b14c3e581387b01d0
 	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
 	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
 	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
 	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-	del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
+	del océano que a la que ha llegado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
     <string name="intro_game_tts">Había una vez, un pequeño monstruo de origen incierto, que viajaba inmerso por las profundidades del océano. 
 	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
 	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el país más próspero del mundo pero bajo las aguas 
 	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
 	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-	del océano que ha alcanzado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
-	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada ¿Qué le deparará su aventura?</string>
+	del océano que a la que ha llegado nuestro protagonista. Nuestro se ve inmerso en está situación en la que tratará de rescatar el mayor número posible de obeaunes 
+	almacenandolos en su interior pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
     <string name="game_over_text">El juego finaliza aquí</string>
-    <string name="game_over_tts">El juego finaliza aquí. Para salir realiza una pulsación larga</string>
+    <string name="game_over_tts">El juego finaliza aquí. Para salir realice una pulsación larga</string>
         <string name="screen_change_begins">Cambio de pantalla comenzado.</string>
     <string name="screen_change_ends">Cambio de pantalla finalizado.</string>
     <string name="instruction_speech">Pulsación larga para regresar al menú principal</string>
     <string name="key_conf_fail">No es una tecla válida</string>
-    <string name="key_conf_success">Has cambiado la tecla asociada a</string>
+    <string name="key_conf_success">Ha cambiado la tecla asociada a</string>
     
     <!-- =============================== -->
     <!--           TUTORIAL  			 -->
     <!-- =============================== -->    
     
-    <string name="tutorial_warning">Si quieres pasar al siguiente paso del tutorial haz una pulsación larga en pantalla.</string>
-    <string name="tutorial00_intro">En esta pantalla aprenderás los sonidos relacionados con los elementos del juego.
-    ¡Recuerda! En este tutorial, una doble pulsación en una mitad u otra de la pantalla para escuchar un sonido diferente.</string>
-    <string name="tutorial00_predator">Ese sonido representa a un Strouf una poderosa raza que dominan el océano de Izlude. Debes evitar acercarte a estás criaturas o 
-    acabarás mal parado.</string>
-    <string name="tutorial00_prey">Ese sonido representa a los obeaune una raza de débiles criaturas, de las que sólo quedan unos pocos. Será tu tarea encontrar y 
-    salvar los restantes de las manos de los Strouf, almacenandolas en tu interior. Pero hay un problema a medida cuantos más obeaunes rescates más crecerá nuestro
+    <string name="tutorial_warning">Si quiere pasar al siguiente paso del tutorial haz una pulsación larga en pantalla.</string>
+    <string name="tutorial00_intro">En esta pantalla aprenderá los sonidos relacionados con los elementos del juego.
+    ¡Recuerde! En este tutorial, una doble pulsación en una mitad u otra de la pantalla para escuchar un sonido diferente.</string>
+    <string name="tutorial00_predator">Ese sonido representa a un Strouf una poderosa raza que dominan el océano de Izlude. Debe evitar acercarse a estás criaturas o 
+    acabará mal parado.</string>
+    <string name="tutorial00_prey">Ese sonido representa a los obeaune una raza de débiles criaturas, de las que sólo quedan unos pocos. Será su tarea encontrar y 
+    salvar los restantes de las manos de los Strouf, almacenandolos en el interior de zarodnik. Pero hay un problema cuantos más obeaunes rescates más crecerá nuestro
     protagonista y más difícil será eludir a los Strouf.</string>
-    <string name="tutorial01_radio">Ese sonido representa un emisor de radio lotam. Son restos tecnológicos una antigua civilización antecesora de los obeaune. Te ayudará a
-    conocer la dirección en la que se encuentra el obeaune más próximos.</string>
+    <string name="tutorial01_radio">Ese sonido representa un emisor de radio lotam. Son restos tecnológicos una antigua civilización antecesora de los obeaune. Le ayudará a
+    conocer la dirección en la que se encuentra el obeaune más cercano.</string>
     <string name="tutorial02_chainfish">Ese sonido representa al legendario Chainfish. Está misteriosa criatura vaga por el fondo del océano y dicen
     que aquel que lo deguste podrá eludir los ataques de los Strouf durante cierto tiempo.</string>
-    <string name="tutorial03_capsule">Ese sonido representa una de las cápsula del profesorn Konstantin que te permitira
-     rescatar durante más tiempo un mayor número de obeaune reducienco el tamaño del protagonista.</string>
-    <string name="tutorial04_instructions">Para moverse simplemente tienes que desplazar la pulsación sobre la pantalla y cuando la suelte 
-    	todo los elementos de la pantalla, obeaunes, Stroufs en pantalla quedaran pausado hasta la siguiente pulsación. Para escuchar el sonido
-        que emite el protagonista cuando se mueve haz doble click.</string>
-    <string name="tutorial05_goal">El objetivo del juego es rescatar tantos obeaune como puedas, evitando a los Strouf que puedes escuchar por al desplazarte.
-	    Cuantos más Obeaune rescates, mejor será la partida. Una vez rescatada el Obeaune localizado en pantalla, 
-	    tiene que desplazarte a uno de los bordes de la misma para pasar al siguiente nivel y continuar con la aventura.
+    <string name="tutorial03_capsule">Ese sonido representa una de las cápsula del profesorn Konstantin que le permitirá
+     rescatar durante más tiempo un mayor número de obeaune reduciendo el tamaño del protagonista.</string>
+    <string name="tutorial04_instructions">Para moverse simplemente tiene que desplazar la pulsación sobre la pantalla y cuando la suelte 
+    	todo los elementos de la pantalla, obeaunes, Stroufs en pantalla quedaran pausados hasta la siguiente pulsación. Para escuchar el sonido
+        que emite el protagonista cuando se mueve haga doble click.</string>
+    <string name="tutorial05_goal">El objetivo del juego es rescatar tantos obeaune como pueda, evitando a los Strouf.
+	    Cuantos más Obeaune rescate, mejor será la partida. Una vez rescatada el Obeaune localizado en una pantalla, 
+	    tiene que desplazarse a uno de los bordes de la misma para pasar al siguiente nivel y continuar con la aventura.
 	</string>        	    
     <string name="tutorial07_sound">Para poder identificar cada una de las criaturas del
-    	océano de Izlude tan sólo tienes que tener en cuenta el sonido 3D en el se apoyan. Según lo oigas por tu auricular izquierdo o derecho sabrás donde se pueden encontrar
-    	ese elemento. Además según sea más grave o agudo sabrás si se encuentra por encima o por debajo de tu posición en la pantalla.</string>
-    <string name="tutorial08_scoreboard">Puedes consultar el número de Obeaunes que has rescatado en está partida y el máximo histórico haciendo una pulsación larga en el marcador
+    	océano de Izlude tan sólo tiene que tener en cuenta el sonido 3D en el se apoyan. Según lo oiga por su auricular izquierdo o derecho sabrás donde se puede encontrar
+    	ese elemento. Además según sea más grave o agudo sabrá si se encuentra por encima o por debajo de su posición en la pantalla.</string>
+    <string name="tutorial08_scoreboard">Puede consultar el número de Obeaunes que ha rescatado en está partida y el máximo histórico haciendo una pulsación larga en el marcador
     de la parte superior de la pantalla.</string>
-    <string name="tutorial06_intro">Aquí puedes aprender los conceptos básicos para jugar. En las
-     siguientes pantallas, para escuchar los sonidos que representan los objetos haz doble click.</string>
+    <string name="tutorial06_intro">Aquí puede aprender los conceptos básicos para jugar. En las
+     siguientes pantallas, para escuchar los sonidos que representan los objetos haga doble click.</string>
 	
     <!-- =============================== -->
     <!--          ONOMATOPEYAS  		 -->
@@ -187,12 +191,14 @@
     <string name="die_ono">qua qua qua!</string>
     <string name="frost_walkz_ono">Reproduciendo \'Frost Walkz\'</string>
     <string name="predator_ono">arg!!</string>
-    <string name="prey_ono">miau!</string>
+    <string name="prey_ono">miaaamiaa!</string>
     <string name="prey_dead_ono">ayyy!!</string>
-    <string name="radio_ono">Sintonizando radio</string>
+    <string name="radio_ono">Sintonizando</string>
     <string name="start_ono">Piii!</string>
     <string name="the_path_of_the_goblin_ono">Reproduciendo \'Path of the Goblin\'</string>
-
+    <string name="chain">trrrntrrrn</string>
+    <string name="pill">toctoctoc</string>
+    
     <string name="disabled">Activada</string>
     <string name="enabled">Desactivada</string>
     
@@ -200,17 +206,13 @@
     <!--           FORMULARIOS 			 -->
     <!-- =============================== -->    
     
-	<string name= "form_instructions1"> Puedes navegar a través de este menú haciendo long click sobre los botones siguiente y anterior situados debajo
-    		de cada conjunto de posibles respuestas o cada texto. Si haces un click simple la opción será leída. Y importante, la opción que se clickee la última vez será la seleccionada. 
+  <string name= "form_instructions1"> Puede navegar a través de este menú, haciendo long click sobre los botones siguiente y anterior, situados debajo
+    		de cada conjunto de posibles respuestas, o de cada texto. Si se realiza un click se leerá la opción. Importante, la opción que se clickee la última vez será la seleccionada. 
 	</string>
-	<string name= "form_instructions2">En este caso, si quieres, puedes rellenar un campo de texto
-	 con tu opinión sobre la aplicación. 
-	</string>
-	<string name= "form_instructions3">De ahora en adelante, tienes varias opciones para responder
-	a cada pregunta. Haz click sobre cada opción para seleccionarla.
-	</string>
-	<string name= "form_instructions4"> Tienes que rellenar este campo con tu opinión sobre la aplicación.</string>
-    <string name="form_intro">        Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
+	<string name= "form_instructions2">En este caso, si quiere, puede rellenar un campo de texto con su opinión sobre la aplicación.</string>
+	<string name= "form_instructions3">De ahora en adelante, tiene varias opciones para responder a cada pregunta. Haga click sobre la opción para seleccionarla.</string>
+	<string name= "form_instructions4"> Tiene que rellenar este campo con su opinión sobre la aplicación.</string>
+    <string name="form_intro">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
         sino también agradables para ellos. Para cumplir estos objetivos, nos gustaría conocer algunos detalles acerca de usted 
         y de cómo interactúa con las tecnologías en general y los juegos en particular. Esto nos ayudará a interpretar sus respuestas
@@ -240,20 +242,21 @@
     <string name="next_context">Siguiente</string>
     <string name="previous_context">Previa</string>
     <string name="finish_context">Finalizar</string>
-    <string name="action_form">Has seleccionado</string>
+    <string name="action_form">Ha seleccionado</string>
 
     <string name="infoKeyConf">asociada a</string>
     <string name="infoKeyConffail">asociada a ninguna tecla.</string>
 
-	<string name="screen_off_message">Tu pantalla se ha apagado.</string>
-    <string name="screen_on_message">Tu pantalla se ha encendido. Tal vez tengas que desbloquear tu dispositivo.</string>
+	<string name="screen_off_message">Su pantalla se ha apagado.</string>
+    <string name="screen_on_message">Su pantalla se ha encendido. Tal vez tenga que desbloquear su dispositivo.</string>
     <string name="load_text">Enviando información... Por favor espere</string>
     
     <!-- =============================== -->
     <!--           OTRAS 	  			 -->
     <!-- =============================== -->        
    
-    <string name="size_inc">Tu tamaño se ha incrementado.</string>
-    <string name="size_dec">Tu tamaño se ha reducido.</string>
+    <string name="size_inc">Su tamaño se ha incrementado.</string>
+    <string name="size_dec">Su tamaño se ha reducido.</string>
+    <string name="form_landscape">Este formulario es mostrado en modo vertical.</string>
     <string name="long_tap">Pulsación larga en la pantalla para continuar.</string>
 </resources>

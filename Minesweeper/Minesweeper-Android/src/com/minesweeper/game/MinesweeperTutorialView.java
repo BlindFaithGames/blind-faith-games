@@ -69,11 +69,14 @@ public class MinesweeperTutorialView extends View {
 	private TutorialState state;// step in the tutorial
 	
 	private boolean blindMode; // Enable/Disable blind mode
-
+	
+	private boolean pushed; 
+	
 	// Cargamos la conf desde un .xml
 	private XMLKeyboard keyboard;
 	
 	private Runnable RunnableEvent= new Runnable() {
+
 		public void run() {
 		
 			// triple tap
@@ -100,9 +103,9 @@ public class MinesweeperTutorialView extends View {
 				else{ // one tap
 					if(timeTaps[0] != 0){
 						float y = eventTaps[0].getRawY();
-						if(y < TRANSITION_LIMIT)
+						if(y < TRANSITION_LIMIT){
 							changeViewState();
-						else{
+						}else{
 							if( (state == TutorialState.TUT_TAP || state == TutorialState.TUT_DRAG  || state == TutorialState.TUT_ZOOM_MODE || state == TutorialState.TUT_EXPLORATION_MODE || state == TutorialState.TUT_READ_CONTEXT)){
 								onTapAction(eventTaps[0]);
 								Log.getLog().addEntry(MinesweeperTutorialView.TAG,
@@ -193,6 +196,7 @@ public class MinesweeperTutorialView extends View {
 							null, 
 							new Rect(0,0,getWidth(),getHeight()), 
 							null);
+		
 		if (zoomMode){
 			
 			if(drawTransitionMode){
@@ -210,6 +214,18 @@ public class MinesweeperTutorialView extends View {
 			}
 			
 		}else{
+			Paint brush = new Paint();
+			if(pushed)
+				brush.setColor(getContext().getResources().getColor(R.color.transparent_orange1));
+			else
+				brush.setARGB(200, 255, 255, 255);
+			
+			canvas.drawRect(0, 0, getWidth(), TRANSITION_LIMIT, brush);
+			brush.setARGB(255, 0, 0, 0);
+			brush.setTextSize(20);
+			canvas.drawText(getContext().getResources().getString(R.string.next),  
+					getWidth()/2 + brush.getFontSpacing()/2, TRANSITION_LIMIT/2 + brush.getFontSpacing()/2, brush);
+			
 			
 			// Draw no pushed cells and mines
 			drawMinefield(canvas);
@@ -217,11 +233,7 @@ public class MinesweeperTutorialView extends View {
 			// Draw the selection
 			drawSelection(canvas);
 		}
-		// Draw mode indicator
-		brush.setColor(Color.WHITE);
-		canvas.drawText("Zoom Mode: " + (zoomMode ? "on" : "off"), 10, 10, brush);
-		canvas.drawText("Exploration Mode: " + (this.game.isFlagMode() ? "on" : "off"), getWidth() - 150, 10, brush);
-		
+
 		if(blindMode){
 			canvas.drawColor(Color.BLACK);
 			invalidate();
@@ -489,6 +501,12 @@ public class MinesweeperTutorialView extends View {
 			dragging = STOP_DRAGGING;
 		    timeTaps[tapsN] = System.currentTimeMillis();
 		    eventTaps[tapsN] = event;
+			if(tapsN == 0){
+				float auxy = eventTaps[0].getRawY();
+				if(auxy < TRANSITION_LIMIT)
+					pushed = true;
+				invalidate();
+			}
 		    if(tapsN < 2)
 		    	tapsN++;
 		    Handler myHandler = new Handler();
@@ -706,6 +724,7 @@ public class MinesweeperTutorialView extends View {
 	private boolean changeViewState() {
 		String msg;
 		this.game.resetBoard();
+	    pushed = false;
 		invalidate();
 		switch(state){
 		case TUT_DRAG:
