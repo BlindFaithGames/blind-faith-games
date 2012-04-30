@@ -8,7 +8,7 @@ import android.media.AudioManager;
  * 
  * This class manages the device volume.
  * 
- *  @author Javier ¡lvarez & Gloria Pozuelo.
+ *  @author Javier √Ålvarez & Gloria Pozuelo.
  * 
  * */
 

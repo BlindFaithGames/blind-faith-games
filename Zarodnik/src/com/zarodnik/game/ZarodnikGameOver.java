@@ -38,18 +38,18 @@ public class ZarodnikGameOver extends GameState {
 		Typeface font;
 		Paint brush;
 		
-		fontSize =  (this.getContext().getResources().getDimension(R.dimen.font_size_intro)/GameState.scale);
+		fontSize =  (this.getContext().getResources().getDimension(R.dimen.font_size_game_over)/GameState.scale);
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		brush = new Paint();
 		brush.setTextSize(fontSize);
-		brush.setARGB(255, 255, 255, 204);
+		brush.setColor(this.getContext().getResources().getColor(R.color.blue1));
 		if(font != null)
 			brush.setTypeface(font);
 	
 		textoffSetX = SCREEN_WIDTH  / 4;
 		textoffSetY = SCREEN_HEIGHT / 2;
 		text = new Text(textoffSetX, textoffSetY, null, this, null, null, 
-				null, null, false, brush, stepsPerWord, this.getContext().getString(R.string.game_over_text));
+				null, null, false, brush, stepsPerWord, this.getContext().getString(R.string.game_over_text), fontSize);
 		this.addEntity(text);
 		
 		BitmapScaler scaler;

@@ -6,7 +6,7 @@ import android.graphics.Matrix;
 /**
  * Class that provides methods to resize a bitmap.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo.
+ * @author Javier √Ålvarez & Gloria Pozuelo.
  */
 
 public class CustomBitmap {

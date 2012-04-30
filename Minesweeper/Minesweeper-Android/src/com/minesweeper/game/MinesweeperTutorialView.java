@@ -430,7 +430,7 @@ public class MinesweeperTutorialView extends View {
 	 * 
 	 * */
 	private void selectCell(int col, int row) {
-		// pinta la secci�n que ha sido deseleccionada
+		// pinta la sección que ha sido deseleccionada
 		invalidate(selRect);
 		selCol = Math.min(Math.max(col, 0), colN);
 		selRow = Math.min(Math.max(row, 0), rowN);

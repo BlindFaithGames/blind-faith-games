@@ -37,12 +37,14 @@ public class TutorialActivity extends Activity {
 	private XMLKeyboard keyboard;
 
 	public static final int TUTORIAL6_ID = 0;
-	public static final int TUTORIAL0_ID = 1;
-	public static final int TUTORIAL5_ID = 2;
-	public static final int TUTORIAL4_ID = 3;
-	public static final int TUTORIAL1_ID = 4;
-	public static final int TUTORIAL2_ID = 5;
-	public static final int TUTORIAL3_ID = 6;
+	public static final int TUTORIAL7_ID = 1;
+	public static final int TUTORIAL0_ID = 2;
+	public static final int TUTORIAL5_ID = 3;
+	public static final int TUTORIAL4_ID = 4;
+	public static final int TUTORIAL1_ID = 5;
+	public static final int TUTORIAL2_ID = 6;
+	public static final int TUTORIAL3_ID = 7;
+	public static final int TUTORIAL8_ID = 8;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,24 +86,28 @@ public class TutorialActivity extends Activity {
 	private void createGame(DrawablePanel zarodnikView) {
 		ArrayList<Integer> order = new ArrayList<Integer>();
 		order.add(TUTORIAL6_ID);
+		order.add(TUTORIAL7_ID);
 		order.add(TUTORIAL0_ID);
 		order.add(TUTORIAL5_ID);
 		order.add(TUTORIAL4_ID);
 		order.add(TUTORIAL1_ID);
 		order.add(TUTORIAL2_ID);
 		order.add(TUTORIAL3_ID);
+		order.add(TUTORIAL8_ID);
 
 		game = new Game();
 
 		ArrayList<GameState> gameStates = new ArrayList<GameState>();
 		gameStates.add(TUTORIAL6_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL6, game));
+		gameStates.add(TUTORIAL7_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL7, game));
 		gameStates.add(TUTORIAL0_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL0, game));
 		gameStates.add(TUTORIAL5_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL5, game));
 		gameStates.add(TUTORIAL4_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL4, game));
 		gameStates.add(TUTORIAL1_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL1, game));
 		gameStates.add(TUTORIAL2_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL2, game));
 		gameStates.add(TUTORIAL3_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL3, game));
-
+		gameStates.add(TUTORIAL8_ID, new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL8, game));
+		
 		game.initialize(gameStates, order);
 	}
 

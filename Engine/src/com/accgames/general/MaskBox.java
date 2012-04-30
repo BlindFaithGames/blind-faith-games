@@ -8,7 +8,7 @@ import android.graphics.Paint.Style;
 /**
  * Mask with a rectangular shape.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo. 
+ * @author Javier √Ålvarez & Gloria Pozuelo. 
  * 
  * @extends Mask.
  * 

@@ -5,8 +5,10 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
@@ -29,6 +31,8 @@ import com.zarodnik.game.ZarodnikGameOver;
 import com.zarodnik.game.ZarodnikGameplay;
 import com.zarodnik.game.ZarodnikIntro;
 import com.zarodnik.game.ZarodnikMusicSources;
+import com.zarodnik.game.ZarodnikTutorial;
+import com.zarodnik.game.ZarodnikTutorial.TutorialID;
 
 public class ZarodnikGameActivity extends Activity {
 	private TTS textToSpeech;
@@ -36,11 +40,6 @@ public class ZarodnikGameActivity extends Activity {
 
 	// Keyboard configuration
 	private XMLKeyboard keyboard;
-
-	public static final int INTRO_ID = 0;
-	public static final int GAMEPLAY_ID = 1;
-	public static final int GAME_OVER_ID = 2;
-
 
 	/*---------------------------------------------------------------------
 	 *  LIFECYCLE METHODS
@@ -82,19 +81,55 @@ public class ZarodnikGameActivity extends Activity {
 	}
 
 	private void createGame(DrawablePanel zarodnikView) {
-		ArrayList<Integer> order = new ArrayList<Integer>();
-		order.add(INTRO_ID);
-		order.add(GAMEPLAY_ID);
-		order.add(GAME_OVER_ID);
-
+		boolean isFirstGame = checkFirstGame();
+		ArrayList<Integer> order;
+		ArrayList<GameState> gameStates;
+		if(isFirstGame){
+			order = new ArrayList<Integer>();
+			order.add(0);
+			order.add(1);
+			order.add(2);
+			order.add(3);
+			order.add(4);
+			order.add(5);
+			order.add(6);
+			order.add(7);
+			
+			gameStates = new ArrayList<GameState>();
+			gameStates.add(new ZarodnikIntro(zarodnikView, textToSpeech,this, game));	
+			gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL5, game));		
+			gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL4, game));		
+			gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL7, game));
+			gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL8, game));		
+			gameStates.add(new ZarodnikTutorial(zarodnikView,textToSpeech, this, TutorialID.TUTORIAL0, game));	
+			gameStates.add(new ZarodnikGameplay(zarodnikView,textToSpeech, this, game));
+			gameStates.add(new ZarodnikGameOver(zarodnikView,textToSpeech, this, game));
+			
+		}else{
+			order = new ArrayList<Integer>();
+			order.add(0);
+			order.add(1);
+			order.add(2);
+			
+			gameStates = new ArrayList<GameState>();
+			gameStates.add(new ZarodnikIntro(zarodnikView, textToSpeech,this, game));
+			gameStates.add(new ZarodnikGameplay(zarodnikView,textToSpeech, this, game));
+			gameStates.add(new ZarodnikGameOver(zarodnikView,textToSpeech, this, game));
+		}
+		
 		game = new Game();
-
-		ArrayList<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(INTRO_ID, new ZarodnikIntro(zarodnikView, textToSpeech,this, game));
-		gameStates.add(GAMEPLAY_ID, new ZarodnikGameplay(zarodnikView,textToSpeech, this, game));
-		gameStates.add(GAME_OVER_ID, new ZarodnikGameOver(zarodnikView,textToSpeech, this, game));
-
 		game.initialize(gameStates, order);
+	}
+
+	private boolean checkFirstGame() {
+		boolean isFirstGame = PreferenceManager.getDefaultSharedPreferences(this)
+				.getBoolean(SettingsActivity.FIRSTGAME, SettingsActivity.FIRSTGAME_DEF);
+		
+		Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+		editor.putBoolean(SettingsActivity.FIRSTGAME, false);
+		editor.commit();
+		
+		return isFirstGame;
 	}
 
 	/**

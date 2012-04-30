@@ -15,7 +15,7 @@ import android.graphics.Matrix;
  * 
  * More powerful class than CustomBimap. Provides methods to scale an image from different sources.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo.
+ * @author Javier √Ålvarez & Gloria Pozuelo.
  *  
  * */
 public class BitmapScaler {

@@ -9,7 +9,7 @@ import android.graphics.Point;
 /**
  * Associates a 3D sound source with a position 2D.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo.
+ * @author Javier √Ålvarez & Gloria Pozuelo.
  * 
  * */
 public class Sound2D {

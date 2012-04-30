@@ -7,8 +7,6 @@
 
     <TableRow
     	android:id="@+id/speak_row"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
     	android:contentDescription="@string/button_speak_record">
         <TextView
             android:layout_column="1"
@@ -19,7 +17,7 @@
 	        android:layout_width="fill_parent"
 	        android:text="@string/button_speak_record"
 	        android:layout_height="wrap_content"
-	        android:contentDescription="@string/button_speak_record" android:layout_gravity="right"/>
+	        android:contentDescription="@string/button_speak_record"/>
     </TableRow>
 
     <View
@@ -28,8 +26,6 @@
         
     <TableRow
     	android:id="@+id/repeat_row"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
     	android:contentDescription="@string/button_repeat">
         <TextView
             android:layout_column="1"
@@ -40,7 +36,7 @@
 	        android:layout_width="fill_parent"
 	        android:text="@string/button_repeat"
 	        android:layout_height="wrap_content"
-	        android:contentDescription="@string/button_repeat" android:layout_gravity="right"/>
+	        android:contentDescription="@string/button_repeat" />
     </TableRow>
 
 </TableLayout>

@@ -10,7 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
  * 
  * Class that validates and reads XML files.
  * 
- * @author Gloria Pozuelo & Javier ¡lvarez
+ * @author Gloria Pozuelo & Javier √Ålvarez
  *
  */
 public class KeyboardReader {

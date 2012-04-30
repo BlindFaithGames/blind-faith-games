@@ -114,6 +114,5 @@
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/button_repeat" />
     </TableRow>
-    
 
 </TableLayout>

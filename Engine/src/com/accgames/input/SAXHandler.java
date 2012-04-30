@@ -7,7 +7,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * 
  * Class to manage events sent by a parser SAX.
  * 
- * @author Gloria Pozuelo and Javier �lvarez.
+ * @author Gloria Pozuelo and Javier Álvarez.
  */
 public class SAXHandler extends DefaultHandler {
 	private XMLKeyboard k;

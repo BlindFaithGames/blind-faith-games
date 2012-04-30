@@ -32,7 +32,7 @@ public class Text extends Entity {
 	
 	public Text(int x, int y, Bitmap img, GameState gameState, List<Mask> mask,
 			SpriteMap animations, String soundName, Point soundOffset,
-			boolean collide, Paint brush, int stepsPerWord, String text) {
+			boolean collide, Paint brush, int stepsPerWord, String text, float fontSize) {
 		super(x, y, img, gameState, mask, animations, soundName, soundOffset, collide);
 		
 		this.text = text;
@@ -42,7 +42,7 @@ public class Text extends Entity {
 		this.stepsPerWord = stepsPerWord;
 		
 		WHITE_SPACE_SIZE =  (this.gameState.getContext().getResources().getDimension(R.dimen.white_space_size)/GameState.scale);
-		fontSize =  (this.gameState.getContext().getResources().getDimension(R.dimen.font_size_intro)/GameState.scale);
+		this.fontSize = fontSize; 
 		font = Typeface.createFromAsset(this.gameState.getContext().getAssets(),RuntimeConfig.FONT_PATH);
 		if(brush != null){
 			this.brush = brush;

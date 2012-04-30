@@ -2,6 +2,8 @@
 <resources>
 	<dimen name="white_space_size">15sp</dimen>
     <dimen name="font_size_menu">18sp</dimen>
-    <dimen name="font_size_intro">35sp</dimen>
+    <dimen name="font_size_intro">25sp</dimen>
+    <dimen name="font_size_tuto">30sp</dimen>
     <dimen name="font_size_gameplay">50sp</dimen>
+    <dimen name="font_size_game_over">35sp</dimen>
 </resources>

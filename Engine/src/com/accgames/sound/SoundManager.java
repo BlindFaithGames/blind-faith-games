@@ -10,7 +10,7 @@ import android.media.SoundPool.OnLoadCompleteListener;
 /**
  *  This class provides methods to load sounds based in a SoundPool object.
  *  
- *  @author Gloria Pozuelo & Javier ¡lvarez.
+ *  @author Gloria Pozuelo & Javier √Ålvarez.
  * 
  * */
 

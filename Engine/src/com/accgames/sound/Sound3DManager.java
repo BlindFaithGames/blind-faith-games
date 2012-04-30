@@ -15,7 +15,7 @@ import android.app.Activity;
 /**
  * This class manages everything about 3D sound.
  * 
- * @author Javier ¡lvarez & Gloria Pozuelo.
+ * @author Javier √Ålvarez & Gloria Pozuelo.
  * 
  * */
 public class Sound3DManager {
