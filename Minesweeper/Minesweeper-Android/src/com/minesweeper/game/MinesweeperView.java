@@ -162,6 +162,7 @@ public class MinesweeperView extends View {
 							null, 
 							new Rect(0,0,getWidth(),getHeight()), 
 							null);
+
 		if (zoomMode){
 			
 			if(drawTransitionMode){

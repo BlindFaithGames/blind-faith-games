@@ -24,6 +24,7 @@ import com.minesweeper.Minesweeper;
 import com.minesweeper.MinesweeperTutorialActivity;
 import com.minesweeper.PrefsActivity;
 import com.minesweeper.R;
+import com.minesweeper.game.Cell.CellStates;
 
 public class MinesweeperTutorialView extends View {
 	private static final String TAG = "MinesweeperTutorialGame";
@@ -446,10 +447,18 @@ public class MinesweeperTutorialView extends View {
 		invalidate(selRect);
 		selCol = Math.min(Math.max(col, 0), colN);
 		selRow = Math.min(Math.max(row, 0), rowN);
-		this.game.pushCell(selRow,selCol);
-		this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this
-				.game
-				.getCell(selRow, selCol).toString());
+		boolean speech = this.game.pushCell(selRow,selCol);
+		if(speech){
+			if(game.getCounter() > 5)
+				this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.getContext().getString(R.string.pushCellSuccess) 
+								    + this.getContext().getString(R.string.state)
+									+ game.getCell(selRow, selCol).cellToString(this.getContext()));
+			else{
+				if(!game.getCell(selRow, selCol).getState().equals(CellStates.MINE))
+					this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, game.getCell(selRow, selCol).cellToString(this.getContext()));
+			}
+		}
+
 		setSelectedRect(selCol, selRow, selRect);
 	}
 	

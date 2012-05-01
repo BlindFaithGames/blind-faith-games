@@ -110,12 +110,13 @@ public class ScoreBoard extends Entity {
 
 	public void incrementCounter(){
 		counter++;
-		if(counter > record){
+		if (counter > record) {
 			record = counter;
 			if(!game.isStageMode())
 				save();
 			game.getTTS().speak(this.game.getContext().getResources().getString(R.string.newRecordSpeech) + counter);
-		}
+		} else
+			game.getTTS().speak(this.game.getContext().getResources().getString(R.string.scoreboard_free_mode) + counter);
 	}
 	
 	private void save() {
@@ -163,7 +164,7 @@ public class ScoreBoard extends Entity {
 
 	public void decrementCounter(int i) {
 		counter -= i;
-		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_success) + " " + counter);
+		game.getTTS().speak(game.getContext().getString(R.string.scoreboard_fail) + " " + counter);
 	}
 
 	@Override

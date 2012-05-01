@@ -35,7 +35,7 @@
             android:summary="@string/profileA_summary"
             android:title="@string/profileA_title" />
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="profile B"
             android:summary="@string/profileB_summary"
             android:title="@string/profileB_title" />
@@ -47,7 +47,7 @@
             android:summary="@string/infoTarget_summary"
             android:title="@string/infoTarget_title" />
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="On up event"
             android:summary="@string/onup_summary"
             android:title="@string/onup_title" />

@@ -41,6 +41,7 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 	private boolean flagMode;
 
 	private View focusedView;
+	private int counter;
 	
 
 	/* Game states */
@@ -55,6 +56,9 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
         
 		int difficulty = getIntent().getIntExtra(MinesweeperActivity.KEY_DIFFICULTY, DIFFICULTY_EASY);
 
+		
+		counter = 0;
+		
 		// Start game
 		mineField = new Board(difficulty);
 		System.out.print(mineField);
@@ -111,6 +115,7 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 	}
 
 	private void expandCell(int row, int col) {
+		counter++;
 		if (mineField.getCellValue(row, col) != 0) {
 			mineField.setCellVisibility(row, col);
 			if (mineField.getCellState(row, col) != CellStates.PUSHED && 
@@ -162,7 +167,8 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 		return mineField.getCell(row, col);
 	}
 
-	public void pushCell(int selRow, int selCol) {
+	public boolean pushCell(int selRow, int selCol) {
+		counter = 0;
 		if(flagMode){
 			if(mineField.getCellState(selRow, selCol) == CellStates.FLAGGED)
 				if(mineField.getCellValue(selRow, selCol) != -1)
@@ -182,7 +188,7 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 					expandCell(selRow, selCol);
 			}
 		}
-
+		return true;
 	}
 	
 	public boolean isVisibleCell(int selRow, int selCol) {
@@ -313,6 +319,11 @@ public class MinesweeperTutorialActivity extends Activity implements OnFocusChan
 
 	public void resetBoard() {
 		mineField = new Board(0);
+	}
+
+
+	public int getCounter() {
+		return counter;
 	}
 	
 }

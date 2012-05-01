@@ -34,7 +34,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
-	private static final boolean OPT_MUSIC_DEF = false;
+	private static final boolean OPT_MUSIC_DEF = true;
 	
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
@@ -43,7 +43,7 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final boolean OPT_INFO_TARGET_DEF = true;
 	
 	public static final String OPT_UP = "On up event";
-	private static final boolean OPT_UP_DEF = true;
+	private static final boolean OPT_UP_DEF = false;
 	
 	public static final String OPT_VIBRATION_FEEDBACK = "vibration feedback";
 	private static final boolean OPT_VIBRATION_FEEDBACK_DEF = false;
@@ -52,7 +52,7 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final boolean OPT_SOUND_FEEDBACK_DEF = true;
 	
 	public static final String OPT_SOUND_DOPPLER_EFFECT = "doppler effect";
-	private static final boolean OPT_SOUND_DOPPLER_EFFECT_DEF = false;
+	private static final boolean OPT_SOUND_DOPPLER_EFFECT_DEF = true;
 	
 	public static final String OPT_TRANSCRIPTION = "transcription";
 	private static final boolean OPT_TRANSCRIPTION_DEF = true;

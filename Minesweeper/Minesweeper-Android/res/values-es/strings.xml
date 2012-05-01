@@ -296,8 +296,8 @@
     <string name="tut_drag_text">Podrá comprobar cómo cambia la casilla seleccionada realizando eventos de arrastre en pantalla. ¡Compruébelo!</string>
     <string name="tut_keyboard_text">En el Buscaminas accesible puede asignar teclas a acciones.
 									Algunas de ellas son:\n
-									Lectura de instrucciones: para recordar cómo jugar, use el botón Menú por defecto.\n
-									Coordenadas: para escuchar el estado de la casilla y las coordenadas, use el botón buscar por defecto. \n
+									Lectura de instrucciones: para recordar cómo jugar, use el botón Cámara por defecto.\n
+									Coordenadas: para escuchar el estado de la casilla y las coordenadas, use el botón bajar volumen por defecto. \n
 									El modo zoom y el modo exploración se explican en el tutorial a continuación.
 									¡Ahora pruebe a usarlos!.</string>
     <string name="tut_zoom_mode_text">El modo zoom permite centrar la vista en una casilla determinada. Para destapar 
@@ -306,8 +306,11 @@
     una pulsación y para explorar dos pulsaciones en pantalla. Para habilitar el modo zoom, simplemente debe presionar el botón de 
     subir volumen, o el que haya establecido en el panel de configuración de teclado. ¡Ahora pruebe a usar el modo zoom!	</string>
     <string name="tut_exploration_mode_text">El modo exploración permite establecer banderas en las casillas
-     independientemente del evento táctil que realice (una pulsación, dos, tres...). ¡Compruébelo!</string>
-    <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que rodean a la seleccionada. ¡Pruébelo!</string>
+     independientemente del evento táctil que realice (una pulsación, dos, tres...).Para habilitar el modo zoom, simplemente debe presionar el botón de 
+    silenciar, o el que haya establecido en el panel de configuración de teclado. ¡Compruébelo!</string>
+    <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que rodean a la seleccionada. 
+    Para habilitar el modo zoom, simplemente debe presionar el botón de búsqueda,
+     o el que haya establecido en el panel de configuración de teclado.¡Pruébelo!</string>
 
     <!-- =============================== -->
     <!--           ACCIONES  			 -->
@@ -323,6 +326,7 @@
     
     <string name="disabled">Desactivada</string>
     <string name="enabled">Activada</string>
+	<string name="state">Estado celda actual: </string>
 
     <string name="next">Siguiente</string>
 

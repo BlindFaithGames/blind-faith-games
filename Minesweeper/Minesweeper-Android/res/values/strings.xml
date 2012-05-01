@@ -80,7 +80,7 @@
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>    
     <string name="introMessage">Welcome, please select a difficulty</string>
-    <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    <string name="intro_main_menu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     <string name="create">Create new log</string>
@@ -295,7 +295,7 @@
     <string name="tut_drag_text">You will be able to check out how to change the selected cell using drag events. Check it out!</string>
     <string name="tut_keyboard_text">In Accessible Minesweeper you can assign some keys to some actions.
 									Some of them are:\n
-									Instructions reading: To remember how to play, use the Menu key by default.\n
+									Instructions reading: To remember how to play, use the Volume Down by default.\n
 									Coordinates: To read the cell state and coordinates, use the Menu key by default. \n
 									The most complex actions like Zoom mode, exploration mode or Read 
 									cell context are explained in tutorial next steps
@@ -305,12 +305,12 @@
 						If you make a tap in some of the screen ends you will be changing the focused cell. 
 						Remember to make only one tap!. Moreover, the way of interact changes.
 						Now you have to do a tap to dig a cell and a double tap to flag a cell
-						To enable the zoom mode you must use the key Volume Up by default.
+						To enable the zoom mode you can use the key Volume Up by default.
 						Now, try to use it!.</string>
     <string name="tut_exploration_mode_text">Exploration mode allows you to flag cells independently of the event,
-     by making double or triple tap. Try it now.</string>
+     by making double or triple tap. To enable the zoom mode you must use the key Volume Mute by default. Try it now.</string>
     <string name="tut_read_context_text">It\'s an additional option that reads the cells states around the focused
-     cell. Try it now.</string>
+     cell. To enable the zoom mode you can use the key Search by default.  Try it now.</string>
 
     <!-- =============================== -->
     <!--           ACTIONS  			 -->
@@ -326,7 +326,7 @@
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
     <string name="next">Next</string>
-    <string name="state">cells. State</string>
+    <string name="state">Current cell state: </string>
     
     <string name="pushCellSuccess">Great! you have digged various cells.</string>
     <string name="transition_zoom">There is a cell change. Current cell</string>

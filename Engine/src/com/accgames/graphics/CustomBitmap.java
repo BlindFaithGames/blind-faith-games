@@ -33,6 +33,7 @@ public class CustomBitmap {
 		// recreate the new bitmap
 
 		Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+		bm.recycle();
 		return resizedBitmap;
 	}
 	

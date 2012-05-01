@@ -142,8 +142,9 @@ public abstract class GameState {
 	 * @param background the image that will be painted on the view background.
 	 * */
 	protected void setBackground(Bitmap background) {
-		if(this.background != null)
+		if(this.background != null){
 			this.background.recycle();
+		}
 		this.background = background;
 	}
 	

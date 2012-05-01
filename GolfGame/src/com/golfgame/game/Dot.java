@@ -239,11 +239,13 @@ public class Dot extends Entity{
 				Distance dist = soundConfig.playSound(targetPos.x, x);
 				dist = soundConfig.playSound(targetPos.x, x);
 				resetBall();
-				if(game.isStageMode())
+				if (game.isStageMode())
 					manageScoreBoard(dist);
-				else
-					scoreBoard.resetCounter();
-				
+				else{
+					if (scoreBoard.getCounter() > 0) {
+						scoreBoard.resetCounter();
+					}
+				}				
 			}
 		}
 		super.onUpdate();

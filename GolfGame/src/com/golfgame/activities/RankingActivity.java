@@ -208,7 +208,10 @@ public class RankingActivity extends Activity implements  OnFocusChangeListener,
 	public void onFocusChange(View v, boolean hasFocus) {
 		textToSpeech.speak(getString(R.string.ranking_speech));
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
-		textToSpeech.speak(((Button) v).getText().toString());
+		
+		if(v instanceof Button)
+			textToSpeech.speak(((Button) v).getText().toString());
+		
 		textToSpeech.setQueueMode(TTS.QUEUE_FLUSH);
 		if(hasFocus)
 			v.setBackgroundColor(Color.parseColor("#64ff8000"));
@@ -230,6 +233,7 @@ public class RankingActivity extends Activity implements  OnFocusChangeListener,
 
 	@Override
 	public void onClick(View v) {
-		textToSpeech.speak(getString(R.string.ranking_speech) + ((Button) v).getText().toString());
+		if(v instanceof Button)
+			textToSpeech.speak(getString(R.string.ranking_title) + " " +((Button) v).getText().toString());
 	}
 }

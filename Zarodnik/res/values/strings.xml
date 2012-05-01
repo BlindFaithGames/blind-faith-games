@@ -21,7 +21,7 @@
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>    
     <string name="introMessage">Welcome, please select a difficulty</string>
-    <string name="introMainMenu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    <string name="introMainMenu">Main menu Zarodnik, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     <string name="app_name">Zarodnik Game</string>
@@ -124,7 +124,7 @@
     <string name="ending_lose_message">Game Over</string>
     <string name="ending_win_message">You found your prey</string>
     <string name="intro_game_text">
-        Once upon a time, there was a little monster from an uknown place. It used to be called Zarodnik and it was involved in a trip under the depths of the ocean.
+        Once upon a time, there was a little monster from an unknown place. It used to be called Zarodnik and it was involved in a trip under the depths of the ocean.
         While it was travelling it found a lot of varieties of creatures and learnt many survival aspects. One day, our hero reach one of the biggest ocean of the world, Izlude. 
         Izlude was the best ocean that a marine creature can imagine with enough food to live forever, but when Zarodnik arrived, Izlude was been slaughtered by a new race of
         monsters\: the Strouf. The Obeaune which were the race that used to live in Izlude during the last centuries became slaves of the Strouf or been killed. Now, the Strouf
@@ -132,7 +132,7 @@
         by saving it in its belly... But our main character has a limited stomach. What will you do to help it?</string>
     
     <string name="intro_game_tts">
-        Once upon a time, there was a little monster from an uknown place. It used to be called Zarodnik and it was involved in a trip under the depths of the ocean.
+        Once upon a time, there was a little monster from an unknown place. It used to be called Zarodnik and it was involved in a trip under the depths of the ocean.
         While it was travelling it found a lot of varieties of creatures and learnt many survival aspects. One day, our hero reach one of the biggest ocean of the world, Izlude. 
         Izlude was the best ocean that a marine creature can imagine with enough food to live forever, but when Zarodnik arrived, Izlude was been slaughtered by a new race of
         monsters\: the Strouf. The Obeaune which were the race that used to live in Izlude during the last centuries became slaves of the Strouf or been killed. Now, the Strouf

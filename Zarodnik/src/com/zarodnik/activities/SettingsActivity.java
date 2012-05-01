@@ -28,7 +28,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
 	// Option names and default values
 	private static final String OPT_MUSIC = "music";
-	private static final boolean OPT_MUSIC_DEF = false;
+	private static final boolean OPT_MUSIC_DEF = true;
 	private static final String OPT_TTS = "tts";
 	private static final boolean OPT_TTS_DEF = true;
 	private static final String OPT_TRANSCRIPTION = "transcription";

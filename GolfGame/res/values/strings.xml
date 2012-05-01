@@ -223,6 +223,7 @@
     <string name="scoreboard_success">Your punctuaction have been incremented to </string>
     <string name="scoreboard_fail">Your punctuaction have been decremented to </string>
     <string name="scoreboard_reset">Your number of consecutive shots is zero.</string>
+    <string name="scoreboard_free_mode">Your number of consecutive shots is</string>
     
     <!-- =============================== -->
     <!--           FORMS  			 -->

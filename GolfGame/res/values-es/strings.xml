@@ -225,6 +225,7 @@
     <string name="scoreboard_success">Su puntuación se ha incrementado hasta </string>
     <string name="scoreboard_fail">Su puntuación ha disminuido hasta </string>
     <string name="scoreboard_reset">El número de lanzamientos consecutivos es cero.</string>
+     <string name="scoreboard_free_mode">El número de lanzamientos consecutivos es </string>
     
     <!-- =============================== -->
     <!--           FORMULARIOS 			 -->
