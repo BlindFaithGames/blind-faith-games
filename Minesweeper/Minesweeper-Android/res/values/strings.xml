@@ -8,7 +8,7 @@
     <string name="add_account">Add account...</string>
 
     <!-- Name of the application in the launcher [CHAR LIMIT=NONE] -->
-    <string name="app_name">Minesweeper</string>
+    <string name="app_name">Accessible Minesweeper</string>
 
     <!-- Dialog title text [CHAR LIMIT=NONE] -->
     <string name="attention">Attention</string>
@@ -80,7 +80,7 @@
     <string name="yes_label">Yes</string>
     <string name="no_label">No</string>    
     <string name="introMessage">Welcome, please select a difficulty</string>
-    <string name="intro_main_menu">Main menu Golf Game, you can navigate through the menu by making simple taps in the different options
+    <string name="intro_main_menu">Main menu Accessible Minesweeper, you can navigate through the menu by making simple taps in the different options
     							 and just make a long press to select one of the options below</string>
     <string name="buttonMessage">Go!</string>
     <string name="create">Create new log</string>

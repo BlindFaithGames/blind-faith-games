@@ -31,8 +31,8 @@
     
     <string name="golfGamerActivity">Golf game</string>
     <string name="exitButton">Exit</string>
-    <string name="app_name">GolfGame</string>
-    <string name="main_title">GolfGame</string>
+    <string name="app_name">Golf Game</string>
+    <string name="main_title">Golf Game</string>
     <string name="continue_label">Continue</string>
     <string name="new_game_label">New Game</string>
     <string name="keyConf_label">Key Configuration</string>

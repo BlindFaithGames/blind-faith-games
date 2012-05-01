@@ -8,7 +8,7 @@
     <string name="add_account">Añadir cuenta...</string>
 
     <!-- Name of the application in the launcher [CHAR LIMIT=NONE] -->
-    <string name="app_name">Minesweeper</string>
+    <string name="app_name">Buscaminas Accesible</string>
 
     <!-- Dialog title text [CHAR LIMIT=NONE] -->
     <string name="attention">Atención</string>
