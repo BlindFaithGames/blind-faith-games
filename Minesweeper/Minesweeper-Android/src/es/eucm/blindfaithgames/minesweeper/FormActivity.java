@@ -18,11 +18,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-
-import com.accgames.feedback.AnalyticsManager;
-import com.accgames.feedback.Log;
-import com.accgames.sound.TTS;
-
+import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
+import es.eucm.blindfaithgames.engine.feedback.Log;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.minesweeper.game.MinesweeperAnalytics;
 
 public class FormActivity extends Activity implements OnClickListener,

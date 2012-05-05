@@ -7,9 +7,8 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.Toast;
-
-import com.accgames.sound.SubtitleInfo;
-import com.accgames.sound.TTS;
+import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 
 public class SplashScreen extends Activity {
     protected boolean _active = true;

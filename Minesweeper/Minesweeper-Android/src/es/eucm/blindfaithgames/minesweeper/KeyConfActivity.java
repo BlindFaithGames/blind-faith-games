@@ -16,14 +16,12 @@ import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TableRow;
-
-import com.accgames.feedback.AnalyticsManager;
-import com.accgames.feedback.Log;
-import com.accgames.input.Input;
-import com.accgames.input.KeyboardWriter;
-import com.accgames.input.XMLKeyboard;
-import com.accgames.sound.TTS;
-
+import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
+import es.eucm.blindfaithgames.engine.feedback.Log;
+import es.eucm.blindfaithgames.engine.input.Input;
+import es.eucm.blindfaithgames.engine.input.KeyboardWriter;
+import es.eucm.blindfaithgames.engine.input.XMLKeyboard;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.minesweeper.game.MinesweeperAnalytics;
 
 

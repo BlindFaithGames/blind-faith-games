@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
-
-import com.accgames.feedback.AnalyticsManager;
-import com.accgames.feedback.Log;
-import com.accgames.input.Input;
-import com.accgames.sound.TTS;
-
+import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
+import es.eucm.blindfaithgames.engine.feedback.Log;
+import es.eucm.blindfaithgames.engine.input.Input;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.minesweeper.game.MinesweeperAnalytics;
 import es.eucm.blindfaithgames.minesweeper.others.CustomView;
 

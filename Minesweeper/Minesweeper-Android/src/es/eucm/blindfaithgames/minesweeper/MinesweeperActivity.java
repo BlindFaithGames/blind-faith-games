@@ -37,17 +37,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.accgames.feedback.AnalyticsManager;
-import com.accgames.feedback.Log;
-import com.accgames.input.Input;
-import com.accgames.input.KeyboardReader;
-import com.accgames.input.XMLKeyboard;
-import com.accgames.others.RuntimeConfig;
-import com.accgames.sound.Music;
-import com.accgames.sound.SubtitleInfo;
-import com.accgames.sound.TTS;
-
+import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
+import es.eucm.blindfaithgames.engine.feedback.Log;
+import es.eucm.blindfaithgames.engine.input.Input;
+import es.eucm.blindfaithgames.engine.input.KeyboardReader;
+import es.eucm.blindfaithgames.engine.input.XMLKeyboard;
+import es.eucm.blindfaithgames.engine.others.RuntimeConfig;
+import es.eucm.blindfaithgames.engine.sound.Music;
+import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.minesweeper.game.MinesweeperAnalytics;
 
 /**

@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.widget.EditText;
-
-import com.accgames.sound.TTS;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 
 public class CheckKeyActivity extends Activity implements OnKeyListener{
 	public static final String KEY_NAME = "KeyName";

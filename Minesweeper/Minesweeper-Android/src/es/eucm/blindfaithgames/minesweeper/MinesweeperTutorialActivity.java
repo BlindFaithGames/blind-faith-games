@@ -11,16 +11,14 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
-
-import com.accgames.feedback.AnalyticsManager;
-import com.accgames.sound.Music;
-import com.accgames.sound.TTS;
-
+import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
+import es.eucm.blindfaithgames.engine.sound.Music;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.minesweeper.game.Board;
 import es.eucm.blindfaithgames.minesweeper.game.Cell;
+import es.eucm.blindfaithgames.minesweeper.game.Cell.CellStates;
 import es.eucm.blindfaithgames.minesweeper.game.MinesweeperAnalytics;
 import es.eucm.blindfaithgames.minesweeper.game.MinesweeperTutorialView;
-import es.eucm.blindfaithgames.minesweeper.game.Cell.CellStates;
 
 public class MinesweeperTutorialActivity extends Activity implements OnFocusChangeListener, OnLongClickListener, OnClickListener {
 

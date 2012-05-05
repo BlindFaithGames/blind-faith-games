@@ -12,17 +12,15 @@ import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Toast;
-
-import com.accgames.feedback.AnalyticsManager;
-import com.accgames.feedback.Log;
-import com.accgames.input.Input;
-import com.accgames.sound.SubtitleInfo;
-import com.accgames.sound.TTS;
-
+import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
+import es.eucm.blindfaithgames.engine.feedback.Log;
+import es.eucm.blindfaithgames.engine.input.Input;
+import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
+import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.minesweeper.game.MinesweeperAnalytics;
 
 /**
- * @author Gloria Pozuelo, Gonzalo Benito and Javier Ã?lvarez
+ * @author Gloria Pozuelo, Gonzalo Benito and Javier ï¿½?lvarez
  * This class implements the preferences activity, where you can choose whether disable or enable sounds
  */
 

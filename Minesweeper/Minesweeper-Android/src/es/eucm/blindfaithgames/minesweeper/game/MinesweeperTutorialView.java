@@ -14,12 +14,10 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
-
-import com.accgames.feedback.AnalyticsManager;
-import com.accgames.feedback.Log;
-import com.accgames.input.Input;
-import com.accgames.input.XMLKeyboard;
-
+import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
+import es.eucm.blindfaithgames.engine.feedback.Log;
+import es.eucm.blindfaithgames.engine.input.Input;
+import es.eucm.blindfaithgames.engine.input.XMLKeyboard;
 import es.eucm.blindfaithgames.minesweeper.KeyConfActivity;
 import es.eucm.blindfaithgames.minesweeper.Minesweeper;
 import es.eucm.blindfaithgames.minesweeper.MinesweeperTutorialActivity;
