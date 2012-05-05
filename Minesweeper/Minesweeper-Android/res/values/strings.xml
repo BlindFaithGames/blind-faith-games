@@ -152,11 +152,12 @@
     <string name="instructions_controls_text">To play Android Minesweeper there are several controls you should know:\n\n
 		
 		Buttons, use:\n
-		- menu button - listen to cell coordinates\n 
-		- search button - switch between exploration and dig mode\n
+		- menu button - to repeat the last synthetizer voice message\n 
+		- mute button - switch between exploration and dig mode\n
 		- volume up button - turn on/off zoom mode\n
-		- volume down button - listen to controls hints\n
-		- call button - listen to the cell context information, that is, you will listen at every cell information, 
+		- camera button - listen to controls hints\n
+		- volume down key - listen to cell coordinates\n
+		- search button - listen to the cell context information, that is, you will listen at every cell information, 
 		that surround the selected one, beginning at the top cell and ending at the top left cell in clockwise order.\n\n
 		
 		If you don\'t have any of this buttons, you can change them, by making a simple tap on Key Configurations.\n\n
@@ -295,8 +296,8 @@
     <string name="tut_drag_text">You will be able to check out how to change the selected cell using drag events. Check it out!</string>
     <string name="tut_keyboard_text">In Accessible Minesweeper you can assign some keys to some actions.
 									Some of them are:\n
-									Instructions reading: To remember how to play, use the Volume Down by default.\n
-									Coordinates: To read the cell state and coordinates, use the Menu key by default. \n
+									Instructions reading: To remember how to play, use the Camera by default.\n
+									Coordinates: To read the cell state and coordinates, use the volume down key by default. \n
 									The most complex actions like Zoom mode, exploration mode or Read 
 									cell context are explained in tutorial next steps
 									Now, try to use them!.</string>
@@ -308,9 +309,9 @@
 						To enable the zoom mode you can use the key Volume Up by default.
 						Now, try to use it!.</string>
     <string name="tut_exploration_mode_text">Exploration mode allows you to flag cells independently of the event,
-     by making double or triple tap. To enable the zoom mode you must use the key Volume Mute by default. Try it now.</string>
+     by making double or triple tap. To enable the exploration mode you can use the key Volume Mute by default. Try it now.</string>
     <string name="tut_read_context_text">It\'s an additional option that reads the cells states around the focused
-     cell. To enable the zoom mode you can use the key Search by default.  Try it now.</string>
+     cell. To read cells you can use the search button by default.  Try it now!.</string>
 
     <!-- =============================== -->
     <!--           ACTIONS  			 -->

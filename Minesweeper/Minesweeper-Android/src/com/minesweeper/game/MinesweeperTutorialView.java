@@ -451,8 +451,8 @@ public class MinesweeperTutorialView extends View {
 		if(speech){
 			if(game.getCounter() > 5)
 				this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE,this.getContext().getString(R.string.pushCellSuccess) 
-								    + this.getContext().getString(R.string.state)
-									+ game.getCell(selRow, selCol).cellToString(this.getContext()));
+								    + " " + this.getContext().getString(R.string.state)
+									+ " " + game.getCell(selRow, selCol).cellToString(this.getContext()));
 			else{
 				if(!game.getCell(selRow, selCol).getState().equals(CellStates.MINE))
 					this.game.mTtsAction(Minesweeper.SPEECH_READ_CODE, game.getCell(selRow, selCol).cellToString(this.getContext()));

@@ -149,7 +149,7 @@
     <string name="instructions_general_text">El tablero es una matriz de casillas. En algunas de estas casillas se encuentran escondidas minas.
         El objetivo es destapar todo el tablero evitando destapar alguna casilla con mina.\n\n
 		
-		Para lograrlo, puede pulsar sobre cualquier celda -modo escavación- o marcarla -modo exploración-
+		Para lograrlo, puede pulsar sobre cualquier celda -modo excavación- o marcarla -modo exploración-
 		con una bandera, si está seguro de que contiene una mina. Cuando pulse sobre una casilla, se descubrirán varias casillas
 		mostrando mediante dígitos cuántas minas se encuentran alrededor de éstas.\n\n
 		\n\n
@@ -158,13 +158,15 @@
     <string name="instructions_controls_text">Para jugar al Buscaminas Accesible dispone de estos controles:\n\n
         
         Uso de los botones:\n
-        - Botón menú - para escuchar las coordenadas de la casilla en la que está situado\n
-        - Botón buscar - Activa o desactiva el modo exploración\n
+        - Botón menú - Para repetir el último mensaje del sintetizador de voz\n
+        - Botón silenciar - Activa o desactiva modo exploración\n
         - Subir volumen - Activa o desactiva el modo zoom\n
-        - Bajar volumen - Escucha los consejos\n
-        - Botón de llamada - Le informa del contexto de la casilla, es decir, escuchará información de cada casilla que rodea a la 
+		- Botón cámara - Para escuchar estas instrucciones\n
+        - Bajar volumen - para escuchar las coordenadas de la casilla en la que está situado\n
+        - Botón buscar - Le informa del contexto de la casilla, es decir, escuchará información de cada casilla que rodea a la 
         seleccionada, empezando por la casilla superior y terminando por la esquina superior izquierda en el sentido de las agujas del 
         reloj\n\n
+
         
         Si no dispone de alguno de estos botones en su dispositivo, puede cambiar la configuración de teclado accediendo desde el 
         menú principal.\n\n
@@ -306,10 +308,10 @@
     una pulsación y para explorar dos pulsaciones en pantalla. Para habilitar el modo zoom, simplemente debe presionar el botón de 
     subir volumen, o el que haya establecido en el panel de configuración de teclado. ¡Ahora pruebe a usar el modo zoom!	</string>
     <string name="tut_exploration_mode_text">El modo exploración permite establecer banderas en las casillas
-     independientemente del evento táctil que realice (una pulsación, dos, tres...).Para habilitar el modo zoom, simplemente debe presionar el botón de 
+     independientemente del evento táctil que realice (una pulsación, dos, tres...).Para habilitar el modo exploración, simplemente debe presionar el botón de 
     silenciar, o el que haya establecido en el panel de configuración de teclado. ¡Compruébelo!</string>
     <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que rodean a la seleccionada. 
-    Para habilitar el modo zoom, simplemente debe presionar el botón de búsqueda,
+    Para leer celdas, simplemente debe presionar el Botón buscar,
      o el que haya establecido en el panel de configuración de teclado.¡Pruébelo!</string>
 
     <!-- =============================== -->

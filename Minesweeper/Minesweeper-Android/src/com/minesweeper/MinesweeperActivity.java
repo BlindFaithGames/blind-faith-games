@@ -423,9 +423,9 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	 */
 	private void fillXMLKeyboard() {
 		keyboard.addObject(24, "zoom");
-		keyboard.addObject(27, "coordinates");
+		keyboard.addObject(25, "coordinates");
 		keyboard.addObject(84, "context");
-		keyboard.addObject(25, "instructions");
+		keyboard.addObject(27, "instructions");
 		keyboard.addObject(164, "exploration");
 		keyboard.addObject(82, "repeat");
 		keyboard.setNum(6);
