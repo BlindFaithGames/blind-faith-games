@@ -45,7 +45,7 @@ public class SplashScreen extends Activity {
                     // do nothing
                 } finally {
                     finish();
-                    startActivity(new Intent("com.minesweeper.MinesweeperActivity"));
+                    startActivity(new Intent("es.eucm.blindfaithgames.minesweeper.MinesweeperActivity"));
                     stop();
                 }
             }
