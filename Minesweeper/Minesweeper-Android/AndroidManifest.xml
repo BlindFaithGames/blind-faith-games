@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.minesweeper"
+    package="es.eucm.blindfaithgames.minesweeper"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -9,10 +9,10 @@
 
     <!-- Only this application can receive the messages and registration result -->
     <permission
-        android:name="com.minesweeper.permission.C2D_MESSAGE"
+        android:name="es.eucm.blindfaithgames.minesweeper.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.minesweeper.permission.C2D_MESSAGE" />
+    <uses-permission android:name="es.eucm.blindfaithgames.minesweeper.permission.C2D_MESSAGE" />
 
     <!-- Permission to register and receive data messages -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -28,7 +28,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.accgames.others.AcraSending"
+        android:name=".others.AcraSending"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name" >
         <activity
@@ -50,7 +50,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="com.minesweeper.MinesweeperActivity" />
+                <action android:name="es.eucm.blindfaithgames.minesweeper.MinesweeperActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -133,13 +133,13 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.minesweeper" />
+                <category android:name="es.eucm.blindfaithgames.minesweeper" />
             </intent-filter>
             <!-- Receive the registration id -->
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="com.minesweeper" />
+                <category android:name="es.eucm.blindfaithgames.minesweeper" />
             </intent-filter>
         </receiver>
     </application>
