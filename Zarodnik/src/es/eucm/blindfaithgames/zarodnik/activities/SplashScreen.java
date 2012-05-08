@@ -5,6 +5,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Window;
@@ -21,7 +22,10 @@ public class SplashScreen extends Activity {
 	protected boolean _active = true;
     protected int _splashTime = 5000;
 	private TTS textToSpeech;
-    
+	
+	private Runnable lastRunnable;
+	private Handler handler;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,29 +53,15 @@ public class SplashScreen extends Activity {
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.advice), TTS.QUEUE_FLUSH, s);
 		
-        // thread for displaying the SplashScreen
-        Thread splashTread = new Thread() {
-            @Override
+        handler = new Handler();
+	    lastRunnable = new Runnable() {
             public void run() {
-                try {
-                    int waited = 0;
-                    while(_active && (waited < _splashTime)) {
-                        sleep(100);
-                        if(_active) {
-                            waited += 100;
-                        }
-                    }
-
-                } catch(InterruptedException e) {
-                    // do nothing
-                } finally {
-                    finish();
-                    startActivity(new Intent("es.eucm.blindfaithgames.zarodnik.activities.MainActivity"));
-                    stop();
-                }
+            	finish();
+                /* start the activity */
+                startActivity(new Intent("es.eucm.blindfaithgames.zarodnik.activities.MainActivity"));
             }
         };
-        splashTread.start();
+        handler.postDelayed(lastRunnable, 5000);
 	}
 
 	private void setLogoContent() {
@@ -85,38 +75,25 @@ public class SplashScreen extends Activity {
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.mode) + "," + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
 		
-        // thread for displaying the SplashScreen
-        Thread splashTread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    int waited = 0;
-                    while(_active && (waited < _splashTime)) {
-                        sleep(300);
-                        if(_active) {
-                            waited += 100;
-                        }
-                    }
+        handler = new Handler();
 
-                } catch(InterruptedException e) {
-                    // do nothing
-                } finally {
-                    finish();
-                    Intent i = new Intent("es.eucm.blindfaithgames.zarodnik.activities.SplashScreen");
-                    i.putExtra(ADVICE, 1);
-                    startActivity(i);
-                    stop();
-                }
-            }
-        };
-        splashTread.start();
+	    lastRunnable = new Runnable() {
+	            public void run() {
+	            	finish();
+	                Intent i = new Intent("es.eucm.blindfaithgames.zarodnik.activities.SplashScreen");
+	                i.putExtra(ADVICE, 1);
+	                startActivity(i);
+	            }
+	    };
+        handler.postDelayed(lastRunnable, 15000);
 	}
 
 	@Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            _active = false;
             textToSpeech.stop();
+            handler.removeCallbacks(lastRunnable);
+            handler.postDelayed(lastRunnable, 1);
         }
         return true;
     }

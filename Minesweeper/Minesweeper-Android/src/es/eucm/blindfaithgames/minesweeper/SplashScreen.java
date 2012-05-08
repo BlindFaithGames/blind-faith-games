@@ -3,6 +3,7 @@ package es.eucm.blindfaithgames.minesweeper;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Window;
@@ -15,6 +16,9 @@ public class SplashScreen extends Activity {
     protected int _splashTime = 5000;
 	private TTS textToSpeech;
     
+	private Runnable lastRunnable;
+	private Handler handler;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,35 +31,25 @@ public class SplashScreen extends Activity {
        
 		// Checking if TTS is installed on device
 		textToSpeech = new TTS(this, getString(R.string.mode) + "," + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
-		
-        // thread for displaying the SplashScreen
-        Thread splashTread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    int waited = 0;
-                    while(_active && (waited < _splashTime)) {
-                        sleep(300);
-                        if(_active) {
-                            waited += 100;
-                        }
-                    }
-                } catch(InterruptedException e) {
-                    // do nothing
-                } finally {
-                    finish();
-                    startActivity(new Intent("es.eucm.blindfaithgames.minesweeper.MinesweeperActivity"));
-                    stop();
-                }
-            }
-        };
-        splashTread.start();
+        
+        handler = new Handler();
+
+	    lastRunnable = new Runnable() {
+	            public void run() {
+	            	finish();
+	                Intent i = new Intent("es.eucm.blindfaithgames.minesweeper.MinesweeperActivity");
+	                startActivity(i);
+	            }
+	    };
+        handler.postDelayed(lastRunnable, 15000);
     }
     
-    @Override
+	@Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            _active = false;
+            textToSpeech.stop();
+            handler.removeCallbacks(lastRunnable);
+            handler.postDelayed(lastRunnable, 1);
         }
         return true;
     }
