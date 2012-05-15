@@ -21,6 +21,15 @@
 			android:textColor="@color/black"
 			android:background="@drawable/blind_background_button" />
 		<Button
+			android:id="@+id/tutorial_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/tutorial_label"
+			android:contentDescription="@string/tutorial_label"
+			android:layout_marginBottom="10dp"
+			android:textColor="@color/black"
+			android:background="@drawable/blind_background_button"/>
+		<Button
 			android:id="@+id/settings_button"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"

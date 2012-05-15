@@ -67,7 +67,7 @@ public class KeyConfActivity extends Activity implements OnFocusChangeListener, 
 		buttonRepeat = (Button) findViewById(R.id.buttonRepeat);
 		buttonRepeat.setOnFocusChangeListener(this);
 		buttonRepeat.setOnClickListener(this);
-		buttonRecord.setOnLongClickListener(this);
+		buttonRepeat.setOnLongClickListener(this);
 		
 		this.buttonsUpdate();
 

@@ -140,6 +140,7 @@ public class SubtitleManager {
 				toast.setView(layout);
 				
 			} catch (Exception e) {
+				sInfo.setResourceId(-1);
 				toast = Toast.makeText(c, "", sInfo.getDuration());
 			}
 		}
@@ -156,24 +157,25 @@ public class SubtitleManager {
 	 * 
 	 * */
 	private void updateToastText(Toast toast, String msg, SubtitleInfo sInfo) {
-		if(sInfo.getResourceId() == -1){
-			toast.setText(msg);
-		}else{
-			View layout;
-			try {
-				LayoutInflater inflater = context.getLayoutInflater();
-				layout = inflater.inflate(sInfo.getResourceId(),
-				                               (ViewGroup) context.findViewById(sInfo.getViewGroupRoot()));
-
-				TextView text = (TextView) layout.findViewById(sInfo.getId_text());
-				text.setText(msg);
-				
-				toast.setGravity(sInfo.getGravity(), sInfo.getxOffset(), sInfo.getyOffset());
-				toast.setDuration(sInfo.getDuration());
-				toast.setView(layout);
-				
-			} catch (Exception e) {
+		if(toast != null){
+			if(sInfo.getResourceId() == -1){
 				toast.setText(msg);
+			}else{
+				try{
+					View layout;
+					LayoutInflater inflater = context.getLayoutInflater();
+					layout = inflater.inflate(sInfo.getResourceId(),
+					                               (ViewGroup) context.findViewById(sInfo.getViewGroupRoot()));
+		
+					TextView text = (TextView) layout.findViewById(sInfo.getId_text());
+					text.setText(msg);
+					
+					toast.setGravity(sInfo.getGravity(), sInfo.getxOffset(), sInfo.getyOffset());
+					toast.setDuration(sInfo.getDuration());
+				toast.setView(layout);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

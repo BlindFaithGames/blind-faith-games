@@ -130,7 +130,7 @@
     <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
     <string name="blind_interaction_title">Modo de interacción para ciegos</string>
     <string name="blind_interaction_summary">Añade una pulsación más a todos los eventos táctiles en pantalla</string>
-    <string name="blind_mode_title">Modo ciego</string>
+    <string name="blind_mode_title">Modo Pantalla negra</string>
     <string name="blind_mode_summary">Permite usar la aplicación sin ninguna referencia visual en el menú principal y en el juego.</string>
     <string name="new_game_title">Dificultad</string>
     <string name="easy_label">Fácil</string>
@@ -228,7 +228,6 @@
     <string name="button_zoom">Botón de zoom</string>
     <string name="button_exploration">Botón de exploración</string>
     <string name="button_context">Lectura de información de contexto</string>
-    <string name="button_blind_mode">Habilita el modo ciego</string>
     <string name="button_repeat">Repite el último mensaje reporducido por el sintetizador de voz</string>
     <string name="context_coordinates_title">Información de contexto</string>
     <string name="context_coordinates_summary">Lee las casillas situadas alrededor de la seleccionada</string>

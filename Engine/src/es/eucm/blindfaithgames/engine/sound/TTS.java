@@ -278,7 +278,7 @@ public class TTS implements TextToSpeech.OnInitListener, Parcelable {
 				s = it.next();
 				lastSpeech = " " + s + " ";
 				mTts.speak(" " +  s + " ", QUEUE_ADD, null);
-				subs.showSubtitle(" " + "TTS:" +  it.next() + " ");
+				subs.showSubtitle(" " + "TTS:" +  s + " ");
 			}
 		}
 	}

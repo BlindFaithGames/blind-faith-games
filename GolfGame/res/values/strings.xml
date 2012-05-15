@@ -89,7 +89,7 @@
     <string name="transcription_summary">It shows text that contains the TTS speech</string>
     <string name="blind_interaction_title">Blind Interaction Mode</string>
     <string name="blind_interaction_summary">It adds one more touch to each screen touch event</string>
-    <string name="blind_mode_title">Blind Mode</string>
+    <string name="blind_mode_title">Black Screen Mode</string>
     <string name="blind_mode_summary">Allows to use the application without any visual reference in the game and main menu.</string>
     <string name="game_title">Game</string>
     <string name="flags_title">Flags settings</string>
@@ -145,7 +145,6 @@
     <string name="keydialog">Action configuration</string>
     <string name="keydialog_text">Press any key</string>
     <string name="button_speak_record">Play record in game</string>
-    <string name="button_blind_mode">To enable blind mode</string>
     <string name="button_repeat">To repeat the last sinthetizer voice message</string>
     <string name="StageMode">Stage Mode</string>
     <string name="FreeMode">Free Mode</string>

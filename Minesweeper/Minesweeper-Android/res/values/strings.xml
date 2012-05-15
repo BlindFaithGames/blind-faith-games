@@ -125,7 +125,7 @@
     <string name="transcription_summary">It shows text that contains the TTS speech</string>
     <string name="blind_interaction_title">Blind Interaction Mode</string>
     <string name="blind_interaction_summary">It adds one more touch to every screen touch event</string>
-    <string name="blind_mode_title">Blind Mode</string>
+    <string name="blind_mode_title">Black Screen Mode</string>
     <string name="blind_mode_summary">Allows you to use the application without any visual reference in the game and main menu.</string>
     <string name="new_game_title">Difficulty</string>
     <string name="easy_label">Easy</string>

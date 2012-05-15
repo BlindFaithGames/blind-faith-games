@@ -1,6 +1,5 @@
 package es.eucm.blindfaithgames.zarodnik.activities;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -253,18 +252,13 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	}
 
 	private void checkFolderApp(String file) {
-		File f = new File(file);
-		if (f == null || (!f.exists() && !f.mkdir())) {
-			if (reader == null)
-				reader = new KeyboardReader();
-			try {
-				FileInputStream fis = openFileInput(file);
-				keyboard = reader.loadEditedKeyboard(fis);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				keyboard = Input.getKeyboard();
-				this.fillXMLKeyboard();
-			}
+		reader = new KeyboardReader();
+		try {
+			FileInputStream fis = openFileInput(file);
+			keyboard = reader.loadEditedKeyboard(fis);
+		} catch (FileNotFoundException e) {
+			keyboard = Input.getKeyboard();
+			this.fillXMLKeyboard();
 		}
 	}
 

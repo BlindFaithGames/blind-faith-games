@@ -58,6 +58,9 @@ public class TutorialActivity extends Activity {
 		setContentView(golfView);
 
 		createGame(2, golfView);
+		
+		if (SettingsActivity.getBlindMode(this))
+			game.setDisabled(true);
 
 		// We set the configuration options at its default values
 		settings = PreferenceManager.getDefaultSharedPreferences(this);

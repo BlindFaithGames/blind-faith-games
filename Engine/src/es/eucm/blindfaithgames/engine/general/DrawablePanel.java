@@ -56,7 +56,6 @@ public abstract class DrawablePanel extends SurfaceView implements SurfaceHolder
 	            thread.join();
 	            retry = false;
 	        } catch (InterruptedException e) {
-	            // we will try it again and again...
 	        }
 	    }			
 	}

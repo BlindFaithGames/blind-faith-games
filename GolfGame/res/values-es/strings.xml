@@ -89,7 +89,7 @@
     <string name="transcription_summary">Muestra el texto del sonido que reproduce el sintetizador</string>
     <string name="blind_interaction_title">Modo de interacción para ciegos</string>
     <string name="blind_interaction_summary">Añade una pulsación más a todos los eventos táctiles en pantalla</string>
-    <string name="blind_mode_title">Modo ciego</string>
+    <string name="blind_mode_title">Modo pantalla negra</string>
     <string name="blind_mode_summary">Permite usar la aplicación sin ninguna referencia visual en el menú principal y en el juego.</string>
     <string name="game_title">Juego</string>
     <string name="flags_title">Ajuste de banderas</string>
@@ -147,7 +147,6 @@
     <string name="keydialog">Configuración de acción</string>
     <string name="keydialog_text">Pulse cualquier tecla</string>
     <string name="button_speak_record">Mostrar record durante el juego</string>
-    <string name="button_blind_mode">Para habilitar el modo ciego</string>
     <string name="button_repeat">Repite el último mensaje reproducido por el sintetizador de voz</string>
     <string name="StageMode">Modo 18 hoyos</string>
     <string name="FreeMode">Modo libre</string>

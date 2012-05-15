@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.Toast;
@@ -73,7 +74,7 @@ public class SplashScreen extends Activity {
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
        
 		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, getString(R.string.mode) + "," + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
+		textToSpeech = new TTS(this, getString(R.string.mode)  + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
 		
         handler = new Handler();
 
@@ -97,4 +98,11 @@ public class SplashScreen extends Activity {
         }
         return true;
     }
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(KeyEvent.KEYCODE_BACK == keyCode)
+			return true;
+		return super.onKeyDown(keyCode, event);
+	}
 }

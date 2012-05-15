@@ -1,6 +1,5 @@
 package es.eucm.blindfaithgames.minesweeper;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -431,17 +430,13 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	}
 
 	private void checkFolderApp(String file) {
-		File f = new File(file);
-		if (f == null || (!f.exists() && !f.mkdir())) {
-			if (reader == null)
-				reader = new KeyboardReader();
-			try {
-				FileInputStream fis = openFileInput(file);
-				keyboard = reader.loadEditedKeyboard(fis);
-			} catch (FileNotFoundException e) {
-				keyboard = Input.getKeyboard();
-				this.fillXMLKeyboard();
-			}
+		reader = new KeyboardReader();
+		try {
+			FileInputStream fis = openFileInput(file);
+			keyboard = reader.loadEditedKeyboard(fis);
+		} catch (FileNotFoundException e) {
+			keyboard = Input.getKeyboard();
+			this.fillXMLKeyboard();
 		}
 	}
 
