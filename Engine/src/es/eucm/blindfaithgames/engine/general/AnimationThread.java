@@ -6,7 +6,7 @@ import android.view.SurfaceHolder;
 /**
  * Provides a separate thread where the game loop acts.
  * 
- * @author Javier Álvarez & Gloria Pozuelo.
+ * @author Javier Ã�lvarez & Gloria Pozuelo.
  * */
 
 public class AnimationThread extends Thread {
@@ -60,9 +60,10 @@ public class AnimationThread extends Thread {
 		
     	try {
             c = surfaceHolder.lockCanvas(null);
-            synchronized (surfaceHolder) {
-            	panel.onDraw(c);
-            	c.drawText("FPS "+ fps, 10, 10, new Paint());
+            if (c != null) {
+            	synchronized (surfaceHolder) {
+            		panel.onDraw(c);	
+            	}
             }
         } finally {
             // do this in a finally so that if an exception is thrown
@@ -90,8 +91,10 @@ public class AnimationThread extends Thread {
 
         	try {
 	            c = surfaceHolder.lockCanvas(null);
-	            synchronized (surfaceHolder) {
-	            	panel.onDraw(c);
+	            if (c != null) {
+		            synchronized (surfaceHolder) {
+		            	panel.onDraw(c);
+		            }
 	            }
 	        } finally {
 	            // do this in a finally so that if an exception is thrown

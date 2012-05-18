@@ -3,6 +3,8 @@ package es.eucm.blindfaithgames.engine.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.acra.ErrorReporter;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -134,9 +136,16 @@ public class Game {
 		if(!actualState.isRunning()){
 			next++;
 			if(next < order.size()){
-				actualState = gameStates.get(order.get(next));
-				actualState.run();
-				stateChangedLastStep = true;
+				try {
+					actualState = gameStates.get(order.get(next));
+					actualState.run();
+					stateChangedLastStep = true;
+				} catch (Exception e) {
+					ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + 
+							" " + e.getStackTrace() +  " " + gameStates.toString());
+					ErrorReporter.getInstance().handleSilentException(new Exception("Desbordamiento gamestates"));
+					endGame = true;
+				}
 			}
 			else
 				endGame = true;

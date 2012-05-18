@@ -1,8 +1,10 @@
 package es.eucm.blindfaithgames.engine.feedback;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import org.acra.ErrorReporter;
 
 import android.content.Context;
+
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class AnalyticsManager {
 	 public static String TRACK_ID;
@@ -25,7 +27,7 @@ public class AnalyticsManager {
 	 }
 	  
 	 public static AnalyticsManager getAnalyticsManager(){
-	  return analyticsManager;
+		 return analyticsManager;
 	 }
 	 
 	 public static GoogleAnalyticsTracker getTracker(){
@@ -42,15 +44,32 @@ public class AnalyticsManager {
 	 }
 	 
 	 public void registerPage(String page, String parameter){
-		getTracker().trackPageView("/" + page+ "/" + parameter);
+		 try {
+			 getTracker().trackPageView("/" + page + "/" + parameter);
+		 } catch(Exception e) {
+			 ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + " " + 
+					 						e.getStackTrace() + " " + page + " " + parameter);
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Null Pointer Register Page - Parameter"));
+		 }
 	 }
 	 
 	 public void registerPage(String page){  
-		 getTracker().trackPageView("/" + page);
+		 try {
+			 getTracker().trackPageView("/" + page);
+		 } catch(Exception e) {
+			 ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + " " + e.getStackTrace() + " " + page);
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Null Pointer Register Page"));
+		 }
 	 }
 	 
 	 public void registerAction(String Category, String Action, String Label, int Value){
-		 getTracker().trackEvent(Category, Action, Label, Value);
+		 try {
+			 getTracker().trackEvent(Category, Action, Label, Value);
+		 } catch(Exception e) {
+			 ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + " " + 
+					 						e.getStackTrace() + " " + Category + " " + Action + " " + Label + " " + Value);
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Null Pointer Register Action"));
+		 }
 	 }
 	 
 	 public static void stopTracker(){

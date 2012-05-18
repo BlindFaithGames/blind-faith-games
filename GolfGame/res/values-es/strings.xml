@@ -7,7 +7,7 @@
     
 	<string name="advice">Aconsejamos utilizar auriculares para jugar a este juego.</string>
 	<string name="group_name">Juego hecho por, Blind Faith Games</string>	
-	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical</string>
+	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical.</string>
     <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
         sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación</string>

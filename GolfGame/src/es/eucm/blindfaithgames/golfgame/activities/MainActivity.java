@@ -1,6 +1,5 @@
 package es.eucm.blindfaithgames.golfgame.activities;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -30,8 +29,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import es.eucm.blindfaithgames.engine.feedback.AnalyticsManager;
 import es.eucm.blindfaithgames.engine.feedback.Id;
 import es.eucm.blindfaithgames.engine.feedback.Log;

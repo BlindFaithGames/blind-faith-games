@@ -249,6 +249,20 @@ public abstract class GameState {
 		}
 		return !collision;
 	}
-
-
+	
+	public String toString(){
+		String res = "SW:" + SCREEN_WIDTH;
+		res += " SH:" + SCREEN_HEIGHT;
+		res += " Run:" + game_is_running;
+		res += " Ini:" + onInitialized;
+		if(entities != null)
+			res += " Ent:" + entities.toString();
+		if(collidables != null)
+			res += " Coll:" + collidables.toString();
+		if(renderables != null)
+			res += " Rend:" + renderables.toString();
+		if(removables != null)
+			res += " Rem:" + removables.toString();
+		return res;
+	}
 }

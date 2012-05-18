@@ -66,7 +66,7 @@
     <!-- =============================== -->        
     
     <string name="group_name">Juego hecho por, Blind Faith Games</string>	
-	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical</string>
+	<string name="mode">Esta aplicación funciona con el dispositivo móvil en posición vertical.</string>
     <string name="interactionMode_select">Esto es un proyecto de investigación que trata de obtener una visión sobre cómo las personas con discapacidad visual pueden
         jugar a juegos en dispositivos móviles y cómo los desarrolladores pueden crear juegos que no son sólo accesibles,
         sino también agradables para ellos. Seleccione un modo de interacción dependiendo de si tiene discapacidad o no. Para seleccionar una opción mantenga la pulsación</string>
@@ -81,8 +81,8 @@
 	<string name="cellStateFlagged">Bandera</string>
 	<string name="cellStateUnknown">Estado desconocido</string>
     <string name="find">Encontrar</string>
-    <string name="intro_main_menu">Menú principal del Buscaminas. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones
-    							 ,para seleccionar haga una pulsación larga sobre la opción que desee</string>
+    <string name="intro_main_menu">Menú principal de Buscaminas Accesible. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones, 
+    							para seleccionar haga una pulsación larga sobre la opción que desee</string>
     <string name="tts_select">Le recomendamos descargar el sintetizador "IVONA Text-to-Speech HQ", por su gran calidad. Nosotros no colaboramos con el proyecto IVONA pero es el mejor sintetizador
    	que hemos encontrado. ¿Desea instalarlo?</string>
    	<string name="yes_label">Sí</string>

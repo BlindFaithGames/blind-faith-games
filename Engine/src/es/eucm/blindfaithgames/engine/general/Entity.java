@@ -458,4 +458,17 @@ public abstract class Entity {
 			isPlaying = false;
 		}
 	}
+	
+	public String toString() {
+		String res = "Pos:("+ x + ", "+ y + ")" ;
+		res += " Ena:" + enabled;
+		res += " Col:" + collidable;
+		res += " Vis:" + visible;
+		res += " Fro:" + frozen;
+		res += " Rem:" + removable;
+		res += " Trans:" + transcription;
+		if(sources != null)
+			res += " Sources:" + sources.toString();
+		return res;
+	}
 }

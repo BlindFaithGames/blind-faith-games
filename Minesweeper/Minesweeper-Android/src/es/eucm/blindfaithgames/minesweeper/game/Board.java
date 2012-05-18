@@ -1,5 +1,11 @@
 package es.eucm.blindfaithgames.minesweeper.game;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Random;
 
 import es.eucm.blindfaithgames.minesweeper.game.Cell.CellStates;
@@ -45,7 +51,6 @@ public class Board {
 		allocateMines(board, mines);
 		// To calculate each block value
 		allocateValues(board);
-		
 	}
 
 	public CellStates getCellState(int row, int col) {
@@ -176,7 +181,7 @@ public class Board {
 				switch (c.getState()) {
 				case MINE: s+= "B";
 					break;
-				default: s+= ((Integer)c.getValue()).toString();
+				default: s += (c.getValue());
 					break;
 				}
 			}

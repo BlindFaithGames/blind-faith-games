@@ -74,7 +74,7 @@ public class SplashScreen extends Activity {
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
        
 		// Checking if TTS is installed on device
-		textToSpeech = new TTS(this, getString(R.string.mode)  + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
+		textToSpeech = new TTS(this, getString(R.string.mode) + " " + getString(R.string.group_name), TTS.QUEUE_FLUSH, s);
 		
         handler = new Handler();
 

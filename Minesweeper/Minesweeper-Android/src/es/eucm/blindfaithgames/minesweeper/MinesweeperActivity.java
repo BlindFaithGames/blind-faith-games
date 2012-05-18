@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import java.util.Map;
 import java.util.UUID;
 
+import org.acra.ErrorReporter;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -831,11 +833,15 @@ public class MinesweeperActivity extends Activity implements OnClickListener, On
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
-		if(k != null){
-			if(keyCode == k){
-				textToSpeech.repeatSpeak();
+		if(keyboard != null){
+			Integer k = keyboard.getKeyByAction(KeyConfActivity.ACTION_REPEAT);
+			if(k != null){
+				if(keyCode == k){
+					textToSpeech.repeatSpeak();
+				}
 			}
+		} else {
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Null Pointer onKeyDown Minesweeper"));
 		}
 		return super.onKeyDown(keyCode, event);
 	}
