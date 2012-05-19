@@ -47,9 +47,8 @@ public class AnalyticsManager {
 		 try {
 			 getTracker().trackPageView("/" + page + "/" + parameter);
 		 } catch(Exception e) {
-			 ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + " " + 
-					 						e.getStackTrace() + " " + page + " " + parameter);
-			 ErrorReporter.getInstance().handleSilentException(new Exception("Null Pointer Register Page - Parameter"));
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Null pointer resgister page: \n" + e.getMessage() + "\n" + 
+						e.getStackTrace() + "\n Page: " + page + "\n Parameter: " + parameter + "\n\n"));
 		 }
 	 }
 	 
@@ -57,8 +56,8 @@ public class AnalyticsManager {
 		 try {
 			 getTracker().trackPageView("/" + page);
 		 } catch(Exception e) {
-			 ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + " " + e.getStackTrace() + " " + page);
-			 ErrorReporter.getInstance().handleSilentException(new Exception("Null Pointer Register Page"));
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Null pointer register page: \n" + e.getMessage() + "\n" + 
+						e.getStackTrace() + "\n Page: " + page + "\n\n"));
 		 }
 	 }
 	 
@@ -66,9 +65,8 @@ public class AnalyticsManager {
 		 try {
 			 getTracker().trackEvent(Category, Action, Label, Value);
 		 } catch(Exception e) {
-			 ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + " " + 
-					 						e.getStackTrace() + " " + Category + " " + Action + " " + Label + " " + Value);
-			 ErrorReporter.getInstance().handleSilentException(new Exception("Null Pointer Register Action"));
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Null pointer register action: \n" + e.getMessage() + "\n" + 
+						e.getStackTrace() + "\n Category: " + Category + "\n Action: " + Action + "\n Label: " + Label + "\n Value: " + Value + "\n\n"));
 		 }
 	 }
 	 

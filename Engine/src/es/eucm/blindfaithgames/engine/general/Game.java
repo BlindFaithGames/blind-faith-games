@@ -141,9 +141,8 @@ public class Game {
 					actualState.run();
 					stateChangedLastStep = true;
 				} catch (Exception e) {
-					ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + 
-							" " + e.getStackTrace() +  " " + gameStates.toString());
-					ErrorReporter.getInstance().handleSilentException(new Exception("Desbordamiento gamestates"));
+					 ErrorReporter.getInstance().handleSilentException(new Exception("Desbordamiento gamestates: \n" + e.getMessage() + "\n" + 
+								e.getStackTrace() + "\n Game States: " + gameStates.toString() + "\n\n"));
 					endGame = true;
 				}
 			}

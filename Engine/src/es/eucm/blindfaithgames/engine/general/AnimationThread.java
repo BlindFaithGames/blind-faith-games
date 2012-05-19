@@ -1,6 +1,5 @@
 package es.eucm.blindfaithgames.engine.general;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
 /**
