@@ -76,10 +76,18 @@ public class TutorialActivity extends Activity {
 		DrawablePanel zarodnikView = new ZarodnikGamePanel(this);
 		setContentView(zarodnikView);
 
-		createGame(zarodnikView);
+		if(savedInstanceState != null)
+			loadGame(zarodnikView, savedInstanceState);
+		else
+			createGame(zarodnikView);
 
 		if (SettingsActivity.getBlindMode(this))
 			game.setDisabled(true);
+	}
+	
+	private void loadGame(DrawablePanel zarodnikView, Bundle savedInstanceState) {
+		createGame(zarodnikView);
+		game.onRestoreInstance(savedInstanceState);
 	}
 
 	private void createGame(DrawablePanel zarodnikView) {
@@ -153,7 +161,6 @@ public class TutorialActivity extends Activity {
 		super.onPause();
 		textToSpeech.stop();
 		Sound3DManager.getSoundManager(this).stopAllSources();
-		game.clear();
 	}
 
 	/**
@@ -167,6 +174,7 @@ public class TutorialActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
+		game.delete();
 	}
 
 	/**
@@ -182,7 +190,13 @@ public class TutorialActivity extends Activity {
 		textToSpeech.stop();
 		Sound3DManager.getSoundManager(this).stopAllSources();
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		game.onSaveInstance(outState);
+		super.onSaveInstanceState(outState);
+	}
+	
 	/*---------------------------------------------------------------------
 	 *  GESTURE DETECTOR
 	 ----------------------------------------------------------------------*/

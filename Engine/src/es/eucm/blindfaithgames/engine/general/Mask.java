@@ -1,6 +1,7 @@
 package es.eucm.blindfaithgames.engine.general;
 
 import android.graphics.Canvas;
+import android.os.Bundle;
 
 /**
  * Abstract class that provides methods to implement mask with different shapes. 
@@ -116,4 +117,23 @@ public abstract class Mask {
 		this.y = y + offsetY;
 	}
 	
+	/**
+	 * Saves mask state
+	 * @param savedInstanceState 
+	 * @param j 
+	 * @param j2 
+	 * */
+	public void onSavedInstance(Bundle savedInstanceState, int i, int j) {
+		savedInstanceState.putInt(i + " " + j + " mask_offsetX", offsetX);
+		savedInstanceState.putInt(i + " " + j + " mask_offsetX", offsetY);
+		savedInstanceState.putInt(i + " " + j + " mask_x", x);
+		savedInstanceState.putInt(i + " " + j + " mask_y", y);
+	}
+
+	public void onRestoreSavedInstance(Bundle savedInstanceState, int i, int j) {
+		offsetX = savedInstanceState.getInt(i + " " + j + " mask_offsetX");
+		offsetY = savedInstanceState.getInt(i + " " + j + " mask_offsetX");
+		x = savedInstanceState.getInt(i + " " + j + " mask_x");
+		y = savedInstanceState.getInt(i + " " + j + " mask_y");
+	}
 }

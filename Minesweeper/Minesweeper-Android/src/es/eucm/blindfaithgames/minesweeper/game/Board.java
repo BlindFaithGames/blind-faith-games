@@ -1,11 +1,5 @@
 package es.eucm.blindfaithgames.minesweeper.game;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Random;
 
 import es.eucm.blindfaithgames.minesweeper.game.Cell.CellStates;

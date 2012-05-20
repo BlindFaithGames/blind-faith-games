@@ -9,6 +9,7 @@ import org.pielot.openal.Source;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.os.Bundle;
 
 
 import es.eucm.blindfaithgames.engine.graphics.SpriteMap;
@@ -411,15 +412,16 @@ public abstract class Entity {
 	 * */
 	public void delete() {
 		if(sources != null){
-			Iterator<Sound2D> it = sources.iterator();
-			Sound2D s;
-			while(it.hasNext()){
-				s = it.next();
+			for(Sound2D s : sources){
 				s.getS().stop();
 			}
 		}
-		if(img != null)
-			img.recycle();
+		if(img != null){
+			if(!img.isRecycled()){
+				img.recycle();
+				img = null;
+			}
+		}
 		
 		if(animations != null)
 			animations.delete();
@@ -471,4 +473,10 @@ public abstract class Entity {
 			res += " Sources:" + sources.toString();
 		return res;
 	}
+
+
+	public void onSavedInstance(Bundle outState, int i, int j) {}
+
+
+	public void onRestoreInstance(Bundle outState, int i, int j) {}
 }

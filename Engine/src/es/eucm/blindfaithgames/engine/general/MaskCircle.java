@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.os.Bundle;
 
 
 /**
@@ -60,5 +61,19 @@ public class MaskCircle  extends Mask{
 		m1 = (MaskCircle) o;
 		m2 = new MaskCircle(m1.offsetX,m1.offsetY,m1.radius);
 		return m2;
+	}
+	
+	/**
+	 * Saves mask state
+	 * @param savedInstanceState 
+	 * */
+	public void onSavedInstance(Bundle savedInstanceState, int i, int j) {
+		super.onSavedInstance(savedInstanceState,i,j);
+		savedInstanceState.putInt(i + " " + j + " mask_radius", radius);
+	}
+	
+	public void onRestoreSavedInstance(Bundle savedInstanceState, int i, int j) {
+		super.onRestoreSavedInstance(savedInstanceState,i,j);
+		radius = savedInstanceState.getInt(i + " " + j + " mask_radius");
 	}
 }

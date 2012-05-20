@@ -8,6 +8,7 @@ import org.acra.ErrorReporter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Bundle;
 
 
 /**
@@ -20,7 +21,7 @@ import android.graphics.PorterDuff;
 public class Game {
 	
 	private List<GameState> gameStates; // List of game State that contains our game
-	private GameState actualState; // Active game state
+	private GameState currentState; // Active game state
 	
 	private List<Integer> order; // Defines a default order for the states transition. It can be changed during the game execution
 	
@@ -52,7 +53,7 @@ public class Game {
 		disabled = false;
 		if(next < order.size()){
 			if(gameStates != null  && gameStates.size() > 0){
-				actualState = gameStates.get(order.get(next));
+				currentState = gameStates.get(order.get(next));
 			}
 		}
 		stateChangedLastStep = false;
@@ -92,7 +93,7 @@ public class Game {
 	 * 
 	 * */
 	public void onInit() {
-		actualState.onInit();
+		currentState.onInit();
 	}
 	/**
 	 *  
@@ -106,7 +107,7 @@ public class Game {
 		if(stateChangedLastStep){
 			clearCanvas(canvas);
 		}
-		actualState.onDraw(canvas);
+		currentState.onDraw(canvas);
 		if(disabled){
 			canvas.drawColor(Color.BLACK);
 		}
@@ -120,11 +121,11 @@ public class Game {
 	 * */
 	public void onUpdate() {
 		if(stateChangedLastStep){
-			if(!actualState.isOnInitialized())
-				actualState.onInit();
+			if(!currentState.isOnInitialized())
+				currentState.onInit();
 		}
 		
-		actualState.onUpdate();
+		currentState.onUpdate();
 		isThereChangeState();
 	}
 	
@@ -133,12 +134,12 @@ public class Game {
 	 * 
 	 * */
 	private void isThereChangeState(){
-		if(!actualState.isRunning()){
+		if(!currentState.isRunning()){
 			next++;
 			if(next < order.size()){
 				try {
-					actualState = gameStates.get(order.get(next));
-					actualState.run();
+					currentState = gameStates.get(order.get(next));
+					currentState.run();
 					stateChangedLastStep = true;
 				} catch (Exception e) {
 					ErrorReporter.getInstance().putCustomData("Error Inesperado", e.getMessage() + 
@@ -175,7 +176,7 @@ public class Game {
 		next = 0;
 		if(next < order.size()){
 			if(gameStates != null  && gameStates.size() > 0){
-				actualState = gameStates.get(order.get(next));
+				currentState = gameStates.get(order.get(next));
 			}
 		}
 		stateChangedLastStep = false;
@@ -186,6 +187,64 @@ public class Game {
 	 */
 	public void clear(){
 		this.gameStates.clear();
+	}
+
+	/**
+	 * Saves game states before the application is paused
+	 * 
+	 * */
+	public void onSaveInstance(Bundle outState) {
+		outState.putIntegerArrayList("Game.order" , (ArrayList<Integer>) order);
+		
+		outState.putInt("Game.next", next);
+		outState.putBoolean("Game.endGame", endGame);
+		outState.putBoolean("Game.stateChangedLastStep", stateChangedLastStep);
+		
+		outState.putInt("Game.clearCanvas", clearCanvas);
+		
+		outState.putBoolean("Game.disabled", disabled);
+		
+		for (int i = 0; i < gameStates.size(); i++){
+			gameStates.get(i).onSaveInstance(outState, i);
+		}
+	}
+	
+	/**
+	 * Loads game states before the application is restored
+	 * 
+	 * */
+	public void onRestoreInstance(Bundle savedInstanceState) {
+		try{
+			next = savedInstanceState.getInt("Game.next", 0);
+			endGame= savedInstanceState.getBoolean("Game.endGame", false);
+			stateChangedLastStep = savedInstanceState.getBoolean("Game.stateChangedLastStep", false);
+			
+			clearCanvas = savedInstanceState.getInt("Game.clearCanvas", 0);
+			
+			disabled = savedInstanceState.getBoolean("Game.disabled", false);
+			
+			if(next < order.size()){
+				int n = order.get(next);
+				currentState = gameStates.get(n);
+			}
+			
+			for (int i = 0; i < gameStates.size(); i++){
+				gameStates.get(i).onRestoreInstance(savedInstanceState, i);
+			}
+		}catch(Exception e){
+			ErrorReporter.getInstance().handleSilentException(new Exception("Fallo restaurar estado: \n" + e.getMessage() + "\n" +
+									" " + e.getStackTrace() +  " " + gameStates.toString()));
+		}
+	}
+
+	/**
+	 * Release all graphic resource before the is stopped
+	 * 
+	 * */
+	public void delete() {
+		for (GameState gs: gameStates){
+			gs.delete();
+		}
 	}
 }
 

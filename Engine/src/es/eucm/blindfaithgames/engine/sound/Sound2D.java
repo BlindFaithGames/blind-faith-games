@@ -5,6 +5,7 @@ import org.pielot.openal.Source;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.os.Bundle;
 
 /**
  * Associates a 3D sound source with a position 2D.
@@ -59,5 +60,28 @@ public class Sound2D {
 		Paint brush = new Paint();
 		if(s.getTranscription() != null)
 			canvas.drawText(s.getTranscription(), x + p.x, y, brush);
+	}
+
+	/**
+	 * Saves sound state
+	 * @param i 
+	 * @param j
+	 * 
+	 * */
+	public void onSavedInstance(Bundle savedInstanceState, int i, int j) {
+		savedInstanceState.putInt(i + " " + j + " p.x", p.x);
+		savedInstanceState.putInt(i + " " + j + " p.y", p.y);
+	}
+	
+	/**
+	 * Restores sound state
+	 * @param i 
+	 * @param j
+	 * 
+	 * */
+	public void onRestoreSavedInstance(Bundle savedInstanceState, int i, int j) {
+		Point p = new Point();
+		p.x = savedInstanceState.getInt(i + " " + j + " p.x");
+		p.y = savedInstanceState.getInt(i + " " + j + " p.y");
 	}
 }

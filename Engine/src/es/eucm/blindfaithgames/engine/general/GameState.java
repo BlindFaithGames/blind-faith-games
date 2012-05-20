@@ -9,10 +9,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-
 import es.eucm.blindfaithgames.engine.sound.TTS;
 
 /**
@@ -264,5 +264,49 @@ public abstract class GameState {
 		if(removables != null)
 			res += " Rem:" + removables.toString();
 		return res;
+	}
+	
+	/**
+	 * Saves game states before the application is paused
+	 * @param i 
+	 * 
+	 * */
+	public void onSaveInstance(Bundle outState, int i) {
+	    outState.putBoolean(i + " game_is_running", game_is_running);
+		
+	    for(int j = 0; j < entities.size(); j++) {
+	    	entities.get(j).onSavedInstance(outState, i, j);
+	    }
+	    
+	    outState.putBoolean(i + " onInitialized", onInitialized);
+	}
+	
+	/**
+	 * Loads game state before the application is restored
+	 * 
+	 * */
+	public void onRestoreInstance(Bundle savedInstanceState, int i) {
+		game_is_running = savedInstanceState.getBoolean(i + " game_is_running", true);
+		
+	    for(int j = 0; j < entities.size(); j++) {
+	    	entities.get(j).onRestoreInstance(savedInstanceState, i, j);
+	    }
+	    
+	    onInitialized = savedInstanceState.getBoolean(i + " onInitialized", true);
+	}
+	
+	/**
+	 * Release the application resources is stopped
+	 * 
+	 * */
+	public void delete() {
+		if(background != null){
+			if(!background.isRecycled())
+				background.recycle();
+			background = null;
+		}
+	    for(Entity e : entities) {
+	    	e.delete();
+	    }
 	}
 }

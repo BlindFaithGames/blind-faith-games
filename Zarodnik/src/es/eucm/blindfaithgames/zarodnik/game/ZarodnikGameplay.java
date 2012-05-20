@@ -93,14 +93,10 @@ public class ZarodnikGameplay extends GameState {
 	public ZarodnikGameplay(View v, TTS textToSpeech, Context c, Game game) {
 		super(v,c,textToSpeech, game);
 		
-
-		
 		textToSpeech.setQueueMode(TTS.QUEUE_ADD);
 		textToSpeech.setInitialSpeech("");
 
 		record = loadRecord();
-		
-
 		
 		// Set background image
 		backgroundImage = BitmapFactory.decodeResource(v.getResources(), R.drawable.background);
@@ -724,5 +720,5 @@ public class ZarodnikGameplay extends GameState {
 		}
 
 		return i;
-	}
+	}	
 }

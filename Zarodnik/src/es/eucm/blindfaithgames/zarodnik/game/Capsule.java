@@ -31,9 +31,9 @@ public class Capsule extends Item {
 		if(e instanceof Player){
 			Player player = (Player) e;
 			if(increment)
-				player.resize(Player.PIXEL_PLAYER_RESIZE);
+				player.resize(Player.PIXEL_PLAYER_RESIZE, true);
 			else
-				player.resize(-Player.PIXEL_PLAYER_RESIZE);
+				player.resize(-Player.PIXEL_PLAYER_RESIZE, true);
 			
 			this.state = State.EATEN;
 			

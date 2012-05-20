@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.os.Bundle;
 
 /**
  * Mask with a rectangular shape.
@@ -58,5 +59,26 @@ public class MaskBox extends Mask{
 		m1 = (MaskBox) o;
 		m2 = new MaskBox(m1.offsetX, m1.offsetY, m1.width, m1.height);
 		return m2;
+	}
+	
+	
+	/**
+	 * Saves mask state
+	 * @param savedInstanceState 
+	 * */
+	public void onSavedInstance(Bundle savedInstanceState, int i, int j) {
+		super.onSavedInstance(savedInstanceState, i, j);
+		savedInstanceState.putInt(i + " " + j + " mask_width", width);
+		savedInstanceState.putInt(i + " " + j + " mask_height", height);
+	}
+	
+	/**
+	 * Restore mask state
+	 * @param savedInstanceState 
+	 * */
+	public void onRestoreSavedInstance(Bundle savedInstanceState, int i, int j) {
+		super.onRestoreSavedInstance(savedInstanceState, i, j);
+		width = savedInstanceState.getInt(i + " " + j + " mask_width");
+		height = savedInstanceState.getInt(i + " " + j + " mask_height");
 	}
 }

@@ -227,7 +227,10 @@ public class SpriteMap {
 
 	public void delete() {
 		if(bitmap != null){
-			bitmap.recycle();
+			if(!bitmap.isRecycled()){
+				bitmap.recycle();
+				bitmap = null;
+			}
 		}
 	}
 }

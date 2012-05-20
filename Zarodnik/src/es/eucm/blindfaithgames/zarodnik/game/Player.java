@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.os.Bundle;
 import es.eucm.blindfaithgames.engine.general.Entity;
 import es.eucm.blindfaithgames.engine.general.GameState;
 import es.eucm.blindfaithgames.engine.general.Mask;
@@ -252,7 +253,7 @@ public class Player extends Entity{
 			inMovement = false;
 			destX = x;
 			destY = y;
-			this.resize(PIXEL_PLAYER_RESIZE);
+			this.resize(PIXEL_PLAYER_RESIZE, true);
 			
 			state = State.EAT;
 			Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), R.raw.apple_bite, false);
@@ -292,13 +293,14 @@ public class Player extends Entity{
 		this.setCollidable(false);
 	}
 
-	public void resize(int sizeInc) {
+	public void resize(int sizeInc, boolean music) {
 		Bitmap img;
 		List<Mask> maskList;
 		int imgW, imgH, frameW, frameH;
 		ArrayList<Integer> aux;
 		
-		Music.getInstanceMusic().play(this.gameState.getContext(),R.raw.appear, false);
+		if(music)
+			Music.getInstanceMusic().play(this.gameState.getContext(),R.raw.appear, false);
 		
 		img = this.getImg();
 		img.recycle();
@@ -428,5 +430,18 @@ public class Player extends Entity{
 		Music.getInstanceMusic().playWithBlock(this.gameState.getContext(), die_sound, false);
 		Music.getInstanceMusic().stop(move_sound);
 		this.gameState.stop();
+	}
+	
+	@Override
+	public void onSavedInstance(Bundle outState, int i, int j) {
+		outState.putFloat("playerSize", SIZE_DP);
+		super.onSavedInstance(outState, i, j);
+	}
+	
+	@Override
+	public void onRestoreInstance(Bundle savedInstanceState, int i, int j) {
+		SIZE_DP = savedInstanceState.getFloat("playerSize", 200);
+		resize(0, false);
+		super.onRestoreInstance(savedInstanceState, i, j);
 	}
 }

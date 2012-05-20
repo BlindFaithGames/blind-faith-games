@@ -72,18 +72,26 @@ public class ZarodnikGameActivity extends Activity {
 
 		DrawablePanel zarodnikView = new ZarodnikGamePanel(this);
 		setContentView(zarodnikView);
-
-		createGame(zarodnikView);
+		
+		if(savedInstanceState != null)
+			loadGame(zarodnikView, savedInstanceState);
+		else
+			createGame(zarodnikView, checkFirstGame());
 		
 		if (SettingsActivity.getBlindMode(this))
 			game.setDisabled(true);
 	}
 
-	private void createGame(DrawablePanel zarodnikView) {
-		boolean isFirstGame = checkFirstGame();
+	private void loadGame(DrawablePanel zarodnikView, Bundle savedInstanceState) {
+		ArrayList<Integer> order = savedInstanceState.getIntegerArrayList("Game.order");
+		createGame(zarodnikView,order.size() == 8);
+		game.onRestoreInstance(savedInstanceState);
+	}
+
+	private void createGame(DrawablePanel zarodnikView, boolean isfirstGame) {
 		ArrayList<Integer> order;
 		ArrayList<GameState> gameStates;
-		if(isFirstGame){
+		if(isfirstGame){
 			order = new ArrayList<Integer>();
 			order.add(0);
 			order.add(1);
@@ -174,7 +182,6 @@ public class ZarodnikGameActivity extends Activity {
 		super.onPause();
     	textToSpeech.stop();
     	Sound3DManager.getSoundManager(this).stopAllSources();
-    	game.clear();
 	}
 
 	/**
@@ -188,6 +195,7 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
+		game.delete();
 	}
 
 	/**
@@ -203,6 +211,12 @@ public class ZarodnikGameActivity extends Activity {
 		textToSpeech.stop();
 		Sound3DManager.getSoundManager(this).stopAllSources();
 		Music.getInstanceMusic().stopAllResources();
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		game.onSaveInstance(outState);
+		super.onSaveInstanceState(outState);
 	}
 
 	/*---------------------------------------------------------------------
