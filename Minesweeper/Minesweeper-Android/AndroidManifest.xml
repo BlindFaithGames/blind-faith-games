@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="es.eucm.blindfaithgames.minesweeper"
-    android:versionCode="1"
+    android:versionCode="3"
     android:versionName="1.0" >
 
     <!-- C2DM requires Android SDK version 2.2 (API level 8) or above -->
