@@ -1,9 +1,10 @@
 package es.eucm.blindfaithgames.engine.sound;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+
+import org.acra.ErrorReporter;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -83,17 +84,22 @@ public class Music {
 		
 		MediaPlayer mp;
 		mp = MediaPlayer.create(context, resource);
-		sounds.put(resource, mp);
-		mp.setLooping(looping);
-		mp.start();
-		
-		if(subs != null){
-			String aux = subs.getOnomatopeia(resource);
-			subs.setDuration(mp.getDuration()/1000);
-			if(aux != null)
-				subs.showSubtitle(aux);
-			else
-				subs.showSubtitle(Integer.toString(resource));
+		if(mp != null){
+			sounds.put(resource, mp);
+			mp.setLooping(looping);
+			mp.start();
+			
+			if(subs != null){
+				String aux = subs.getOnomatopeia(resource);
+				subs.setDuration(mp.getDuration()/1000);
+				if(aux != null)
+					subs.showSubtitle(aux);
+				else
+					subs.showSubtitle(Integer.toString(resource));
+			}
+		} else {
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Problema con recursos de sonido"
+					 													+ context.getResources().getResourceName(resource)));
 		}
 	}
 	
@@ -111,20 +117,25 @@ public class Music {
 		
 		MediaPlayer mp;
 		mp = MediaPlayer.create(context, resource);
-		sounds.put(resource, mp);
-		mp.setLooping(looping);
-		mp.start();
-		
-		if(subs != null){
-			String aux = subs.getOnomatopeia(resource);
-			subs.setDuration(mp.getDuration()/1000);
-			if(aux != null)
-				subs.showSubtitle(aux);
-			else
-				subs.showSubtitle(Integer.toString(resource));
+		if(mp != null){
+			sounds.put(resource, mp);
+			mp.setLooping(looping);
+			mp.start();
+			
+			if(subs != null){
+				String aux = subs.getOnomatopeia(resource);
+				subs.setDuration(mp.getDuration()/1000);
+				if(aux != null)
+					subs.showSubtitle(aux);
+				else
+					subs.showSubtitle(Integer.toString(resource));
+			}
+			
+			while(mp.isPlaying()){};
+		} else {
+			 ErrorReporter.getInstance().handleSilentException(new Exception("Problema con recursos de sonido"
+						+ context.getResources().getResourceName(resource)));
 		}
-		
-		while(mp.isPlaying()){};
 	}
 
 	/**

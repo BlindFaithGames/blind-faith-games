@@ -39,6 +39,8 @@ public class ZarodnikGameActivity extends Activity {
 
 	// Keyboard configuration
 	private XMLKeyboard keyboard;
+	
+	private DrawablePanel zarodnikView;
 
 	/*---------------------------------------------------------------------
 	 *  LIFECYCLE METHODS
@@ -70,14 +72,18 @@ public class ZarodnikGameActivity extends Activity {
 
 		keyboard = Input.getKeyboard();
 
-		DrawablePanel zarodnikView = new ZarodnikGamePanel(this);
+		zarodnikView = new ZarodnikGamePanel(this);
 		setContentView(zarodnikView);
 		
-		if(savedInstanceState != null)
+		if(game != null)
+			game.delete();
+	
+		if(savedInstanceState != null){
 			loadGame(zarodnikView, savedInstanceState);
-		else
+		}else{
 			createGame(zarodnikView, checkFirstGame());
-		
+		}
+			
 		if (SettingsActivity.getBlindMode(this))
 			game.setDisabled(true);
 	}
@@ -183,7 +189,7 @@ public class ZarodnikGameActivity extends Activity {
     	textToSpeech.stop();
     	Sound3DManager.getSoundManager(this).stopAllSources();
 	}
-
+	
 	/**
 	 * Called when the activity is no longer visible to the user, because
 	 * another activity has been resumed and is covering this one. This may
@@ -195,7 +201,6 @@ public class ZarodnikGameActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		game.delete();
 	}
 
 	/**
