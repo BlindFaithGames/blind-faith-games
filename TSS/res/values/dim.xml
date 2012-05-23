@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="white_space_size">15sp</dimen>
+    <dimen name="font_size_menu">18sp</dimen>
+    <dimen name="font_size_intro">18sp</dimen>
+    <dimen name="font_size_tuto">20sp</dimen>
+    <dimen name="font_size_gameplay">50sp</dimen>
+    <dimen name="font_size_game_over">35sp</dimen>
+</resources>

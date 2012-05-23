@@ -1,0 +1,888 @@
+<sceneManager>
+
+<!--__________________________________________________________________ Escena 0 ___________________________________________________________-->
+	
+	<scene type="normal" id = "0">
+		
+		<introMessage>La historia comienza en un oscuro despacho de los bajos fondos de ***. John Tidiac antiguo miembro de la policía
+					se encuentra descansando en su despacho cuando llaman a la puerta.</introMessage>
+		
+		<description>Despacho de J.T.</description>
+		
+		<nextScenes>
+			<idNextScenes id = "1"/>
+			<idNextScenes id = "2"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "1">
+		<npc name = "Preguntar por la familia">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "!Atacarle!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>Se trata de tu viejo compañero Jim McNutty, que...</introMessage>
+		
+		<description>Abrir la puerta</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "2">
+		<npc name = "Preguntar por la familia">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "!Atacarle!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+	
+		<introMessage>Oyes el ruido de un cristal romperse, parece que tu viejo compañero sigue con el mismo humor de siempre y...</introMessage>
+		
+		<description>Ignorar</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+<!--__________________________________________________________________ Escena 1 ___________________________________________________________-->
+	<scene type="normal" id = "3">
+
+		<introMessage>Llegan al lugar de los hechos</introMessage>
+		
+		<description>Escena del crimen</description>
+		
+		<nextScenes>
+			<idNextScenes id = "4"/>
+			<idNextScenes id = "5"/>
+			<idNextScenes id = "6"/>
+			<idNextScenes id = "7"/>
+			<idNextScenes id = "10"/>
+			<idNextScenes id = "18"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "4">
+		<npc name = "Preguntar por la familia">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "!Atacarle!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+
+		<introMessage>Parece un agente de la ley bastante experimentado</introMessage>
+		
+		<description>Hablar con policía de aspecto rudo</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	 </scene>
+	
+	<scene type="normal" id = "5">
+		<npc name = "Preguntar por la familia">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "!Atacarle!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+
+		<introMessage>Hacía años que no veías a tu antiguo compañero y decides saludarle</introMessage>
+		
+		<description>Hablar con McNulty</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "6">
+		<npc name = "Preguntar por la familia">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "!Atacarle!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
+			<dialog>
+				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
+				<answer author = "McNulty"></answer>
+			</dialog>
+		</npc>
+
+		<introMessage>Parece la típica </introMessage>
+		
+		<description>Hablar con Vecina cotilla</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+<!--__________________________________________________________________ Lugar de huída ___________________________________________________________-->
+	
+	<scene type="normal" id = "7">
+		
+		<npc name = "Examinar">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Habitación Enorme</description>
+		
+		<nextScenes>
+			<idNextScenes id = "8"/>
+			<idNextScenes id = "9"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "8">
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Examinar ventana rota</description>
+		
+		<nextScenes>
+			<idNextScenes id = "7"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "9">
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Examinar sombrero</description>
+		
+		<nextScenes>
+			<idNextScenes id = "7"/>
+			<idNextScenes id = "19"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+
+<!--__________________________________________________________________ Escena del crimen ___________________________________________________________-->
+<!--	
+	<scene type="normal" id = "10">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Entrar en la habitación donde se encontró el cádaver</description>
+		
+		<nextScenes>
+			<idNextScenes id = "11"/>
+			<idNextScenes id = "12"/>
+			<idNextScenes id = "13"/>
+			<idNextScenes id = "14"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "11">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Cama deshecha</description>
+		
+		<nextScenes>
+			<idNextScenes id = "10"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "12">
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>libro</description>
+		
+		<nextScenes>
+			<idNextScenes id = "10"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "13">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>sangre </description>
+		
+		<nextScenes>
+			<idNextScenes id = "10"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "14">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>collar</description>
+		
+		<nextScenes>
+			<idNextScenes id = "10"/>
+			<idNextScenes id = "20"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+-->
+<!--__________________________________________________________________ Cádaver 0 ___________________________________________________________-->
+<!--
+	<scene type="normal" id = "15">
+
+		<introMessage>examinar cádaver</introMessage>
+		
+		<description>papel que sostiene el muerto</description>
+		
+		<nextScenes>
+			<idNextScenes id = "13"/>
+			<idNextScenes id = "14"/>
+			<idNextScenes id = "10"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "16">
+
+		<introMessage></introMessage>
+		
+		<description>Tiro en la frente</description>
+		
+		<nextScenes>
+			<idNextScenes id = "15"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "15">
+
+		<introMessage></introMessage>
+		
+		<description>Papel que sostiene</description>
+		
+		<nextScenes>
+			<idNextScenes id = "12"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+-->	
+<!--__________________________________________________________________ Vecino ___________________________________________________________-->
+<!--
+	<scene type="normal" id = "18">
+		<npc name = "Preguntar por el asesinato">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		<npc name = "Como va todo doc!">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Hablar con Vecino</description>
+		
+		<nextScenes></nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+-->	
+<!--__________________________________________________________________ Escena 1.1 ___________________________________________________________-->
+<!--
+		<scene type="normal" id = "21">
+
+		<introMessage>Llegan al lugar de los hechos</introMessage>
+		
+		<description>Escena del crimen</description>
+		
+		<nextScenes>
+			<idNextScenes id = "22"/>
+			<idNextScenes id = "23"/>
+			<idNextScenes id = "6"/>
+			<idNextScenes id = "7"/>
+			<idNextScenes id = "10"/>
+			<idNextScenes id = "18"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "22">
+
+		<introMessage>Llegan lugar de los hechos</introMessage>
+		
+		<description>Hablar con policía de aspecto rudo</description>
+		
+		<nextScenes>
+			<idNextScenes id = "21"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	 </scene>
+	
+	<scene type="normal" id = "23">
+
+		<introMessage>Llegan lugar de los hechos</introMessage>
+		
+		<description>Hablar con McNulty</description>
+		
+		<nextScenes>
+			<idNextScenes id = "21"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+-->	
+<!--__________________________________________________________________ Huída ___________________________________________________________-->
+<!--	
+	<scene type="normal" id = "25">
+		
+		<npc name = "Examinar">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Habitación Enorme</description>
+		
+		<nextScenes>
+			<idNextScenes id = "26"/>
+			<idNextScenes id = "27"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "26">
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Examinar ventana rota</description>
+		
+		<nextScenes>
+			<idNextScenes id = "25"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "27">
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Examinar sombrero</description>
+		
+		<nextScenes>
+			<idNextScenes id = "25"/>
+			<idNextScenes id = "38"/>
+			<idNextScenes id = "41"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+-->	
+<!--__________________________________________________________________ Escena del crimen ___________________________________________________________-->
+<!--	
+	<scene type="normal" id = "28">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Entrar en la habitación donde se encontró el cádaver</description>
+		
+		<nextScenes>
+			<idNextScenes id = "29"/>
+			<idNextScenes id = "30"/>
+			<idNextScenes id = "31"/>
+			<idNextScenes id = "32"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "29">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Cama deshecha</description>
+		
+		<nextScenes>
+			<idNextScenes id = "28"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "30">
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>libro</description>
+		
+		<nextScenes>
+			<idNextScenes id = "28"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "31">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>sangre </description>
+		
+		<nextScenes>
+			<idNextScenes id = "28"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "32">
+
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>collar</description>
+		
+		<nextScenes>
+			<idNextScenes id = "28"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+-->	
+<!--__________________________________________________________________ Cádaver ___________________________________________________________-->
+<!--
+	<scene type="normal" id = "33">
+
+		<introMessage>examinar cádaver</introMessage>
+		
+		<description>Cádaver</description>
+		
+		<nextScenes>
+			<idNextScenes id = "34"/>
+			<idNextScenes id = "35"/>
+			<idNextScenes id = "28"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "34">
+
+		<introMessage></introMessage>
+		
+		<description>Tiro en la frente</description>
+		
+		<nextScenes>
+			<idNextScenes id = "35"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "36">
+
+		<introMessage></introMessage>
+		
+		<description>Papel que sostiene</description>
+		
+		<nextScenes>
+			<idNextScenes id = "35"/>
+			<idNextScenes id = "41"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		<endCondition></endCondition>
+	</scene>
+-->	
+<!--__________________________________________________________________ Vecino ___________________________________________________________-->
+<!--
+	<scene type="normal" id = "37">
+		<npc name = "Preguntar por el asesinato">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		<npc name = "Como va todo doc!">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Hablar con Vecino</description>
+		
+		<nextScenes></nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+-->
+<!--__________________________________________________________________ Escena 2.0 ___________________________________________________________-->
+<!--	
+	<scene type="normal" id = "19">
+	
+		<npc name = "Hablar con encargado">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		<npc name = "Hablar con x">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		<npc name = "Hablar con y">
+			<dialog>
+				<answer>Then he talks to the pirate nearby the door.</answer>
+				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+			</dialog>
+		</npc>
+		
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>Seedy Club</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "20">
+		
+		<introMessage>J.T. comienza a exa</introMessage>
+		
+		<description>Joyería</description>
+		
+		<nextScenes>
+			<idNextScenes id = "21"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+-->
+<!--__________________________________________________________________ Escena 2.1 ___________________________________________________________-->
+<!--__________________________________________________________________ SC sin nota ___________________________________________________________-->
+<!--
+	<scene type="normal" id = "38">
+
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>Seedy Club</description>
+		
+		<nextScenes>
+			<idNextScenes id = "39"/>
+			<idNextScenes id = "40"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "39">
+
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>Barman!!</description>
+		
+		<nextScenes>
+			<idNextScenes id = "38"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "40">
+
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>>Hablar con Stri</description>
+		
+		<nextScenes>
+			<idNextScenes id = "38"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+-->
+<!--__________________________________________________________________ SC con nota ___________________________________________________________-->
+<!--
+	<scene type="normal" id = "41">
+		
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>Seedy Club</description>
+		
+		<nextScenes>
+			<idNextScenes id = "3"/>
+		</nextScenes>
+		
+		<transitionCondition>
+			<idNextScenes id = ""/>
+		</transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "42">
+
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>Barman!!</description>
+		
+		<nextScenes></nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "43">
+
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>>Hablar con Stri</description>
+		
+		<nextScenes>
+			<idNextScenes id = "44"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+-->	
+<!--__________________________________________________________________ Escena 3.0 ___________________________________________________________-->
+<!--
+	<scene type="normal" id = "45">
+
+		<introMessage>Llegan al hotel</introMessage>
+		
+		<description>Hotel</description>
+		
+		<nextScenes>
+			<idNextScenes id = "46"/>
+			<idNextScenes id = "47"/>
+			<idNextScenes id = "48"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	
+	<scene type="normal" id = "46">
+
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>Apagar la luz</description>
+		
+		<nextScenes>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	<scene type="normal" id = "47">
+
+		<introMessage>Huir Por la ventana</introMessage>
+		
+		<description>Apagar la luz</description>
+		
+		<nextScenes>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>
+	<scene type="normal" id = "48">
+
+		<introMessage>Con sombrero</introMessage>
+		
+		<description>Huir por la ventana</description>
+		
+		<nextScenes>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition></endCondition>
+	</scene>-->
+</sceneManager>

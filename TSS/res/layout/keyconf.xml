@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:shrinkColumns="1,2"
+    android:stretchColumns="1,2">
+
+    <TableRow 
+    	android:id="@+id/speak_row"
+    	android:contentDescription="@string/button_speak_record">
+        <TextView
+            android:layout_column="1"
+            android:text="@string/button_speak_record"
+            android:padding="3dip" />
+	    <Button 
+	        android:id="@+id/buttonRecord"
+	        android:layout_width="fill_parent"
+	        android:text="@string/button_speak_record"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/button_speak_record"/>
+    </TableRow>
+    
+   <View
+        android:layout_height="2dip"
+        android:background="#FF909090" />
+
+    <TableRow
+    	android:id="@+id/repeat_row"
+    	android:contentDescription="@string/button_repeat">
+        <TextView
+            android:layout_column="1"
+            android:text="@string/button_repeat"
+            android:padding="3dip" />
+	    <Button 
+	        android:id="@+id/buttonRepeat"
+	        android:layout_width="fill_parent"
+	        android:text="@string/button_repeat"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/button_repeat"/>
+    </TableRow>
+    
+    
+</TableLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@drawable/menu_background_vert"
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
+	android:padding="30dip"
+	android:orientation="horizontal" >
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+		android:layout_gravity="center"
+		android:id="@+id/linear_layout_main" >
+		<Button
+			android:id="@+id/new_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/new_game_label"
+			android:contentDescription="@string/new_game_label"
+			android:layout_marginBottom="10dp"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" />
+		<Button
+			android:id="@+id/tutorial_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/tutorial_label"
+			android:contentDescription="@string/tutorial_label"
+			android:layout_marginBottom="10dp"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" />
+		<Button
+			android:id="@+id/settings_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/settings_label"
+			android:contentDescription="@string/settings_label"
+			android:layout_marginBottom="10dp"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" />
+		<Button
+			android:id="@+id/keyConf_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/keyConf_label"
+			android:contentDescription="@string/keyConf_label"
+			android:layout_marginBottom="10dp"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" />
+		<Button
+			android:id="@+id/about_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/about_label" 
+			android:contentDescription="@string/about_label"
+			android:layout_marginBottom="10dp"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" 
+		/>
+		<Button
+			android:id="@+id/form_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/form_label" 
+			android:contentDescription="@string/form_label"
+			android:layout_marginBottom="10dp"
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" 
+		/>
+		<Button
+			android:id="@+id/exit_button"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/exit_label" 
+			android:contentDescription="@string/exit_label" 
+			android:textColor="@color/button"
+			android:background="@drawable/background_button" 
+		/>
+	</LinearLayout>
+</LinearLayout>

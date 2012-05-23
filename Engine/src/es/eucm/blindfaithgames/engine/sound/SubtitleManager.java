@@ -2,6 +2,8 @@ package es.eucm.blindfaithgames.engine.sound;
 
 import java.util.LinkedList;
 
+import org.acra.ErrorReporter;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -89,10 +91,6 @@ public class SubtitleManager {
 		sInfo.setEnabled(enabled);
 	}
 	
-	public void setCustomToast(Toast customToast) {
-		subtitles = customToast;
-	}
-	
 	public void setGravity(int gravity) {
 		sInfo.setGravity(gravity);
 	}
@@ -121,30 +119,30 @@ public class SubtitleManager {
 	 * 
 	 * */
 	private Toast createToast(Context c, SubtitleInfo sInfo) {
-		Toast toast;
-		if(sInfo.getResourceId() == -1){
-			toast = Toast.makeText(c, "", sInfo.getDuration());
-		}else{
-			View layout;
-			try {
-				LayoutInflater inflater = context.getLayoutInflater();
-				layout = inflater.inflate(sInfo.getResourceId(),
+		Toast toast = null;
+		View layout;
+		try {
+			LayoutInflater inflater = context.getLayoutInflater();
+			layout = inflater.inflate(sInfo.getResourceId(),
 				                               (ViewGroup) context.findViewById(sInfo.getViewGroupRoot()));
 
-				TextView text = (TextView) layout.findViewById(sInfo.getId_text());
-				text.setText("");
+			TextView text = (TextView) layout.findViewById(sInfo.getId_text());
+			text.setText("");
 				
-				toast = new Toast(c);
-				toast.setGravity(sInfo.getGravity(), sInfo.getxOffset(), sInfo.getyOffset());
-				toast.setDuration(sInfo.getDuration());
-				toast.setView(layout);
+			toast = new Toast(c);
+			toast.setGravity(sInfo.getGravity(), sInfo.getxOffset(), sInfo.getyOffset());
+			toast.setDuration(sInfo.getDuration());
+			toast.setView(layout);
 				
-			} catch (Exception e) {
-				sInfo.setResourceId(-1);
-				toast = Toast.makeText(c, "", sInfo.getDuration());
-			}
+		} catch (Exception e) {
+			if(sInfo != null)
+				ErrorReporter.getInstance().handleSilentException(new Exception("Fallo en creación de toast \n" + e.getMessage() + "\n" + 
+						e.getStackTrace() + "\n sInfo: " + sInfo.toString()));
+			else
+				 ErrorReporter.getInstance().handleSilentException(new Exception("Fallo en creación de toast \n" + e.getMessage() + "\n" + 
+							e.getStackTrace()));
 		}
-		
+
 		return toast;
 	}
 	
@@ -158,24 +156,25 @@ public class SubtitleManager {
 	 * */
 	private void updateToastText(Toast toast, String msg, SubtitleInfo sInfo) {
 		if(toast != null){
-			if(sInfo.getResourceId() == -1){
-				toast.setText(msg);
-			}else{
-				try{
-					View layout;
-					LayoutInflater inflater = context.getLayoutInflater();
-					layout = inflater.inflate(sInfo.getResourceId(),
-					                               (ViewGroup) context.findViewById(sInfo.getViewGroupRoot()));
-		
-					TextView text = (TextView) layout.findViewById(sInfo.getId_text());
-					text.setText(msg);
-					
-					toast.setGravity(sInfo.getGravity(), sInfo.getxOffset(), sInfo.getyOffset());
-					toast.setDuration(sInfo.getDuration());
-				toast.setView(layout);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			try{
+				View layout;
+				LayoutInflater inflater = context.getLayoutInflater();
+				layout = inflater.inflate(sInfo.getResourceId(),
+				                               (ViewGroup) context.findViewById(sInfo.getViewGroupRoot()));
+	
+				TextView text = (TextView) layout.findViewById(sInfo.getId_text());
+				text.setText(msg);
+				
+				toast.setGravity(sInfo.getGravity(), sInfo.getxOffset(), sInfo.getyOffset());
+				toast.setDuration(sInfo.getDuration());
+			toast.setView(layout);
+			} catch (Exception e) {
+				if(sInfo != null)
+					ErrorReporter.getInstance().handleSilentException(new Exception("Fallo en creación de toast \n" + e.getMessage() + "\n" + 
+							e.getStackTrace() + "\n sInfo: " + sInfo.toString()));
+				else
+					 ErrorReporter.getInstance().handleSilentException(new Exception("Fallo en creación de toast \n" + e.getMessage() + "\n" + 
+								e.getStackTrace()));
 			}
 		}
 	}
@@ -202,28 +201,30 @@ public class SubtitleManager {
 	    public void run() {
 			
 		    //Show the toast for another interval.
-		    subtitles.show();
+			if(subtitles != null)
+				subtitles.show();
 		    
 		    toast_long--;
 		    
-		   if(!subsQueue.isEmpty()) {String s = subsQueue.poll(); 
-		    while(!subsQueue.isEmpty()){
-		    			s +=  ", " + subsQueue.poll();
-		    }
-		    if(s != null)
-		    	displayMyToast(s);
-		    
-		   }else{if(toast_long > 0){
-			    	mHandler.postDelayed(extendStatusMessageLengthRunnable,100L);
-			}
-			else{
+		   if(!subsQueue.isEmpty()) {
 			    String s = subsQueue.poll(); 
 			    while(!subsQueue.isEmpty()){
 			    			s +=  ", " + subsQueue.poll();
 			    }
 			    if(s != null)
 			    	displayMyToast(s);
-			}
+			    
+			   }else{if(toast_long > 0){
+				    	mHandler.postDelayed(extendStatusMessageLengthRunnable,100L);
+				}
+				else{
+				    String s = subsQueue.poll(); 
+				    while(!subsQueue.isEmpty()){
+				    			s +=  ", " + subsQueue.poll();
+				    }
+				    if(s != null)
+				    	displayMyToast(s);
+				}
 		   }
 	   }
 	};
@@ -239,7 +240,9 @@ public class SubtitleManager {
 		toast_long = msg.length();
 		
 		updateToastText(subtitles, msg, sInfo);
-		subtitles.show();
+		
+		if(subtitles != null)
+			subtitles.show();
 		  
 		mHandler.postDelayed(extendStatusMessageLengthRunnable,100L);
 	}

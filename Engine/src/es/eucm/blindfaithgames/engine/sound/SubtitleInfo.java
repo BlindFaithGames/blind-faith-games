@@ -195,5 +195,20 @@ public class SubtitleInfo implements Parcelable {
 			dest.writeInt(0);
 		dest.writeMap(onomatopeias);
 	}
-
+	
+	public String toString() {
+		String res = " enabled:" + enabled;
+		res += " Rid:" + resourceId;
+		res += " VGRid:" + viewGroupRoot;
+		res += " Tid:" + id_text;
+		res += " Offset x:" + xOffset;
+		res += " Offset y:" + yOffset;
+		res += " Duration:" + duration;
+		res += " Gravity:" + gravity;
+		if(onomatopeias != null)
+			res += " Onomatopeias:" + true;
+		else
+			res += " Onomatopeias:" + false;
+		return res;
+	}
 }
