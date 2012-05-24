@@ -94,7 +94,7 @@ public class Scene {
 		String options = "";
 		int counter = 0;
 		for(NPC npc:npcs){
-				options += counter + " - " + npc.getName() + " � ";
+				options += counter + " - " + npc.getName() + "\n";
 				counter++;
 		}
 		text.setText(options);

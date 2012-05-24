@@ -4,8 +4,7 @@
 	
 	<scene type="normal" id = "0">
 		
-		<introMessage>La historia comienza en un oscuro despacho de los bajos fondos de ***. John Tidiac antiguo miembro de la policía
-					se encuentra descansando en su despacho cuando llaman a la puerta.</introMessage>
+		<introMessage>La historia comienza en un oscuro despacho de los bajos fondos de Sewer City. John Tidiac antiguo miembro de la policía se encuentra descansando en su despacho cuando llaman a la puerta.</introMessage>
 		
 		<description>Despacho de J.T.</description>
 		
@@ -23,7 +22,21 @@
 		<npc name = "Preguntar por la familia">
 			<dialog>
 				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
+				<answer author = "McNulty">¡Cuánto tiempo colega!Bien, el chaval está creciendo a pasos agigantados. 
+				    La verdad, es que estamos todos bien, no me puedo quejar. Pero dime, ¿qué es de tu vida? No sé nada de ti, 
+				    desde que te echaron.</answer>
+				<answer author = "John T.">Sí..bueno, la verdad es que he andado bastante liado desde el incidente.</answer>
+				<answer author = "McNulty">¡Venga ya!Estás de broma...</answer>
+				<answer author = "John T.">Bueno vale, desde que me echaron, me he encerrado en este cuchitril y me he dedicado
+			    	a emborracharme ¡¿y qué?! ya todo da igual...</answer>
+				<answer author = "McNulty">Ánimo. De hecho, vengo a darte buenas noticias. Necesito que me ayudes con un caso, que me 
+				    tiene bastante intrigado. A pesar de los problemas que tuviste en el departamento sé que eres un gran profesional.
+				    Además, puedes aprovechar la oportunidad para recuperar tu reputación en el cuerpo de policía. ¡Qué sepan de 
+				    qué leña estás hecho!</answer>			
+				<answer author = "John T.">Pues...deja que consulte mi agenda.....¡Ajá! Como pensaba estoy libre (risa)</answer>
+				<answer author = "McNulty">Veo que no has perdido el humor. Entonces quedamos en la Plaza Altuna en un par de horas.
+				    ¿Correcto?</answer>	
+				<answer author = "John T.">¡Hecho!</answer>				    
 			</dialog>
 		</npc>
 		

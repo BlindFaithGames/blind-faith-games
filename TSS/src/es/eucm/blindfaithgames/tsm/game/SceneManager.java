@@ -105,7 +105,7 @@ public class SceneManager {
 		for(Integer sc: currentScene.getNextScenes()){
 			scene = findScene(sc);
 			if(isAccessible(sc) &&  (scene != null)){
-				options += counter + " - " + scene.getDescription() + " � ";
+				options += counter + " - " + scene.getDescription() + "\n";
 				counter++;
 			}
 		}
