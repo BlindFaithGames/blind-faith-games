@@ -301,7 +301,7 @@
 									The most complex actions like Zoom mode, exploration mode or Read 
 									cell context are explained in tutorial next steps
 									Now, try to use them!.</string>
-    <string name="tut_zoom_mode_text">Zoom mode allows you to select a cell in a easier way than the normal mode, 
+    <string name="tut_zoom_mode_text">Zoom mode allows you to select a cell in an easier way than the normal mode, 
 						by tapping on the center of the screen. 
 						If you make a tap in some of the screen ends you will be changing the focused cell. 
 						Remember to make only one tap!. Moreover, the way of interact changes.

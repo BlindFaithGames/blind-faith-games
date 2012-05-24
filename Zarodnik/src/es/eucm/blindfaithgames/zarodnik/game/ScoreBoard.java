@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import es.eucm.blindfaithgames.engine.general.Entity;
 import es.eucm.blindfaithgames.engine.general.GameState;
 import es.eucm.blindfaithgames.engine.general.Mask;
@@ -159,6 +160,20 @@ public class ScoreBoard extends Entity {
 		float scale = this.gameState.getContext().getResources().getDisplayMetrics().density;
 		float fontSize = ((this.gameState.getContext().getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale);
 		return fontSize + 10;
+	}
+	
+	@Override
+	public void onSavedInstance(Bundle outState, int i, int j) {
+		outState.putInt("scoreBoard record", record);
+		outState.putInt("scoreBoard counter", counter);
+		super.onSavedInstance(outState, i, j);
+	}
+	
+	@Override
+	public void onRestoreInstance(Bundle savedInstanceState, int i, int j) {
+		record = savedInstanceState.getInt("scoreBoard record", 0);
+		counter = savedInstanceState.getInt("scoreBoard counter", 0);
+		super.onRestoreInstance(savedInstanceState, i, j);
 	}
 
 }

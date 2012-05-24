@@ -309,7 +309,7 @@
     <string name="tut_exploration_mode_text">El modo exploración permite establecer banderas en las casillas
      independientemente del evento táctil que realice (una pulsación, dos, tres...).Para habilitar el modo exploración, simplemente debe presionar el botón de 
     silenciar, o el que haya establecido en el panel de configuración de teclado. ¡Compruébelo!</string>
-    <string name="tut_read_context_text">Es una opción adicional que realiza la lectura de las casillas que rodean a la seleccionada. 
+    <string name="tut_read_context_text">Es una opción adicional que lee los estados de las casillas que rodean a la seleccionada. 
     Para leer celdas, simplemente debe presionar el Botón buscar,
      o el que haya establecido en el panel de configuración de teclado.¡Pruébelo!</string>
 

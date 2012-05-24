@@ -77,13 +77,17 @@ public class ZarodnikGameActivity extends Activity {
 		
 		if(game != null)
 			game.delete();
-	
-		if(savedInstanceState != null){
-			loadGame(zarodnikView, savedInstanceState);
-		}else{
-			createGame(zarodnikView, checkFirstGame());
+		try{
+			if(savedInstanceState != null){
+				loadGame(zarodnikView, savedInstanceState);
+			}else{
+				createGame(zarodnikView, checkFirstGame());
+			}			
+
 		}
-			
+		catch (Exception e){
+			this.finish();
+		}
 		if (SettingsActivity.getBlindMode(this))
 			game.setDisabled(true);
 	}
