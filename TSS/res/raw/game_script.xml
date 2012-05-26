@@ -10,7 +10,7 @@
 		
 		<nextScenes>
 			<idNextScenes id = "1"/>
-			<idNextScenes id = "2"/>
+<!-- 			<idNextScenes id = "2"/> -->
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
@@ -40,19 +40,19 @@
 			</dialog>
 		</npc>
 		
-		<npc name = "!Atacarle!">
-			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
-			</dialog>
-		</npc>
+<!-- 		<npc name = "!Atacarle!"> -->
+<!-- 			<dialog> -->
+<!-- 				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer> -->
+<!-- 				<answer author = "McNulty"></answer> -->
+<!-- 			</dialog> -->
+<!-- 		</npc> -->
 		
-		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
-			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
-			</dialog>
-		</npc>
+<!-- 		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!"> -->
+<!-- 			<dialog> -->
+<!-- 				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer> -->
+<!-- 				<answer author = "McNulty"></answer> -->
+<!-- 			</dialog> -->
+<!-- 		</npc> -->
 		
 		<introMessage>Se trata de tu viejo compañero Jim McNutty, que...</introMessage>
 		
@@ -67,55 +67,50 @@
 		<endCondition></endCondition>
 	</scene>
 	
-	<scene type="normal" id = "2">
-		<npc name = "Preguntar por la familia">
-			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
-			</dialog>
-		</npc>
+<!-- 	<scene type="normal" id = "2"> -->
+<!-- 		<npc name = "Preguntar por la familia"> -->
+<!-- 			<dialog> -->
+<!-- 				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer> -->
+<!-- 				<answer author = "McNulty"></answer> -->
+<!-- 			</dialog> -->
+<!-- 		</npc> -->
 		
-		<npc name = "!Atacarle!">
-			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
-			</dialog>
-		</npc>
+<!-- 		<npc name = "!Atacarle!"> -->
+<!-- 			<dialog> -->
+<!-- 				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer> -->
+<!-- 				<answer author = "McNulty"></answer> -->
+<!-- 			</dialog> -->
+<!-- 		</npc> -->
 		
-		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
-			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
-			</dialog>
-		</npc>
+<!-- 		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!"> -->
+<!-- 			<dialog> -->
+<!-- 				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer> -->
+<!-- 				<answer author = "McNulty"></answer> -->
+<!-- 			</dialog> -->
+<!-- 		</npc> -->
 	
-		<introMessage>Oyes el ruido de un cristal romperse, parece que tu viejo compañero sigue con el mismo humor de siempre y...</introMessage>
+<!-- 		<introMessage>Oyes el ruido de un cristal romperse, parece que tu viejo compañero sigue con el mismo humor de siempre y...</introMessage> -->
 		
-		<description>Ignorar</description>
+<!-- 		<description>Ignorar</description> -->
 		
-		<nextScenes>
-			<idNextScenes id = "3"/>
-		</nextScenes>
+<!-- 		<nextScenes> -->
+<!-- 			<idNextScenes id = "3"/> -->
+<!-- 		</nextScenes> -->
 		
-		<transitionCondition></transitionCondition>
+<!-- 		<transitionCondition></transitionCondition> -->
 		
-		<endCondition></endCondition>
-	</scene>
+<!-- 		<endCondition></endCondition> -->
+<!-- 	</scene> -->
 	
-<!--__________________________________________________________________ Escena 1 ___________________________________________________________-->
+<!--............................. Escena 1 Llegada lugar crimen ........................................-->
 	<scene type="normal" id = "3">
 
-		<introMessage>Llegan al lugar de los hechos</introMessage>
-		
-		<description>Escena del crimen</description>
+		<introMessage>Tal y como me dijo McNulty, me dirigí hacia la Plaza Altuna, donde éste me esperaba para acompañarme 
+		    a la escena del crimen. Nos dirigimos a un apartamento situado en la calle Smuff.</introMessage>
+		<description>Plaza Altuna</description>
 		
 		<nextScenes>
 			<idNextScenes id = "4"/>
-			<idNextScenes id = "5"/>
-			<idNextScenes id = "6"/>
-			<idNextScenes id = "7"/>
-			<idNextScenes id = "10"/>
-			<idNextScenes id = "18"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
@@ -124,33 +119,20 @@
 	</scene>
 	
 	<scene type="normal" id = "4">
-		<npc name = "Preguntar por la familia">
+		<npc name = "Preguntar por la investigación">
 			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
-			</dialog>
-		</npc>
-		
-		<npc name = "!Atacarle!">
-			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
-			</dialog>
-		</npc>
-		
-		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
-			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
+				<answer author = "McNulty">Vaya, parece ser que alguien no se llevaba bien con este tío. Por cierto, no hace falta decirte
+				    que te sientas libre de examinar lo que quieras, este es caso es tuyo.</answer>
+				<answer author = "John T.">Perfecto, veamos qué podemos encontrar. Estaré por aquí si me necesitas</answer>				    
 			</dialog>
 		</npc>
 
-		<introMessage>Parece un agente de la ley bastante experimentado</introMessage>
+		<introMessage>Al llegar la puerta se encontraba abierta. Se trataba de un homicidio, el cuerpo se hallaba al lado de la cama.</introMessage>
 		
-		<description>Hablar con policía de aspecto rudo</description>
+		<description>Hablar McNulty</description>
 		
 		<nextScenes>
-			<idNextScenes id = "3"/>
+			<idNextScenes id = "5"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
@@ -158,31 +140,67 @@
 		<endCondition></endCondition>
 	 </scene>
 	
-	<scene type="normal" id = "5">
-		<npc name = "Preguntar por la familia">
+	<!-- .................... Escena con distintas opciones de examinar la habitación ............................ -->
+	<scene type="normal" id = "5">		
+		<npc name = "Examinar ventana abierta">
 			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
+				<answer author = "John T.">Parece que el asesino huyó por aquí...</answer>
 			</dialog>
 		</npc>
 		
-		<npc name = "!Atacarle!">
+		<npc name = "Examinar cama deshecha">
 			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
+				<answer author = "John T.">No parece haber nada sospechoso.</answer>
 			</dialog>
 		</npc>
 		
-		<npc name = "Comenzar una escena musical, cantando alguno de los últimos éxitos de bollywood!">
+		<npc name = "Examinar libro">
 			<dialog>
-				<answer author = "John T.">Hey, ¿Cómo va todo viejo zorro? ¿Qué tal el pequeño Tim?</answer>
-				<answer author = "McNulty"></answer>
+				<answer author = "John T.">¡Wow! Yo leí este libro hace un tiempo y era buenísimo.</answer>
 			</dialog>
 		</npc>
+		
+		<npc name = "Examinar sangre">
+			<dialog>
+				<answer author = "John T.">Por el rastro de sangre parece que intentaron mover el cuerpo...Imagino que al estar
+				    tan gordo no pudo con él.</answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Tiro en la cabeza">
+			<dialog>
+				<answer author = "John T.">Directo al entrecejo.</answer>
+			</dialog>
+		</npc>		
+		
+		<npc name = "Televisión">
+			<dialog>
+				<answer author = "John T.">No es momento de ver la tele.</answer>
+			</dialog>
+		</npc>	
+		
+		<npc name = "Collar">
+			<dialog>
+				<answer author = "John T.">Quizá pueda pasarme luego por la joyería a ver qué me cuentan de esta persona.</answer>
+			</dialog>
+		</npc>	
+		<npc name = "Sombrero">
+			<dialog>
+				<answer author = "John T.">Um parece que hay algo dentro. Es una tarjeta de un club de alterne. La guardaré
+				    por si acaso.</answer>
+			</dialog>
+		</npc>	
+		
+		<npc name = "Papel que sostiene el cadáver">
+			<dialog>
+				<answer author = "John T.">Vaya, hay un número de teléfono. Esto me será útil.</answer>
+			</dialog>
+		</npc>	
+		
 
-		<introMessage>Hacía años que no veías a tu antiguo compañero y decides saludarle</introMessage>
+		<introMessage>Esto está hecho un desastre. A ver qué encontramos por aquí</introMessage>
 		
-		<description>Hablar con McNulty</description>
+		<description>Examinar lugar del crimen</description>
 		
 		<nextScenes>
 			<idNextScenes id = "3"/>
@@ -192,6 +210,34 @@
 		
 		<endCondition></endCondition>
 	</scene>
+	
+	
+	<!-- Vecino sin tarjeta sombrero -->
+		<!-- FIN -->
+	<!-- Vecino con tarjeta sombrero -->
+	<!--  Club de Alterne sin sombrero -->
+		<!-- Conversación Barman -->
+		<!-- Conversación Stripper -->
+		<!-- Conversación Borracho -->
+		
+	<!-- Joyería (si cogimos collar) → nos dan la foto -->	
+		<!-- Club de alterne con sombrero -->	
+			<!-- Conversación Barman -->
+				<!-- Muerte si enseñamos foto -->
+			<!-- Conversación Stripper -->
+				<!-- Enseñar foto -->
+					<!-- Si cogimos papel con tlfno del muerto -->
+						<!-- Hotel -->
+							<!-- Sacar pistola -->
+							<!-- Apagar luz -->
+							<!-- Huir por la ventana -->
+					<!-- Volver a la habitación para seguir investigando -->
+			<!-- Conversación Borracho -->
+		
+	<!-- ........................... Hasta aquí ........................... -->
+	
+	
+	
 	
 	<scene type="normal" id = "6">
 		<npc name = "Preguntar por la familia">
