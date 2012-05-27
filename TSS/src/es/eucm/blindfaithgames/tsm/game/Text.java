@@ -17,7 +17,7 @@ import es.eucm.blindfaithgames.tsm.R;
 
 public class Text extends Entity {
 
-	public static final String SEPARATOR = " // ";
+	public static final String SEPARATOR = ". ";
 	private float fontSize;
 	private Typeface font;
 	private Paint brush;

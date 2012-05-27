@@ -121,7 +121,7 @@
     <string name="ending_lose_message">Fin del juego</string>
     <string name="ending_win_message">Encontraste un obeaune.</string>
    
-    <string name="game_over_text">El juego finaliza aquí</string>
+    <string name="game_over_text">Ha perdido el caso</string>
     <string name="game_over_tts">El juego finaliza aquí. Para salir realice una pulsación larga</string>
         <string name="screen_change_begins">Cambio de pantalla comenzado.</string>
     <string name="screen_change_ends">Cambio de pantalla finalizado.</string>

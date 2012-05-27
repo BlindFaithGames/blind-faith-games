@@ -1,11 +1,11 @@
 <sceneManager>
 
-<!--__________________________________________________________________ Escena 0 ___________________________________________________________-->
+	<!--..... Escena 0 ........-->
 	
 	<scene type="normal" id = "0">
 		
-		<introMessage>La historia comienza en un oscuro despacho de los bajos fondos de Sewer City. John Tidiac antiguo
-		miembro de la policía se encuentra descansando en su despacho cuando llaman a la puerta.</introMessage>
+		<introMessage>La historia comienza en un oscuro despacho de los bajos fondos de Sewer City. 
+		    John Tidiac antiguo miembro de la policía se encuentra descansando en su despacho cuando llaman a la puerta.</introMessage>
 		
 		<description>Despacho de J.T.</description>
 		
@@ -35,7 +35,7 @@
 		
 		<npc name = "Rememorar viejos tiempos">
 			<dialog>
-				<answer author = "John T.">Ah, recuerdas los viejos tiempos cuando trabajabamos para resolver casos en homicidios,
+				<answer author = "John T.">Ah, recuerdas los viejos tiempos cuando trabajábamos para resolver casos en homicidios,
 					en aquellos tiempos un detective podía hacer su labor sin verse comprometido.</answer>
 				<answer author = "McNulty">Vaya que sí John, vaya que sí. Recuerdas el caso aquel del carnicero de la bahía</answer>
 				<answer author = "John T.">Sí, lo que costó descubrirle y poder disponer de los medios para atraparlo. 
@@ -94,12 +94,12 @@
 		</npc>
 		
 		
-		<npc name = "Recomendarle utilizar formas más sútiles de entrar">
+		<npc name = "Recomendarle utilizar formas más sutiles de entrar">
 			<dialog>
-				<answer author = "John T.">Podrías tener cuidado con lo poco que me queda maldito saco de basura desagradecido.</answer>
+				<answer author = "John T.">Podrías tener cuidado, con lo poco que me queda maldito saco de basura desagradecido.</answer>
 				<answer author = "McNulty">Llevo días llamando, y no contestaste así que... </answer>
-				<answer author = "John T.">Así que pensaste,¿Por qué no romper las pocas pertenencias 
-					que le quedan de mi antiguo compañero?</answer>
+				<answer author = "John T.">Así que pensaste ¿por qué no romper las pocas pertenencias 
+					que le quedan a mi antiguo compañero?</answer>
 				<answer author = "McNulty">Veo que sigues igual que siempre.</answer>
 			</dialog>
 		</npc>
@@ -118,7 +118,7 @@
 		</npc>
 	
 		<introMessage>Oyes el ruido de un cristal romperse, parece que tu viejo compañero Jim McNulty 
-			sigue con el mismo humor de siempre y decidió entrar por si cuenta en tu despacho.</introMessage>
+			sigue con el mismo humor de siempre y decidió entrar por su cuenta en tu despacho.</introMessage>
 
 		<description>Ignorar</description> 
 		
@@ -135,7 +135,7 @@
 	<scene type="normal" id = "3">
 
 		<introMessage>Tal y como me dijo McNulty, me dirigí hacia la Plaza Altuna, donde éste me esperaba para acompañarme 
-		    a la escena del crimen. Nos dirigimos a un apartamento situado en la calle Smuff.Al llegar la puerta se encontraba abierta. 
+		    a la escena del crimen. Nos dirigimos a un apartamento situado en la calle Smuff. Al llegar la puerta se encontraba abierta. 
 			Se trataba de un homicidio, el cuerpo se hallaba al lado de la cama.</introMessage>
 		
 		<description>Escena del crimen</description>
@@ -160,22 +160,26 @@
 	<scene type="normal" id = "4">
 		<npc name = "Preguntar por lo sucedido">
 			<dialog>
-				<answer author = "John T."></answer>
-				<answer author = "Policía"></answer>
+				<answer author = "John T.">¿Qué ha pasado aquí?</answer>
+				<answer author = "Policía">La verdad es que hemos estado investigando, preguntando a gente de los alrededores que haya podido
+				    ver u oído algo, pero nadie sabe nada. Es como si hubiera sido un asesinato fantasma.</answer>
+				<answer author = "John T.">Vaya cuerpo de policía más incompetente...</answer>				    
 			</dialog>
 		</npc>
 		
 		<npc name = "Pedirle su identificación">
 			<dialog>
-				<answer author = "John T."></answer>
-				<answer author = "Policía"></answer>
+				<answer author = "John T.">¿Podría enseñarme su identificación?.</answer>
+				<answer author = "Policía">Por supuesto, aquí la tiene.</answer>
+				<answer author = "John T.">Bonita placa. ¿Qué hace aquí parado? ¡Busque información! ¡Algo que pueda sernos útil!.</answer>
+				<answer author = "Policía">A callar.</answer>
 			</dialog>
 		</npc>
 		
 		<npc name = "Despedirse" transition = "true">
 			<dialog>
-				<answer author = "John T."></answer>
-				<answer author = "Policía"></answer>
+				<answer author = "John T.">Ha sido un placer haberle conocido.</answer>
+				<answer author = "Policía">No sé si decir lo mismo por mi parte.</answer>
 			</dialog>
 		</npc>
 
@@ -222,14 +226,14 @@
 	
 	<!--..................................Conversación con Vecina en la puerta del piso .......................................-->
 	<scene type="normal" id = "6">
-		<npc name = "Preguntarle si vió algo" transition = "true">
+		<npc name = "Preguntarle si vio algo" transition = "true">
 			<dialog>
 				<answer author = "John T.">¿Oyó algo fuera de lo común ayer por la noche?</answer>
-				<answer author = "Vecina"></answer>
+				<answer author = "Vecina">¿Eh? Ah, sí, sí..Yo, bueno, no, creo que no...Disculpe.</answer>
 			</dialog>
 		</npc>
 
-		<introMessage>Parece la típica vecina metomentodo.</introMessage>
+		<introMessage>Parece la típica vecina entrometida.</introMessage>
 		
 		<description>Hablar con Vecina cotilla</description>
 		
@@ -247,7 +251,7 @@
 	<!-- Vecino sin tarjeta sombrero -->
 		<!-- FIN -->
 	<!-- Vecino con tarjeta sombrero -->
-	<!--  Club de Alterne sin sombrero --> <!--- no se podía llegar sin sombrero en la original -->
+	<!--  Club de Alterne sin sombrero --> <!-- se podía pero se supone que no sacabas nada en claro, si quieres se quita -->
  		<!-- Conversación Barman -->
 		<!-- Conversación Stripper -->
 		<!-- Conversación Borracho -->
@@ -273,7 +277,7 @@
 	<scene type="normal" id = "7">
 		
 		
-		<introMessage>Parece que por aquí el asesino debió entrar.</introMessage>
+		<introMessage>Parece que el asesino entró por aquí.</introMessage>
 		
 		<description>Entrar en el baño</description>
 		
@@ -309,7 +313,7 @@
 	
 	<scene type="normal" id = "9">
 		
-		<introMessage>Um parece que hay algo dentro. Es una tarjeta de un club de alterne. La guardaré
+		<introMessage>Parece que hay algo dentro. Es una tarjeta de un club de alterne. La guardaré
 				    por si acaso.</introMessage>
 		
 		<description>Examinar sombrero</description>
@@ -475,20 +479,22 @@
 	
 		<npc name = "Preguntar si oyó algo extraño">
 			<dialog>
-				<answer author="John T."></answer>
-				<answer author="Vecino"></answer>
+				<answer author="Vecino">Lo siento, pero no estuve anoche en mi casa, por lo que no puedo ayudarle con el caso.</answer>
+				<answer author = "John T.">Qué casualidad..</answer>
 			</dialog>
 		</npc>
 		<npc name = "Preguntar dónde estuvo anoche">
 			<dialog>
-				<answer author="John T."></answer>
-				<answer author="Vecino"></answer>
+				<answer author="Vecino">Anoche salí de fiesta con unos amigos</answer>
+				<answer author = "John T.">Unos de fiesta, mientras que otros luchan por no meter el pie en la tumba.</answer>
 			</dialog>
 		</npc>
-		<npc name = "Preguntar por el asesinato" transition = "true">
+		<npc name = "Presionar" transition = "true">
 			<dialog>
-				<answer author="John T."></answer>
-				<answer author="Vecino"></answer>
+				<answer author="John T.">¿Podría decirme al menos si conocía a la persona asesinada?</answer>
+				<answer author="Vecino">Emm no, de hecho, no sé ni quién vive ahí.</answer>
+				<answer author="John T.">¿Es su vecino de enfrente y no conoce si quiera de vista a esa persona? Me está tomando el pelo, ¿verdad?</answer>
+				<answer author="Vecino">¡Le digo que no le conozco! ¡Y no debería meterse dónde no le llaman!</answer>
 			</dialog>
 		</npc>
 		
@@ -769,24 +775,38 @@
 	
 		<npc name = "Hablar con encargado" transition = "true">
 			<dialog>
-				<answer author="John T.">Ahoy there!</answer>
-				<answer author="Encargado"></answer>
+				<answer author="Encargado">Hola, buenas. ¿En qué puedo ayudarle?</answer>
+				<answer author="John T.">Ando buscando a una chica que tengo entendido que trabaja en este local.</answer>
+				<answer author="Encargado">Como no sea más preciso...mi local siempre anda lleno de chicas.</answer>
+				<answer author="John T.">Encontré la dirección de este local en esta tarjeta. ¿Sabe quién las facilita?</answer>
+				<answer author="Encargado">Esas tarjetas están sobre la barra. Cualquier persona puede cogerlas.</answer>	
+				<answer author="John T.">De acuerdo. Muchas gracias por su ayuda.</answer>	
+				<answer author="Encargado">De nada, divíertase.</answer>			
 			</dialog>
 		</npc>
 		<npc name = "Hablar con Stripper">
 			<dialog>
-				<answer author="John T."></answer>
-				<answer author="Stripper"></answer>
+				<answer author="Stripper">Hola, guapo. ¿Qué puedo hacer por ti?</answer>
+				<answer author="John T.">Parece que hoy está animada la cosa.</answer>
+				<answer author="Stripper">Sí, ¿quieres algo?</answer>
+				<answer author="John T.">¿Han venido hoy todas las chicas a trabajar?</answer>
+				<answer author="Stripper">Cada día vienen chicas nuevas. Yo no controlo aquí la gente que entra y sale.</answer>
+				<answer author="John T.">¿Cómo te llamas?</answer>
+				<answer author="Stripper">¿Qué es esto? ¿Un interrogatorio?. Siempre que tu cartera esté llena, me llamaré como quieras. Pero si entras
+				    a preguntar sin más, déjame en paz.</answer>
+				<answer author="John T.">De acuerdo. Sigue a lo tuyo.</answer>
 			</dialog>
 		</npc>
-		<npc name = "Hablar con habitual del local">
+		<npc name = "Hablar con borracho">
 			<dialog>
-				<answer author="John"></answer>
-				<answer author="Habitual"></answer>
+				<answer author="John">Disculpe...</answer>
+				<answer author="Habitual">¡¿Eh?!¿Quién es?</answer>
+				<answer author="John">Me llamo...</answer>
+				<answer author="Habitual">¡Pero no ves que estoy ocupado! ¡Déjame!. Vamos nenaaaa.</answer>				
 			</dialog>
 		</npc>
 		
-		<introMessage>Llegamos al club que aparecía en la tarjeta parecía...</introMessage>
+		<introMessage>Llegamos al club que aparecía en la tarjeta...</introMessage>
 		
 		<description>Seedy Club</description>
 		
@@ -804,20 +824,15 @@
 		
 		<npc name = "Hablar con encargado" transition = "true">
 			<dialog>
-				<answer author="John T.">Ahoy there!</answer>
-				<answer author="Encargado"></answer>
-			</dialog>
-		</npc>
-		<npc name = "Hablar con Stripper">
-			<dialog>
-				<answer author="John T."></answer>
-				<answer author="Stripper"></answer>
-			</dialog>
-		</npc>
-		<npc name = "Hablar con habitual del local">
-			<dialog>
-				<answer author="John"></answer>
-				<answer author="Habitual"></answer>
+				<answer author="Encargado">Hola, buenas. ¿En qué puedo ayudarle?</answer>
+				<answer author="John T.">Mi nombre es John T, soy detective y estoy investigando un caso de homicidio. Hemos hallado en la víctima
+				    este collar y creemos que fue adquirido en este lugar. ¿Le suena de algo?</answer>
+				<answer author="Encargado">Oh sí, recuerdo fielmente esta venta. No es sólo un collar, contiene una fotografía en su interior. (El joyero
+				    abre el collar y aparece una fotografía de una pareja). El hombre fue quién encargo la pieza.</answer>
+				<answer author="John T.">¿Sabría decirme cuándo lo adquirió?</answer>	
+				<answer author="Encargado">Hará una semana.</answer>		
+				<answer author="John T.">Muchas gracias.</answer>
+				<answer author="Encargado">Espero haber ayudado.</answer>	    
 			</dialog>
 		</npc>
 		
@@ -854,6 +869,24 @@
 	</scene>
 	
 	<scene type="normal" id = "39">
+		<npc name = "Enseñar fotografía a encargado" transition = "true">
+			<dialog>
+				<answer author="Encargado">Hola. ¿Qué desea?</answer>
+				<answer author="John T.">Busco a esta chica en concreto. (Jonh enseña la foto del collar al encargado).</answer>
+				<answer author="Encargado">¡Oh sí! Está aquí mismo. Deje que le acompañe a su habitación.</answer> 
+			</dialog>
+		</npc>
+		<npc name = "No enseñar fotografía a encargado">
+			<dialog>
+				<answer author="Encargado">Hola. ¿Qué desea?</answer>
+				<answer author="John T.">Ando buscando a una chica que tengo entendido que trabaja en este local.</answer>
+				<answer author="Encargado">Como no sea más preciso...mi local siempre anda lleno de chicas.</answer>
+				<answer author="John T.">Encontré la dirección de este local en esta tarjeta. ¿Sabe quién las facilita?</answer>
+				<answer author="Encargado">Esas tarjetas están sobre la barra. Cualquier persona puede cogerlas.</answer>	
+				<answer author="John T.">De acuerdo. Muchas gracias por su ayuda.</answer>	
+				<answer author="Encargado">De nada, divíertase.</answer>     
+			</dialog>
+		</npc>		
 
 		<introMessage>Con sombrero</introMessage>
 		
@@ -869,10 +902,22 @@
 	</scene>
 	
 	<scene type="normal" id = "40">
+		<npc name = "Enseñar fotografía a Stripper" transition = "true">
+			<dialog>
+				<answer author="Stripper">Hola. ¿Qué quiere?</answer>
+				<answer author="John T.">He encontrado este collar en la escena de un crimen. Creo que pertenece a esta chica que trabaja aquí.</answer>
+				<answer author="Stripper">¡Oh dios mío! ¡Es Alicia! ¿Le ha pasado algo?.</answer> 
+				<answer author="John T.">¿Conoces al hombre de la foto? Es la víctima.</answer>
+				<answer author="Stripper">Sí claro, que le conozco, es David. ¿Qué ha sucedido?</answer> 	
+				<answer author="John T.">No lo sé, pero necesito tu ayuda. Creo que Alicia corre peligro. ¿Sabes dónde puedo encontrarla?.</answer>
+				<answer author="Stripper">Hoy no ha venido a trabajar, podría estar en cualquier parte. Por favor, si sabe algo de ella infórmeme en cuanto 
+				lo sepa.</answer> 							
+			</dialog>
+		</npc>
 
 		<introMessage>Con sombrero</introMessage>
 		
-		<description>>Hablar con Stri</description>
+		<description>Stripper</description>
 		
 		<nextScenes>
 			<idNextScenes id = "38"/>
@@ -887,7 +932,7 @@
 <!--
 	<scene type="normal" id = "41">
 		
-		<introMessage>Con sombrero</introMessage>
+		<introMessage>Con sombrero y nota</introMessage>
 		
 		<description>Seedy Club</description>
 		
@@ -902,24 +947,25 @@
 		<endCondition></endCondition>
 	</scene>
 	
-	<scene type="normal" id = "42">
-
-		<introMessage>Con sombrero</introMessage>
-		
-		<description>Barman!!</description>
-		
-		<nextScenes></nextScenes>
-		
-		<transitionCondition></transitionCondition>
-		
-		<endCondition></endCondition>
-	</scene>
-	
 	<scene type="normal" id = "43">
+		<npc name = "Enseñar fotografía a Stripper" transition = "true">
+			<dialog>
+				<answer author="Stripper">Hola. ¿Qué quiere?</answer>
+				<answer author="John T.">He encontrado este collar en la escena de un crimen. Creo que pertenece a esta chica que trabaja aquí.</answer>
+				<answer author="Stripper">¡Oh dios mío! ¡Es Alicia! ¿Le ha pasado algo?.</answer> 
+				<answer author="John T.">¿Conoces al hombre de la foto? Es la víctima.</answer>
+				<answer author="Stripper">Sí claro, que le conozco, es David. ¿Qué ha sucedido?</answer> 	
+				<answer author="John T.">No lo sé, pero necesito tu ayuda. Creo que Alicia corre peligro. ¿Sabes dónde puedo encontrarla?.</answer>
+				<answer author="Stripper">Hoy no ha venido a trabajar, podría estar en cualquier parte.</answer> 	
+				<answer author="John T.">¿Te da alguna pista esta tarjeta?.</answer>
+				<answer author="Stripper">Es el hotel en el que se suele alojar cuando sale los fines de semana. ¿Cree que podría estar allí?</answer> 	
+				<answer author="John T.">Sólo hay una forma de averiguarlo.</answer>
+			</dialog>
+		</npc>	
 
-		<introMessage>Con sombrero</introMessage>
+		<introMessage>Con sombrero y nota</introMessage>
 		
-		<description>>Hablar con Stri</description>
+		<description>Striper</description>
 		
 		<nextScenes>
 			<idNextScenes id = "44"/>
@@ -934,7 +980,9 @@
 <!--
 	<scene type="normal" id = "45">
 
-		<introMessage>Llegan al hotel</introMessage>
+		<introMessage>Me dirijo hacia el hotel. Pregunto en recepción por Alice y me dicen que se aloja en la habitación 334.
+		Alice me abre la puerta, pero al rato la situación empeora, el vecino de la persona asesinada se encuentra apuntándome con una 
+		pistola. ¿Qué hago ahora?</introMessage>
 		
 		<description>Hotel</description>
 		
@@ -950,8 +998,14 @@
 	</scene>
 	
 	<scene type="normal" id = "46">
+		<npc name = "Apagar la luz de la habitación" transition = "true">
+			<dialog>
+				<answer author="">John T. lanza la pistola contra el interruptor de la luz, consiguiendo de este modo quedar a oscuras y amordazar al 
+				asesino. Alice da las gracias por todo lo que ha hecho John T. y se despiden hasta su próximo encuentro.</answer> 
+			</dialog>
+		</npc>	
 
-		<introMessage>Con sombrero</introMessage>
+		<introMessage>John T. pensó que quizá podría ganar tiempo si apagaba la luz de la habitación para dejarla a oscuras.</introMessage>
 		
 		<description>Apagar la luz</description>
 		
@@ -963,10 +1017,21 @@
 		<endCondition></endCondition>
 	</scene>
 	<scene type="normal" id = "47">
+		<npc name = "Ayudar a Alice a salir por la ventana" transition = "true">
+			<dialog>
+				<answer author="John T.">Alice debes de salir de aquí y no veo otra alternativa que huir por la ventana abierta.</answer> 
+				<answer author="Alice">¡Está usted loco!</answer> 	
+				<answer author="John T.">Por favor, tienes que huir. Lánzate cuando yo te diga.</answer> 	
+				<answer author="Vecino loco">¿Qué estáis tramando?</answer> 	
+				<answer author="Jonh T.">¡Ahora!</answer>
+				<answer author="">¡PAM!</answer> 
+				<answer author="">Alice escapó sana y salva al caer sobre un montón de bolsas de basura.</answer> 
+			</dialog>
+		</npc>		
 
-		<introMessage>Huir Por la ventana</introMessage>
+		<introMessage>John T. elaboró un plan rápido de huída.</introMessage>
 		
-		<description>Apagar la luz</description>
+		<description>Huir por la ventana</description>
 		
 		<nextScenes>
 		</nextScenes>
@@ -976,10 +1041,19 @@
 		<endCondition></endCondition>
 	</scene>
 	<scene type="normal" id = "48">
+		<npc name = "¡Baja el arma o disparo!" transition = "true">
+			<dialog>
+				<answer author="John T.">Tranquilízate y baja el arma. No queremos que haya heridos.</answer> 
+				<answer author="Vecino loco">¡Yo te amaba! ¡Ese gordo no te convenía!</answer> 	
+				<answer author="John T.">Por favor, ¡baja el arma o si no me veré obligado a disparar!</answer> 	
+				<answer author="Vecino loco">Sin ti esto ya no tiene sentido. No hay razón para vivir. Debes morir.</answer> 	
+				<answer author="">¡PUM!</answer>
+			</dialog>
+		</npc>		
 
-		<introMessage>Con sombrero</introMessage>
+		<introMessage>Jonh T. desenfunda rápidamente su pistola para hacer frente al asesino</introMessage>
 		
-		<description>Huir por la ventana</description>
+		<description>Sacar la pistola</description>
 		
 		<nextScenes>
 		</nextScenes>

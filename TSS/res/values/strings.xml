@@ -123,7 +123,7 @@
     <string name="ending_lose_message">Game Over</string>
     <string name="ending_win_message">You found your prey</string>
     
-    <string name="game_over_text">The game concludes here </string>
+    <string name="game_over_text">You fail</string>
     <string name="game_over_tts">The game concludes here. Long touch on the screen to end</string>
     <string name="screen_change_begins">Screen change begun.</string>
     <string name="screen_change_ends">Screen change ended.</string>
