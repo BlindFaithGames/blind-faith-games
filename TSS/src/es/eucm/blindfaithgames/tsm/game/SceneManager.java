@@ -19,14 +19,15 @@ public class SceneManager {
 		return findScene(i);
 	}
 	
-	public void changeNPC(int selectedNPC){
+	public boolean changeNPC(int selectedNPC){
 		if(currentScene.getNPCS().size() > 1 ){
 			if(currentScene != null && selectedNPC < currentScene.getNPCS().size())
-				currentScene.changeNPC(selectedNPC);
+				return currentScene.changeNPC(selectedNPC);
 		}
 		else{
-			currentScene.changeNPC(0);
+			return currentScene.changeNPC(0);
 		}
+		return false;
 	}
 	
 	public boolean changeScene(int selectedScene){
@@ -42,15 +43,20 @@ public class SceneManager {
 		if(currentScene.getNextScenes().size() > 1){
 			if(selectedScene < currentScene.getNextScenes().size()){
 				 nextScene = currentScene.getNextScenes().get(selectedScene);
-				 currentScene.getNextScenes().remove(selectedScene);
+				 //currentScene.getNextScenes().remove(selectedScene);
 				 currentScene = findScene(nextScene);
 			}
 			else{
 				success = false;
 			}		
 		}else{
-			nextScene = currentScene.getNextScenes().get(0);
-			currentScene = findScene(nextScene);
+			if(currentScene.getNextScenes().isEmpty()){
+				success = false;
+			}
+			else{
+				nextScene = currentScene.getNextScenes().get(0);
+				currentScene = findScene(nextScene);
+			}
 		}
 			
 		return success;
@@ -88,10 +94,13 @@ public class SceneManager {
 			return null;
 	}
 
-	public void setIntro(Text text) {
+	public boolean setIntro(Text text) {
 		String intro = currentScene.getintroMsg();
-		if(intro != null)
+		if(intro != null) {
 			text.setText(intro);
+			return true;
+		} else
+				return false;
 	}
 
 	public int showNPCOptions(Text text) {
@@ -105,7 +114,7 @@ public class SceneManager {
 		for(Integer sc: currentScene.getNextScenes()){
 			scene = findScene(sc);
 			if(isAccessible(sc) &&  (scene != null)){
-				options += counter + " - " + scene.getDescription() + "\n";
+				options += counter + " - " + scene.getDescription() + Text.SEPARATOR;
 				counter++;
 			}
 		}

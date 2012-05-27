@@ -14,6 +14,7 @@ public class Scene {
 	
 	private List<Integer> transitionCondition;
 	private List<Integer> endCondition;
+	private boolean firstTime;
 	
 	
 	public Scene(List<NPC> npcs, int id, SceneType type, String introMsg, String description,
@@ -26,6 +27,7 @@ public class Scene {
 		this.nextScenes = nextScenes;
 		this.transitionCondition = transitionCondition;
 		this.endCondition = endCondition;
+		firstTime = true;
 	}
 
 	public int getID() {
@@ -33,7 +35,11 @@ public class Scene {
 	}
 	
 	public String getintroMsg() {
-		return introMsg;
+		if(firstTime){
+			firstTime = false;
+			return introMsg;
+		}else
+			return null;
 	}
 	
 	public List<Integer> getNextScenes() {
@@ -56,9 +62,10 @@ public class Scene {
 		return description;
 	}
 	
-	public void changeNPC(int selectedNPC) {
+	public boolean changeNPC(int selectedNPC) {
 		currentNPC = npcs.get(selectedNPC);
-		npcs.remove(selectedNPC);
+		return currentNPC.getTransition();
+		//npcs.remove(selectedNPC);
 	}
 	
 	public boolean equals(Object o){
@@ -85,7 +92,7 @@ public class Scene {
 		String options = "";
 		int counter = 0;
 		for(NPC npc:npcs){
-			options += counter + "- " + npc.getName() + "\n";
+			options += counter + "- " + npc.getName() + Text.SEPARATOR;
 		}
 		return options;
 	}
@@ -94,7 +101,7 @@ public class Scene {
 		String options = "";
 		int counter = 0;
 		for(NPC npc:npcs){
-				options += counter + " - " + npc.getName() + "\n";
+				options += counter + " - " + npc.getName() + Text.SEPARATOR;
 				counter++;
 		}
 		text.setText(options);

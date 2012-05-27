@@ -31,6 +31,7 @@ public class Gameplay extends GameState {
 	private SceneManager scm;
 	
 	private StateGameplay state;
+	private boolean transitionDialog;
 	private int nScenes;
 	private int nNPCs;
 	
@@ -40,6 +41,7 @@ public class Gameplay extends GameState {
 	private static final int textoffSetY = 40;
 	
 	private int stepsPerWord = 1;
+
 
 	
 	public Gameplay(View v, TTS textToSpeech, Context c, Game game) {
@@ -52,7 +54,7 @@ public class Gameplay extends GameState {
 		font = Typeface.createFromAsset(this.getContext().getAssets(),RuntimeConfig.GAME_FONT_PATH);
 		brush = new Paint();
 		brush.setTextSize(fontSize);
-		brush.setARGB(255, 90, 0, 74);
+		brush.setColor(this.getContext().getResources().getColor(R.color.green0));
 		if(font != null)
 			brush.setTypeface(font);
 		
@@ -69,12 +71,6 @@ public class Gameplay extends GameState {
 		focus = -1;
 		
 		this.getTTS().setQueueMode(TTS.QUEUE_FLUSH);
-	}
-	
-	@Override
-	public void onInit() {
-		super.onInit();
-		getTTS().speak(this.context.getString(R.string.intro_game_tts));
 	}
 	
 	@Override
@@ -154,9 +150,11 @@ public class Gameplay extends GameState {
 		EventType e;
 		switch(state){
 		case SET_INTRO:
-			scm.setIntro(text);
+			if(scm.setIntro(text))
+				state = StateGameplay.SHOW_TEXT_INTRO;
+			else
+				state = StateGameplay.SET_SELECT_NPC;
 			this.getTTS().speak(text.getText());
-			state = StateGameplay.SHOW_TEXT_INTRO;
 			break;
 		case SHOW_TEXT_INTRO:
 			e = Input.getInput().removeEvent(typeInteraction);
@@ -176,7 +174,7 @@ public class Gameplay extends GameState {
 			e = Input.getInput().removeEvent(typeInteraction);
 			if(e != null){
 				int selectedNPC = screenPosToSelectedOption(e, nNPCs);
-				scm.changeNPC(selectedNPC);
+				transitionDialog = scm.changeNPC(selectedNPC);
 				state = StateGameplay.SET_DIALOG;
 				text.setText("");
 				this.getTTS().speak(scm.getCurrentDialog());
@@ -191,11 +189,16 @@ public class Gameplay extends GameState {
 		case SHOW_DIALOG:
 			e = Input.getInput().removeEvent(typeInteraction);
 			if(e != null){
-				state = StateGameplay.SET_SELECT_NPC;
+				if(!transitionDialog)
+					state = StateGameplay.SET_SELECT_NPC;
+				else
+					state = StateGameplay.SET_SELECT_SCENE;
 			}
 			break;
 		case SET_SELECT_SCENE:
 			nScenes = scm.showSceneOptions(text);
+			if(nScenes == 0)
+				this.stop();
 			this.getTTS().speak(text.getText());
 			state = StateGameplay.SHOW_SELECT_SCENE;
 			break;

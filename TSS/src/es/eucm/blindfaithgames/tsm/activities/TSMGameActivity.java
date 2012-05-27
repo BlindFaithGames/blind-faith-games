@@ -24,6 +24,7 @@ import es.eucm.blindfaithgames.engine.sound.Sound3DManager;
 import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
 import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.tsm.R;
+import es.eucm.blindfaithgames.tsm.game.GameOver;
 import es.eucm.blindfaithgames.tsm.game.Gameplay;
 import es.eucm.blindfaithgames.tsm.game.TSMMusicSources;
 
@@ -32,6 +33,7 @@ public class TSMGameActivity extends Activity {
 	private Game game;
 	
 	public static final int GAMEPLAY_ID = 0;
+	public static final int GAMEOVER_ID = 1;
 
 	// Keyboard configuration
 	private XMLKeyboard keyboard;
@@ -90,11 +92,13 @@ public class TSMGameActivity extends Activity {
 	private void createGame(DrawablePanel tsmView) {
     	ArrayList<Integer> order = new ArrayList<Integer>();
     	order.add(GAMEPLAY_ID);
-
+    	order.add(GAMEOVER_ID);
+    	
     	game = new Game();
 		
     	ArrayList<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(GAMEPLAY_ID, new Gameplay(tsmView, textToSpeech, this, game));
+		gameStates.add(new Gameplay(tsmView, textToSpeech, this, game));
+		gameStates.add(new GameOver(tsmView, textToSpeech, this, game));
 		
 		game.initialize(gameStates, order);
 	}

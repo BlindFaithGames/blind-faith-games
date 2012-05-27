@@ -24,7 +24,7 @@
 
     <string name="app_name">El pantano de la stripper</string>
     <string name="introMessage">Bienvenido, seleccione una dificultad.</string>
-    <string name="introMainMenu">Menú principal de Zarodnik. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones,
+    <string name="introMainMenu">Menú principal de El Pantano de la Stripper. Puede navegar por el menú mediante pulsaciones simples sobre las diferentes opciones,
      para seleccionar haga una pulsación larga sobre la opción que desee, en caso de haber seleccionado interacción para ciegos</string>
     <string name="buttonMessage">¡Adelante!</string>
     
@@ -34,7 +34,7 @@
         
     <string name="zarodnik_activity">El pantano de la stripper</string>
     <string name="exitButton">Salir</string>
-    <string name="main_title">Zarodnik</string>
+    <string name="main_title">El Pantano de la Stripper</string>
     <string name="continue_label">Continuar</string>
     <string name="new_game_label">Nuevo juego</string>
     <string name="tutorial_label">Consejos</string>
@@ -42,11 +42,11 @@
     <string name="about_label">Acerca de</string>
     <string name="form_label">Formulario</string>
     <string name="exit_label">Salir</string>
-    <string name="about_title">Acerca de Zarodnik</string>
+    <string name="about_title">Acerca de El Pantano de la Stripper</string>
     <string name="about_text">   
-		Zarodnik, 2012. \n\n
+		El Pantano de la Stripper, 2012. \n\n
 		
-		Zarodnik es parte del proyecto de investigación Blind Faith Games (BFG), que trata de averiguar estrategias de diseño adecuadas para producir juegos de los que puedan disfrutarse en un dispositivo con Android&#8482;  
+		El Pantano de la Stripper es parte del proyecto de investigación Blind Faith Games (BFG), que trata de averiguar estrategias de diseño adecuadas para producir juegos de los que puedan disfrutarse en un dispositivo con Android&#8482;  
 		independientemente de las capacidades de visión de la persona. Por favor, si tiene cinco minutos le agradeceríamos que rellenara el formulario de evaluación que encontrará a través del menú principal de la aplicación, esto nos ayudará a mejorarla.\n\n
 		
 		BFG es un proyecto del grupo e-UCM, y ha sido desarrollado por Gloria Pozuelo y Javier Álvarez.\n
@@ -59,7 +59,7 @@
 		
 		<i>Android es una marca registrada de Google Inc.</i>                </string>
     <string name="settings_label">Configuración</string>
-    <string name="settings_title">Configuración de Zarodnik</string>
+    <string name="settings_title">Configuración de El Pantano de la Stripper</string>
     <string name="settings_shortcut">s</string>
     <string name="main_category">Principal</string>
     <string name="profiles_category">Perfiles</string>
@@ -120,20 +120,7 @@
     <string name="initial_message">Preparado... ¡Ya!</string>
     <string name="ending_lose_message">Fin del juego</string>
     <string name="ending_win_message">Encontraste un obeaune.</string>
-    <string name="intro_game_text">Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik, que viajaba inmerso por las profundidades del océano. 
-	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el océano más próspero del mundo, pero bajo las aguas 
-	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
-	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-	del océano que a la que ha llegado nuestro protagonista. Nuestro protagonista se ve inmerso en esta situación en la que tratará de rescatar el mayor número posible de Obeaunes 
-	almacenándolos en su interior, pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
-    <string name="intro_game_tts">Había una vez, un pequeño monstruo de origen incierto, por algunos llamado zarodnik, que viajaba inmerso por las profundidades del océano. 
-	A lo largo de su viaje, se fue encontrando con diferentes criaturas y fue aprendiendo aspectos acerca de la supervivencia. 
-	Cierto día nuestro protagonista alcanzó uno de los mayores océanos del mundo, el océano de Izlude. Este era el océano más próspero del mundo, pero bajo las aguas 
-	de sus mares se estaba produciendo una masacre que nadie podía evitar. Los Obeaune una raza de anfibios dotados de gran agilidad pero extremadamente débiles se
-	encontraban subyugados por los Strouf... Apenas quedaban unas centenas de Obeaunes. Los Strouf son una raza especialmente agresiva controla actualmente la región 
-	del océano que a la que ha llegado nuestro protagonista. Nuestro protagonista se ve inmerso en esta situación en la que tratará de rescatar el mayor número posible de Obeaunes 
-	almacenándolos en su interior, pero hay un problema... Nuestro protagonista tiene una capacidad limitada. ¿Qué le deparará su aventura?</string>
+   
     <string name="game_over_text">El juego finaliza aquí</string>
     <string name="game_over_tts">El juego finaliza aquí. Para salir realice una pulsación larga</string>
         <string name="screen_change_begins">Cambio de pantalla comenzado.</string>
@@ -146,54 +133,11 @@
     <!--           TUTORIAL  			 -->
     <!-- =============================== -->    
     
-    <string name="tutorial_warning">Si quiere pasar al siguiente paso del tutorial haz una pulsación larga en pantalla.</string>
-    <string name="tutorial00_intro">En esta pantalla aprenderá los sonidos relacionados con los elementos del juego.
-    ¡Recuerde! En este tutorial, una doble pulsación en una mitad u otra de la pantalla para escuchar un sonido diferente.</string>
-    <string name="tutorial00_predator">Ese sonido representa a un Strouf una poderosa raza que dominan el océano de Izlude. Debe evitar acercarse a estás criaturas o 
-    acabará mal parado.</string>
-    <string name="tutorial00_prey">Ese sonido representa a los obeaune una raza de débiles criaturas, de las que sólo quedan unos pocos. Será su tarea encontrar y 
-    salvar los restantes de las manos de los Strouf, almacenandolos en el interior de zarodnik. Pero hay un problema cuantos más obeaunes rescates más crecerá nuestro
-    protagonista y más difícil será eludir a los Strouf.</string>
-    <string name="tutorial01_radio">Ese sonido representa un emisor de radio lotam. Son restos tecnológicos una antigua civilización antecesora de los obeaune. Le ayudará a
-    conocer la dirección en la que se encuentra el obeaune más cercano.</string>
-    <string name="tutorial02_chainfish">Ese sonido representa al legendario Chainfish. Está misteriosa criatura vaga por el fondo del océano y dicen
-    que aquel que lo deguste podrá eludir los ataques de los Strouf durante cierto tiempo.</string>
-    <string name="tutorial03_capsule">Ese sonido representa una de las cápsula del profesorn Konstantin que le permitirá
-     rescatar durante más tiempo un mayor número de Obeaune reduciendo el tamaño del protagonista.</string>
-    <string name="tutorial04_instructions">Para moverse simplemente tiene que desplazar la pulsación sobre la pantalla y cuando la suelte 
-    	todo los elementos de la pantalla, obeaunes, Stroufs en pantalla quedaran pausados hasta la siguiente pulsación. Para escuchar el sonido
-        que emite el protagonista cuando se mueve haga doble click.</string>
-    <string name="tutorial05_goal">El objetivo del juego es rescatar tantos obeaune como pueda, evitando a los Strouf.
-	    Cuantos más Obeaune rescate, mejor será la partida. Una vez rescatada el Obeaune localizado en una pantalla, 
-	    tiene que desplazarse a uno de los bordes de la misma para pasar al siguiente nivel y continuar con la aventura.
-	</string>        	    
-    <string name="tutorial07_sound">Para poder identificar cada una de las criaturas del
-    	océano de Izlude tan sólo tiene que tener en cuenta el sonido 3D en el que se apoyan. Según lo oiga por su auricular izquierdo o derecho sabrás donde se puede encontrar
-    	ese elemento. Además según sea más grave o agudo sabrá si se encuentra por encima o por debajo de su posición en la pantalla.</string>
-    <string name="tutorial08_scoreboard">Puede consultar el número de Obeaunes que ha rescatado en está partida y el máximo histórico haciendo una pulsación larga en el marcador
-    de la parte superior de la pantalla.</string>
-    <string name="tutorial06_intro">Aquí puede aprender los conceptos básicos para jugar. En las
-     siguientes pantallas, para escuchar los sonidos que representan los objetos haga doble click.</string>
-	
+
     <!-- =============================== -->
     <!--          ONOMATOPEYAS  		 -->
     <!-- =============================== -->    
     
-    <string name="appear_ono">bing bing!</string>
-    <string name="apple_bite_ono">crap!</string>
-    <string name="barn_beat_ono">Reproduciendo \'Barn Beat\'</string>
-    <string name="bip_ono">bip!!</string>
-    <string name="bubble_ono">run run</string>
-    <string name="die_ono">qua qua qua!</string>
-    <string name="frost_walkz_ono">Reproduciendo \'Frost Walkz\'</string>
-    <string name="predator_ono">arg!!</string>
-    <string name="prey_ono">miaaamiaa!</string>
-    <string name="prey_dead_ono">ayyy!!</string>
-    <string name="radio_ono">Sintonizando</string>
-    <string name="start_ono">Piii!</string>
-    <string name="the_path_of_the_goblin_ono">Reproduciendo \'Path of the Goblin\'</string>
-    <string name="chain">trrrntrrrn</string>
-    <string name="pill">toctoctoc</string>
     
     <string name="disabled">Activada</string>
     <string name="enabled">Desactivada</string>

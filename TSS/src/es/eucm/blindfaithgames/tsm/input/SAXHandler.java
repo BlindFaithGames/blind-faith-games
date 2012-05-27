@@ -32,6 +32,7 @@ public class SAXHandler extends DefaultHandler {
 	private boolean isAnswer = false;
 	private String name, author;
 	private List<String> dialog;
+	private String transition;
 	
 	public SceneManager getSceneManager() {
 		return sceneManager;
@@ -77,6 +78,7 @@ public class SAXHandler extends DefaultHandler {
 		// NPC
 		else if (qName.equals("npc")){
 			name = att.getValue("name");
+			transition = att.getValue("transition");
 		}
 		else if (qName.equals("answer")){
 			author = att.getValue("author");
@@ -93,7 +95,14 @@ public class SAXHandler extends DefaultHandler {
 			endCondition = new ArrayList<Integer>();
 		}		
 		else if (qName.equals("npc")){
-			npcs.add(new NPC(dialog, name));
+			if(transition != null){
+				if(transition.equalsIgnoreCase("true"))
+					npcs.add(new NPC(dialog, name, true));
+				else
+					npcs.add(new NPC(dialog, name, false));
+			} else {
+				npcs.add(new NPC(dialog, name, false));
+			}
 			dialog = new ArrayList<String>();
 		}
 		else if (qName.equals("sceneManager")){

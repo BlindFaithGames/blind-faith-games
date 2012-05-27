@@ -17,6 +17,7 @@ import es.eucm.blindfaithgames.tsm.R;
 
 public class Text extends Entity {
 
+	public static final String SEPARATOR = " // ";
 	private float fontSize;
 	private Typeface font;
 	private Paint brush;
@@ -82,7 +83,7 @@ public class Text extends Entity {
         int lineSize = 0;
         while(i < nextWord && stk.hasMoreTokens()){
                 aux  = stk.nextToken();
-                if(this.x +  (lineSize) + brush.measureText(aux) > GameState.SCREEN_WIDTH || aux.equals("�")){
+                if(this.x +  (lineSize) + brush.measureText(aux) > GameState.SCREEN_WIDTH || aux.equals("//")){
                         row++;
                         lineSize = 0;
                         if(this.y + (row+1)*fontSize > GameState.SCREEN_HEIGHT){
@@ -90,7 +91,7 @@ public class Text extends Entity {
                         	clearText();
                         }
                 }
-                if(!aux.equals("�")){
+                if(!aux.equals("//")){
                 	canvas.drawText(aux, this.x + lineSize, this.y + row*fontSize, brush);
                 	lineSize += brush.measureText(aux) + WHITE_SPACE_SIZE;
                 }
@@ -104,7 +105,7 @@ public class Text extends Entity {
 	}
 	
 	private void clearText() {
-		StringTokenizer stk = new StringTokenizer(text, "�");
+		StringTokenizer stk = new StringTokenizer(text, SEPARATOR);
 		String aux;
 		while(stk.hasMoreTokens()){
 			aux = stk.nextToken();
@@ -156,7 +157,7 @@ public class Text extends Entity {
 	}
 
 	public void concatText(String speech) {
-		this.text += " � " + speech;
+		this.text += SEPARATOR + speech;
 	}
 
 }
