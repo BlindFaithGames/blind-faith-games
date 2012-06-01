@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.activities;
+package es.eucm.blindfaithgames.tss.activities;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,12 +23,12 @@ import es.eucm.blindfaithgames.engine.sound.Music;
 import es.eucm.blindfaithgames.engine.sound.Sound3DManager;
 import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
 import es.eucm.blindfaithgames.engine.sound.TTS;
-import es.eucm.blindfaithgames.tsm.R;
-import es.eucm.blindfaithgames.tsm.game.GameOver;
-import es.eucm.blindfaithgames.tsm.game.Gameplay;
-import es.eucm.blindfaithgames.tsm.game.TSMMusicSources;
+import es.eucm.blindfaithgames.tss.R;
+import es.eucm.blindfaithgames.tss.game.GameOver;
+import es.eucm.blindfaithgames.tss.game.Gameplay;
+import es.eucm.blindfaithgames.tss.game.TSSMusicSources;
 
-public class TSMGameActivity extends Activity {
+public class TSSGameActivity extends Activity {
 	private TTS textToSpeech;
 	private Game game;
 	
@@ -53,7 +53,7 @@ public class TSMGameActivity extends Activity {
 
 		if (SettingsActivity.getTranscription(this)) {
 
-			Map<Integer, String> onomatopeias = TSMMusicSources.getMap(this);
+			Map<Integer, String> onomatopeias = TSSMusicSources.getMap(this);
 
 			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom,
 					R.id.toast_layout_root, R.id.toast_text, 0, 0,
@@ -68,28 +68,28 @@ public class TSMGameActivity extends Activity {
 
 		keyboard = Input.getKeyboard();
 
-		DrawablePanel tsmView = new TSMGamePanel(this);
-		setContentView(tsmView);
+		DrawablePanel tssView = new TSSGamePanel(this);
+		setContentView(tssView);
 		
 		if(game != null)
 			game.delete();
 	
 		if(savedInstanceState != null){
-			loadGame(tsmView, savedInstanceState);
+			loadGame(tssView, savedInstanceState);
 		}else{
-			createGame(tsmView);
+			createGame(tssView);
 		}
 			
 		if (SettingsActivity.getBlindMode(this))
 			game.setDisabled(true);
 	}
 
-	private void loadGame(DrawablePanel tsmView, Bundle savedInstanceState) {
-		createGame(tsmView);
+	private void loadGame(DrawablePanel tssView, Bundle savedInstanceState) {
+		createGame(tssView);
 		game.onRestoreInstance(savedInstanceState);
 	}
 
-	private void createGame(DrawablePanel tsmView) {
+	private void createGame(DrawablePanel tssView) {
     	ArrayList<Integer> order = new ArrayList<Integer>();
     	order.add(GAMEPLAY_ID);
     	order.add(GAMEOVER_ID);
@@ -97,8 +97,8 @@ public class TSMGameActivity extends Activity {
     	game = new Game();
 		
     	ArrayList<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(new Gameplay(tsmView, textToSpeech, this, game));
-		gameStates.add(new GameOver(tsmView, textToSpeech, this, game));
+		gameStates.add(new Gameplay(tssView, textToSpeech, this, game));
+		gameStates.add(new GameOver(tssView, textToSpeech, this, game));
 		
 		game.initialize(gameStates, order);
 	}
@@ -215,13 +215,13 @@ public class TSMGameActivity extends Activity {
 	 *  DRAWABLE PANEL
 	 ----------------------------------------------------------------------*/
 
-	class TSMGamePanel extends DrawablePanel {
+	class TSSGamePanel extends DrawablePanel {
 
 		private GestureDetector mGestureDetector;
 
 		private boolean dragging;
 
-		public TSMGamePanel(Context context) {
+		public TSSGamePanel(Context context) {
 			super(context);
 			mGestureDetector = new GestureDetector(new MyGestureDetector());
 		}

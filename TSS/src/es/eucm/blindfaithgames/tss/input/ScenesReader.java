@@ -1,11 +1,11 @@
-package es.eucm.blindfaithgames.tsm.input;
+package es.eucm.blindfaithgames.tss.input;
 
 import java.io.InputStream;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import es.eucm.blindfaithgames.tsm.game.SceneManager;
+import es.eucm.blindfaithgames.tss.game.SceneManager;
 
 
 /**

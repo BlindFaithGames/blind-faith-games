@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.activities;
+package es.eucm.blindfaithgames.tss.activities;
 
 
 import java.util.Map;
@@ -17,8 +17,8 @@ import es.eucm.blindfaithgames.engine.input.Input;
 import es.eucm.blindfaithgames.engine.sound.Music;
 import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
 import es.eucm.blindfaithgames.engine.sound.TTS;
-import es.eucm.blindfaithgames.tsm.R;
-import es.eucm.blindfaithgames.tsm.game.TSMMusicSources;
+import es.eucm.blindfaithgames.tss.R;
+import es.eucm.blindfaithgames.tss.game.TSSMusicSources;
 
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceClickListener {
@@ -138,7 +138,7 @@ public class SettingsActivity extends PreferenceActivity implements
 				textToSpeech.speak(findPreference(OPT_BLIND_MODE).toString() + " " + getString(R.string.disabled));
 		} else if (OPT_TRANSCRIPTION.equals(preference.getKey())) {
 			if(transcription.isChecked()){
-				Map<Integer, String> onomatopeias = TSMMusicSources.getMap(this);
+				Map<Integer, String> onomatopeias = TSSMusicSources.getMap(this);
 				
 				SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 						R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);

@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.game;
+package es.eucm.blindfaithgames.tss.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,5 +62,9 @@ public class NPC {
 
 	public boolean getTransition() {
 		return transition;
+	}
+
+	public void reset() {
+		nextDialog = 0;
 	}
 }

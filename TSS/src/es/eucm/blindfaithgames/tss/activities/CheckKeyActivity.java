@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.activities;
+package es.eucm.blindfaithgames.tss.activities;
 
 
 import android.app.Activity;
@@ -10,7 +10,7 @@ import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.widget.EditText;
 import es.eucm.blindfaithgames.engine.sound.TTS;
-import es.eucm.blindfaithgames.tsm.R;
+import es.eucm.blindfaithgames.tss.R;
 
 public class CheckKeyActivity extends Activity implements OnKeyListener{
 	public static final String KEY_NAME = "KeyName";

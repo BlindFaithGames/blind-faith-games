@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.game;
+package es.eucm.blindfaithgames.tss.game;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -12,7 +12,7 @@ import es.eucm.blindfaithgames.engine.input.Input.EventType;
 import es.eucm.blindfaithgames.engine.others.RuntimeConfig;
 import es.eucm.blindfaithgames.engine.sound.TTS;
 import es.eucm.blindfaithgames.engine.sound.VolumeManager;
-import es.eucm.blindfaithgames.tsm.R;
+import es.eucm.blindfaithgames.tss.R;
 
 public class GameOver extends GameState {
 	

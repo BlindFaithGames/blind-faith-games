@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.activities;
+package es.eucm.blindfaithgames.tss.activities;
 
 import org.acra.ErrorReporter;
 
@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import es.eucm.blindfaithgames.engine.feedback.Log;
 import es.eucm.blindfaithgames.engine.sound.TTS;
-import es.eucm.blindfaithgames.tsm.R;
+import es.eucm.blindfaithgames.tss.R;
 
 public class FormActivity extends Activity implements OnClickListener,
 		OnFocusChangeListener, OnLongClickListener{

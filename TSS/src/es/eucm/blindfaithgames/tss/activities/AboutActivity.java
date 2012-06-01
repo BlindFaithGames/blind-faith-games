@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.activities;
+package es.eucm.blindfaithgames.tss.activities;
 
 
 import android.app.Activity;
@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import android.view.Window;
 import es.eucm.blindfaithgames.engine.input.Input;
 import es.eucm.blindfaithgames.engine.sound.TTS;
-import es.eucm.blindfaithgames.tsm.R;
+import es.eucm.blindfaithgames.tss.R;
 
 public class AboutActivity extends Activity{
 

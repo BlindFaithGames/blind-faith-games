@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.game;
+package es.eucm.blindfaithgames.tss.game;
 
 import java.util.List;
 
@@ -64,6 +64,7 @@ public class Scene {
 	
 	public boolean changeNPC(int selectedNPC) {
 		currentNPC = npcs.get(selectedNPC);
+		currentNPC.reset();
 		return currentNPC.getTransition();
 		//npcs.remove(selectedNPC);
 	}

@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.game;
+package es.eucm.blindfaithgames.tss.game;
 
 import java.util.Iterator;
 import java.util.List;
@@ -69,8 +69,13 @@ public class SceneManager {
 		for(Integer sc : conditionEnd){
 			scene = findScene(sc);
 			found &= (scene == null);
+			if(sc.equals(currentScene))
+				return true;
 		}
-		return false;
+		if(conditionEnd.isEmpty())
+			return false;
+		else
+			return found;
 	}
 
 	public boolean updateDialog(Text text) {
@@ -123,16 +128,16 @@ public class SceneManager {
 	}
 
 	private boolean isAccessible(Integer sc) {
-		boolean found = false;
+		boolean found = true;
 		Scene sceneChecked = findScene(sc);
 		Scene scene;
 		if(sceneChecked != null){
 			for(Integer s: sceneChecked.getTransitionCondition()){
 				scene = findScene(s);
-				found |= (scene == null);
+				found &= (scene == null);
 			}
 		}
-		return !found;
+		return found;
 	}
 
 	public String getCurrentDialog() {
@@ -142,6 +147,10 @@ public class SceneManager {
 			result = currentScene.getCurrentDialog();
 		
 		return result;
+	}
+	
+	public int getIDCurrentScene() {
+		return currentScene.getID();
 	}
 	
 	private Scene findScene(int id){
@@ -156,5 +165,16 @@ public class SceneManager {
 			return scene;
 		else
 			return null;
+	}
+
+	public void deleteScenes() {
+		Iterator<Scene> it = sceneBuffer.iterator();
+		Scene sc;
+		while(it.hasNext()){
+			sc = it.next();
+			if(isFinished(sc)){
+				it.remove();
+			}
+		}
 	}
 }

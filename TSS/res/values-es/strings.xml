@@ -32,7 +32,7 @@
     <!--           MENÚ		  			 -->
     <!-- =============================== -->    
         
-    <string name="zarodnik_activity">El pantano de la stripper</string>
+    <string name="tss_activity">El pantano de la stripper</string>
     <string name="exitButton">Salir</string>
     <string name="main_title">El Pantano de la Stripper</string>
     <string name="continue_label">Continuar</string>
@@ -199,4 +199,5 @@
     <string name="size_dec">Su tamaño se ha reducido.</string>
     <string name="form_landscape">Este formulario es mostrado en modo vertical.</string>
     <string name="long_tap">Pulsación larga en la pantalla para continuar.</string>
+    <string name="optionButton">Opción</string>
 </resources>

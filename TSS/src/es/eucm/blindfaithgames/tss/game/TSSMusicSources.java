@@ -1,11 +1,11 @@
-package es.eucm.blindfaithgames.tsm.game;
+package es.eucm.blindfaithgames.tss.game;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
 
-public class TSMMusicSources {
+public class TSSMusicSources {
 	
 	//private static final int appear = R.raw.appear;
 

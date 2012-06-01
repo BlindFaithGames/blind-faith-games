@@ -1,3 +1,25 @@
+	<!-- Vecino sin tarjeta sombrero -->
+		<!-- FIN -->
+	<!-- Vecino con tarjeta sombrero -->
+	<!--  Club de Alterne sin sombrero --> <!-- se podía pero se supone que no sacabas nada en claro, si quieres se quita -->
+ 		<!-- Conversación Barman -->
+		<!-- Conversación Stripper -->
+		<!-- Conversación Borracho -->
+		
+	<!-- Joyería (si cogimos collar) → nos dan la foto -->	
+		<!-- Club de alterne con sombrero -->	
+			<!-- Conversación Barman -->
+				<!-- Muerte si enseñamos foto -->
+			<!-- Conversación Stripper -->
+				<!-- Enseñar foto -->
+					<!-- Si cogimos papel con tlfno del muerto -->
+						<!-- Hotel -->
+							<!-- Sacar pistola -->
+							<!-- Apagar luz -->
+							<!-- Huir por la ventana -->
+					<!-- Volver a la habitación para seguir investigando -->
+			<!-- Conversación Borracho -->
+
 <sceneManager>
 
 	<!--..... Escena 0 ........-->
@@ -66,7 +88,9 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "3"/> 
+		</endCondition>
 	</scene>
 	
  	<scene type="normal" id = "2"> -->
@@ -92,7 +116,6 @@
 					Menuda pieza más de 30 cadaveres descuartizados tirados en una fosa dentro de la bahía menuda pieza.</answer>
 			</dialog>
 		</npc>
-		
 		
 		<npc name = "Recomendarle utilizar formas más sutiles de entrar">
 			<dialog>
@@ -128,7 +151,9 @@
 		
 		<transitionCondition></transitionCondition> 
 		
- 		<endCondition></endCondition> 
+ 		<endCondition>
+ 			<idEndCondition id = "3"/> 
+ 		</endCondition> 
  	</scene> 
 	
 <!--............................. Escena 1 Llegada lugar crimen ........................................-->
@@ -226,7 +251,7 @@
 	
 	<!--..................................Conversación con Vecina en la puerta del piso .......................................-->
 	<scene type="normal" id = "6">
-		<npc name = "Preguntarle si vio algo" transition = "true">
+		<npc name = "Preguntarle por lo sucedido" transition = "true">
 			<dialog>
 				<answer author = "John T.">¿Oyó algo fuera de lo común ayer por la noche?</answer>
 				<answer author = "Vecina">¿Eh? Ah, sí, sí..Yo, bueno, no, creo que no...Disculpe.</answer>
@@ -248,31 +273,6 @@
 		</endCondition>
 	</scene>
 
-	<!-- Vecino sin tarjeta sombrero -->
-		<!-- FIN -->
-	<!-- Vecino con tarjeta sombrero -->
-	<!--  Club de Alterne sin sombrero --> <!-- se podía pero se supone que no sacabas nada en claro, si quieres se quita -->
- 		<!-- Conversación Barman -->
-		<!-- Conversación Stripper -->
-		<!-- Conversación Borracho -->
-		
-	<!-- Joyería (si cogimos collar) → nos dan la foto -->	
-		<!-- Club de alterne con sombrero -->	
-			<!-- Conversación Barman -->
-				<!-- Muerte si enseñamos foto -->
-			<!-- Conversación Stripper -->
-				<!-- Enseñar foto -->
-					<!-- Si cogimos papel con tlfno del muerto -->
-						<!-- Hotel -->
-							<!-- Sacar pistola -->
-							<!-- Apagar luz -->
-							<!-- Huir por la ventana -->
-					<!-- Volver a la habitación para seguir investigando -->
-			<!-- Conversación Borracho -->
-		
-	<!-- ........................... Hasta aquí ........................... -->
-	
-	
 	<!-- .................... Entramos en la habitación por la que huyó el criminal ............................ -->
 	<scene type="normal" id = "7">
 		
@@ -342,6 +342,7 @@
 			<idNextScenes id = "12"/>
 			<idNextScenes id = "13"/>
 			<idNextScenes id = "14"/>
+			<idNextScenes id = "15"/>
 			<idNextScenes id = "3"/>
 		</nextScenes>
 		
@@ -430,8 +431,8 @@
 		<description>Examinar cádaver</description>
 		
 		<nextScenes>
-			<idNextScenes id = "13"/>
-			<idNextScenes id = "14"/>
+			<idNextScenes id = "16"/>
+			<idNextScenes id = "17"/>
 			<idNextScenes id = "10"/>
 		</nextScenes>
 		
@@ -453,23 +454,23 @@
 		
 		<transitionCondition></transitionCondition>
 		<endCondition>
-			<idEndCondition id = "10"/>
+			<idEndCondition id = "15"/>
 		</endCondition>
 	</scene>
 	
-	<scene type="normal" id = "15">
+	<scene type="normal" id = "17">
 
-		<introMessage>Vaya, hay un número de teléfono. Esto me será útil.</introMessage>
+		<introMessage>Vaya, hay un número de teléfono. No parece relevante.</introMessage>
 		
 		<description>Examinar papel que sostiene el cádaver</description>
 		
 		<nextScenes>
-			<idNextScenes id = "12"/>
+			<idNextScenes id = "15"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
 		<endCondition>
-			<idEndCondition id = "10"/>
+			<idEndCondition id = "15"/>
 		</endCondition>
 	</scene>
 	
@@ -506,36 +507,63 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "3"/> 
+		</endCondition>
 	</scene>
 	
 <!-- .................... Escena del crimen tras visitar joyería........................... -->
-<!--
-		<scene type="normal" id = "21">
+	<scene type="normal" id = "21">
 
-		<introMessage>Llegan al lugar de los hechos</introMessage>
+		<introMessage>Tras los hallazgos en la joyería volvieron a la escena del crimen</introMessage>
 		
 		<description>Escena del crimen</description>
 		
 		<nextScenes>
 			<idNextScenes id = "22"/>
 			<idNextScenes id = "23"/>
-			<idNextScenes id = "6"/>
-			<idNextScenes id = "7"/>
-			<idNextScenes id = "10"/>
-			<idNextScenes id = "18"/>
+			<idNextScenes id = "25"/>
+			<idNextScenes id = "28"/>
+			<idNextScenes id = "37"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>			
+			<idEndCondition id = "41"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "22">
 
-		<introMessage>Llegan lugar de los hechos</introMessage>
+		<npc name = "Preguntar por lo sucedido">
+			<dialog>
+				<answer author = "John T.">¿Qué ha pasado aquí?</answer>
+				<answer author = "Policía">La verdad es que hemos estado investigando, preguntando a gente de los alrededores que haya podido
+				    ver u oído algo, pero nadie sabe nada. Es como si hubiera sido un asesinato fantasma.</answer>
+				<answer author = "John T.">Vaya cuerpo de policía más incompetente...</answer>				    
+			</dialog>
+		</npc>
 		
-		<description>Hablar con policía de aspecto rudo</description>
+		<npc name = "Pedirle su identificación">
+			<dialog>
+				<answer author = "John T.">¿Podría enseñarme su identificación?.</answer>
+				<answer author = "Policía">Por supuesto, aquí la tiene.</answer>
+				<answer author = "John T.">Bonita placa. ¿Qué hace aquí parado? ¡Busque información! ¡Algo que pueda sernos útil!.</answer>
+				<answer author = "Policía">A callar.</answer>
+			</dialog>
+		</npc>
+		
+		<npc name = "Despedirse" transition = "true">
+			<dialog>
+				<answer author = "John T.">Ha sido un placer haberle conocido.</answer>
+				<answer author = "Policía">No sé si decir lo mismo por mi parte.</answer>
+			</dialog>
+		</npc>
+
+		<introMessage>Parece que todavía continua el simpático policía por aquí</introMessage>
+		
+		<description>Hablar con policía de guardia</description>
 		
 		<nextScenes>
 			<idNextScenes id = "21"/>
@@ -543,12 +571,19 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "21"/>
+		</endCondition>
 	 </scene>
 	
 	<scene type="normal" id = "23">
+	
+		<npc name = "Hablar sobre los nuevos hallazgos" transition = "true">
+			<dialog>		    
+			</dialog>
+		</npc>
 
-		<introMessage>Llegan lugar de los hechos</introMessage>
+		<introMessage>McNulty sigue por aquí, podría comentarle algo sobre mi visita a la joyería</introMessage>
 		
 		<description>Hablar con McNulty</description>
 		
@@ -558,37 +593,35 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "21"/>
+		</endCondition>
 	</scene>
--->	
+
 	<!-- .................... Entramos en la habitación por la que huyó el criminal ............................ -->
-<!--	
+		
 	<scene type="normal" id = "25">
+	
+		<introMessage>Parece que el asesino entró por aquí</introMessage>
 		
-		<npc name = "Examinar">
-			<dialog>
-				<answer>Then he talks to the pirate nearby the door.</answer>
-				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
-			</dialog>
-		</npc>
-		
-		<introMessage>J.T. comienza a exa</introMessage>
-		
-		<description>Habitación Enorme</description>
+		<description>Entrar en el baño</description>
 		
 		<nextScenes>
 			<idNextScenes id = "26"/>
 			<idNextScenes id = "27"/>
+			<idNextScenes id = "21"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "21"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "26">
 		
-		<introMessage>J.T. comienza a exa</introMessage>
+		<introMessage>Parece que el asesino huyó por aquí...</introMessage>
 		
 		<description>Examinar ventana rota</description>
 		
@@ -598,12 +631,15 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "25"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "27">
 		
-		<introMessage>J.T. comienza a exa</introMessage>
+		<introMessage>Parece que hay algo dentro. Es una tarjeta de un club de alterne. La guardaré
+				    por si acaso</introMessage>
 		
 		<description>Examinar sombrero</description>
 		
@@ -615,14 +651,16 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "25"/>
+		</endCondition>
 	</scene>
--->	
+
 	<!-- .................... Entramos en la habitación donde se encuentra el cádaver ............................ -->
-<!--	
+	
 	<scene type="normal" id = "28">
 
-		<introMessage>J.T. comienza a exa</introMessage>
+		<introMessage>Esto está hecho un desastre. A ver qué encontramos por aquí</introMessage>
 		
 		<description>Entrar en la habitación donde se encontró el cádaver</description>
 		
@@ -630,17 +668,20 @@
 			<idNextScenes id = "29"/>
 			<idNextScenes id = "30"/>
 			<idNextScenes id = "31"/>
-			<idNextScenes id = "32"/>
+			<idNextScenes id = "33"/>
+			<idNextScenes id = "21"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "21"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "29">
 
-		<introMessage>J.T. comienza a exa</introMessage>
+		<introMessage>No parece haber nada sospechoso</introMessage>
 		
 		<description>Cama deshecha</description>
 		
@@ -650,125 +691,153 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "28"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "30">
-		<introMessage>J.T. comienza a exa</introMessage>
+		<introMessage>¡Wow! Yo leí este libro hace un tiempo y era buenísimo</introMessage>
 		
-		<description>libro</description>
+		<description>Examinar libro</description>
 		
 		<nextScenes>
 			<idNextScenes id = "28"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
-		<endCondition></endCondition>
+		
+		<endCondition>
+			<idEndCondition id = "28"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "31">
 
-		<introMessage>J.T. comienza a exa</introMessage>
+		<introMessage>Por el rastro de sangre parece que intentaron mover el cuerpo...Imagino que al estar
+				    tan gordo no pudo con él</introMessage>
 		
-		<description>sangre </description>
+		<description>Examinar sangre</description>
 		
 		<nextScenes>
 			<idNextScenes id = "28"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
-		<endCondition></endCondition>
+		
+		<endCondition>
+			<idEndCondition id = "28"/>
+		</endCondition>
 	</scene>
 	
-	<scene type="normal" id = "32">
+	<!--   <scene type="normal" id = "32">
 
-		<introMessage>J.T. comienza a exa</introMessage>
+		<introMessage>Quizá pueda pasarme luego por la joyería a ver qué me cuentan de esta persona</introMessage>
 		
-		<description>collar</description>
+		<description>Examinar collar</description>
 		
 		<nextScenes>
 			<idNextScenes id = "28"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
-		<endCondition></endCondition>
+		
+		<endCondition>
+			<idEndCondition id = "28"/>
+		</endCondition>
 	</scene>
--->	
+	-->
+
 	<!-- .................... Cádaver ............................ -->
-<!--
+
 	<scene type="normal" id = "33">
 
-		<introMessage>examinar cádaver</introMessage>
+		<introMessage>Parece que lleva muerto varias horas</introMessage>
 		
-		<description>Cádaver</description>
+		<description>Examinar cádaver</description>
 		
 		<nextScenes>
 			<idNextScenes id = "34"/>
-			<idNextScenes id = "35"/>
+			<idNextScenes id = "36"/>
 			<idNextScenes id = "28"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "28"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "34">
 
-		<introMessage></introMessage>
+		<introMessage>Directo al entrecejo</introMessage>
 		
 		<description>Tiro en la frente</description>
 		
 		<nextScenes>
-			<idNextScenes id = "35"/>
+			<idNextScenes id = "33"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "33"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "36">
 
-		<introMessage></introMessage>
+		<introMessage>Vaya, hay un número de teléfono. Esto me será útil</introMessage>
 		
 		<description>Papel que sostiene</description>
 		
 		<nextScenes>
-			<idNextScenes id = "35"/>
-			<idNextScenes id = "41"/>
+			<idNextScenes id = "33"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "36"/>
+		</endCondition>
 	</scene>
--->	
+
 <!-- .................... Conversación con vecino hemos visitado la joyería ............................ -->
-<!--
 	<scene type="normal" id = "37">
-		<npc name = "Preguntar por el asesinato">
+		<npc name = "Preguntar si oyó algo extraño">
 			<dialog>
-				<answer>Then he talks to the pirate nearby the door.</answer>
-				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+				<answer author="Vecino">Lo siento, pero no estuve anoche en mi casa, por lo que no puedo ayudarle con el caso.</answer>
+				<answer author = "John T.">Qué casualidad..</answer>
 			</dialog>
 		</npc>
-		<npc name = "Como va todo doc!">
+		<npc name = "Preguntar dónde estuvo anoche">
 			<dialog>
-				<answer>Then he talks to the pirate nearby the door.</answer>
-				<answer author="Pirate">Ahoy there, stranger. New in town?</answer>
+				<answer author="Vecino">Anoche salí de fiesta con unos amigos</answer>
+				<answer author = "John T.">Unos de fiesta, mientras que otros luchan por no meter el pie en la tumba.</answer>
 			</dialog>
 		</npc>
-		
-		<introMessage>J.T. comienza a exa</introMessage>
+		<npc name = "Presionar" transition = "true">
+			<dialog>
+				<answer author="John T.">¿Podría decirme al menos si conocía a la persona asesinada?</answer>
+				<answer author="Vecino">Emm no, de hecho, no sé ni quién vive ahí.</answer>
+				<answer author="John T.">¿Es su vecino de enfrente y no conoce si quiera de vista a esa persona? Me está tomando el pelo, ¿verdad?</answer>
+				<answer author="Vecino">¡Le digo que no le conozco! ¡Y no debería meterse dónde no le llaman!</answer>
+			</dialog>
+		</npc>
+		<introMessage>En la escena había un personaje sospechoso que John T. no pudo ignorar...</introMessage>
 		
 		<description>Hablar con Vecino</description>
 		
-		<nextScenes></nextScenes>
+		<nextScenes>
+			<idNextScenes id = "21"/>
+		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "21"/>
+		</endCondition>
 	</scene>
--->
-<!--__________________________________________________________________ Escena 2.0 ___________________________________________________________-->
+
+<!--............................................................ Escena 2.0 ............................................................-->
 
 	<!--.................................. Club de alterne con sombrero pero sin collar (sin efecto)........................................-->
 	<scene type="normal" id = "19">
@@ -816,7 +885,9 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "3"/> 
+		</endCondition>
 	</scene>
 	
 	<!--..................................Joyería sin sombrero........................................-->
@@ -825,7 +896,7 @@
 		<npc name = "Hablar con encargado" transition = "true">
 			<dialog>
 				<answer author="Encargado">Hola, buenas. ¿En qué puedo ayudarle?</answer>
-				<answer author="John T.">Mi nombre es John T, soy detective y estoy investigando un caso de homicidio. Hemos hallado en la víctima
+				<answer author="John T.">Mi nombre es John Tidiac, soy detective y estoy investigando un caso de homicidio. Hemos hallado en la víctima
 				    este collar y creemos que fue adquirido en este lugar. ¿Le suena de algo?</answer>
 				<answer author="Encargado">Oh sí, recuerdo fielmente esta venta. No es sólo un collar, contiene una fotografía en su interior. (El joyero
 				    abre el collar y aparece una fotografía de una pareja). El hombre fue quién encargo la pieza.</answer>
@@ -846,26 +917,31 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "21"/> 
+		</endCondition>
 	</scene>
+	
+<!--............................................................ Escena 2.1 SC sin nota............................................................-->
 
-<!--__________________________________________________________________ Escena 2.1 ___________________________________________________________-->
-<!--__________________________________________________________________ SC sin nota ___________________________________________________________-->
-<!--
 	<scene type="normal" id = "38">
 
-		<introMessage>Con sombrero</introMessage>
+		<introMessage>Llegamos al seedy club tras el descubrimiento de la nota</introMessage>
 		
 		<description>Seedy Club</description>
 		
 		<nextScenes>
 			<idNextScenes id = "39"/>
 			<idNextScenes id = "40"/>
+			<idNextScenes id = "21"/>
 		</nextScenes>
 		
-		<transitionCondition></transitionCondition>
+		<transitionCondition>
+		</transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "36"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "39">
@@ -876,7 +952,7 @@
 				<answer author="Encargado">¡Oh sí! Está aquí mismo. Deje que le acompañe a su habitación.</answer> 
 			</dialog>
 		</npc>
-		<npc name = "No enseñar fotografía a encargado">
+		<npc name = "No enseñar fotografía a encargado" transition = "true">
 			<dialog>
 				<answer author="Encargado">Hola. ¿Qué desea?</answer>
 				<answer author="John T.">Ando buscando a una chica que tengo entendido que trabaja en este local.</answer>
@@ -888,19 +964,64 @@
 			</dialog>
 		</npc>		
 
-		<introMessage>Con sombrero</introMessage>
+		<introMessage>Decidímos preguntarle al encargado por la foto que conseguimos en la joyería</introMessage>
 		
-		<description>Barman!!</description>
+		<description>Hablar con encargado</description>
 		
 		<nextScenes>
-			<idNextScenes id = "38"/>
+			<idNextScenes id = "50"/>
+			<idNextScenes id = "49"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "38"/>
+		</endCondition>
 	</scene>
 	
+	<scene type="normal" id = "49">
+		<npc name = "Preguntar a donde le lleva" transition = "true">
+			<dialog>
+			
+			</dialog>
+		</npc>
+
+		<introMessage>Seguimos al encargado y...</introMessage>
+		
+		<description>Seguir al encargado</description>
+		
+		<nextScenes></nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition>
+			<idEndCondition id = "38"/> 
+		</endCondition>
+	</scene>
+	
+	<scene type="normal" id = "50">
+		<npc name = "Noquear al encargado" transition = "true">
+			<dialog>
+			
+			</dialog>
+		</npc>
+
+		<introMessage>John T. sospecho ante la aptitud del encargado</introMessage>
+		
+		<description>No seguir al encargado</description>
+		
+		<nextScenes>
+				<idNextScenes id = "21"/>
+		</nextScenes>
+		
+		<transitionCondition></transitionCondition>
+		
+		<endCondition>
+			<idEndCondition id = "21"/>
+		</endCondition>
+	</scene>
+
 	<scene type="normal" id = "40">
 		<npc name = "Enseñar fotografía a Stripper" transition = "true">
 			<dialog>
@@ -910,14 +1031,13 @@
 				<answer author="John T.">¿Conoces al hombre de la foto? Es la víctima.</answer>
 				<answer author="Stripper">Sí claro, que le conozco, es David. ¿Qué ha sucedido?</answer> 	
 				<answer author="John T.">No lo sé, pero necesito tu ayuda. Creo que Alicia corre peligro. ¿Sabes dónde puedo encontrarla?.</answer>
-				<answer author="Stripper">Hoy no ha venido a trabajar, podría estar en cualquier parte. Por favor, si sabe algo de ella infórmeme en cuanto 
-				lo sepa.</answer> 							
+				<answer author="Stripper">Hoy no ha venido a trabajar, podría estar en cualquier parte. Por favor, si sabe algo de ella infórmeme en cuanto lo sepa.</answer> 							
 			</dialog>
 		</npc>
 
-		<introMessage>Con sombrero</introMessage>
+		<introMessage>Decidímos preguntar a una compañera por la foto que conseguimos en la joyería</introMessage>
 		
-		<description>Stripper</description>
+		<description>Hablar con stripper</description>
 		
 		<nextScenes>
 			<idNextScenes id = "38"/>
@@ -925,26 +1045,30 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "38"/>
+		</endCondition>
 	</scene>
--->
-<!--__________________________________________________________________ SC con nota ___________________________________________________________-->
-<!--
+
+<!--............................................................ SC con nota ............................................................-->
+
 	<scene type="normal" id = "41">
 		
-		<introMessage>Con sombrero y nota</introMessage>
+		<introMessage>Llegamos al seedy club tras el descubrimiento de la nota </introMessage>
 		
 		<description>Seedy Club</description>
 		
 		<nextScenes>
-			<idNextScenes id = "3"/>
+			<idNextScenes id = "43"/>
 		</nextScenes>
 		
 		<transitionCondition>
-			<idNextScenes id = ""/>
+			<idTransitionCondition id = "36"/>
 		</transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "46"/>
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "43">
@@ -963,21 +1087,23 @@
 			</dialog>
 		</npc>	
 
-		<introMessage>Con sombrero y nota</introMessage>
+		<introMessage>Preguntar a stripper por la fotografía conseguida en la joyería</introMessage>
 		
-		<description>Striper</description>
+		<description>Stripper</description>
 		
 		<nextScenes>
-			<idNextScenes id = "44"/>
+			<idNextScenes id = "45"/>
 		</nextScenes>
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "45"/>
+		</endCondition>
 	</scene>
--->	
-<!--__________________________________________________________________ Escena 3.0 ___________________________________________________________-->
-<!--
+
+<!--............................................................ Escena Final Hotel ............................................................-->
+
 	<scene type="normal" id = "45">
 
 		<introMessage>Me dirijo hacia el hotel. Pregunto en recepción por Alice y me dicen que se aloja en la habitación 334.
@@ -994,7 +1120,9 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+			<idEndCondition id = "48"/> 
+		</endCondition>
 	</scene>
 	
 	<scene type="normal" id = "46">
@@ -1014,8 +1142,10 @@
 		
 		<transitionCondition></transitionCondition>
 		
-		<endCondition></endCondition>
+		<endCondition>
+		</endCondition>
 	</scene>
+	
 	<scene type="normal" id = "47">
 		<npc name = "Ayudar a Alice a salir por la ventana" transition = "true">
 			<dialog>
@@ -1024,8 +1154,8 @@
 				<answer author="John T.">Por favor, tienes que huir. Lánzate cuando yo te diga.</answer> 	
 				<answer author="Vecino loco">¿Qué estáis tramando?</answer> 	
 				<answer author="Jonh T.">¡Ahora!</answer>
-				<answer author="">¡PAM!</answer> 
-				<answer author="">Alice escapó sana y salva al caer sobre un montón de bolsas de basura.</answer> 
+				<answer>¡PAM!</answer> 
+				<answer>Alice escapó sana y salva al caer sobre un montón de bolsas de basura.</answer> 
 			</dialog>
 		</npc>		
 
@@ -1047,7 +1177,7 @@
 				<answer author="Vecino loco">¡Yo te amaba! ¡Ese gordo no te convenía!</answer> 	
 				<answer author="John T.">Por favor, ¡baja el arma o si no me veré obligado a disparar!</answer> 	
 				<answer author="Vecino loco">Sin ti esto ya no tiene sentido. No hay razón para vivir. Debes morir.</answer> 	
-				<answer author="">¡PUM!</answer>
+				<answer>¡PUM!</answer>
 			</dialog>
 		</npc>		
 
@@ -1061,5 +1191,5 @@
 		<transitionCondition></transitionCondition>
 		
 		<endCondition></endCondition>
-	</scene>-->
+	</scene>
 </sceneManager>

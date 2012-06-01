@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.activities;
+package es.eucm.blindfaithgames.tss.activities;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,8 +23,8 @@ import es.eucm.blindfaithgames.engine.sound.Music;
 import es.eucm.blindfaithgames.engine.sound.Sound3DManager;
 import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
 import es.eucm.blindfaithgames.engine.sound.TTS;
-import es.eucm.blindfaithgames.tsm.R;
-import es.eucm.blindfaithgames.tsm.game.TSMMusicSources;
+import es.eucm.blindfaithgames.tss.R;
+import es.eucm.blindfaithgames.tss.game.TSSMusicSources;
 
 public class TutorialActivity extends Activity {
 	private TTS textToSpeech;
@@ -55,7 +55,7 @@ public class TutorialActivity extends Activity {
 
 		if (SettingsActivity.getTranscription(this)) {
 
-			Map<Integer, String> onomatopeias = TSMMusicSources.getMap(this);
+			Map<Integer, String> onomatopeias = TSSMusicSources.getMap(this);
 
 			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom,
 					R.id.toast_layout_root, R.id.toast_text, 0, 0,
@@ -70,28 +70,28 @@ public class TutorialActivity extends Activity {
 
 		keyboard = Input.getKeyboard();
 
-		DrawablePanel tsmView = new TSMGamePanel(this);
-		setContentView(tsmView);
+		DrawablePanel tssView = new TSSGamePanel(this);
+		setContentView(tssView);
 
 		if(game != null){
 			game.delete();
 		}
 		
 		if(savedInstanceState != null)
-			loadGame(tsmView, savedInstanceState);
+			loadGame(tssView, savedInstanceState);
 		else
-			createGame(tsmView);
+			createGame(tssView);
 
 		if (SettingsActivity.getBlindMode(this))
 			game.setDisabled(true);
 	}
 	
-	private void loadGame(DrawablePanel tsmView, Bundle savedInstanceState) {
-		createGame(tsmView);
+	private void loadGame(DrawablePanel tssView, Bundle savedInstanceState) {
+		createGame(tssView);
 		game.onRestoreInstance(savedInstanceState);
 	}
 
-	private void createGame(DrawablePanel tsmView) {
+	private void createGame(DrawablePanel tssView) {
 		ArrayList<Integer> order = new ArrayList<Integer>();
 		order.add(TUTORIAL6_ID);
 		order.add(TUTORIAL7_ID);
@@ -223,13 +223,13 @@ public class TutorialActivity extends Activity {
 	 *  DRAWABLE PANEL
 	 ----------------------------------------------------------------------*/
 
-	class TSMGamePanel extends DrawablePanel {
+	class TSSGamePanel extends DrawablePanel {
 
 		private GestureDetector mGestureDetector;
 
 		private boolean dragging;
 
-		public TSMGamePanel(Context context) {
+		public TSSGamePanel(Context context) {
 			super(context);
 			mGestureDetector = new GestureDetector(new MyGestureDetector());
 		}

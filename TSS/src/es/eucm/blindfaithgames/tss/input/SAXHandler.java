@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.input;
+package es.eucm.blindfaithgames.tss.input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.blindfaithgames.tsm.game.NPC;
-import es.eucm.blindfaithgames.tsm.game.Scene;
-import es.eucm.blindfaithgames.tsm.game.SceneManager;
-import es.eucm.blindfaithgames.tsm.game.SceneType;
+import es.eucm.blindfaithgames.tss.game.NPC;
+import es.eucm.blindfaithgames.tss.game.Scene;
+import es.eucm.blindfaithgames.tss.game.SceneManager;
+import es.eucm.blindfaithgames.tss.game.SceneType;
 
 /**
  * 

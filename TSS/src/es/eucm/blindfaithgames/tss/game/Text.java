@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.game;
+package es.eucm.blindfaithgames.tss.game;
 
 import java.util.List;
 import java.util.StringTokenizer;
@@ -13,11 +13,11 @@ import es.eucm.blindfaithgames.engine.general.GameState;
 import es.eucm.blindfaithgames.engine.general.Mask;
 import es.eucm.blindfaithgames.engine.graphics.SpriteMap;
 import es.eucm.blindfaithgames.engine.others.RuntimeConfig;
-import es.eucm.blindfaithgames.tsm.R;
+import es.eucm.blindfaithgames.tss.R;
 
 public class Text extends Entity {
 
-	public static final String SEPARATOR = ". ";
+	public static final String SEPARATOR = " // ";
 	private float fontSize;
 	private Typeface font;
 	private Paint brush;

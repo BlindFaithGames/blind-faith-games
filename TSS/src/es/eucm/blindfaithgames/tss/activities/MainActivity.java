@@ -1,4 +1,4 @@
-package es.eucm.blindfaithgames.tsm.activities;
+package es.eucm.blindfaithgames.tss.activities;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,8 +33,8 @@ import es.eucm.blindfaithgames.engine.others.RuntimeConfig;
 import es.eucm.blindfaithgames.engine.sound.Music;
 import es.eucm.blindfaithgames.engine.sound.SubtitleInfo;
 import es.eucm.blindfaithgames.engine.sound.TTS;
-import es.eucm.blindfaithgames.tsm.R;
-import es.eucm.blindfaithgames.tsm.game.TSMMusicSources;
+import es.eucm.blindfaithgames.tss.R;
+import es.eucm.blindfaithgames.tss.game.TSSMusicSources;
 
 /**
  * @author Gloria Pozuelo and Javier Álvarez
@@ -47,15 +47,15 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	public static final int EXIT_GAME_CODE = 2;
 	
 	public static final String KEY_TTS = "org.example.tinyEngineClasses.TTS";
-	public static final String KEY_INSTRUCTIONS_CONTROLS = "org.example.tsm.mainActivity.iControls";
-	public static final String KEY_INSTRUCTIONS_GENERAL = "org.example.tsm.mainActivity.iGeneral";
-	public static final String KEY_TYPE_INSTRUCTIONS = "org.example.tsm.mainActivity.iType";
+	public static final String KEY_INSTRUCTIONS_CONTROLS = "org.example.tss.mainActivity.iControls";
+	public static final String KEY_INSTRUCTIONS_GENERAL = "org.example.tss.mainActivity.iGeneral";
+	public static final String KEY_TYPE_INSTRUCTIONS = "org.example.tss.mainActivity.iType";
 	public static final String KEY_RESULTS = "org.example.mainActivity.record";
 	
 	private static String FILE_NAME_ID = ".info";
 	
-	public static String FILENAMEFREEMODE = "tsmRecords1.data";
-	public static String FILENAMESTAGEMODE = "tsmRecords2.data";
+	public static String FILENAMEFREEMODE = "sRecords1.data";
+	public static String FILENAMESTAGEMODE = "tssRecords2.data";
 	
 	private static float fontSize;
 	private static float scale;
@@ -81,7 +81,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		
 		setScreenContent(R.layout.main);
 		
-		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH);  
+		font = Typeface.createFromAsset(getAssets(), RuntimeConfig.FONT_PATH2);  
 		scale = this.getResources().getDisplayMetrics().density;
 		fontSize =  (this.getResources().getDimensionPixelSize(R.dimen.font_size_menu))/scale;
 		
@@ -221,7 +221,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		Button formButton = (Button) findViewById(R.id.form_button);
 		Button exitButton = (Button) findViewById(R.id.exit_button);
 		
-		Map<Integer, String> onomatopeias = TSMMusicSources.getMap(this);
+		Map<Integer, String> onomatopeias = TSSMusicSources.getMap(this);
 		
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
@@ -381,7 +381,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void openInteractionModeDialog() {
 		interactionModeDialog.show();
 		
-		Map<Integer, String> onomatopeias = TSMMusicSources.getMap(this);
+		Map<Integer, String> onomatopeias = TSSMusicSources.getMap(this);
 		
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
@@ -409,7 +409,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void openTTSDialog() {
 		ttsDialog.show();
 		
-		Map<Integer, String> onomatopeias = TSMMusicSources.getMap(this);
+		Map<Integer, String> onomatopeias = TSSMusicSources.getMap(this);
 		
 		SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 				R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);
@@ -436,7 +436,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	/** Start a new game with the given difficulty level 
 	 * @param mode */
 	private void startGame() {
-		Intent intent = new Intent(this, TSMGameActivity.class);
+		Intent intent = new Intent(this, TSSGameActivity.class);
 		intent.putExtra(KEY_TTS, textToSpeech);
 		startActivityForResult(intent, RESET_CODE);
 	}
@@ -449,7 +449,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 		Intent nextIntent;
 		switch (resultCode) {
 		case (RESET_CODE):
-			nextIntent = new Intent(getApplicationContext(),TSMGameActivity.class);
+			nextIntent = new Intent(getApplicationContext(),TSSGameActivity.class);
 			nextIntent.putExtra(KEY_TTS, textToSpeech);
 			startActivityForResult(nextIntent, RESET_CODE);
 			break;
@@ -492,7 +492,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
 	private void transcriptionMode(){
 		if (SettingsActivity.getTranscription(this)){
 			
-			Map<Integer, String> onomatopeias = TSMMusicSources.getMap(this);
+			Map<Integer, String> onomatopeias = TSSMusicSources.getMap(this);
 			
 			SubtitleInfo s = new SubtitleInfo(R.layout.toast_custom, R.id.toast_layout_root,
 					R.id.toast_text, 0, 0, Toast.LENGTH_SHORT, Gravity.BOTTOM, onomatopeias);

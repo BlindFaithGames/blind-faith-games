@@ -32,7 +32,7 @@
     <!--           MENU 	  			 -->
     <!-- =============================== -->    
         
-    <string name="zarodnik_activity">The Stripper Swamp</string>
+    <string name="tss_activity">The Stripper Swamp</string>
     <string name="exitButton">Exit</string>
     <string name="main_title">The Stripper Swamp</string>
     <string name="continue_label">Continue</string>
@@ -200,4 +200,5 @@
     <string name="size_dec">Your size has been decremented.</string>
     <string name="form_landscape">This form is showed in landscape.</string>
     <string name="long_tap">Long click on the screen to continue.</string>
+    <string name="optionButton">Option</string>
 </resources>
