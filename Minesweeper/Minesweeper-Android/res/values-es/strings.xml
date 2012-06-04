@@ -255,8 +255,8 @@
         a este cuestionario. Toda la información recopilada a través de este cuestionario será anónima, serán tratados de forma 
         confidencial y sólo se utilizarán con el único propósito del estudio. \n</string>
     <string name="q1_context">Marque la opción que mejor describe su nivel visual actual</string>
-    <string name="q2_context">¿Cuánto tiempo suele dedicar a jugar con ordenador o consola?. Donde 1 significa "Nunca" y 5 "Muy amenudo"</string>
-    <string name="q3_context">¿Cuánto tiempo suele dedicar a jugar con dispositivos móviles (móvil o tableta)?. Donde 1 significa "Nunca" y 5 "Muy amenudo"</string>
+    <string name="q2_context">¿Cuánto tiempo suele dedicar a jugar con ordenador o consola?. Donde 1 significa "Nunca" y 5 "Muy a menudo"</string>
+    <string name="q3_context">¿Cuánto tiempo suele dedicar a jugar con dispositivos móviles (móvil o tableta)?. Donde 1 significa "Nunca" y 5 "Muy a menudo"</string>
     <string name="q4_context">¿Cuánto le ha costado aprender a jugar?. Donde 1 significa "Muy difícil" y 5 "Muy fácil".</string>
     <string name="q5_context">¿Cómo de divertida le ha parecido la experiencia de juego?. Donde 1 significa "Muy aburrido" y 5 "Muy divertido".</string>
     <string name="q6_context">¿Cómo de entretenida le ha resultado el juego?. Donde 1 significa "poco entretenido" y 5 "muy entretenido".</string>

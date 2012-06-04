@@ -948,7 +948,7 @@
 		<npc name = "Enseñar fotografía a encargado" transition = "true">
 			<dialog>
 				<answer author="Encargado">Hola. ¿Qué desea?</answer>
-				<answer author="John T.">Busco a esta chica en concreto. (Jonh enseña la foto del collar al encargado).</answer>
+				<answer author="John T.">Busco a esta chica en concreto. (John enseña la foto del collar al encargado).</answer>
 				<answer author="Encargado">¡Oh sí! Está aquí mismo. Deje que le acompañe a su habitación.</answer> 
 			</dialog>
 		</npc>
@@ -1153,7 +1153,7 @@
 				<answer author="Alice">¡Está usted loco!</answer> 	
 				<answer author="John T.">Por favor, tienes que huir. Lánzate cuando yo te diga.</answer> 	
 				<answer author="Vecino loco">¿Qué estáis tramando?</answer> 	
-				<answer author="Jonh T.">¡Ahora!</answer>
+				<answer author="John T.">¡Ahora!</answer>
 				<answer>¡PAM!</answer> 
 				<answer>Alice escapó sana y salva al caer sobre un montón de bolsas de basura.</answer> 
 			</dialog>
@@ -1181,7 +1181,7 @@
 			</dialog>
 		</npc>		
 
-		<introMessage>Jonh T. desenfunda rápidamente su pistola para hacer frente al asesino</introMessage>
+		<introMessage>John T. desenfunda rápidamente su pistola para hacer frente al asesino</introMessage>
 		
 		<description>Sacar la pistola</description>
 		
